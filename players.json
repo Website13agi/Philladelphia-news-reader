@@ -1,11 +1,367 @@
 {
-  "updated_at": "",
+  "updated_at": "2026-08-10T03:15:18.120021+00:00",
   "source": "MLB Stats API",
   "source_url": "https://statsapi.mlb.com/api/v1/teams/143/roster",
   "team": "Philadelphia Phillies",
   "team_id": 143,
-  "roster_type": "40Man",
-  "active_count": 0,
-  "players_count": 0,
-  "players": []
+  "counts": {
+    "total": 44,
+    "active": 26,
+    "il": 5,
+    "forty_man": 13
+  },
+  "players": [
+    {
+      "id": 605400,
+      "name": "Aaron Nola",
+      "number": "27",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/605400"
+    },
+    {
+      "id": 660604,
+      "name": "Alan Rangel",
+      "number": "57",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/660604"
+    },
+    {
+      "id": 686934,
+      "name": "Alex McFarlane",
+      "number": "71",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/686934"
+    },
+    {
+      "id": 691725,
+      "name": "Andrew Painter",
+      "number": "24",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/691725"
+    },
+    {
+      "id": 641745,
+      "name": "Brad Keller",
+      "number": "40",
+      "position": "Pitchers",
+      "status": "IL",
+      "mlb_url": "https://www.mlb.com/player/641745"
+    },
+    {
+      "id": 662144,
+      "name": "Brian Keller",
+      "number": "48",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/662144"
+    },
+    {
+      "id": 548384,
+      "name": "Brooks Raley",
+      "number": "30",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/548384"
+    },
+    {
+      "id": 668873,
+      "name": "Caleb Kilian",
+      "number": "56",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/668873"
+    },
+    {
+      "id": 663767,
+      "name": "Chase Shugart",
+      "number": "55",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/663767"
+    },
+    {
+      "id": 650911,
+      "name": "Cristopher Sánchez",
+      "number": "61",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/650911"
+    },
+    {
+      "id": 680880,
+      "name": "Grant Holman",
+      "number": "",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/680880"
+    },
+    {
+      "id": 666200,
+      "name": "Jesús Luzardo",
+      "number": "44",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/666200"
+    },
+    {
+      "id": 661395,
+      "name": "Jhoan Duran",
+      "number": "59",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/661395"
+    },
+    {
+      "id": 680742,
+      "name": "Jonathan Bowlan",
+      "number": "52",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/680742"
+    },
+    {
+      "id": 621237,
+      "name": "José Alvarado",
+      "number": "46",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/621237"
+    },
+    {
+      "id": 679775,
+      "name": "Kyle Backhus",
+      "number": "19",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/679775"
+    },
+    {
+      "id": 676661,
+      "name": "Max Lazar",
+      "number": "60",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/676661"
+    },
+    {
+      "id": 691330,
+      "name": "Moisés Chace",
+      "number": "75",
+      "position": "Pitchers",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/691330"
+    },
+    {
+      "id": 689147,
+      "name": "Orion Kerkering",
+      "number": "50",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/689147"
+    },
+    {
+      "id": 621383,
+      "name": "Tanner Banks",
+      "number": "58",
+      "position": "Pitchers",
+      "status": "IL",
+      "mlb_url": "https://www.mlb.com/player/621383"
+    },
+    {
+      "id": 641835,
+      "name": "Tim Mayza",
+      "number": "37",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/641835"
+    },
+    {
+      "id": 554430,
+      "name": "Zack Wheeler",
+      "number": "45",
+      "position": "Pitchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/554430"
+    },
+    {
+      "id": 596117,
+      "name": "Garrett Stubbs",
+      "number": "21",
+      "position": "Catchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/596117"
+    },
+    {
+      "id": 592663,
+      "name": "J.T. Realmuto",
+      "number": "10",
+      "position": "Catchers",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/592663"
+    },
+    {
+      "id": 665561,
+      "name": "Rafael Marchán",
+      "number": "13",
+      "position": "Catchers",
+      "status": "IL",
+      "mlb_url": "https://www.mlb.com/player/665561"
+    },
+    {
+      "id": 656941,
+      "name": "Kyle Schwarber",
+      "number": "12",
+      "position": "Infielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/656941"
+    },
+    {
+      "id": 666969,
+      "name": "Adolis García",
+      "number": "53",
+      "position": "Outfielders",
+      "status": "IL",
+      "mlb_url": "https://www.mlb.com/player/666969"
+    },
+    {
+      "id": 669016,
+      "name": "Brandon Marsh",
+      "number": "16",
+      "position": "Outfielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/669016"
+    },
+    {
+      "id": 650559,
+      "name": "Bryan De La Cruz",
+      "number": "41",
+      "position": "Outfielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/650559"
+    },
+    {
+      "id": 687515,
+      "name": "Colby Thomas",
+      "number": "",
+      "position": "Outfielders",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/687515"
+    },
+    {
+      "id": 656537,
+      "name": "Derek Hill",
+      "number": "49",
+      "position": "Outfielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/656537"
+    },
+    {
+      "id": 624641,
+      "name": "Edmundo Sosa",
+      "number": "33",
+      "position": "Outfielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/624641"
+    },
+    {
+      "id": 694025,
+      "name": "Felix Reyes",
+      "number": "29",
+      "position": "Outfielders",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/694025"
+    },
+    {
+      "id": 687282,
+      "name": "Gabriel Rincones Jr.",
+      "number": "17",
+      "position": "Outfielders",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/687282"
+    },
+    {
+      "id": 679032,
+      "name": "Johan Rojas",
+      "number": "23",
+      "position": "Outfielders",
+      "status": "IL",
+      "mlb_url": "https://www.mlb.com/player/679032"
+    },
+    {
+      "id": 702222,
+      "name": "Justin Crawford",
+      "number": "2",
+      "position": "Outfielders",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/702222"
+    },
+    {
+      "id": 670224,
+      "name": "Kameron Misner",
+      "number": "",
+      "position": "Outfielders",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/670224"
+    },
+    {
+      "id": 805249,
+      "name": "Otto Kemp",
+      "number": "4",
+      "position": "Outfielders",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/805249"
+    },
+    {
+      "id": 664761,
+      "name": "Alec Bohm",
+      "number": "28",
+      "position": "Other",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/664761"
+    },
+    {
+      "id": 547180,
+      "name": "Bryce Harper",
+      "number": "3",
+      "position": "Other",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/547180"
+    },
+    {
+      "id": 681082,
+      "name": "Bryson Stott",
+      "number": "5",
+      "position": "Other",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/681082"
+    },
+    {
+      "id": 686551,
+      "name": "Christian Cairo",
+      "number": "",
+      "position": "Other",
+      "status": "40-MAN",
+      "mlb_url": "https://www.mlb.com/player/686551"
+    },
+    {
+      "id": 650333,
+      "name": "Luis Arraez",
+      "number": "4",
+      "position": "Other",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/650333"
+    },
+    {
+      "id": 607208,
+      "name": "Trea Turner",
+      "number": "7",
+      "position": "Other",
+      "status": "ACTIVE",
+      "mlb_url": "https://www.mlb.com/player/607208"
+    }
+  ]
 }
