@@ -31,17 +31,17 @@ jobs:
 
       - name: Check required files
         run: |
-          test -f players.json
+          test -f roster.json
           test -f scripts/update_savant.py
 
-          echo "players.json OK"
+          echo "roster.json OK"
           echo "update_savant.py OK"
 
       - name: Update Baseball Savant
         run: |
           python scripts/update_savant.py
 
-      - name: Check savant.json
+      - name: Validate savant.json
         run: |
           test -f savant.json
 
@@ -55,40 +55,58 @@ jobs:
           ) as f:
               data = json.load(f)
 
-          print("Source:", data.get("source"))
-          print("Season:", data.get("season"))
-          print("Batters:", len(data.get("batters", [])))
-          print("Pitchers:", len(data.get("pitchers", [])))
-
           if data.get("source") != "Baseball Savant":
               raise SystemExit(
-                  "ERROR: source is not Baseball Savant"
+                  "ERROR: Invalid source"
               )
 
           if "batters" not in data:
               raise SystemExit(
-                  "ERROR: batters is missing"
+                  "ERROR: batters missing"
               )
 
           if "pitchers" not in data:
               raise SystemExit(
-                  "ERROR: pitchers is missing"
+                  "ERROR: pitchers missing"
               )
+
+          print(
+              "Season:",
+              data.get("season")
+          )
+
+          print(
+              "Batters:",
+              len(data["batters"])
+          )
+
+          print(
+              "Pitchers:",
+              len(data["pitchers"])
+          )
+
+          print(
+              "Updated:",
+              data.get("updatedAt")
+          )
           PY
 
-      - name: Commit savant.json
+      - name: Check changes
+        id: changes
         run: |
-
-          git config user.name "github-actions[bot]"
-
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add savant.json
 
           if git diff --cached --quiet; then
-            echo "No changes to savant.json."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Update Baseball Savant statistics"
-            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Commit update
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit -m "Update Baseball Savant statistics"
+          git push
