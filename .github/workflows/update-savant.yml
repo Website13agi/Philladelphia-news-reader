@@ -2,18 +2,25 @@ name: Update Phillies Savant Stats
 
 on:
   workflow_dispatch:
+
   schedule:
     - cron: "15 */6 * * *"
+
+  push:
+    paths:
+      - "scripts/update_savant.py"
+      - ".github/workflows/update-savant.yml"
 
 permissions:
   contents: write
 
 jobs:
   update-savant:
+    name: Update Baseball Savant
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -21,17 +28,79 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Update Savant
-        run: python scripts/update_savant.py
-
-      - name: Check savant.json
+      - name: Verify files
         run: |
-          python -c "import json; d=json.load(open('savant.json', encoding='utf-8')); print('Batters:', len(d.get('batters', []))); print('Pitchers:', len(d.get('pitchers', [])))"
+          echo "Checking required files..."
 
-      - name: Commit and push
+          if [ ! -f "players.json" ]; then
+            echo "ERROR: players.json not found."
+            exit 1
+          fi
+
+          if [ ! -f "scripts/update_savant.py" ]; then
+            echo "ERROR: scripts/update_savant.py not found."
+            exit 1
+          fi
+
+          echo "players.json: OK"
+          echo "update_savant.py: OK"
+
+      - name: Run Savant updater
         run: |
+          python scripts/update_savant.py
+
+      - name: Verify savant.json
+        run: |
+          if [ ! -f "savant.json" ]; then
+            echo "ERROR: savant.json was not created."
+            exit 1
+          fi
+
+          python - <<'PY'
+          import json
+
+          with open("savant.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          if data.get("source") != "Baseball Savant":
+              raise SystemExit(
+                  "ERROR: savant.json source is not Baseball Savant."
+              )
+
+          if "batters" not in data:
+              raise SystemExit(
+                  "ERROR: batters is missing."
+              )
+
+          if "pitchers" not in data:
+              raise SystemExit(
+                  "ERROR: pitchers is missing."
+              )
+
+          print("================================")
+          print("SAVANT JSON VALID")
+          print("================================")
+          print("Season:", data.get("season"))
+          print("Batters:", len(data["batters"]))
+          print("Pitchers:", len(data["pitchers"]))
+          print("Updated:", data.get("updatedAt"))
+          print("================================")
+          PY
+
+      - name: Stage savant.json
+        run: |
+          git add savant.json
+
+      - name: Commit if changed
+        run: |
+          if git diff --cached --quiet; then
+            echo "No changes to savant.json."
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add savant.json
-          git diff --cached --quiet || git commit -m "Update Baseball Savant statistics"
+
+          git commit -m "Update Phillies Baseball Savant statistics"
+
           git push
