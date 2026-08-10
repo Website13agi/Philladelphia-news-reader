@@ -1,28 +1,18 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Phillies Daily — Players</title>
-
+<title>Phillies Players</title>
 
 <style>
 
 /* =========================================================
-   PHILLIES DAILY
-   PLAYERS UI
+   PHILLIES PLAYERS
 ========================================================= */
 
 :root {
-
     --red: #e31837;
     --red-dark: #c8102e;
     --red-soft: #fff0f2;
@@ -31,12 +21,10 @@
     --navy-dark: #001b3d;
     --navy-deep: #00152f;
 
-    --gold: #f5c542;
-    --gold-soft: #fff8dc;
+    --gold: #f4c542;
+    --gold-soft: #fff8d9;
 
-    --blue-soft: #edf3f9;
-
-    --white: #ffffff;
+    --white: #fff;
 
     --black: #10151d;
 
@@ -51,35 +39,32 @@
 
     --background: #f4f6f9;
 
-    --radius: 17px;
+    --radius: 16px;
 
     --shadow:
-        0 5px 20px rgba(0,29,62,.07);
+        0 5px 22px rgba(0,29,62,.065);
 
     --shadow-hover:
         0 14px 34px rgba(0,29,62,.13);
 }
 
 
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
-
 
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
-
     margin: 0;
-
-    background:
-        var(--background);
-
-    color:
-        var(--black);
+    background: var(--background);
+    color: var(--black);
 
     font-family:
         Inter,
@@ -91,24 +76,19 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing:
-        antialiased;
+    -webkit-font-smoothing: antialiased;
 
-    padding-bottom:
-        30px;
+    padding-bottom: 90px;
 }
-
 
 button,
 select {
     font-family: inherit;
 }
 
-
 button {
     -webkit-tap-highlight-color: transparent;
 }
-
 
 a {
     color: inherit;
@@ -121,46 +101,36 @@ a {
 ========================================================= */
 
 .topbar {
-
     height: 76px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1000;
 
     background:
         linear-gradient(
-            105deg,
+            110deg,
             var(--navy-deep),
-            var(--navy) 68%,
-            #073e78
+            var(--navy) 62%,
+            #063d78
         );
 
-    border-bottom:
-        4px solid var(--red);
+    border-bottom: 4px solid var(--red);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
     box-shadow:
-        0 6px 24px rgba(0,24,54,.2);
+        0 5px 22px rgba(0,24,54,.2);
 }
 
-
 .topbar-inner {
-
     max-width: 1280px;
-
     height: 100%;
-
     margin: 0 auto;
 
     padding: 0 28px;
 
     display: flex;
-
     align-items: center;
-
-    gap: 34px;
+    gap: 32px;
 }
 
 
@@ -169,97 +139,68 @@ a {
 ========================================================= */
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
 
     min-width: max-content;
 }
 
-
 .brand-logo {
-
     width: 48px;
-
     height: 48px;
 
     border-radius: 50%;
 
     background: white;
 
-    border: 2px solid rgba(255,255,255,.9);
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
 
     box-shadow:
-        0 5px 15px rgba(0,0,0,.25);
+        0 4px 14px rgba(0,0,0,.25);
 }
 
-
 .brand-logo img {
-
-    width: 88%;
-
-    height: 88%;
-
+    width: 90%;
+    height: 90%;
     object-fit: contain;
 }
 
-
 .logo-fallback {
-
     color: var(--red);
 
     font-family: Georgia, serif;
 
-    font-size: 27px;
-
+    font-size: 28px;
     font-weight: 900;
-
     font-style: italic;
 }
 
-
 .brand-copy {
-
     display: flex;
-
     flex-direction: column;
-
-    line-height: 1;
 }
 
-
 .brand-name {
-
     color: white;
 
     font-size: 20px;
-
     font-weight: 900;
 
     letter-spacing: -.7px;
 }
 
-
 .brand-label {
-
-    margin-top: 6px;
+    margin-top: 5px;
 
     color: rgba(255,255,255,.55);
 
     font-size: 8px;
-
-    font-weight: 850;
+    font-weight: 900;
 
     letter-spacing: 1.8px;
 
@@ -268,110 +209,84 @@ a {
 
 
 /* =========================================================
-   NAV
+   DESKTOP NAV
 ========================================================= */
 
 .desktop-nav {
-
     height: 100%;
 
     display: flex;
-
     align-items: center;
 
     gap: 3px;
 }
 
-
 .nav-item {
-
     height: 100%;
 
     padding: 0 15px;
 
     border: none;
-
     background: transparent;
 
-    color: rgba(255,255,255,.58);
+    color: rgba(255,255,255,.56);
 
     font-size: 13px;
-
-    font-weight: 800;
+    font-weight: 850;
 
     cursor: pointer;
 
     position: relative;
 
-    transition: .2s ease;
+    transition: color .2s ease;
 }
 
-
 .nav-item::after {
-
     content: "";
 
     position: absolute;
 
     left: 14px;
-
     right: 14px;
-
     bottom: -4px;
 
     height: 4px;
 
-    border-radius: 999px 999px 0 0;
-
     background: var(--red);
+
+    border-radius: 999px 999px 0 0;
 
     transform: scaleX(0);
 
     transition: transform .2s ease;
 }
 
-
 .nav-item:hover,
 .nav-item.active {
-
     color: white;
 }
 
-
 .nav-item.active::after {
-
     transform: scaleX(1);
 }
-
 
 .header-spacer {
     flex: 1;
 }
 
-
 .header-icon {
-
     width: 39px;
-
     height: 39px;
 
-    border: 1px solid rgba(255,255,255,.22);
-
     border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.22);
 
     background: rgba(255,255,255,.06);
 
     color: white;
 
     cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 15px;
 }
 
 
@@ -380,12 +295,11 @@ a {
 ========================================================= */
 
 .page {
-
     max-width: 1280px;
 
     margin: 0 auto;
 
-    padding: 42px 28px 70px;
+    padding: 40px 28px 70px;
 }
 
 
@@ -394,23 +308,17 @@ a {
 ========================================================= */
 
 .page-header {
-
     display: flex;
 
     justify-content: space-between;
-
     align-items: flex-end;
 
     margin-bottom: 27px;
 }
 
-
 .page-kicker {
-
     display: flex;
-
     align-items: center;
-
     gap: 9px;
 
     margin-bottom: 9px;
@@ -418,19 +326,15 @@ a {
     color: var(--red);
 
     font-size: 10px;
-
     font-weight: 900;
 
-    letter-spacing: 1.7px;
+    letter-spacing: 1.6px;
 
     text-transform: uppercase;
 }
 
-
 .kicker-line {
-
-    width: 29px;
-
+    width: 28px;
     height: 4px;
 
     border-radius: 999px;
@@ -438,15 +342,12 @@ a {
     background: var(--red);
 }
 
-
 .page-title {
-
     margin: 0;
 
     color: var(--navy-dark);
 
     font-size: 40px;
-
     line-height: 1;
 
     letter-spacing: -2px;
@@ -454,9 +355,7 @@ a {
     font-weight: 950;
 }
 
-
 .page-description {
-
     margin: 10px 0 0;
 
     color: var(--gray-600);
@@ -464,127 +363,97 @@ a {
     font-size: 13px;
 }
 
-
-.roster-meta {
-
-    text-align: right;
-
+.updated-label {
     color: var(--gray-500);
 
     font-size: 10px;
+    font-weight: 800;
 
-    font-weight: 750;
-
-    letter-spacing: .5px;
-}
-
-
-.roster-meta strong {
-
-    display: block;
-
-    color: var(--navy);
-
-    font-size: 19px;
-
-    font-weight: 900;
-
-    margin-bottom: 3px;
-}
-
-
-/* =========================================================
-   FILTER AREA
-========================================================= */
-
-.filter-panel {
-
-    background: white;
-
-    border: 1px solid var(--gray-200);
-
-    border-top: 4px solid var(--red);
-
-    border-radius: var(--radius);
-
-    box-shadow: var(--shadow);
-
-    padding: 19px 20px 20px;
-
-    margin-bottom: 25px;
-}
-
-
-.filter-heading {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 15px;
-}
-
-
-.filter-title {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    color: var(--navy);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 1.4px;
+    text-align: right;
 
     text-transform: uppercase;
 }
 
 
-.filter-title::before {
+/* =========================================================
+   FILTER PANEL
+========================================================= */
 
+.filter-panel {
+    background: white;
+
+    border:
+        1px solid var(--gray-200);
+
+    border-top:
+        4px solid var(--navy);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+}
+
+.filter-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 17px;
+}
+
+.filter-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--navy);
+
+    font-size: 11px;
+    font-weight: 950;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+.filter-title::before {
     content: "";
 
     width: 5px;
-
-    height: 16px;
+    height: 17px;
 
     border-radius: 999px;
 
     background: var(--red);
 }
 
-
-.filter-summary {
-
+.result-count {
     color: var(--gray-500);
 
-    font-size: 10px;
-
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 750;
 }
 
-
-.filter-row {
-
+.filter-grid {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+        1.2fr
+        1.2fr
+        .9fr;
 
     gap: 13px;
 }
 
+.filter-field {
+    min-width: 0;
+}
 
 .filter-label {
-
     display: block;
 
     margin-bottom: 7px;
@@ -592,29 +461,23 @@ a {
     color: var(--gray-600);
 
     font-size: 9px;
-
-    font-weight: 850;
+    font-weight: 900;
 
     letter-spacing: .8px;
 
     text-transform: uppercase;
 }
 
-
 .select-wrap {
-
     position: relative;
 }
 
-
 .select-wrap::after {
-
     content: "⌄";
 
     position: absolute;
 
     right: 14px;
-
     top: 50%;
 
     transform: translateY(-55%);
@@ -622,26 +485,22 @@ a {
     color: var(--navy);
 
     font-size: 17px;
-
     font-weight: 900;
 
     pointer-events: none;
 }
 
-
 .filter-select {
-
     width: 100%;
-
-    height: 45px;
+    height: 46px;
 
     appearance: none;
-
     -webkit-appearance: none;
 
     padding: 0 40px 0 14px;
 
-    border: 1px solid var(--gray-200);
+    border:
+        1px solid var(--gray-200);
 
     border-radius: 11px;
 
@@ -650,93 +509,71 @@ a {
     color: var(--navy-dark);
 
     font-size: 12px;
-
-    font-weight: 800;
+    font-weight: 850;
 
     cursor: pointer;
 
     outline: none;
 
-    transition: .2s ease;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
-
 .filter-select:hover {
-
     background: white;
 
     border-color: var(--gray-300);
 }
 
-
 .filter-select:focus {
-
     background: white;
 
     border-color: var(--red);
 
     box-shadow:
-        0 0 0 3px rgba(227,24,55,.09);
+        0 0 0 3px rgba(227,24,55,.1);
 }
 
 
 /* =========================================================
-   SECTION HEADER
+   PLAYERS
 ========================================================= */
 
-.section-header {
-
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: space-between;
-
-    margin: 0 2px 13px;
-}
-
-
-.section-title {
-
+.players-section-header {
     display: flex;
 
     align-items: center;
+    justify-content: space-between;
 
+    margin: 0 2px 12px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
     gap: 8px;
 
     color: var(--navy);
 
     font-size: 12px;
-
-    font-weight: 900;
+    font-weight: 950;
 
     letter-spacing: .8px;
 
     text-transform: uppercase;
 }
 
-
 .section-title::before {
-
     content: "";
 
     width: 5px;
-
-    height: 17px;
+    height: 18px;
 
     border-radius: 999px;
 
     background: var(--red);
-}
-
-
-.section-count {
-
-    color: var(--gray-500);
-
-    font-size: 10px;
-
-    font-weight: 750;
 }
 
 
@@ -745,13 +582,12 @@ a {
 ========================================================= */
 
 .player-grid {
-
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(2, minmax(0,1fr));
 
-    gap: 12px;
+    gap: 13px;
 }
 
 
@@ -760,195 +596,158 @@ a {
 ========================================================= */
 
 .player-card {
-
     position: relative;
 
-    min-height: 154px;
+    display: grid;
 
-    overflow: hidden;
+    grid-template-columns:
+        66px
+        minmax(0,1fr)
+        auto;
+
+    align-items: center;
+
+    min-height: 122px;
+
+    padding: 17px 18px 17px 21px;
 
     background: white;
 
-    border: 1px solid var(--gray-200);
+    border:
+        1px solid var(--gray-200);
 
     border-radius: var(--radius);
 
-    padding: 18px 20px 17px 27px;
-
     box-shadow: var(--shadow);
 
+    overflow: hidden;
+
     transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
 }
 
 
-.player-card:hover {
+/* ACTIVE / IL LINE */
 
-    transform: translateY(-3px);
-
-    border-color: #cbd3dd;
-
-    box-shadow: var(--shadow-hover);
-}
-
-
-/* ACTIVE RED LINE */
-
-.player-card.active-player::before {
-
+.player-card::before {
     content: "";
 
     position: absolute;
 
     left: 0;
-
     top: 0;
-
     bottom: 0;
 
     width: 5px;
 
+    background: var(--gray-300);
+}
+
+.player-card.active::before {
     background: var(--red);
 }
 
+.player-card.il::before {
+    background: var(--gold);
+}
 
-/* IL */
+.player-card:hover {
+    transform: translateY(-2px);
 
-.player-card.il-player {
+    box-shadow: var(--shadow-hover);
 
-    border-color: #ead58a;
+    border-color: #cbd3dc;
+}
+
+
+/* NUMBER */
+
+.player-number {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 14px;
 
     background:
         linear-gradient(
-            135deg,
-            #fffef8,
-            #fffdf2
+            145deg,
+            var(--navy),
+            var(--navy-deep)
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+    font-weight: 950;
+
+    letter-spacing: -1px;
+
+    box-shadow:
+        0 6px 15px rgba(0,45,98,.18);
+}
+
+.player-card.active .player-number {
+    background:
+        linear-gradient(
+            145deg,
+            var(--red),
+            var(--red-dark)
         );
 }
 
 
-.player-card.il-player::before {
+/* MAIN INFO */
 
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    bottom: 0;
-
-    width: 5px;
-
-    background: var(--gold);
+.player-main {
+    min-width: 0;
 }
 
+.player-name {
+    color: var(--black);
 
-/* =========================================================
-   PLAYER NUMBER
-========================================================= */
-
-.player-number {
-
-    position: absolute;
-
-    right: 16px;
-
-    top: 10px;
-
-    color: #eef1f4;
-
-    font-size: 51px;
-
-    line-height: 1;
-
-    font-weight: 950;
-
-    letter-spacing: -4px;
-
-    user-select: none;
-}
-
-
-.player-card.active-player
-.player-number {
-
-    color: #f4e7e9;
-}
-
-
-/* =========================================================
-   CARD TOP
-========================================================= */
-
-.player-top {
-
-    position: relative;
-
-    z-index: 2;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    margin-bottom: 13px;
-}
-
-
-.status-badge {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    height: 22px;
-
-    padding: 0 8px;
-
-    border-radius: 999px;
-
-    background: var(--red-soft);
-
-    color: var(--red);
-
-    font-size: 8px;
-
+    font-size: 17px;
     font-weight: 900;
+
+    letter-spacing: -.4px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-position {
+    margin-top: 5px;
+
+    color: var(--navy);
+
+    font-size: 10px;
+    font-weight: 950;
 
     letter-spacing: .7px;
 
     text-transform: uppercase;
 }
 
+.player-meta {
+    display: flex;
+    flex-wrap: wrap;
 
-.status-badge.il {
+    gap: 6px;
 
-    background: var(--gold-soft);
-
-    color: #856600;
+    margin-top: 10px;
 }
 
-
-.status-badge.reserve {
-
-    background: var(--blue-soft);
-
-    color: var(--navy);
-}
-
-
-.position-badge {
-
+.meta-pill {
     display: inline-flex;
-
     align-items: center;
 
-    height: 22px;
+    min-height: 23px;
 
     padding: 0 8px;
 
@@ -958,132 +757,85 @@ a {
 
     color: var(--gray-600);
 
-    font-size: 8px;
-
+    font-size: 9px;
     font-weight: 850;
+}
 
-    letter-spacing: .5px;
+.meta-pill.hand {
+    background: var(--navy-soft);
+
+    color: var(--navy);
+}
+
+.meta-pill.status-active {
+    background: var(--red-soft);
+
+    color: var(--red);
+}
+
+.meta-pill.status-il {
+    background: var(--gold-soft);
+
+    color: #876800;
 }
 
 
-/* =========================================================
-   NAME
-========================================================= */
+/* STATUS */
 
-.player-name {
+.player-status {
+    align-self: start;
 
-    position: relative;
-
-    z-index: 2;
-
-    margin: 0;
-
-    max-width: calc(100% - 55px);
-
-    color: var(--navy-dark);
-
-    font-size: 21px;
-
-    line-height: 1.12;
-
-    font-weight: 900;
-
-    letter-spacing: -.7px;
+    margin-top: 2px;
 }
 
-
-.player-subtitle {
-
-    position: relative;
-
-    z-index: 2;
-
-    margin-top: 6px;
-
-    color: var(--gray-600);
-
-    font-size: 10px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   PLAYER INFO
-========================================================= */
-
-.player-info {
-
-    position: relative;
-
-    z-index: 2;
-
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 7px;
-
-    margin-top: 18px;
-}
-
-
-.info-pill {
-
+.status-badge {
     display: inline-flex;
-
     align-items: center;
+    gap: 5px;
 
-    gap: 4px;
+    padding: 5px 8px;
 
-    padding: 6px 8px;
-
-    border-radius: 7px;
+    border-radius: 999px;
 
     background: var(--gray-100);
 
-    color: var(--gray-600);
+    color: var(--gray-500);
 
     font-size: 8px;
+    font-weight: 950;
 
-    font-weight: 800;
+    letter-spacing: .5px;
 
-    letter-spacing: .35px;
+    text-transform: uppercase;
 }
 
+.status-badge::before {
+    content: "";
 
-.info-pill strong {
-
-    color: var(--navy);
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   ACTIVE MARK
-========================================================= */
-
-.active-mark {
-
-    position: absolute;
-
-    right: 17px;
-
-    bottom: 17px;
-
-    width: 7px;
-
-    height: 7px;
+    width: 5px;
+    height: 5px;
 
     border-radius: 50%;
 
-    background: var(--red);
+    background: var(--gray-400);
+}
 
-    box-shadow:
-        0 0 0 4px rgba(227,24,55,.08);
+.status-badge.active {
+    background: var(--red-soft);
+    color: var(--red);
+}
+
+.status-badge.active::before {
+    background: var(--red);
+}
+
+.status-badge.il {
+    background: var(--gold-soft);
+    color: #876800;
+}
+
+.status-badge.il::before {
+    background: var(--gold);
 }
 
 
@@ -1092,59 +844,47 @@ a {
 ========================================================= */
 
 .empty {
-
-    grid-column: 1 / -1;
+    padding: 70px 20px;
 
     background: white;
 
-    border: 1px solid var(--gray-200);
+    border:
+        1px solid var(--gray-200);
 
     border-radius: var(--radius);
-
-    padding: 70px 20px;
 
     text-align: center;
 }
 
-
 .empty-icon {
-
     width: 54px;
-
     height: 54px;
 
-    margin: 0 auto 15px;
+    margin: 0 auto 14px;
 
     border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     background: var(--red-soft);
 
     color: var(--red);
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: 23px;
 }
 
-
 .empty-title {
-
     margin: 0;
 
     color: var(--navy);
 
     font-size: 16px;
-
     font-weight: 900;
 }
 
-
-.empty-text {
-
+.empty-description {
     margin: 7px 0 0;
 
     color: var(--gray-500);
@@ -1154,418 +894,247 @@ a {
 
 
 /* =========================================================
-   LOADING
-========================================================= */
-
-.loading {
-
-    grid-column: 1 / -1;
-
-    background: white;
-
-    border: 1px solid var(--gray-200);
-
-    border-radius: var(--radius);
-
-    padding: 70px 20px;
-
-    text-align: center;
-
-    color: var(--gray-500);
-
-    font-size: 12px;
-
-    font-weight: 750;
-}
-
-
-/* =========================================================
    MOBILE NAV
 ========================================================= */
 
 .mobile-nav {
+    position: fixed;
 
-    display: none;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 74px;
+
+    display: flex;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-top:
+        1px solid var(--gray-200);
+
+    box-shadow:
+        0 -6px 25px rgba(0,29,62,.1);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    z-index: 2000;
+}
+
+.mobile-nav-item {
+    flex: 1;
+
+    border: none;
+    background: transparent;
+
+    color: var(--gray-500);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    font-size: 9px;
+    font-weight: 850;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.mobile-nav-item::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 25%;
+    right: 25%;
+
+    height: 3px;
+
+    border-radius: 0 0 999px 999px;
+
+    background: var(--red);
+
+    transform: scaleX(0);
+
+    transition: transform .2s ease;
+}
+
+.mobile-nav-item.active {
+    color: var(--navy);
+}
+
+.mobile-nav-item.active::before {
+    transform: scaleX(1);
+}
+
+.mobile-nav-icon {
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
 }
 
 
 /* =========================================================
-   TABLET
+   RESPONSIVE
 ========================================================= */
 
 @media (max-width: 900px) {
 
-    .topbar-inner {
-
-        gap: 20px;
-    }
-
-
-    .nav-item {
-
-        padding: 0 9px;
-    }
-
-
-    .nav-item::after {
-
-        left: 9px;
-
-        right: 9px;
-    }
-
-
     .player-grid {
-
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
+    .filter-grid {
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+    }
+
+    .filter-field:last-child {
+        grid-column: 1 / -1;
+    }
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media (max-width: 700px) {
 
-    body {
-
-        padding-bottom:
-            calc(
-                74px +
-                env(safe-area-inset-bottom)
-            );
-    }
-
-
     .topbar {
-
         height: 64px;
-
         border-bottom-width: 3px;
     }
 
-
     .topbar-inner {
-
         padding: 0 14px;
-
         gap: 0;
     }
 
-
-    .brand {
-
-        gap: 10px;
-    }
-
-
     .brand-logo {
-
         width: 40px;
-
         height: 40px;
     }
 
-
     .brand-name {
-
         font-size: 18px;
     }
 
-
     .brand-label {
-
         font-size: 7px;
     }
 
-
     .desktop-nav {
-
         display: none;
     }
 
-
     .header-icon {
-
-        width: 36px;
-
-        height: 36px;
-
         margin-left: auto;
     }
 
-
     .page {
-
-        padding:
-            25px 13px 35px;
+        padding: 25px 13px 40px;
     }
 
-
     .page-header {
-
         align-items: flex-start;
-
         margin-bottom: 20px;
     }
 
-
     .page-title {
-
         font-size: 31px;
-
         letter-spacing: -1.5px;
     }
 
-
     .page-description {
-
-        max-width: 300px;
-
         font-size: 11px;
-
         line-height: 1.5;
     }
 
-
-    .roster-meta {
-
+    .updated-label {
         display: none;
     }
 
-
     .filter-panel {
-
         padding: 16px;
-
         border-top-width: 3px;
-
-        margin-bottom: 20px;
     }
 
-
-    .filter-heading {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 5px;
-    }
-
-
-    .filter-row {
-
+    .filter-grid {
         grid-template-columns: 1fr;
-
         gap: 11px;
     }
 
+    .filter-field:last-child {
+        grid-column: auto;
+    }
 
     .filter-select {
-
-        height: 46px;
+        height: 47px;
     }
-
-
-    .player-grid {
-
-        gap: 9px;
-    }
-
 
     .player-card {
-
-        min-height: 150px;
+        grid-template-columns:
+            56px
+            minmax(0,1fr);
 
         padding:
-            17px 17px 16px 21px;
-
-        border-radius: 14px;
+            15px 14px 15px 18px;
     }
-
-
-    .player-name {
-
-        font-size: 19px;
-
-        max-width: calc(100% - 45px);
-    }
-
 
     .player-number {
-
-        font-size: 46px;
-
-        right: 12px;
-    }
-
-
-    .player-info {
-
-        margin-top: 15px;
-    }
-
-
-    .mobile-nav {
-
-        position: fixed;
-
-        left: 0;
-
-        right: 0;
-
-        bottom: 0;
-
-        height: 74px;
-
-        padding-bottom:
-            env(safe-area-inset-bottom);
-
-        display: flex;
-
-        z-index: 2000;
-
-        background:
-            rgba(255,255,255,.97);
-
-        border-top:
-            1px solid var(--gray-200);
-
-        box-shadow:
-            0 -5px 22px rgba(0,29,62,.09);
-
-        backdrop-filter:
-            blur(14px);
-
-        -webkit-backdrop-filter:
-            blur(14px);
-    }
-
-
-    .mobile-nav-item {
-
-        flex: 1;
-
-        height: 100%;
-
-        border: none;
-
-        background: transparent;
-
-        color: var(--gray-500);
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: center;
-
-        gap: 4px;
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        cursor: pointer;
-
-        position: relative;
-    }
-
-
-    .mobile-nav-item::before {
-
-        content: "";
-
-        position: absolute;
-
-        top: 0;
-
-        left: 25%;
-
-        right: 25%;
-
-        height: 3px;
-
-        border-radius:
-            0 0 999px 999px;
-
-        background: var(--red);
-
-        transform: scaleX(0);
-
-        transition: .2s ease;
-    }
-
-
-    .mobile-nav-item.active {
-
-        color: var(--navy);
-    }
-
-
-    .mobile-nav-item.active::before {
-
-        transform: scaleX(1);
-    }
-
-
-    .mobile-nav-icon {
-
-        height: 25px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
+        width: 47px;
+        height: 47px;
 
         font-size: 18px;
     }
 
+    .player-name {
+        font-size: 15px;
+    }
+
+    .player-status {
+        grid-column: 2;
+
+        margin-top: 10px;
+    }
 }
 
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
 
 @media (max-width: 420px) {
 
     .page {
-
         padding-left: 10px;
-
         padding-right: 10px;
     }
 
-
     .page-title {
-
         font-size: 28px;
     }
 
-
     .player-card {
-
-        padding-left: 19px;
+        min-height: 115px;
     }
 
-
-    .player-name {
-
-        font-size: 18px;
+    .player-meta {
+        gap: 4px;
     }
 
+    .meta-pill {
+        font-size: 8px;
+        padding: 0 7px;
+    }
 }
 
 </style>
-
 </head>
 
 
@@ -1579,7 +1148,6 @@ a {
 <header class="topbar">
 
     <div class="topbar-inner">
-
 
         <a
             href="index.html"
@@ -1606,7 +1174,6 @@ a {
 
             </div>
 
-
             <div class="brand-copy">
 
                 <div class="brand-name">
@@ -1614,7 +1181,7 @@ a {
                 </div>
 
                 <div class="brand-label">
-                    Daily News
+                    Players
                 </div>
 
             </div>
@@ -1624,35 +1191,33 @@ a {
 
         <nav class="desktop-nav">
 
-            <button
+            <a
                 class="nav-item"
-                onclick="location.href='index.html'"
+                href="index.html"
             >
                 News
-            </button>
+            </a>
 
-
-            <button
+            <a
                 class="nav-item"
-                onclick="location.href='games.html'"
+                href="index.html#games"
             >
                 Games
-            </button>
+            </a>
 
-
-            <button
+            <a
                 class="nav-item active"
+                href="players.html"
             >
                 Players
-            </button>
+            </a>
 
-
-            <button
+            <a
                 class="nav-item"
-                onclick="showMore()"
+                href="index.html#more"
             >
                 More
-            </button>
+            </a>
 
         </nav>
 
@@ -1662,10 +1227,10 @@ a {
 
         <button
             class="header-icon"
-            title="More"
-            onclick="showMore()"
+            onclick="location.href='index.html'"
+            aria-label="Home"
         >
-            ⋯
+            ⌂
         </button>
 
     </div>
@@ -1681,8 +1246,6 @@ a {
 <main class="page">
 
 
-    <!-- PAGE HEADER -->
-
     <section class="page-header">
 
         <div>
@@ -1695,27 +1258,22 @@ a {
 
             </div>
 
-
             <h1 class="page-title">
                 Players
             </h1>
 
-
             <p class="page-description">
-                Current Phillies roster, organized by position and status.
+                Phillies roster, positions and player information.
             </p>
 
         </div>
 
 
-        <div class="roster-meta">
-
-            <strong id="roster-total">
-                —
-            </strong>
-
-            ROSTER PLAYERS
-
+        <div
+            class="updated-label"
+            id="updated-label"
+        >
+            Loading roster
         </div>
 
     </section>
@@ -1728,45 +1286,41 @@ a {
 
     <section class="filter-panel">
 
-
         <div class="filter-heading">
 
             <div class="filter-title">
-                Roster Filters
+                Player Filters
             </div>
 
-
             <div
-                class="filter-summary"
-                id="filter-summary"
+                class="result-count"
+                id="result-count"
             >
-                All players
+                0 players
             </div>
 
         </div>
 
 
-        <div class="filter-row">
+        <div class="filter-grid">
 
 
-            <!-- POSITION -->
+            <!-- GROUP -->
 
-            <div>
+            <div class="filter-field">
 
                 <label
                     class="filter-label"
-                    for="position-filter"
+                    for="group-filter"
                 >
-                    Position
+                    Position Group
                 </label>
-
 
                 <div class="select-wrap">
 
                     <select
-                        id="position-filter"
+                        id="group-filter"
                         class="filter-select"
-                        onchange="renderPlayers()"
                     >
 
                         <option value="all">
@@ -1796,25 +1350,22 @@ a {
             </div>
 
 
+            <!-- ROSTER -->
 
-            <!-- STATUS -->
-
-            <div>
+            <div class="filter-field">
 
                 <label
                     class="filter-label"
-                    for="status-filter"
+                    for="roster-filter"
                 >
                     Roster Status
                 </label>
 
-
                 <div class="select-wrap">
 
                     <select
-                        id="status-filter"
+                        id="roster-filter"
                         class="filter-select"
-                        onchange="renderPlayers()"
                     >
 
                         <option value="all">
@@ -1823,6 +1374,47 @@ a {
 
                         <option value="active">
                             Active Only
+                        </option>
+
+                        <option value="40man">
+                            40-Man Only
+                        </option>
+
+                        <option value="il">
+                            Injured List
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- SORT -->
+
+            <div class="filter-field">
+
+                <label
+                    class="filter-label"
+                    for="sort-filter"
+                >
+                    Sort
+                </label>
+
+                <div class="select-wrap">
+
+                    <select
+                        id="sort-filter"
+                        class="filter-select"
+                    >
+
+                        <option value="number">
+                            Jersey Number
+                        </option>
+
+                        <option value="name">
+                            Player Name
                         </option>
 
                     </select>
@@ -1838,24 +1430,15 @@ a {
 
 
     <!-- =====================================================
-         PLAYERS
+         PLAYER LIST
     ====================================================== -->
 
     <section>
 
-
-        <div class="section-header">
+        <div class="players-section-header">
 
             <div class="section-title">
-                Roster
-            </div>
-
-
-            <div
-                class="section-count"
-                id="player-count"
-            >
-                —
+                Phillies Roster
             </div>
 
         </div>
@@ -1864,13 +1447,7 @@ a {
         <div
             id="player-grid"
             class="player-grid"
-        >
-
-            <div class="loading">
-                Loading roster...
-            </div>
-
-        </div>
+        ></div>
 
     </section>
 
@@ -1884,10 +1461,9 @@ a {
 
 <nav class="mobile-nav">
 
-
-    <button
+    <a
         class="mobile-nav-item"
-        onclick="location.href='index.html'"
+        href="index.html"
     >
 
         <span class="mobile-nav-icon">
@@ -1898,12 +1474,12 @@ a {
             News
         </span>
 
-    </button>
+    </a>
 
 
-    <button
+    <a
         class="mobile-nav-item"
-        onclick="location.href='games.html'"
+        href="index.html#games"
     >
 
         <span class="mobile-nav-icon">
@@ -1914,11 +1490,12 @@ a {
             Games
         </span>
 
-    </button>
+    </a>
 
 
-    <button
+    <a
         class="mobile-nav-item active"
+        href="players.html"
     >
 
         <span class="mobile-nav-icon">
@@ -1929,12 +1506,12 @@ a {
             Players
         </span>
 
-    </button>
+    </a>
 
 
-    <button
+    <a
         class="mobile-nav-item"
-        onclick="showMore()"
+        href="index.html#more"
     >
 
         <span class="mobile-nav-icon">
@@ -1945,7 +1522,7 @@ a {
             More
         </span>
 
-    </button>
+    </a>
 
 </nav>
 
@@ -1954,14 +1531,68 @@ a {
 <script>
 
 /* =========================================================
-   DATA
+   STATE
 ========================================================= */
 
 let players = [];
 
+let currentGroup = "all";
+let currentRoster = "all";
+let currentSort = "number";
+
 
 /* =========================================================
-   LOAD PLAYERS
+   HELPERS
+========================================================= */
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+}
+
+
+function normalizeGroup(player) {
+
+    const group =
+        String(player.group || "")
+        .toLowerCase();
+
+    if (
+        group === "pitcher" ||
+        group === "catcher" ||
+        group === "infielder" ||
+        group === "outfielder"
+    ) {
+        return group;
+    }
+
+    return "infielder";
+}
+
+
+function numericNumber(player) {
+
+    const n =
+        parseInt(
+            String(player.number ?? "")
+                .replace(/\D/g, ""),
+            10
+        );
+
+    return Number.isFinite(n)
+        ? n
+        : 999;
+}
+
+
+/* =========================================================
+   LOAD
 ========================================================= */
 
 async function loadPlayers() {
@@ -1971,10 +1602,15 @@ async function loadPlayers() {
             "player-grid"
         );
 
-
     container.innerHTML = `
-        <div class="loading">
-            Loading Phillies roster...
+        <div class="empty">
+            <div class="empty-icon">⚾</div>
+            <h2 class="empty-title">
+                Loading Phillies roster
+            </h2>
+            <p class="empty-description">
+                Getting the latest player information.
+            </p>
         </div>
     `;
 
@@ -1983,21 +1619,15 @@ async function loadPlayers() {
 
         const response =
             await fetch(
-                "players.json?ts=" +
-                Date.now(),
-                {
-                    cache: "no-store"
-                }
+                "players.json?v=" +
+                Date.now()
             );
 
 
         if (!response.ok) {
-
             throw new Error(
-                "HTTP " +
-                response.status
+                "players.json could not be loaded."
             );
-
         }
 
 
@@ -2005,80 +1635,44 @@ async function loadPlayers() {
             await response.json();
 
 
-        /*
-           players.json が
+        players =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.players)
+                        ? data.players
+                        : []
+                );
 
-           [
-             {...},
-             {...}
-           ]
-
-           の場合
-
-           あるいは
-
-           {
-             "players": [...]
-           }
-
-           の場合の両方に対応
-        */
-
-        if (Array.isArray(data)) {
-
-            players = data;
-
-        } else if (
-            data &&
-            Array.isArray(data.players)
-        ) {
-
-            players = data.players;
-
-        } else if (
-            data &&
-            Array.isArray(data.roster)
-        ) {
-
-            players = data.roster;
-
-        } else {
-
-            players = [];
-
-        }
-
-
-        normalizePlayers();
 
         renderPlayers();
 
-    } catch (error) {
 
-        console.error(
-            "Roster loading error:",
-            error
+        updateUpdatedLabel(
+            data.updatedAt
         );
 
+    } catch (error) {
+
+        console.error(error);
 
         container.innerHTML = `
-
             <div class="empty">
 
                 <div class="empty-icon">
-                    ⚾
+                    !
                 </div>
 
                 <h2 class="empty-title">
-                    Roster unavailable
+                    Roster data unavailable
                 </h2>
 
-                <p class="empty-text">
+                <p class="empty-description">
                     players.json could not be loaded.
+                    Please run the roster update process.
                 </p>
 
             </div>
-
         `;
 
     }
@@ -2087,351 +1681,105 @@ async function loadPlayers() {
 
 
 /* =========================================================
-   NORMALIZE
+   FILTER
 ========================================================= */
 
-function normalizePlayers() {
+function getFilteredPlayers() {
 
-    players =
-        players
-        .map(
-            (player, index) => {
-
-                const p =
-                    player || {};
+    let result =
+        [...players];
 
 
-                return {
+    /* GROUP */
 
-                    id:
-                        p.id ??
-                        p.player_id ??
-                        index,
+    if (
+        currentGroup !== "all"
+    ) {
 
+        result =
+            result.filter(
+                player =>
+                    normalizeGroup(player)
+                    === currentGroup
+            );
 
-                    name:
-                        p.name ??
-                        p.fullName ??
-                        p.full_name ??
-                        "Unknown Player",
-
-
-                    firstName:
-                        p.firstName ??
-                        "",
+    }
 
 
-                    lastName:
-                        p.lastName ??
-                        "",
+    /* ROSTER */
+
+    if (
+        currentRoster === "active"
+    ) {
+
+        result =
+            result.filter(
+                player =>
+                    player.status === "Active"
+            );
+
+    }
 
 
-                    number:
-                        p.number ??
-                        p.jerseyNumber ??
-                        p.jersey_number ??
-                        "",
+    if (
+        currentRoster === "40man"
+    ) {
+
+        result =
+            result.filter(
+                player =>
+                    player.roster40 === true
+            );
+
+    }
 
 
-                    position:
-                        p.position ??
-                        p.primaryPosition ??
-                        p.primary_position ??
-                        p.pos ??
-                        "",
+    if (
+        currentRoster === "il"
+    ) {
+
+        result =
+            result.filter(
+                player =>
+                    player.status === "IL"
+            );
+
+    }
 
 
-                    group:
-                        p.group ??
-                        p.positionGroup ??
-                        p.position_group ??
-                        "",
+    /* SORT */
 
+    if (
+        currentSort === "number"
+    ) {
 
-                    bats:
-                        p.bats ??
-                        p.batSide ??
-                        p.bat_side ??
-                        "",
-
-
-                    throws:
-                        p.throws ??
-                        p.throwSide ??
-                        p.throw_side ??
-                        "",
-
-
-                    status:
-                        p.status ??
-                        p.rosterStatus ??
-                        p.roster_status ??
-                        "",
-
-
-                    active:
-                        p.active ??
-                        p.isActive ??
-                        p.is_active ??
-                        false,
-
-
-                    il:
-                        p.il ??
-                        p.injured ??
-                        p.injuryList ??
-                        p.injury_list ??
-                        false,
-
-
-                    fortyMan:
-                        p.fortyMan ??
-                        p.forty_man ??
-                        p.on40Man ??
-                        false
-
-                };
-
-            }
+        result.sort(
+            (a,b) =>
+                numericNumber(a)
+                -
+                numericNumber(b)
         );
 
-}
-
-
-/* =========================================================
-   POSITION GROUP
-========================================================= */
-
-function getPositionGroup(player) {
-
-    const raw =
-        String(
-            player.group ||
-            player.position ||
-            ""
-        )
-        .toLowerCase()
-        .trim();
-
-
-    if (
-        raw.includes("pitch")
-        ||
-        raw === "p"
-        ||
-        raw.includes("投")
-    ) {
-
-        return "pitcher";
-
-    }
-
-
-    if (
-        raw.includes("catch")
-        ||
-        raw === "c"
-        ||
-        raw.includes("捕")
-    ) {
-
-        return "catcher";
-
-    }
-
-
-    if (
-        raw.includes("outfield")
-        ||
-        raw === "of"
-        ||
-        raw === "lf"
-        ||
-        raw === "cf"
-        ||
-        raw === "rf"
-        ||
-        raw.includes("外")
-    ) {
-
-        return "outfielder";
-
-    }
-
-
-    if (
-        raw.includes("infield")
-        ||
-        raw === "1b"
-        ||
-        raw === "2b"
-        ||
-        raw === "3b"
-        ||
-        raw === "ss"
-        ||
-        raw === "inf"
-        ||
-        raw.includes("内")
-    ) {
-
-        return "infielder";
-
-    }
-
-
-    return "other";
-
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function isActive(player) {
-
-    if (
-        player.active === true
-        ||
-        player.active === 1
-        ||
-        player.active === "true"
-    ) {
-
-        return true;
-
-    }
-
-
-    const status =
-        String(
-            player.status || ""
-        )
-        .toLowerCase();
-
-
-    return (
-        status.includes("active")
-        &&
-        !status.includes("inactive")
-        &&
-        !status.includes("il")
-    );
-
-}
-
-
-/* =========================================================
-   IL
-========================================================= */
-
-function isIL(player) {
-
-    if (
-        player.il === true
-        ||
-        player.il === 1
-        ||
-        player.il === "true"
-    ) {
-
-        return true;
-
-    }
-
-
-    const status =
-        String(
-            player.status || ""
-        )
-        .toLowerCase();
-
-
-    return (
-        status.includes("il")
-        ||
-        status.includes("injured")
-    );
-
-}
-
-
-/* =========================================================
-   POSITION DISPLAY
-========================================================= */
-
-function positionDisplay(player) {
-
-    const position =
-        String(
-            player.position || ""
-        ).trim();
-
-
-    if (position) {
-
-        return position;
-
-    }
-
-
-    const group =
-        getPositionGroup(player);
-
-
-    if (group === "pitcher") {
-        return "P";
-    }
-
-
-    if (group === "catcher") {
-        return "C";
-    }
-
-
-    if (group === "infielder") {
-        return "INF";
-    }
-
-
-    if (group === "outfielder") {
-        return "OF";
-    }
-
-
-    return "—";
-
-}
-
-
-/* =========================================================
-   SORT
-========================================================= */
-
-function jerseyNumber(player) {
-
-    const n =
-        parseInt(
-            String(
-                player.number
-            ).replace(
-                /\D/g,
-                ""
-            ),
-            10
+    } else {
+
+        result.sort(
+            (a,b) =>
+                String(a.name || "")
+                    .localeCompare(
+                        String(b.name || "")
+                    )
         );
 
+    }
 
-    return Number.isFinite(n)
-        ? n
-        : 9999;
+
+    return result;
 
 }
 
 
 /* =========================================================
-   FILTER + RENDER
+   RENDER
 ========================================================= */
 
 function renderPlayers() {
@@ -2442,62 +1790,12 @@ function renderPlayers() {
         );
 
 
-    const position =
-        document.getElementById(
-            "position-filter"
-        ).value;
+    const filtered =
+        getFilteredPlayers();
 
-
-    const status =
-        document.getElementById(
-            "status-filter"
-        ).value;
-
-
-    let filtered =
-        [...players];
-
-
-    /* POSITION */
-
-    if (position !== "all") {
-
-        filtered =
-            filtered.filter(
-                player =>
-                    getPositionGroup(player)
-                    === position
-            );
-
-    }
-
-
-    /* ACTIVE */
-
-    if (status === "active") {
-
-        filtered =
-            filtered.filter(
-                player =>
-                    isActive(player)
-            );
-
-    }
-
-
-    /* NUMBER */
-
-    filtered.sort(
-        (a, b) =>
-            jerseyNumber(a) -
-            jerseyNumber(b)
-    );
-
-
-    /* COUNTS */
 
     document.getElementById(
-        "player-count"
+        "result-count"
     ).textContent =
         `${filtered.length} ${
             filtered.length === 1
@@ -2506,28 +1804,11 @@ function renderPlayers() {
         }`;
 
 
-    document.getElementById(
-        "roster-total"
-    ).textContent =
-        players.length;
-
-
-    document.getElementById(
-        "filter-summary"
-    ).textContent =
-        buildFilterSummary(
-            position,
-            status
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (!filtered.length) {
+    if (
+        filtered.length === 0
+    ) {
 
         container.innerHTML = `
-
             <div class="empty">
 
                 <div class="empty-icon">
@@ -2538,12 +1819,11 @@ function renderPlayers() {
                     No players found
                 </h2>
 
-                <p class="empty-text">
-                    Try changing the roster filters.
+                <p class="empty-description">
+                    No players match the selected filters.
                 </p>
 
             </div>
-
         `;
 
         return;
@@ -2551,314 +1831,269 @@ function renderPlayers() {
     }
 
 
-    filtered.forEach(
-        player => {
-
-            container.appendChild(
-                createPlayerCard(player)
-            );
-
-        }
-    );
+    container.innerHTML =
+        filtered
+            .map(
+                createPlayerCard
+            )
+            .join("");
 
 }
 
 
 /* =========================================================
-   FILTER SUMMARY
-========================================================= */
-
-function buildFilterSummary(
-    position,
-    status
-) {
-
-    let parts = [];
-
-
-    if (position === "all") {
-
-        parts.push(
-            "All positions"
-        );
-
-    } else {
-
-        const labels = {
-
-            pitcher: "Pitchers",
-
-            catcher: "Catchers",
-
-            infielder: "Infielders",
-
-            outfielder: "Outfielders"
-
-        };
-
-
-        parts.push(
-            labels[position] ||
-            "Players"
-        );
-
-    }
-
-
-    if (status === "active") {
-
-        parts.push(
-            "Active only"
-        );
-
-    } else {
-
-        parts.push(
-            "Full roster"
-        );
-
-    }
-
-
-    return parts.join(
-        " · "
-    );
-
-}
-
-
-/* =========================================================
-   CARD
+   PLAYER CARD
 ========================================================= */
 
 function createPlayerCard(player) {
 
-    const card =
-        document.createElement(
-            "article"
-        );
+    const status =
+        player.status || "40-Man";
+
+    const isActive =
+        status === "Active";
+
+    const isIL =
+        status === "IL";
 
 
-    const active =
-        isActive(player);
-
-
-    const il =
-        isIL(player);
-
-
-    card.className =
-        "player-card" +
-        (
-            active
-                ? " active-player"
-                : ""
-        ) +
-        (
-            il
-                ? " il-player"
-                : ""
-        );
-
-
-    const group =
-        getPositionGroup(player);
-
-
-    let statusText =
-        "40-MAN";
-
-
-    let statusClass =
-        "reserve";
-
-
-    if (il) {
-
-        statusText =
-            "IL";
-
-        statusClass =
-            "il";
-
-    } else if (active) {
-
-        statusText =
-            "ACTIVE";
-
-        statusClass =
-            "";
-
-    }
+    const cardClass =
+        isActive
+            ? "active"
+            : (
+                isIL
+                    ? "il"
+                    : ""
+            );
 
 
     const number =
-        player.number !== ""
-            ? player.number
+        player.number
+            ? `#${escapeHtml(player.number)}`
             : "—";
 
 
     const position =
-        positionDisplay(player);
+        player.position
+            || player.groupLabel
+            || "—";
 
 
     const bats =
         player.bats
-            ? String(player.bats)
-                .toUpperCase()
-            : "—";
+            ? `Bats ${escapeHtml(player.bats)}`
+            : "";
 
 
     const throws =
         player.throws
-            ? String(player.throws)
-                .toUpperCase()
-            : "—";
+            ? `Throws ${escapeHtml(player.throws)}`
+            : "";
 
 
-    card.innerHTML = `
-
-        <div class="player-number">
-            ${escapeHtml(String(number))}
-        </div>
-
-
-        <div class="player-top">
-
-            <span
-                class="status-badge ${statusClass}"
-            >
-                ${statusText}
-            </span>
-
-
-            <span class="position-badge">
-                ${escapeHtml(position)}
-            </span>
-
-        </div>
-
-
-        <h2 class="player-name">
-            ${escapeHtml(
-                String(player.name)
-            )}
-        </h2>
-
-
-        <div class="player-subtitle">
-
-            ${
-                group === "pitcher"
-                    ? "Pitcher"
-                    : "Position Player"
-            }
-
-            ${
-                player.fortyMan
-                    ? " · 40-Man Roster"
+    const statusClass =
+        isActive
+            ? "active"
+            : (
+                isIL
+                    ? "il"
                     : ""
-            }
-
-        </div>
+            );
 
 
-        <div class="player-info">
+    return `
 
-            <span class="info-pill">
+        <article
+            class="player-card ${cardClass}"
+        >
 
-                BATS
-
-                <strong>
-                    ${escapeHtml(bats)}
-                </strong>
-
-            </span>
+            <div class="player-number">
+                ${number}
+            </div>
 
 
-            <span class="info-pill">
+            <div class="player-main">
 
-                THROWS
-
-                <strong>
-                    ${escapeHtml(throws)}
-                </strong>
-
-            </span>
+                <div class="player-name">
+                    ${escapeHtml(player.name)}
+                </div>
 
 
-            ${
-                group !== "pitcher"
-                    ? `
-                        <span class="info-pill">
-
-                            POS
-
-                            <strong>
-                                ${escapeHtml(position)}
-                            </strong>
-
-                        </span>
-                    `
-                    : ""
-            }
-
-        </div>
+                <div class="player-position">
+                    ${escapeHtml(position)}
+                </div>
 
 
-        ${
-            active
-                ? `
-                    <span
-                        class="active-mark"
-                        title="Active roster"
-                    ></span>
-                `
-                : ""
-        }
+                <div class="player-meta">
+
+                    ${
+                        bats
+                            ? `
+                                <span class="meta-pill hand">
+                                    ${bats}
+                                </span>
+                            `
+                            : ""
+                    }
+
+
+                    ${
+                        throws
+                            ? `
+                                <span class="meta-pill hand">
+                                    ${throws}
+                                </span>
+                            `
+                            : ""
+                    }
+
+
+                    ${
+                        player.roster40
+                            ? `
+                                <span class="meta-pill">
+                                    40-MAN
+                                </span>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="player-status">
+
+                <span
+                    class="
+                        status-badge
+                        ${statusClass}
+                    "
+                >
+                    ${
+                        isActive
+                            ? "ACTIVE"
+                            : (
+                                isIL
+                                    ? "IL"
+                                    : "40-MAN"
+                            )
+                    }
+                </span>
+
+            </div>
+
+        </article>
 
     `;
 
-
-    return card;
-
 }
 
 
 /* =========================================================
-   ESCAPE
+   UPDATED
 ========================================================= */
 
-function escapeHtml(value) {
+function updateUpdatedLabel(value) {
 
-    const div =
-        document.createElement(
-            "div"
+    const label =
+        document.getElementById(
+            "updated-label"
         );
 
 
-    div.textContent =
-        value == null
-            ? ""
-            : String(value);
+    if (!value) {
+
+        label.textContent =
+            "MLB ROSTER DATA";
+
+        return;
+
+    }
 
 
-    return div.innerHTML;
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        label.textContent =
+            "MLB ROSTER DATA";
+
+        return;
+
+    }
+
+
+    label.textContent =
+        "Updated " +
+        date.toLocaleString(
+            "en-US",
+            {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit"
+            }
+        );
 
 }
 
 
 /* =========================================================
-   MORE
+   EVENTS
 ========================================================= */
 
-function showMore() {
+document
+    .getElementById("group-filter")
+    .addEventListener(
+        "change",
+        event => {
 
-    alert(
-        "MORE の内容は今後追加します。"
+            currentGroup =
+                event.target.value;
+
+            renderPlayers();
+
+        }
     );
 
-}
+
+document
+    .getElementById("roster-filter")
+    .addEventListener(
+        "change",
+        event => {
+
+            currentRoster =
+                event.target.value;
+
+            renderPlayers();
+
+        }
+    );
+
+
+document
+    .getElementById("sort-filter")
+    .addEventListener(
+        "change",
+        event => {
+
+            currentSort =
+                event.target.value;
+
+            renderPlayers();
+
+        }
+    );
 
 
 /* =========================================================
@@ -2869,8 +2104,5 @@ loadPlayers();
 
 </script>
 
-
 </body>
-
 </html>
-```
