@@ -1,0 +1,151 @@
+name: Update Baseball Savant Stats
+
+on:
+
+  # =======================================================
+  # Every hour
+  # =======================================================
+
+  schedule:
+
+    - cron: "20 * * * *"
+
+
+  # =======================================================
+  # Manual execution
+  # =======================================================
+
+  workflow_dispatch:
+
+
+  # =======================================================
+  # Run when this workflow or script changes
+  # =======================================================
+
+  push:
+
+    paths:
+
+      - "scripts/update_savant.py"
+
+      - ".github/workflows/update-savant.yml"
+
+
+# =========================================================
+# PERMISSION
+# =========================================================
+
+permissions:
+
+  contents: write
+
+
+# =========================================================
+# JOB
+# =========================================================
+
+jobs:
+
+  update-savant:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+
+      # ---------------------------------------------------
+      # Checkout
+      # ---------------------------------------------------
+
+      - name: Checkout repository
+
+        uses: actions/checkout@v4
+
+
+      # ---------------------------------------------------
+      # Python
+      # ---------------------------------------------------
+
+      - name: Setup Python
+
+        uses: actions/setup-python@v5
+
+        with:
+
+          python-version: "3.x"
+
+
+      # ---------------------------------------------------
+      # Install requests
+      # ---------------------------------------------------
+
+      - name: Install dependencies
+
+        run: |
+
+          python -m pip install --upgrade pip
+
+          pip install requests
+
+
+      # ---------------------------------------------------
+      # Update Baseball Savant data
+      # ---------------------------------------------------
+
+      - name: Update Baseball Savant stats
+
+        run: |
+
+          python scripts/update_savant.py
+
+
+      # ---------------------------------------------------
+      # Check changes
+      # ---------------------------------------------------
+
+      - name: Check for changes
+
+        id: changes
+
+        run: |
+
+          if git diff --quiet -- savant.json; then
+
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+
+          else
+
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+
+          fi
+
+
+      # ---------------------------------------------------
+      # Commit
+      # ---------------------------------------------------
+
+      - name: Commit Savant update
+
+        if:
+          steps.changes.outputs.changed == 'true'
+
+        run: |
+
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+
+          git add savant.json
+
+
+          git commit \
+            -m "Update Baseball Savant stats"
+
+
+          git push
