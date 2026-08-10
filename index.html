@@ -3596,7 +3596,71 @@ function getStat(stats,key) {
 
 
 /* =========================================================
-CREATE FACT CARD
+   FORMAT DECIMAL STATS
+========================================================= */
+
+function formatRate(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "—";
+
+    }
+
+
+    const number =
+        Number(
+            value
+        );
+
+
+    if (
+        Number.isNaN(number)
+    ) {
+
+        return String(
+            value
+        );
+
+    }
+
+
+    return number.toFixed(3);
+
+}
+
+
+/* =========================================================
+   FACT STAT
+========================================================= */
+
+function factStat(label,value) {
+
+    return `
+
+        <div class="fact-stat">
+
+            <div class="fact-label">
+                ${escapeHtml(label)}
+            </div>
+
+            <div class="fact-value">
+                ${escapeHtml(value)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE FACT CARD
 ========================================================= */
 
 function createPlayerFactCard(player) {
@@ -3634,45 +3698,33 @@ function createPlayerFactCard(player) {
         stats
     ) {
 
-        /* =================================================
-        PITCHERS
-        W-L / ERA / G / GS / SV / IP / BB / WHIP
-        ================================================= */
-
         if (
             isPitcher
         ) {
 
-            const wins =
-                getStat(
-                    stats,
-                    "w"
-                );
-
-
-            const losses =
-                getStat(
-                    stats,
-                    "l"
-                );
-
-
-            const record =
-                `${wins}-${losses}`;
-
-
             statHTML = [
-
-                factStat(
-                    "W-L",
-                    record
-                ),
 
                 factStat(
                     "ERA",
                     getStat(
                         stats,
                         "era"
+                    )
+                ),
+
+                factStat(
+                    "WHIP",
+                    getStat(
+                        stats,
+                        "whip"
+                    )
+                ),
+
+                factStat(
+                    "IP",
+                    getStat(
+                        stats,
+                        "ip"
                     )
                 ),
 
@@ -3693,6 +3745,22 @@ function createPlayerFactCard(player) {
                 ),
 
                 factStat(
+                    "W",
+                    getStat(
+                        stats,
+                        "w"
+                    )
+                ),
+
+                factStat(
+                    "L",
+                    getStat(
+                        stats,
+                        "l"
+                    )
+                ),
+
+                factStat(
                     "SV",
                     getStat(
                         stats,
@@ -3701,10 +3769,10 @@ function createPlayerFactCard(player) {
                 ),
 
                 factStat(
-                    "IP",
+                    "SO",
                     getStat(
                         stats,
-                        "ip"
+                        "so"
                     )
                 ),
 
@@ -3717,10 +3785,10 @@ function createPlayerFactCard(player) {
                 ),
 
                 factStat(
-                    "WHIP",
+                    "HR",
                     getStat(
                         stats,
-                        "whip"
+                        "hr"
                     )
                 )
 
@@ -3728,39 +3796,9 @@ function createPlayerFactCard(player) {
 
         }
 
-
-        /* =================================================
-        BATTERS
-        PA / H / HR / AVG / OBP / SLG / OPS
-        ================================================= */
-
         else {
 
             statHTML = [
-
-                factStat(
-                    "PA",
-                    getStat(
-                        stats,
-                        "pa"
-                    )
-                ),
-
-                factStat(
-                    "H",
-                    getStat(
-                        stats,
-                        "h"
-                    )
-                ),
-
-                factStat(
-                    "HR",
-                    getStat(
-                        stats,
-                        "hr"
-                    )
-                ),
 
                 factStat(
                     "AVG",
@@ -3788,6 +3826,78 @@ function createPlayerFactCard(player) {
                     formatRate(
                         stats.ops
                     )
+                ),
+
+                factStat(
+                    "H",
+                    getStat(
+                        stats,
+                        "h"
+                    )
+                ),
+
+                factStat(
+                    "2B",
+                    getStat(
+                        stats,
+                        "2b"
+                    )
+                ),
+
+                factStat(
+                    "3B",
+                    getStat(
+                        stats,
+                        "3b"
+                    )
+                ),
+
+                factStat(
+                    "HR",
+                    getStat(
+                        stats,
+                        "hr"
+                    )
+                ),
+
+                factStat(
+                    "RBI",
+                    getStat(
+                        stats,
+                        "rbi"
+                    )
+                ),
+
+                factStat(
+                    "BB",
+                    getStat(
+                        stats,
+                        "bb"
+                    )
+                ),
+
+                factStat(
+                    "SO",
+                    getStat(
+                        stats,
+                        "so"
+                    )
+                ),
+
+                factStat(
+                    "SB",
+                    getStat(
+                        stats,
+                        "sb"
+                    )
+                ),
+
+                factStat(
+                    "PA",
+                    getStat(
+                        stats,
+                        "pa"
+                    )
                 )
 
             ].join("");
@@ -3796,10 +3906,6 @@ function createPlayerFactCard(player) {
 
     }
 
-
-    /* =================================================
-    CLOSE BUTTON
-    ================================================= */
 
     const closeButton =
         document.createElement(
@@ -3810,10 +3916,8 @@ function createPlayerFactCard(player) {
     closeButton.type =
         "button";
 
-
     closeButton.className =
         "fact-close";
-
 
     closeButton.textContent =
         "×";
@@ -3836,10 +3940,6 @@ function createPlayerFactCard(player) {
     );
 
 
-    /* =================================================
-    CARD HTML
-    ================================================= */
-
     card.innerHTML = `
 
         <div class="fact-header">
@@ -3856,7 +3956,6 @@ function createPlayerFactCard(player) {
 
                 </div>
 
-
                 <div class="fact-name">
 
                     ${escapeHtml(
@@ -3864,7 +3963,6 @@ function createPlayerFactCard(player) {
                     )}
 
                 </div>
-
 
                 <div class="fact-meta">
 
@@ -3949,126 +4047,15 @@ function createPlayerFactCard(player) {
 
 }
 
-/* =========================================================
-   OPEN / CLOSE PLAYER CARD
-========================================================= */
 
 /* =========================================================
-OPEN / CLOSE PLAYER CARD
+   OPEN / CLOSE PLAYER CARD
 ========================================================= */
 
 function togglePlayerCard(
     player,
     playerCard
 ) {
-
-    /*
-     * 現在開いている詳細カードを取得
-     */
-    const existing =
-        document.querySelector(
-            ".player-fact-card"
-        );
-
-
-    /*
-     * 今タップした選手の直後に
-     * 詳細カードがある場合
-     *
-     * → 閉じる
-     */
-    if (
-        existing &&
-        existing.previousElementSibling === playerCard
-    ) {
-
-        existing.remove();
-
-        playerCard.classList.remove(
-            "selected-player"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * 別の選手の詳細カードが
-     * 開いていたら閉じる
-     */
-    if (
-        existing
-    ) {
-
-        existing.remove();
-
-    }
-
-
-    /*
-     * 全選手カードの選択状態を解除
-     */
-    document
-        .querySelectorAll(
-            ".player-card"
-        )
-        .forEach(
-            element => {
-
-                element.classList.remove(
-                    "selected-player"
-                );
-
-            }
-        );
-
-
-    /*
-     * 詳細カードを作成
-     */
-    const factCard =
-        createPlayerFactCard(
-            player
-        );
-
-
-    /*
-     * 選手カードの直後に挿入
-     */
-    playerCard.insertAdjacentElement(
-        "afterend",
-        factCard
-    );
-
-
-    /*
-     * 選択状態
-     */
-    playerCard.classList.add(
-        "selected-player"
-    );
-
-
-    /*
-     * 詳細カードまでスクロール
-     */
-    setTimeout(
-        function() {
-
-            factCard.scrollIntoView({
-                behavior:
-                    "smooth",
-
-                block:
-                    "nearest"
-            });
-
-        },
-        30
-    );
-
-}{
 
     const id =
         player._id;
