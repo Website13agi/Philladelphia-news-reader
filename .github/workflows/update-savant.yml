@@ -2,14 +2,13 @@ name: Update Phillies Savant Stats
 
 on:
   schedule:
-    # 6時間ごとに更新
     - cron: "15 */6 * * *"
 
   workflow_dispatch:
 
   push:
     paths:
-      - "scripts/update_stats.py"
+      - "scripts/update_savant.py"
       - ".github/workflows/update-savant.yml"
 
 permissions:
@@ -22,137 +21,74 @@ jobs:
 
     steps:
 
-      # =====================================================
-      # CHECKOUT
-      # =====================================================
-
       - name: Checkout repository
         uses: actions/checkout@v4
-
-
-      # =====================================================
-      # PYTHON
-      # =====================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.11"
 
-
-      # =====================================================
-      # CHECK ROSTER
-      # =====================================================
-
-      - name: Check roster file
+      - name: Check required files
         run: |
+          test -f players.json
+          test -f scripts/update_savant.py
 
-          if [ ! -f players.json ]; then
-            echo "ERROR: players.json was not found."
-            exit 1
-          fi
+          echo "players.json OK"
+          echo "update_savant.py OK"
 
-          echo "players.json found."
-
-
-      # =====================================================
-      # UPDATE SAVANT
-      # =====================================================
-
-      - name: Update Baseball Savant statistics
+      - name: Update Baseball Savant
         run: |
+          python scripts/update_savant.py
 
-          python scripts/update_stats.py
-
-
-      # =====================================================
-      # CHECK OUTPUT
-      # =====================================================
-
-      - name: Check Savant output
+      - name: Check savant.json
         run: |
-
-          if [ ! -f player_stats.json ]; then
-            echo "ERROR: player_stats.json was not created."
-            exit 1
-          fi
-
-          echo "player_stats.json found."
-
-
-      # =====================================================
-      # BASIC VALIDATION
-      # =====================================================
-
-      - name: Validate JSON
-        run: |
+          test -f savant.json
 
           python - <<'PY'
-
           import json
 
           with open(
-              "player_stats.json",
+              "savant.json",
               "r",
               encoding="utf-8"
           ) as f:
               data = json.load(f)
 
-          if "players" not in data:
+          print("Source:", data.get("source"))
+          print("Season:", data.get("season"))
+          print("Batters:", len(data.get("batters", [])))
+          print("Pitchers:", len(data.get("pitchers", [])))
+
+          if data.get("source") != "Baseball Savant":
               raise SystemExit(
-                  "ERROR: players field is missing."
+                  "ERROR: source is not Baseball Savant"
               )
 
-          print(
-              "Savant players:",
-              len(data["players"])
-          )
+          if "batters" not in data:
+              raise SystemExit(
+                  "ERROR: batters is missing"
+              )
 
-          print(
-              "Source:",
-              data.get("source")
-          )
-
-          print(
-              "Season:",
-              data.get("season")
-          )
-
+          if "pitchers" not in data:
+              raise SystemExit(
+                  "ERROR: pitchers is missing"
+              )
           PY
 
-
-      # =====================================================
-      # CHECK CHANGES
-      # =====================================================
-
-      - name: Check changes
-        id: changes
+      - name: Commit savant.json
         run: |
 
-          if git diff --quiet -- player_stats.json; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-
-      # =====================================================
-      # COMMIT
-      # =====================================================
-
-      - name: Commit statistics update
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-
-          git config user.name \
-            "github-actions[bot]"
+          git config user.name "github-actions[bot]"
 
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add player_stats.json
+          git add savant.json
 
-          git commit \
-            -m "Update Phillies Baseball Savant statistics"
-
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to savant.json."
+          else
+            git commit -m "Update Baseball Savant statistics"
+            git push
+          fi
