@@ -10,15 +10,13 @@ from datetime import datetime, timezone
 # CONFIG
 # =========================================================
 
-ROSTER_FILE = "roster.json"
+PLAYERS_FILE = "players.json"
 OUTPUT_FILE = "savant.json"
 
 TEAM = "PHI"
 SEASON = datetime.now(timezone.utc).year
 
-BASE_URL = (
-    "https://baseballsavant.mlb.com/leaderboard/custom.csv"
-)
+BASE_URL = "https://baseballsavant.mlb.com/leaderboard/custom.csv"
 
 USER_AGENT = (
     "Mozilla/5.0 "
@@ -34,11 +32,15 @@ USER_AGENT = (
 # =========================================================
 
 def download_csv(url):
+
+    print("Downloading:")
+    print(url)
+
     request = urllib.request.Request(
         url,
         headers={
             "User-Agent": USER_AGENT,
-            "Accept": "text/csv,*/*",
+            "Accept": "text/csv,text/plain,*/*",
             "Referer": "https://baseballsavant.mlb.com/",
         },
     )
@@ -50,27 +52,53 @@ def download_csv(url):
 
         data = response.read()
 
-    return data.decode(
+    text = data.decode(
         "utf-8-sig",
         errors="replace",
     )
+
+    if not text.strip():
+        raise RuntimeError(
+            "Baseball Savantから空のデータが返されました。"
+        )
+
+    return text
 
 
 # =========================================================
 # JSON
 # =========================================================
 
-def load_json(path):
+def load_players():
+
     with open(
-        path,
+        PLAYERS_FILE,
         "r",
         encoding="utf-8",
-    ) as file:
-        return json.load(file)
+    ) as f:
+
+        data = json.load(f)
+
+    if not isinstance(data, dict):
+        raise RuntimeError(
+            "players.jsonの形式が正しくありません。"
+        )
+
+    players = data.get(
+        "players",
+        []
+    )
+
+    if not isinstance(players, list):
+        raise RuntimeError(
+            "players.jsonのplayersが配列ではありません。"
+        )
+
+    return players
 
 
 # =========================================================
-# CSV FIELD
+# CSV
 # =========================================================
 
 def get_field(row, *names):
@@ -88,16 +116,20 @@ def get_field(row, *names):
 
     for name in names:
 
-        value = normalized.get(
-            name.lower()
-        )
+        key = str(name).strip().lower()
 
-        if value not in (
-            None,
-            "",
-            "-",
-        ):
-            return value
+        if key in normalized:
+
+            value = normalized[key]
+
+            if value not in (
+                None,
+                "",
+                "-",
+                "—",
+            ):
+
+                return value
 
     return None
 
@@ -129,6 +161,7 @@ def to_number(value):
     )
 
     try:
+
         number = float(value)
 
         if number.is_integer():
@@ -137,6 +170,7 @@ def to_number(value):
         return number
 
     except ValueError:
+
         return value
 
 
@@ -156,6 +190,7 @@ def get_player_id(row):
         return None
 
     try:
+
         return int(
             float(value)
         )
@@ -164,11 +199,12 @@ def get_player_id(row):
         ValueError,
         TypeError,
     ):
+
         return None
 
 
 # =========================================================
-# SAVANT URL
+# URL
 # =========================================================
 
 def make_url(
@@ -176,33 +212,56 @@ def make_url(
     selections,
 ):
 
-    params = [
-        ("year", str(SEASON)),
-        ("type", player_type),
-        ("filter", f"team={TEAM}"),
-        ("min", "q"),
-        (
-            "selections",
+    params = {
+
+        "year":
+            str(SEASON),
+
+        "type":
+            player_type,
+
+        "filter":
+            f"team={TEAM}",
+
+        "min":
+            "q",
+
+        "selections":
             ",".join(selections),
-        ),
-        ("chart", "false"),
-        ("x", "pa"),
-        ("y", "pa"),
-        ("r", "no"),
-        ("chartType", "beeswarm"),
-        ("sort", "pa"),
-        ("sortDir", "desc"),
-    ]
+
+        "chart":
+            "false",
+
+        "x":
+            "pa",
+
+        "y":
+            "pa",
+
+        "r":
+            "no",
+
+        "chartType":
+            "beeswarm",
+
+        "sort":
+            "pa",
+
+        "sortDir":
+            "desc",
+    }
 
     return (
         BASE_URL
         + "?"
-        + urllib.parse.urlencode(params)
+        + urllib.parse.urlencode(
+            params
+        )
     )
 
 
 # =========================================================
-# FETCH
+# FETCH CSV
 # =========================================================
 
 def fetch(
@@ -215,14 +274,6 @@ def fetch(
         selections,
     )
 
-    print()
-    print(
-        "Downloading Savant:",
-        player_type,
-    )
-
-    print(url)
-
     text = download_csv(url)
 
     reader = csv.DictReader(
@@ -231,9 +282,14 @@ def fetch(
 
     rows = list(reader)
 
+    if not rows:
+
+        raise RuntimeError(
+            f"Savantの{player_type}データを取得できませんでした。"
+        )
+
     print(
-        "Rows:",
-        len(rows),
+        f"{player_type}: {len(rows)} players"
     )
 
     return rows
@@ -251,61 +307,67 @@ def parse_batter(row):
         return None
 
     return {
-        "player_id": player_id,
 
-        "player_name": get_field(
-            row,
-            "last_name, first_name",
-            "player_name",
-            "player",
-        ),
+        "player_id":
+            player_id,
 
-        "year": SEASON,
+        "player_name":
+            get_field(
+                row,
+                "last_name, first_name",
+                "player_name",
+                "player",
+            ),
 
-        "stats": {
+        "year":
+            SEASON,
 
-            # BASIC
-            "g": to_number(
+        # -------------------------
+        # BASIC
+        # -------------------------
+
+        "g":
+            to_number(
                 get_field(row, "g")
             ),
 
-            "ab": to_number(
+        "ab":
+            to_number(
                 get_field(row, "ab")
             ),
 
-            "pa": to_number(
+        "pa":
+            to_number(
                 get_field(row, "pa")
             ),
 
-            "h": to_number(
+        "h":
+            to_number(
                 get_field(row, "h")
             ),
 
-            "1b": to_number(
+        "1b":
+            to_number(
                 get_field(row, "1b")
             ),
 
-            "2b": to_number(
+        "2b":
+            to_number(
                 get_field(row, "2b")
             ),
 
-            "3b": to_number(
+        "3b":
+            to_number(
                 get_field(row, "3b")
             ),
 
-            "hr": to_number(
+        "hr":
+            to_number(
                 get_field(row, "hr")
             ),
 
-            "rbi": to_number(
-                get_field(row, "rbi")
-            ),
-
-            "bb": to_number(
-                get_field(row, "bb")
-            ),
-
-            "so": to_number(
+        "so":
+            to_number(
                 get_field(
                     row,
                     "so",
@@ -313,15 +375,29 @@ def parse_batter(row):
                 )
             ),
 
-            "sb": to_number(
-                get_field(row, "sb")
+        "bb":
+            to_number(
+                get_field(row, "bb")
             ),
 
-            "cs": to_number(
-                get_field(row, "cs")
+        "k_percent":
+            to_number(
+                get_field(
+                    row,
+                    "k_percent",
+                )
             ),
 
-            "avg": to_number(
+        "bb_percent":
+            to_number(
+                get_field(
+                    row,
+                    "bb_percent",
+                )
+            ),
+
+        "avg":
+            to_number(
                 get_field(
                     row,
                     "avg",
@@ -329,68 +405,90 @@ def parse_batter(row):
                 )
             ),
 
-            "obp": to_number(
-                get_field(row, "obp")
-            ),
-
-            "slg": to_number(
+        "slg":
+            to_number(
                 get_field(row, "slg")
             ),
 
-            "ops": to_number(
+        "obp":
+            to_number(
+                get_field(row, "obp")
+            ),
+
+        "ops":
+            to_number(
                 get_field(row, "ops")
             ),
 
-            "iso": to_number(
+        "iso":
+            to_number(
                 get_field(row, "iso")
             ),
 
-            "babip": to_number(
+        "babip":
+            to_number(
                 get_field(row, "babip")
             ),
 
-            # STATCAST
-            "xba": to_number(
-                get_field(row, "xba")
+        "rbi":
+            to_number(
+                get_field(row, "rbi")
             ),
 
-            "xslg": to_number(
-                get_field(row, "xslg")
+        "sb":
+            to_number(
+                get_field(row, "sb")
             ),
 
-            "xwoba": to_number(
+        "cs":
+            to_number(
+                get_field(row, "cs")
+            ),
+
+        # -------------------------
+        # SAVANT
+        # -------------------------
+
+        "xwoba":
+            to_number(
                 get_field(row, "xwoba")
             ),
 
-            "xobp": to_number(
+        "xba":
+            to_number(
+                get_field(row, "xba")
+            ),
+
+        "xslg":
+            to_number(
+                get_field(row, "xslg")
+            ),
+
+        "xobp":
+            to_number(
                 get_field(row, "xobp")
             ),
 
-            "xiso": to_number(
+        "xiso":
+            to_number(
                 get_field(row, "xiso")
             ),
 
-            "woba": to_number(
+        "woba":
+            to_number(
                 get_field(row, "woba")
             ),
 
-            "wobacon": to_number(
-                get_field(row, "wobacon")
-            ),
-
-            "xwobacon": to_number(
-                get_field(row, "xwobacon")
-            ),
-
-            # CONTACT
-            "exit_velocity": to_number(
+        "exit_velocity":
+            to_number(
                 get_field(
                     row,
                     "exit_velocity_avg",
                 )
             ),
 
-            "max_ev": to_number(
+        "max_ev":
+            to_number(
                 get_field(
                     row,
                     "exit_velocity_max",
@@ -398,14 +496,16 @@ def parse_batter(row):
                 )
             ),
 
-            "launch_angle": to_number(
+        "launch_angle":
+            to_number(
                 get_field(
                     row,
                     "launch_angle_avg",
                 )
             ),
 
-            "barrels": to_number(
+        "barrels":
+            to_number(
                 get_field(
                     row,
                     "barrels",
@@ -413,41 +513,45 @@ def parse_batter(row):
                 )
             ),
 
-            "barrel_percent": to_number(
+        "barrel_percent":
+            to_number(
                 get_field(
                     row,
                     "barrel_batted_rate",
                 )
             ),
 
-            "hard_hit_percent": to_number(
+        "hard_hit_percent":
+            to_number(
                 get_field(
                     row,
                     "hard_hit_percent",
                 )
             ),
 
-            "whiff_percent": to_number(
+        "whiff_percent":
+            to_number(
                 get_field(
                     row,
                     "whiff_percent",
                 )
             ),
 
-            "sprint_speed": to_number(
+        "sprint_speed":
+            to_number(
                 get_field(
                     row,
                     "sprint_speed",
                 )
             ),
 
-            "oaa": to_number(
+        "oaa":
+            to_number(
                 get_field(
                     row,
                     "oaa",
                 )
             ),
-        },
     }
 
 
@@ -463,45 +567,57 @@ def parse_pitcher(row):
         return None
 
     return {
-        "player_id": player_id,
 
-        "player_name": get_field(
-            row,
-            "last_name, first_name",
-            "player_name",
-            "player",
-        ),
+        "player_id":
+            player_id,
 
-        "year": SEASON,
+        "player_name":
+            get_field(
+                row,
+                "last_name, first_name",
+                "player_name",
+                "player",
+            ),
 
-        "stats": {
+        "year":
+            SEASON,
 
-            # BASIC
-            "g": to_number(
+        # -------------------------
+        # BASIC
+        # -------------------------
+
+        "g":
+            to_number(
                 get_field(row, "g")
             ),
 
-            "gs": to_number(
+        "gs":
+            to_number(
                 get_field(row, "gs")
             ),
 
-            "ip": to_number(
+        "ip":
+            to_number(
                 get_field(row, "ip")
             ),
 
-            "bf": to_number(
+        "bf":
+            to_number(
                 get_field(row, "bf")
             ),
 
-            "w": to_number(
+        "w":
+            to_number(
                 get_field(row, "w")
             ),
 
-            "l": to_number(
+        "l":
+            to_number(
                 get_field(row, "l")
             ),
 
-            "sv": to_number(
+        "sv":
+            to_number(
                 get_field(
                     row,
                     "s",
@@ -510,23 +626,28 @@ def parse_pitcher(row):
                 )
             ),
 
-            "h": to_number(
+        "h":
+            to_number(
                 get_field(row, "h")
             ),
 
-            "er": to_number(
+        "er":
+            to_number(
                 get_field(row, "er")
             ),
 
-            "hr": to_number(
+        "hr":
+            to_number(
                 get_field(row, "hr")
             ),
 
-            "bb": to_number(
+        "bb":
+            to_number(
                 get_field(row, "bb")
             ),
 
-            "so": to_number(
+        "so":
+            to_number(
                 get_field(
                     row,
                     "so",
@@ -534,52 +655,65 @@ def parse_pitcher(row):
                 )
             ),
 
-            "era": to_number(
+        "era":
+            to_number(
                 get_field(row, "era")
             ),
 
-            "whip": to_number(
+        "whip":
+            to_number(
                 get_field(row, "whip")
             ),
 
-            "baa": to_number(
+        "baa":
+            to_number(
                 get_field(row, "baa")
             ),
 
-            # STATCAST
-            "xba": to_number(
-                get_field(row, "xba")
-            ),
+        # -------------------------
+        # SAVANT
+        # -------------------------
 
-            "xslg": to_number(
-                get_field(row, "xslg")
-            ),
-
-            "xwoba": to_number(
+        "xwoba":
+            to_number(
                 get_field(row, "xwoba")
             ),
 
-            "xobp": to_number(
+        "xba":
+            to_number(
+                get_field(row, "xba")
+            ),
+
+        "xslg":
+            to_number(
+                get_field(row, "xslg")
+            ),
+
+        "xobp":
+            to_number(
                 get_field(row, "xobp")
             ),
 
-            "xiso": to_number(
+        "xiso":
+            to_number(
                 get_field(row, "xiso")
             ),
 
-            "woba": to_number(
+        "woba":
+            to_number(
                 get_field(row, "woba")
             ),
 
-            # CONTACT ALLOWED
-            "exit_velocity": to_number(
+        "exit_velocity":
+            to_number(
                 get_field(
                     row,
                     "exit_velocity_avg",
                 )
             ),
 
-            "max_ev": to_number(
+        "max_ev":
+            to_number(
                 get_field(
                     row,
                     "exit_velocity_max",
@@ -587,14 +721,16 @@ def parse_pitcher(row):
                 )
             ),
 
-            "launch_angle": to_number(
+        "launch_angle":
+            to_number(
                 get_field(
                     row,
                     "launch_angle_avg",
                 )
             ),
 
-            "barrels": to_number(
+        "barrels":
+            to_number(
                 get_field(
                     row,
                     "barrels",
@@ -602,48 +738,72 @@ def parse_pitcher(row):
                 )
             ),
 
-            "barrel_percent": to_number(
+        "barrel_percent":
+            to_number(
                 get_field(
                     row,
                     "barrel_batted_rate",
                 )
             ),
 
-            "hard_hit_percent": to_number(
+        "hard_hit_percent":
+            to_number(
                 get_field(
                     row,
                     "hard_hit_percent",
                 )
             ),
 
-            "whiff_percent": to_number(
+        "whiff_percent":
+            to_number(
                 get_field(
                     row,
                     "whiff_percent",
                 )
             ),
 
-            "k_percent": to_number(
+        "k_percent":
+            to_number(
                 get_field(
                     row,
                     "k_percent",
                 )
             ),
 
-            "bb_percent": to_number(
+        "bb_percent":
+            to_number(
                 get_field(
                     row,
                     "bb_percent",
                 )
             ),
 
-            "xera": to_number(
+        "xera":
+            to_number(
                 get_field(
                     row,
                     "xera",
                 )
             ),
-        },
+
+        "fb_velocity":
+            to_number(
+                get_field(
+                    row,
+                    "release_speed",
+                    "fb_velocity",
+                )
+            ),
+
+        "fb_spin":
+            to_number(
+                get_field(
+                    row,
+                    "release_spin_rate",
+                    "avg_spin_rate",
+                    "fb_spin",
+                )
+            ),
     }
 
 
@@ -658,64 +818,32 @@ def main():
     )
 
     print(
-        "PHILLIES SAVANT UPDATE"
+        "PHILLIES BASEBALL SAVANT UPDATE"
     )
 
     print(
         "========================================"
     )
 
-    # -----------------------------------------------------
-    # ROSTER
-    # -----------------------------------------------------
+    # =====================================================
+    # PLAYERS.JSON
+    # =====================================================
 
-    roster_data = load_json(
-        ROSTER_FILE
-    )
-
-    # roster.json の構造に対応
-    if isinstance(
-        roster_data,
-        dict
-    ):
-
-        roster_players = (
-            roster_data.get(
-                "players",
-                []
-            )
-        )
-
-    elif isinstance(
-        roster_data,
-        list
-    ):
-
-        roster_players = roster_data
-
-    else:
-
-        raise RuntimeError(
-            "roster.json の形式を認識できません。"
-        )
+    players = load_players()
 
     roster_ids = set()
 
-    for player in roster_players:
+    for player in players:
 
-        value = (
-            player.get("id")
-            or player.get("player_id")
-            or player.get("playerId")
-        )
+        player_id = player.get("id")
 
-        if value is None:
+        if player_id is None:
             continue
 
         try:
 
             roster_ids.add(
-                int(value)
+                int(player_id)
             )
 
         except (
@@ -723,20 +851,30 @@ def main():
             TypeError,
         ):
 
-            pass
+            continue
 
     print(
-        "Roster IDs:",
+        "Players in players.json:",
+        len(players),
+    )
+
+    print(
+        "Player IDs:",
         len(roster_ids),
     )
 
-    # -----------------------------------------------------
-    # BATTER SELECTIONS
-    # -----------------------------------------------------
+    if not roster_ids:
+
+        raise RuntimeError(
+            "players.jsonから選手IDを取得できませんでした。"
+        )
+
+    # =====================================================
+    # BATTER
+    # =====================================================
 
     batter_selections = [
 
-        # Standard
         "g",
         "ab",
         "pa",
@@ -759,156 +897,156 @@ def main():
         "sb",
         "cs",
 
-        # Statcast
-        "xba",
-        "xslg",
         "woba",
         "xwoba",
+        "xba",
+        "xslg",
         "xobp",
         "xiso",
-        "wobacon",
-        "xwobacon",
 
-        # Contact
         "exit_velocity_avg",
         "exit_velocity_max",
         "launch_angle_avg",
         "barrels",
         "barrel_batted_rate",
         "hard_hit_percent",
-
-        # Other
         "whiff_percent",
+
         "sprint_speed",
         "oaa",
     ]
 
-    # -----------------------------------------------------
-    # PITCHER SELECTIONS
-    # -----------------------------------------------------
+    # =====================================================
+    # PITCHER
+    # =====================================================
 
     pitcher_selections = [
 
-        # Standard
         "g",
         "gs",
         "ip",
         "bf",
-        "h",
-        "hr",
-        "so",
-        "bb",
-        "era",
-        "baa",
         "w",
         "l",
         "s",
+        "h",
         "er",
+        "hr",
+        "bb",
+        "so",
+        "era",
         "whip",
+        "baa",
 
-        # Statcast
-        "xba",
-        "xslg",
+        "k_percent",
+        "bb_percent",
+
         "woba",
         "xwoba",
+        "xba",
+        "xslg",
         "xobp",
         "xiso",
 
-        # Contact
         "exit_velocity_avg",
         "exit_velocity_max",
         "launch_angle_avg",
         "barrels",
         "barrel_batted_rate",
         "hard_hit_percent",
-
-        # Other
         "whiff_percent",
-        "k_percent",
-        "bb_percent",
+
         "xera",
+
+        "release_speed",
+        "release_spin_rate",
     ]
 
+    # =====================================================
+    # DOWNLOAD
+    # =====================================================
+
+    batter_rows = fetch(
+        "batter",
+        batter_selections,
+    )
+
+    pitcher_rows = fetch(
+        "pitcher",
+        pitcher_selections,
+    )
+
+    # =====================================================
+    # PARSE
+    # =====================================================
+
     batters = []
+
+    for row in batter_rows:
+
+        player = parse_batter(row)
+
+        if player is None:
+            continue
+
+        if player["player_id"] not in roster_ids:
+            continue
+
+        batters.append(
+            player
+        )
+
     pitchers = []
 
-    # -----------------------------------------------------
-    # BATTERS
-    # -----------------------------------------------------
+    for row in pitcher_rows:
 
-    try:
+        player = parse_pitcher(row)
 
-        rows = fetch(
-            "batter",
-            batter_selections,
+        if player is None:
+            continue
+
+        if player["player_id"] not in roster_ids:
+            continue
+
+        pitchers.append(
+            player
         )
 
-        for row in rows:
+    # =====================================================
+    # SORT
+    # =====================================================
 
-            parsed = parse_batter(
-                row
-            )
+    batters.sort(
+        key=lambda x: x["player_name"] or ""
+    )
 
-            if parsed is None:
-                continue
+    pitchers.sort(
+        key=lambda x: x["player_name"] or ""
+    )
 
-            if (
-                not roster_ids
-                or parsed["player_id"]
-                in roster_ids
-            ):
+    # =====================================================
+    # SAFETY CHECK
+    # =====================================================
 
-                batters.append(
-                    parsed
-                )
+    if not batters and not pitchers:
 
-    except Exception as error:
-
-        print(
-            "BATTER ERROR:",
-            repr(error),
+        raise RuntimeError(
+            "SavantからPhillies選手の成績を1人も取得できませんでした。"
         )
 
-    # -----------------------------------------------------
-    # PITCHERS
-    # -----------------------------------------------------
+    print(
+        "Batters:",
+        len(batters),
+    )
 
-    try:
+    print(
+        "Pitchers:",
+        len(pitchers),
+    )
 
-        rows = fetch(
-            "pitcher",
-            pitcher_selections,
-        )
-
-        for row in rows:
-
-            parsed = parse_pitcher(
-                row
-            )
-
-            if parsed is None:
-                continue
-
-            if (
-                not roster_ids
-                or parsed["player_id"]
-                in roster_ids
-            ):
-
-                pitchers.append(
-                    parsed
-                )
-
-    except Exception as error:
-
-        print(
-            "PITCHER ERROR:",
-            repr(error),
-        )
-
-    # -----------------------------------------------------
+    # =====================================================
     # OUTPUT
-    # -----------------------------------------------------
+    # =====================================================
 
     output = {
 
@@ -939,15 +1077,19 @@ def main():
             pitchers,
     }
 
+    # =====================================================
+    # WRITE savant.json
+    # =====================================================
+
     with open(
         OUTPUT_FILE,
         "w",
         encoding="utf-8",
-    ) as file:
+    ) as f:
 
         json.dump(
             output,
-            file,
+            f,
             ensure_ascii=False,
             indent=2,
         )
@@ -958,7 +1100,12 @@ def main():
     )
 
     print(
-        "Savant update completed."
+        "SUCCESS"
+    )
+
+    print(
+        "Output:",
+        OUTPUT_FILE,
     )
 
     print(
@@ -969,11 +1116,6 @@ def main():
     print(
         "Pitchers:",
         len(pitchers),
-    )
-
-    print(
-        "Output:",
-        OUTPUT_FILE,
     )
 
     print(
