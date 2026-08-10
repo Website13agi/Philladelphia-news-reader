@@ -1,89 +1,92 @@
 import json
-import requests
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 # =========================================================
-# SETTINGS
+# CONFIG
 # =========================================================
 
 TEAM_ID = 143
-TEAM_NAME = "Philadelphia Phillies"
-
 API_BASE = "https://statsapi.mlb.com/api/v1"
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+OUTPUT_FILE = Path("players.json")
 
-OUTPUT_FILE = ROOT_DIR / "players.json"
-
-
-HEADERS = {
-    "User-Agent":
-        "Phillies-Daily-Roster/1.0"
-}
+USER_AGENT = "Phillies-Daily/2.0"
 
 
 # =========================================================
-# API
+# HTTP
 # =========================================================
 
-def get_json(url, params=None):
-
-    response = requests.get(
+def get_json(url):
+    request = urllib.request.Request(
         url,
-        params=params,
-        headers=HEADERS,
-        timeout=30
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+        },
     )
 
-    response.raise_for_status()
+    try:
+        with urllib.request.urlopen(
+            request,
+            timeout=30
+        ) as response:
 
-    return response.json()
+            raw = response.read().decode("utf-8")
+
+            return json.loads(raw)
+
+    except urllib.error.HTTPError as error:
+
+        raise RuntimeError(
+            f"MLB API HTTP error: "
+            f"{error.code} {url}"
+        ) from error
+
+    except urllib.error.URLError as error:
+
+        raise RuntimeError(
+            f"MLB API connection error: "
+            f"{error.reason}"
+        ) from error
 
 
 # =========================================================
-# GET ROSTER
+# MLB API
 # =========================================================
 
-def get_roster(roster_type):
-
+def get_team_roster(roster_type):
     url = (
-        f"{API_BASE}/teams/"
-        f"{TEAM_ID}/roster"
-    )
-
-    data = get_json(
-        url,
-        {
-            "rosterType": roster_type
-        }
-    )
-
-    return data.get(
-        "roster",
-        []
-    )
-
-
-# =========================================================
-# GET PLAYER PROFILE
-# =========================================================
-
-def get_player(player_id):
-
-    url = (
-        f"{API_BASE}/people/"
-        f"{player_id}"
+        f"{API_BASE}/teams/{TEAM_ID}/roster"
+        f"?rosterType={roster_type}"
     )
 
     data = get_json(url)
 
-    people =
-        data.get(
-            "people",
-            []
+    roster = data.get("roster")
+
+    if not isinstance(roster, list):
+        raise RuntimeError(
+            f"Invalid roster response: {roster_type}"
         )
+
+    return roster
+
+
+def get_person(player_id):
+    url = (
+        f"{API_BASE}/people/"
+        f"{player_id}"
+        f"?hydrate=transactions"
+    )
+
+    data = get_json(url)
+
+    people = data.get("people", [])
 
     if not people:
         return {}
@@ -92,150 +95,496 @@ def get_player(player_id):
 
 
 # =========================================================
-# POSITION GROUP
+# POSITION
 # =========================================================
 
-def get_position_group(position_code):
+def normalize_position(position):
+    if not position:
+        return {
+            "group": "Other",
+            "detail": ""
+        }
 
-    code =
-        str(position_code or "")
-        .upper()
+    code = str(
+        position.get("code", "")
+    ).upper()
 
+    name = str(
+        position.get("name", "")
+    )
 
-    if code in {
-        "P",
-        "SP",
-        "RP"
-    }:
-        return "pitcher"
+    # Pitcher
+    if code == "P" or name == "Pitcher":
 
+        return {
+            "group": "Pitchers",
+            "detail": "P"
+        }
 
-    if code == "C":
-        return "catcher"
+    # Catcher
+    if code == "C" or name == "Catcher":
 
+        return {
+            "group": "Catchers",
+            "detail": "C"
+        }
 
-    if code in {
+    # Infield
+    infield = {
         "1B",
         "2B",
         "3B",
         "SS"
-    }:
-        return "infielder"
+    }
 
+    if code in infield:
 
-    if code in {
+        return {
+            "group": "Infielders",
+            "detail": code
+        }
+
+    # Outfield
+    outfield = {
         "LF",
         "CF",
         "RF",
         "OF"
-    }:
-        return "outfielder"
+    }
 
+    if code in outfield:
 
-    # DHは野手として扱う
-    if code == "DH":
-        return "infielder"
+        return {
+            "group": "Outfielders",
+            "detail": code
+        }
 
+    # DH
+    if (
+        code == "DH"
+        or name == "Designated Hitter"
+    ):
 
-    return "infielder"
+        return {
+            "group": "Infielders",
+            "detail": "DH"
+        }
+
+    return {
+        "group": "Other",
+        "detail": code or name
+    }
 
 
 # =========================================================
-# POSITION LABEL
+# IL DETECTION
 # =========================================================
 
-def get_position_label(
-    profile,
-    roster_entry
-):
+def is_il_status(status):
+    if not status:
+        return False
 
-    primary_position =
-        profile.get(
-            "primaryPosition",
-            {}
+    code = str(
+        status.get("code", "")
+    ).upper()
+
+    description = str(
+        status.get("description", "")
+    ).lower()
+
+    keywords = [
+        "injured",
+        "injured list",
+        "il",
+        "10-day",
+        "15-day",
+        "60-day",
+    ]
+
+    if "IL" in code:
+        return True
+
+    for keyword in keywords:
+
+        if keyword in description:
+            return True
+
+    return False
+
+
+# =========================================================
+# TRANSACTION / IL INFORMATION
+# =========================================================
+
+def extract_il_transaction(person):
+    transactions = person.get(
+        "transactions",
+        []
+    )
+
+    if not isinstance(
+        transactions,
+        list
+    ):
+        return None
+
+    il_transactions = []
+
+    for transaction in transactions:
+
+        description = str(
+            transaction.get(
+                "description",
+                ""
+            )
         )
 
-
-    code =
-        primary_position.get(
-            "abbreviation"
+        lower_description = (
+            description.lower()
         )
 
+        if (
+            "injured list"
+            in lower_description
+        ):
 
-    if not code:
-
-        code =
-            (
-                roster_entry
-                .get("position", {})
-                .get("abbreviation")
+            effective_date = (
+                transaction.get(
+                    "effectiveDate"
+                )
+                or transaction.get(
+                    "date"
+                )
             )
 
+            il_transactions.append(
+                {
+                    "date": effective_date,
+                    "description": description
+                }
+            )
 
-    if code:
-        return code
+    if not il_transactions:
+        return None
+
+    # 最新のIL関連トランザクション
+    il_transactions.sort(
+        key=lambda item:
+            item.get("date") or "",
+        reverse=True
+    )
+
+    latest = il_transactions[0]
+
+    return {
+        "date": latest.get("date"),
+        "description":
+            latest.get(
+                "description",
+                ""
+            )
+    }
 
 
-    return "—"
+# =========================================================
+# IL DAYS
+# =========================================================
+
+def calculate_il_days(start_date):
+
+    if not start_date:
+        return None
+
+    try:
+
+        start = datetime.fromisoformat(
+            start_date.replace(
+                "Z",
+                "+00:00"
+            )
+        )
+
+        now = datetime.now(
+            timezone.utc
+        )
+
+        days = (
+            now.date()
+            -
+            start.date()
+        ).days
+
+        if days < 0:
+            return 0
+
+        return days
+
+    except Exception:
+
+        return None
 
 
 # =========================================================
 # STATUS
 # =========================================================
 
-def get_status(
+def determine_status(
     player_id,
     active_ids,
-    roster40_entry
+    forty_ids,
+    il_ids
 ):
 
-    if player_id in active_ids:
-        return "Active"
-
-
-    status =
-        roster40_entry.get(
-            "status",
-            {}
-        )
-
-
-    description =
-        str(
-            status.get(
-                "description",
-                ""
-            )
-        ).lower()
-
-
-    code =
-        str(
-            status.get(
-                "code",
-                ""
-            )
-        ).lower()
-
-
-    combined =
-        f"{description} {code}"
-
-
-    if (
-        "injured" in combined
-        or "injury" in combined
-        or "10-day" in combined
-        or "15-day" in combined
-        or "60-day" in combined
-        or "7-day" in combined
-        or "il" in combined
-    ):
+    if player_id in il_ids:
 
         return "IL"
 
+    if player_id in active_ids:
 
-    return "40-Man"
+        return "ACTIVE"
+
+    if player_id in forty_ids:
+
+        return "40-MAN"
+
+    return "OTHER"
+
+
+# =========================================================
+# PLAYER CREATION
+# =========================================================
+
+def build_player(
+    entry,
+    active_ids,
+    forty_ids,
+    il_ids
+):
+
+    person = entry.get(
+        "person",
+        {}
+    )
+
+    player_id = person.get("id")
+
+    if not player_id:
+        return None
+
+    position_data = (
+        entry.get("position")
+        or {}
+    )
+
+    normalized = normalize_position(
+        position_data
+    )
+
+    status = determine_status(
+        player_id,
+        active_ids,
+        forty_ids,
+        il_ids
+    )
+
+    # -----------------------------------------------------
+    # Person information
+    # -----------------------------------------------------
+
+    full_person = {}
+
+    try:
+        full_person = get_person(
+            player_id
+        )
+    except Exception as error:
+
+        print(
+            f"Warning: "
+            f"person lookup failed for "
+            f"{player_id}: {error}"
+        )
+
+    # -----------------------------------------------------
+    # Bat / Throw
+    # -----------------------------------------------------
+
+    bat_side = (
+        full_person
+        .get("batSide", {})
+        .get("description")
+    )
+
+    throw_side = (
+        full_person
+        .get("pitchHand", {})
+        .get("description")
+    )
+
+    # Fallback
+    if not bat_side:
+
+        bat_side = (
+            person
+            .get("batSide", {})
+            .get("description")
+        )
+
+    if not throw_side:
+
+        throw_side = (
+            person
+            .get("pitchHand", {})
+            .get("description")
+        )
+
+    # -----------------------------------------------------
+    # IL
+    # -----------------------------------------------------
+
+    il_transaction = (
+        extract_il_transaction(
+            full_person
+        )
+    )
+
+    il_start_date = None
+    il_days = None
+    il_description = ""
+
+    if status == "IL":
+
+        if il_transaction:
+
+            il_start_date = (
+                il_transaction.get(
+                    "date"
+                )
+            )
+
+            il_description = (
+                il_transaction.get(
+                    "description",
+                    ""
+                )
+            )
+
+            il_days = calculate_il_days(
+                il_start_date
+            )
+
+    # -----------------------------------------------------
+    # Player
+    # -----------------------------------------------------
+
+    player = {
+
+        "id":
+            player_id,
+
+        "name":
+            person.get(
+                "fullName",
+                ""
+            ),
+
+        "number":
+            entry.get(
+                "jerseyNumber"
+            ),
+
+        "position":
+            normalized["group"],
+
+        "position_detail":
+            normalized["detail"],
+
+        "bat_side":
+            bat_side or "",
+
+        "throw_side":
+            throw_side or "",
+
+        "status":
+            status,
+
+        "il_start_date":
+            il_start_date,
+
+        "il_days":
+            il_days,
+
+        "il_description":
+            il_description,
+
+        "mlb_url":
+            (
+                "https://www.mlb.com/player/"
+                f"{player_id}"
+            )
+    }
+
+    return player
+
+
+# =========================================================
+# SORT
+# =========================================================
+
+POSITION_ORDER = {
+
+    "Pitchers": 1,
+
+    "Catchers": 2,
+
+    "Infielders": 3,
+
+    "Outfielders": 4,
+
+    "Other": 5
+}
+
+
+def number_value(number):
+
+    if number is None:
+        return 9999
+
+    try:
+
+        return int(
+            str(number).strip()
+        )
+
+    except Exception:
+
+        return 9999
+
+
+def sort_players(players):
+
+    return sorted(
+        players,
+        key=lambda player: (
+            POSITION_ORDER.get(
+                player.get(
+                    "position"
+                ),
+                99
+            ),
+
+            number_value(
+                player.get(
+                    "number"
+                )
+            ),
+
+            player.get(
+                "name",
+                ""
+            )
+        )
+    )
 
 
 # =========================================================
@@ -245,256 +594,290 @@ def get_status(
 def main():
 
     print(
-        "Fetching Phillies MLB roster..."
+        "===================================="
     )
 
+    print(
+        "Phillies roster updater"
+    )
 
-    active_roster =
-        get_roster(
-            "active"
-        )
+    print(
+        "Source: MLB Stats API"
+    )
 
+    print(
+        "===================================="
+    )
 
-    roster40 =
-        get_roster(
-            "40Man"
-        )
+    # -----------------------------------------------------
+    # Fetch rosters
+    # -----------------------------------------------------
 
+    print(
+        "Fetching active roster..."
+    )
+
+    active_roster = get_team_roster(
+        "active"
+    )
+
+    print(
+        f"Active roster: "
+        f"{len(active_roster)}"
+    )
+
+    print(
+        "Fetching 40-man roster..."
+    )
+
+    forty_roster = get_team_roster(
+        "40Man"
+    )
+
+    print(
+        f"40-man roster: "
+        f"{len(forty_roster)}"
+    )
+
+    print(
+        "Fetching full roster..."
+    )
+
+    full_roster = get_team_roster(
+        "fullRoster"
+    )
+
+    print(
+        f"Full roster: "
+        f"{len(full_roster)}"
+    )
+
+    # -----------------------------------------------------
+    # IDs
+    # -----------------------------------------------------
 
     active_ids = {
-        int(
-            item["person"]["id"]
+        entry["person"]["id"]
+        for entry in active_roster
+        if entry.get("person")
+        and entry["person"].get("id")
+    }
+
+    forty_ids = {
+        entry["person"]["id"]
+        for entry in forty_roster
+        if entry.get("person")
+        and entry["person"].get("id")
+    }
+
+    # -----------------------------------------------------
+    # Start with 40-man + full roster
+    # -----------------------------------------------------
+
+    entries = {}
+
+    for entry in forty_roster:
+
+        person = entry.get(
+            "person",
+            {}
         )
-        for item in active_roster
-        if item.get("person", {}).get("id")
-    }
 
+        player_id = person.get("id")
 
-    roster40_by_id = {
-        int(
-            item["person"]["id"]
-        ): item
-        for item in roster40
-        if item.get("person", {}).get("id")
-    }
+        if player_id:
 
+            entries[player_id] = entry
 
-    print(
-        f"Active roster: {len(active_roster)}"
-    )
+    for entry in full_roster:
 
-    print(
-        f"40-man roster: {len(roster40)}"
-    )
+        person = entry.get(
+            "person",
+            {}
+        )
 
+        player_id = person.get("id")
 
-    players = []
+        if player_id:
 
-
-    for roster_entry in roster40:
-
-        person =
-            roster_entry.get(
-                "person",
-                {}
+            entries.setdefault(
+                player_id,
+                entry
             )
 
+    # -----------------------------------------------------
+    # Find IL players
+    # -----------------------------------------------------
 
-        player_id =
-            person.get("id")
+    il_ids = set()
 
+    print(
+        "Checking injured-list status..."
+    )
 
-        if not player_id:
-            continue
+    for player_id in list(entries.keys()):
 
+        entry = entries[player_id]
+
+        status = entry.get(
+            "status",
+            {}
+        )
+
+        if is_il_status(status):
+
+            il_ids.add(
+                player_id
+            )
+
+    # -----------------------------------------------------
+    # Build players
+    # -----------------------------------------------------
+
+    players = {}
+
+    total = len(entries)
+
+    print(
+        f"Processing "
+        f"{total} players..."
+    )
+
+    for index, entry in enumerate(
+        entries.values(),
+        start=1
+    ):
+
+        person = entry.get(
+            "person",
+            {}
+        )
+
+        player_id = person.get(
+            "id"
+        )
 
         print(
-            "Fetching:",
-            person.get("fullName"),
-            player_id
+            f"[{index}/{total}] "
+            f"{person.get('fullName', '')}"
         )
 
+        player = build_player(
+            entry,
+            active_ids,
+            forty_ids,
+            il_ids
+        )
 
-        try:
+        if player:
 
-            profile =
-                get_player(
-                    player_id
-                )
+            players[
+                player["id"]
+            ] = player
 
-        except Exception as error:
-
-            print(
-                "Profile error:",
-                error
-            )
-
-            profile = {}
-
-
-        position =
-            get_position_label(
-                profile,
-                roster_entry
-            )
-
-
-        group =
-            get_position_group(
-                position
-            )
-
-
-        bat_side =
-            profile.get(
-                "batSide",
-                {}
-            )
-
-
-        pitch_hand =
-            profile.get(
-                "pitchHand",
-                {}
-            )
-
-
-        bats =
-            bat_side.get(
-                "code"
-            )
-
-
-        throws =
-            pitch_hand.get(
-                "code"
-            )
-
-
-        number =
-            (
-                profile.get(
-                    "primaryNumber"
-                )
-                or roster_entry.get(
-                    "jerseyNumber"
-                )
-                or ""
-            )
-
-
-        status =
-            get_status(
-                int(player_id),
-                active_ids,
-                roster_entry
-            )
-
-
-        players.append({
-
-            "id":
-                int(player_id),
-
-            "name":
-                profile.get(
-                    "fullName"
-                )
-                or person.get(
-                    "fullName"
-                ),
-
-            "number":
-                str(number),
-
-            "group":
-                group,
-
-            "position":
-                position,
-
-            "bats":
-                bats or "",
-
-            "throws":
-                throws or "",
-
-            "status":
-                status,
-
-            "roster40":
-                True,
-
-            "mlbUrl":
-                (
-                    "https://www.mlb.com/"
-                    "player/"
-                    f"{player_id}"
-                )
-
-        })
-
-
-    # =====================================================
-    # SORT BY JERSEY NUMBER
-    # =====================================================
-
-    def sort_key(player):
-
-        try:
-            return int(
-                player["number"]
-            )
-
-        except (
-            ValueError,
-            TypeError
-        ):
-            return 999
-
-
-    players.sort(
-        key=sort_key
+    result = sort_players(
+        list(
+            players.values()
+        )
     )
 
+    # -----------------------------------------------------
+    # Safety check
+    # -----------------------------------------------------
 
-    # =====================================================
-    # OUTPUT
-    # =====================================================
+    if not result:
+
+        raise RuntimeError(
+            "Roster update returned "
+            "zero players. "
+            "Existing players.json "
+            "will NOT be overwritten."
+        )
+
+    # -----------------------------------------------------
+    # Counts
+    # -----------------------------------------------------
+
+    active_count = sum(
+        1
+        for player in result
+        if player["status"]
+        == "ACTIVE"
+    )
+
+    forty_count = sum(
+        1
+        for player in result
+        if player["status"]
+        == "40-MAN"
+    )
+
+    il_count = sum(
+        1
+        for player in result
+        if player["status"]
+        == "IL"
+    )
+
+    # -----------------------------------------------------
+    # Output
+    # -----------------------------------------------------
 
     output = {
 
-        "team": TEAM_NAME,
-
-        "teamId": TEAM_ID,
-
-        "source":
-            "MLB Stats API",
-
-        "updatedAt":
+        "updated_at":
             datetime.now(
                 timezone.utc
             ).isoformat(),
 
-        "players":
-            players
+        "source":
+            "MLB Stats API",
 
+        "source_url":
+            (
+                "https://statsapi.mlb.com/"
+                "api/v1/teams/143/roster"
+            ),
+
+        "team":
+            "Philadelphia Phillies",
+
+        "team_id":
+            TEAM_ID,
+
+        "counts": {
+
+            "total":
+                len(result),
+
+            "active":
+                active_count,
+
+            "forty_man":
+                forty_count,
+
+            "il":
+                il_count
+        },
+
+        "players":
+            result
     }
 
+    # -----------------------------------------------------
+    # Write
+    # -----------------------------------------------------
 
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
+    OUTPUT_FILE.write_text(
 
-        json.dump(
+        json.dumps(
             output,
-            file,
             ensure_ascii=False,
             indent=2
-        )
+        ),
 
+        encoding="utf-8"
+    )
 
     print()
     print(
@@ -502,17 +885,33 @@ def main():
     )
 
     print(
-        f"Saved {len(players)} players"
+        "Roster update completed"
     )
 
     print(
-        f"Output: {OUTPUT_FILE}"
+        f"Total: {len(result)}"
+    )
+
+    print(
+        f"Active: {active_count}"
+    )
+
+    print(
+        f"40-Man: {forty_count}"
+    )
+
+    print(
+        f"IL: {il_count}"
     )
 
     print(
         "===================================="
     )
 
+
+# =========================================================
+# START
+# =========================================================
 
 if __name__ == "__main__":
     main()
