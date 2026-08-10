@@ -3953,10 +3953,122 @@ function createPlayerFactCard(player) {
    OPEN / CLOSE PLAYER CARD
 ========================================================= */
 
+/* =========================================================
+OPEN / CLOSE PLAYER CARD
+========================================================= */
+
 function togglePlayerCard(
     player,
     playerCard
 ) {
+
+    /*
+     * 現在開いている詳細カードを取得
+     */
+    const existing =
+        document.querySelector(
+            ".player-fact-card"
+        );
+
+
+    /*
+     * 今タップした選手の直後に
+     * 詳細カードがある場合
+     *
+     * → 閉じる
+     */
+    if (
+        existing &&
+        existing.previousElementSibling === playerCard
+    ) {
+
+        existing.remove();
+
+        playerCard.classList.remove(
+            "selected-player"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * 別の選手の詳細カードが
+     * 開いていたら閉じる
+     */
+    if (
+        existing
+    ) {
+
+        existing.remove();
+
+    }
+
+
+    /*
+     * 全選手カードの選択状態を解除
+     */
+    document
+        .querySelectorAll(
+            ".player-card"
+        )
+        .forEach(
+            element => {
+
+                element.classList.remove(
+                    "selected-player"
+                );
+
+            }
+        );
+
+
+    /*
+     * 詳細カードを作成
+     */
+    const factCard =
+        createPlayerFactCard(
+            player
+        );
+
+
+    /*
+     * 選手カードの直後に挿入
+     */
+    playerCard.insertAdjacentElement(
+        "afterend",
+        factCard
+    );
+
+
+    /*
+     * 選択状態
+     */
+    playerCard.classList.add(
+        "selected-player"
+    );
+
+
+    /*
+     * 詳細カードまでスクロール
+     */
+    setTimeout(
+        function() {
+
+            factCard.scrollIntoView({
+                behavior:
+                    "smooth",
+
+                block:
+                    "nearest"
+            });
+
+        },
+        30
+    );
+
+}{
 
     const id =
         player._id;
