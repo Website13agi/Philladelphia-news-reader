@@ -1,8 +1,7 @@
 import json
+import re
 import urllib.request
-import urllib.error
 from datetime import datetime, timezone
-from pathlib import Path
 
 
 # =========================================================
@@ -10,11 +9,13 @@ from pathlib import Path
 # =========================================================
 
 TEAM_ID = 143
-API_BASE = "https://statsapi.mlb.com/api/v1"
 
-OUTPUT_FILE = Path("players.json")
+ROSTER_URL = (
+    f"https://statsapi.mlb.com/api/v1/teams/"
+    f"{TEAM_ID}/roster?rosterType=40Man&hydrate=person"
+)
 
-USER_AGENT = "Phillies-Daily/2.0"
+OUTPUT_FILE = "players.json"
 
 
 # =========================================================
@@ -22,568 +23,500 @@ USER_AGENT = "Phillies-Daily/2.0"
 # =========================================================
 
 def get_json(url):
+
     request = urllib.request.Request(
         url,
         headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "application/json",
-        },
+            "User-Agent": "Phillies-Daily/1.0"
+        }
     )
 
-    try:
-        with urllib.request.urlopen(
-            request,
-            timeout=30
-        ) as response:
+    with urllib.request.urlopen(
+        request,
+        timeout=20
+    ) as response:
 
-            raw = response.read().decode("utf-8")
-
-            return json.loads(raw)
-
-    except urllib.error.HTTPError as error:
-
-        raise RuntimeError(
-            f"MLB API HTTP error: "
-            f"{error.code} {url}"
-        ) from error
-
-    except urllib.error.URLError as error:
-
-        raise RuntimeError(
-            f"MLB API connection error: "
-            f"{error.reason}"
-        ) from error
-
-
-# =========================================================
-# MLB API
-# =========================================================
-
-def get_team_roster(roster_type):
-    url = (
-        f"{API_BASE}/teams/{TEAM_ID}/roster"
-        f"?rosterType={roster_type}"
-    )
-
-    data = get_json(url)
-
-    roster = data.get("roster")
-
-    if not isinstance(roster, list):
-        raise RuntimeError(
-            f"Invalid roster response: {roster_type}"
+        return json.loads(
+            response.read().decode("utf-8")
         )
 
-    return roster
-
-
-def get_person(player_id):
-    url = (
-        f"{API_BASE}/people/"
-        f"{player_id}"
-        f"?hydrate=transactions"
-    )
-
-    data = get_json(url)
-
-    people = data.get("people", [])
-
-    if not people:
-        return {}
-
-    return people[0]
-
 
 # =========================================================
-# POSITION
+# POSITION GROUP
 # =========================================================
 
-def normalize_position(position):
-    if not position:
-        return {
-            "group": "Other",
-            "detail": ""
-        }
+def position_group(position_name):
 
-    code = str(
-        position.get("code", "")
-    ).upper()
+    if not position_name:
+        return "Unknown"
 
-    name = str(
-        position.get("name", "")
-    )
+    p = position_name.lower()
 
-    # Pitcher
-    if code == "P" or name == "Pitcher":
-
-        return {
-            "group": "Pitchers",
-            "detail": "P"
-        }
-
-    # Catcher
-    if code == "C" or name == "Catcher":
-
-        return {
-            "group": "Catchers",
-            "detail": "C"
-        }
-
-    # Infield
-    infield = {
-        "1B",
-        "2B",
-        "3B",
-        "SS"
-    }
-
-    if code in infield:
-
-        return {
-            "group": "Infielders",
-            "detail": code
-        }
-
-    # Outfield
-    outfield = {
-        "LF",
-        "CF",
-        "RF",
-        "OF"
-    }
-
-    if code in outfield:
-
-        return {
-            "group": "Outfielders",
-            "detail": code
-        }
-
-    # DH
+    # Pitchers
     if (
-        code == "DH"
-        or name == "Designated Hitter"
+        p == "pitcher"
+        or "pitcher" in p
     ):
+        return "Pitcher"
 
-        return {
-            "group": "Infielders",
-            "detail": "DH"
-        }
+    # Catchers
+    if (
+        p == "catcher"
+        or "catcher" in p
+    ):
+        return "Catcher"
 
-    return {
-        "group": "Other",
-        "detail": code or name
+    # Outfielders
+    if (
+        p in [
+            "left fielder",
+            "center fielder",
+            "right fielder",
+            "outfielder"
+        ]
+        or "fielder" in p
+    ):
+        return "Outfielder"
+
+    # Infielders
+    if (
+        p in [
+            "first baseman",
+            "second baseman",
+            "third baseman",
+            "shortstop",
+            "infielder"
+        ]
+        or "baseman" in p
+    ):
+        return "Infielder"
+
+    return "Unknown"
+
+
+# =========================================================
+# POSITION SHORT NAME
+# =========================================================
+
+def position_code(position_name):
+
+    if not position_name:
+        return ""
+
+    mapping = {
+        "Pitcher": "P",
+        "Catcher": "C",
+        "First Base": "1B",
+        "Second Base": "2B",
+        "Third Base": "3B",
+        "Shortstop": "SS",
+        "Left Field": "LF",
+        "Center Field": "CF",
+        "Right Field": "RF",
+        "Outfield": "OF",
+        "Designated Hitter": "DH",
+        "Two-Way Player": "TWP"
     }
 
-
-# =========================================================
-# IL DETECTION
-# =========================================================
-
-def is_il_status(status):
-    if not status:
-        return False
-
-    code = str(
-        status.get("code", "")
-    ).upper()
-
-    description = str(
-        status.get("description", "")
-    ).lower()
-
-    keywords = [
-        "injured",
-        "injured list",
-        "il",
-        "10-day",
-        "15-day",
-        "60-day",
-    ]
-
-    if "IL" in code:
-        return True
-
-    for keyword in keywords:
-
-        if keyword in description:
-            return True
-
-    return False
-
-
-# =========================================================
-# TRANSACTION / IL INFORMATION
-# =========================================================
-
-def extract_il_transaction(person):
-    transactions = person.get(
-        "transactions",
-        []
+    return mapping.get(
+        position_name,
+        position_name
     )
 
-    if not isinstance(
-        transactions,
-        list
-    ):
-        return None
-
-    il_transactions = []
-
-    for transaction in transactions:
-
-        description = str(
-            transaction.get(
-                "description",
-                ""
-            )
-        )
-
-        lower_description = (
-            description.lower()
-        )
-
-        if (
-            "injured list"
-            in lower_description
-        ):
-
-            effective_date = (
-                transaction.get(
-                    "effectiveDate"
-                )
-                or transaction.get(
-                    "date"
-                )
-            )
-
-            il_transactions.append(
-                {
-                    "date": effective_date,
-                    "description": description
-                }
-            )
-
-    if not il_transactions:
-        return None
-
-    # 最新のIL関連トランザクション
-    il_transactions.sort(
-        key=lambda item:
-            item.get("date") or "",
-        reverse=True
-    )
-
-    latest = il_transactions[0]
-
-    return {
-        "date": latest.get("date"),
-        "description":
-            latest.get(
-                "description",
-                ""
-            )
-    }
-
 
 # =========================================================
-# IL DAYS
+# SAFE INT
 # =========================================================
 
-def calculate_il_days(start_date):
-
-    if not start_date:
-        return None
+def safe_int(value):
 
     try:
-
-        start = datetime.fromisoformat(
-            start_date.replace(
-                "Z",
-                "+00:00"
-            )
-        )
-
-        now = datetime.now(
-            timezone.utc
-        )
-
-        days = (
-            now.date()
-            -
-            start.date()
-        ).days
-
-        if days < 0:
-            return 0
-
-        return days
-
+        return int(value)
     except Exception:
-
-        return None
-
-
-# =========================================================
-# STATUS
-# =========================================================
-
-def determine_status(
-    player_id,
-    active_ids,
-    forty_ids,
-    il_ids
-):
-
-    if player_id in il_ids:
-
-        return "IL"
-
-    if player_id in active_ids:
-
-        return "ACTIVE"
-
-    if player_id in forty_ids:
-
-        return "40-MAN"
-
-    return "OTHER"
+        return 9999
 
 
 # =========================================================
-# PLAYER CREATION
+# NORMALIZE
 # =========================================================
 
-def build_player(
-    entry,
-    active_ids,
-    forty_ids,
-    il_ids
-):
+def normalize_player(entry):
 
     person = entry.get(
         "person",
         {}
     )
 
-    player_id = person.get("id")
-
-    if not player_id:
-        return None
-
-    position_data = (
-        entry.get("position")
-        or {}
+    position = entry.get(
+        "position",
+        {}
     )
 
-    normalized = normalize_position(
-        position_data
+    jersey = (
+        entry.get("jerseyNumber")
+        or person.get("primaryNumber")
+        or ""
     )
 
-    status = determine_status(
-        player_id,
-        active_ids,
-        forty_ids,
-        il_ids
+    position_name = position.get(
+        "name",
+        ""
+    )
+
+    group = position_group(
+        position_name
     )
 
     # -----------------------------------------------------
-    # Person information
-    # -----------------------------------------------------
-
-    full_person = {}
-
-    try:
-        full_person = get_person(
-            player_id
-        )
-    except Exception as error:
-
-        print(
-            f"Warning: "
-            f"person lookup failed for "
-            f"{player_id}: {error}"
-        )
-
-    # -----------------------------------------------------
-    # Bat / Throw
+    # B/T
     # -----------------------------------------------------
 
     bat_side = (
-        full_person
+        person
         .get("batSide", {})
-        .get("description")
+        .get("code", "")
     )
 
-    throw_side = (
-        full_person
+    pitch_hand = (
+        person
         .get("pitchHand", {})
-        .get("description")
+        .get("code", "")
     )
 
-    # Fallback
-    if not bat_side:
+    # -----------------------------------------------------
+    # STATUS
+    # -----------------------------------------------------
 
-        bat_side = (
-            person
-            .get("batSide", {})
-            .get("description")
-        )
+    status = (
+        entry
+        .get("status", {})
+        .get("code", "")
+    )
 
-    if not throw_side:
+    status_description = (
+        entry
+        .get("status", {})
+        .get("description", "")
+    )
 
-        throw_side = (
-            person
-            .get("pitchHand", {})
-            .get("description")
-        )
+    # -----------------------------------------------------
+    # ACTIVE
+    # -----------------------------------------------------
+
+    active = (
+        status == "A"
+        or entry.get("active") is True
+    )
 
     # -----------------------------------------------------
     # IL
     # -----------------------------------------------------
 
-    il_transaction = (
-        extract_il_transaction(
-            full_person
-        )
+    is_il = False
+
+    status_text = (
+        status_description or ""
+    ).lower()
+
+    if (
+        "injured" in status_text
+        or "injured list" in status_text
+        or "il" in status_text
+        or "disabled" in status_text
+    ):
+        is_il = True
+
+    # Some MLB roster responses use rosterType /
+    # roster status information instead of a simple
+    # active flag.
+    roster_status = (
+        entry
+        .get("status", {})
+        .get("type", "")
     )
 
-    il_start_date = None
+    if (
+        "injured" in roster_status.lower()
+        or "injured" in status_text
+    ):
+        is_il = True
+
+    # -----------------------------------------------------
+    # B/T display
+    # -----------------------------------------------------
+
+    bats = bat_side or "-"
+
+    throws = pitch_hand or "-"
+
+    bt = f"{bats}/{throws}"
+
+    # -----------------------------------------------------
+    # IL information
+    # -----------------------------------------------------
+
     il_days = None
-    il_description = ""
+    il_start_date = None
 
-    if status == "IL":
+    # MLB API does not consistently expose IL start date
+    # directly inside every 40-man roster response.
+    #
+    # Therefore these fields are kept ready for future
+    # transaction-based enrichment.
 
-        if il_transaction:
+    if is_il:
+        il_start_date = (
+            entry.get("ilStartDate")
+            or entry.get("injuredListStartDate")
+        )
 
-            il_start_date = (
-                il_transaction.get(
-                    "date"
+    if il_start_date:
+
+        try:
+
+            start = datetime.fromisoformat(
+                il_start_date.replace(
+                    "Z",
+                    "+00:00"
                 )
             )
 
-            il_description = (
-                il_transaction.get(
-                    "description",
-                    ""
-                )
+            now = datetime.now(
+                timezone.utc
             )
 
-            il_days = calculate_il_days(
-                il_start_date
+            il_days = max(
+                1,
+                (now.date() - start.date()).days + 1
             )
 
+        except Exception:
+
+            il_days = None
+
     # -----------------------------------------------------
-    # Player
+    # RETURN
     # -----------------------------------------------------
 
-    player = {
+    return {
 
         "id":
-            player_id,
+            person.get("id"),
 
         "name":
             person.get(
                 "fullName",
+                "Unknown"
+            ),
+
+        "firstName":
+            person.get(
+                "firstName",
+                ""
+            ),
+
+        "lastName":
+            person.get(
+                "lastName",
                 ""
             ),
 
         "number":
-            entry.get(
-                "jerseyNumber"
-            ),
+            str(jersey),
 
         "position":
-            normalized["group"],
+            position_name,
 
-        "position_detail":
-            normalized["detail"],
+        "positionCode":
+            position_code(
+                position_name
+            ),
 
-        "bat_side":
-            bat_side or "",
+        "group":
+            group,
 
-        "throw_side":
-            throw_side or "",
+        "bats":
+            bats,
+
+        "throws":
+            throws,
+
+        "bt":
+            bt,
+
+        "active":
+            active,
+
+        "is40Man":
+            True,
+
+        "isIL":
+            is_il,
+
+        "ilStartDate":
+            il_start_date,
+
+        "ilDays":
+            il_days,
 
         "status":
             status,
 
-        "il_start_date":
-            il_start_date,
+        "statusDescription":
+            status_description,
 
-        "il_days":
-            il_days,
-
-        "il_description":
-            il_description,
-
-        "mlb_url":
+        "mlbUrl":
             (
-                "https://www.mlb.com/player/"
-                f"{player_id}"
+                f"https://www.mlb.com/player/"
+                f"{person.get('id')}"
             )
-    }
 
-    return player
+    }
 
 
 # =========================================================
 # SORT
 # =========================================================
 
-POSITION_ORDER = {
+GROUP_ORDER = {
 
-    "Pitchers": 1,
+    "Pitcher": 1,
 
-    "Catchers": 2,
+    "Catcher": 2,
 
-    "Infielders": 3,
+    "Infielder": 3,
 
-    "Outfielders": 4,
+    "Outfielder": 4,
 
-    "Other": 5
+    "Unknown": 5
 }
-
-
-def number_value(number):
-
-    if number is None:
-        return 9999
-
-    try:
-
-        return int(
-            str(number).strip()
-        )
-
-    except Exception:
-
-        return 9999
 
 
 def sort_players(players):
 
     return sorted(
         players,
-        key=lambda player: (
-            POSITION_ORDER.get(
-                player.get(
-                    "position"
-                ),
+        key=lambda p: (
+
+            GROUP_ORDER.get(
+                p.get("group"),
                 99
             ),
 
-            number_value(
-                player.get(
-                    "number"
-                )
+            safe_int(
+                p.get("number")
             ),
 
-            player.get(
-                "name",
+            p.get(
+                "lastName",
                 ""
-            )
+            ).lower()
+
         )
+    )
+
+
+# =========================================================
+# FETCH
+# =========================================================
+
+def fetch_players():
+
+    print(
+        "Fetching Philadelphia Phillies 40-man roster..."
+    )
+
+    data = get_json(
+        ROSTER_URL
+    )
+
+    roster = data.get(
+        "roster",
+        []
+    )
+
+    print(
+        f"MLB API returned {len(roster)} players."
+    )
+
+    players = []
+
+    for entry in roster:
+
+        try:
+
+            player = normalize_player(
+                entry
+            )
+
+            if player["id"]:
+
+                players.append(
+                    player
+                )
+
+        except Exception as error:
+
+            print(
+                "Player processing error:",
+                error
+            )
+
+    players = sort_players(
+        players
+    )
+
+    return players
+
+
+# =========================================================
+# SAVE
+# =========================================================
+
+def save_players(players):
+
+    result = {
+
+        "updatedAt":
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
+
+        "team": {
+
+            "id":
+                TEAM_ID,
+
+            "name":
+                "Philadelphia Phillies"
+
+        },
+
+        "players":
+            players
+
+    }
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            result,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+    print()
+    print(
+        f"Saved {len(players)} players."
+    )
+
+    print(
+        f"Output: {OUTPUT_FILE}"
     )
 
 
@@ -593,325 +526,35 @@ def sort_players(players):
 
 def main():
 
-    print(
-        "===================================="
-    )
+    try:
 
-    print(
-        "Phillies roster updater"
-    )
+        players = fetch_players()
 
-    print(
-        "Source: MLB Stats API"
-    )
+        if not players:
 
-    print(
-        "===================================="
-    )
-
-    # -----------------------------------------------------
-    # Fetch rosters
-    # -----------------------------------------------------
-
-    print(
-        "Fetching active roster..."
-    )
-
-    active_roster = get_team_roster(
-        "active"
-    )
-
-    print(
-        f"Active roster: "
-        f"{len(active_roster)}"
-    )
-
-    print(
-        "Fetching 40-man roster..."
-    )
-
-    forty_roster = get_team_roster(
-        "40Man"
-    )
-
-    print(
-        f"40-man roster: "
-        f"{len(forty_roster)}"
-    )
-
-    print(
-        "Fetching full roster..."
-    )
-
-    full_roster = get_team_roster(
-        "fullRoster"
-    )
-
-    print(
-        f"Full roster: "
-        f"{len(full_roster)}"
-    )
-
-    # -----------------------------------------------------
-    # IDs
-    # -----------------------------------------------------
-
-    active_ids = {
-        entry["person"]["id"]
-        for entry in active_roster
-        if entry.get("person")
-        and entry["person"].get("id")
-    }
-
-    forty_ids = {
-        entry["person"]["id"]
-        for entry in forty_roster
-        if entry.get("person")
-        and entry["person"].get("id")
-    }
-
-    # -----------------------------------------------------
-    # Start with 40-man + full roster
-    # -----------------------------------------------------
-
-    entries = {}
-
-    for entry in forty_roster:
-
-        person = entry.get(
-            "person",
-            {}
-        )
-
-        player_id = person.get("id")
-
-        if player_id:
-
-            entries[player_id] = entry
-
-    for entry in full_roster:
-
-        person = entry.get(
-            "person",
-            {}
-        )
-
-        player_id = person.get("id")
-
-        if player_id:
-
-            entries.setdefault(
-                player_id,
-                entry
+            raise RuntimeError(
+                "No players were returned."
             )
 
-    # -----------------------------------------------------
-    # Find IL players
-    # -----------------------------------------------------
-
-    il_ids = set()
-
-    print(
-        "Checking injured-list status..."
-    )
-
-    for player_id in list(entries.keys()):
-
-        entry = entries[player_id]
-
-        status = entry.get(
-            "status",
-            {}
+        save_players(
+            players
         )
 
-        if is_il_status(status):
-
-            il_ids.add(
-                player_id
-            )
-
-    # -----------------------------------------------------
-    # Build players
-    # -----------------------------------------------------
-
-    players = {}
-
-    total = len(entries)
-
-    print(
-        f"Processing "
-        f"{total} players..."
-    )
-
-    for index, entry in enumerate(
-        entries.values(),
-        start=1
-    ):
-
-        person = entry.get(
-            "person",
-            {}
-        )
-
-        player_id = person.get(
-            "id"
-        )
-
+        print()
         print(
-            f"[{index}/{total}] "
-            f"{person.get('fullName', '')}"
+            "Roster update completed successfully."
         )
 
-        player = build_player(
-            entry,
-            active_ids,
-            forty_ids,
-            il_ids
+    except Exception as error:
+
+        print()
+        print(
+            "ERROR:",
+            error
         )
 
-        if player:
+        raise
 
-            players[
-                player["id"]
-            ] = player
-
-    result = sort_players(
-        list(
-            players.values()
-        )
-    )
-
-    # -----------------------------------------------------
-    # Safety check
-    # -----------------------------------------------------
-
-    if not result:
-
-        raise RuntimeError(
-            "Roster update returned "
-            "zero players. "
-            "Existing players.json "
-            "will NOT be overwritten."
-        )
-
-    # -----------------------------------------------------
-    # Counts
-    # -----------------------------------------------------
-
-    active_count = sum(
-        1
-        for player in result
-        if player["status"]
-        == "ACTIVE"
-    )
-
-    forty_count = sum(
-        1
-        for player in result
-        if player["status"]
-        == "40-MAN"
-    )
-
-    il_count = sum(
-        1
-        for player in result
-        if player["status"]
-        == "IL"
-    )
-
-    # -----------------------------------------------------
-    # Output
-    # -----------------------------------------------------
-
-    output = {
-
-        "updated_at":
-            datetime.now(
-                timezone.utc
-            ).isoformat(),
-
-        "source":
-            "MLB Stats API",
-
-        "source_url":
-            (
-                "https://statsapi.mlb.com/"
-                "api/v1/teams/143/roster"
-            ),
-
-        "team":
-            "Philadelphia Phillies",
-
-        "team_id":
-            TEAM_ID,
-
-        "counts": {
-
-            "total":
-                len(result),
-
-            "active":
-                active_count,
-
-            "forty_man":
-                forty_count,
-
-            "il":
-                il_count
-        },
-
-        "players":
-            result
-    }
-
-    # -----------------------------------------------------
-    # Write
-    # -----------------------------------------------------
-
-    OUTPUT_FILE.write_text(
-
-        json.dumps(
-            output,
-            ensure_ascii=False,
-            indent=2
-        ),
-
-        encoding="utf-8"
-    )
-
-    print()
-    print(
-        "===================================="
-    )
-
-    print(
-        "Roster update completed"
-    )
-
-    print(
-        f"Total: {len(result)}"
-    )
-
-    print(
-        f"Active: {active_count}"
-    )
-
-    print(
-        f"40-Man: {forty_count}"
-    )
-
-    print(
-        f"IL: {il_count}"
-    )
-
-    print(
-        "===================================="
-    )
-
-
-# =========================================================
-# START
-# =========================================================
 
 if __name__ == "__main__":
     main()
