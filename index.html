@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Phillies Daily</title>
 
@@ -10,7 +16,7 @@
 
 /* =========================================================
    PHILLIES DAILY
-   UI V8
+   FULL REPLACEMENT VERSION
 ========================================================= */
 
 :root {
@@ -24,7 +30,6 @@
     --navy-deep: #00152f;
 
     --white: #ffffff;
-
     --black: #10151d;
 
     --gray-900: #252b34;
@@ -40,6 +45,8 @@
 
     --il: #f4c430;
     --il-soft: #fff8dc;
+
+    --navy-soft: #eef4fb;
 
     --radius: 15px;
 
@@ -64,9 +71,14 @@ html {
 }
 
 body {
+
     margin: 0;
-    background: var(--background);
-    color: var(--black);
+
+    background:
+        var(--background);
+
+    color:
+        var(--black);
 
     font-family:
         Inter,
@@ -78,7 +90,8 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing:
+        antialiased;
 
     padding-bottom: 30px;
 }
@@ -114,9 +127,12 @@ a {
             #004078 100%
         );
 
-    border-bottom: 4px solid var(--red);
+    border-bottom:
+        4px solid
+        var(--red);
 
     position: sticky;
+
     top: 0;
 
     z-index: 1000;
@@ -126,16 +142,18 @@ a {
         rgba(0, 24, 54, 0.19);
 }
 
-
 .topbar-inner {
 
     max-width: 1280px;
+
     height: 100%;
 
     margin: 0 auto;
+
     padding: 0 28px;
 
     display: flex;
+
     align-items: center;
 
     gap: 32px;
@@ -149,6 +167,7 @@ a {
 .brand {
 
     display: flex;
+
     align-items: center;
 
     gap: 12px;
@@ -156,10 +175,10 @@ a {
     min-width: max-content;
 }
 
-
 .brand-logo {
 
     width: 48px;
+
     height: 48px;
 
     border-radius: 50%;
@@ -171,7 +190,9 @@ a {
         rgba(255,255,255,.92);
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     overflow: hidden;
@@ -181,37 +202,39 @@ a {
         rgba(0,0,0,.2);
 }
 
-
 .brand-logo img {
 
     width: 86%;
+
     height: 86%;
 
     object-fit: contain;
 }
 
-
 .logo-fallback {
 
-    color: var(--red);
+    color:
+        var(--red);
 
-    font-family: Georgia, serif;
+    font-family:
+        Georgia,
+        serif;
 
     font-size: 27px;
+
     font-weight: 900;
 
     font-style: italic;
 }
 
-
 .brand-copy {
 
     display: flex;
+
     flex-direction: column;
 
     line-height: 1;
 }
-
 
 .brand-name {
 
@@ -223,7 +246,6 @@ a {
 
     letter-spacing: -.7px;
 }
-
 
 .brand-label {
 
@@ -243,7 +265,7 @@ a {
 
 
 /* =========================================================
-   NAV
+   DESKTOP NAV
 ========================================================= */
 
 .desktop-nav {
@@ -251,11 +273,11 @@ a {
     height: 100%;
 
     display: flex;
+
     align-items: center;
 
     gap: 3px;
 }
-
 
 .nav-item {
 
@@ -278,9 +300,9 @@ a {
 
     position: relative;
 
-    transition: color .2s ease;
+    transition:
+        color .2s ease;
 }
-
 
 .nav-item::after {
 
@@ -289,6 +311,7 @@ a {
     position: absolute;
 
     left: 14px;
+
     right: 14px;
 
     bottom: -4px;
@@ -298,14 +321,15 @@ a {
     border-radius:
         999px 999px 0 0;
 
-    background: var(--red);
+    background:
+        var(--red);
 
-    transform: scaleX(0);
+    transform:
+        scaleX(0);
 
     transition:
         transform .2s ease;
 }
-
 
 .nav-item:hover,
 .nav-item.active {
@@ -313,21 +337,20 @@ a {
     color: white;
 }
 
-
 .nav-item.active::after {
 
-    transform: scaleX(1);
+    transform:
+        scaleX(1);
 }
-
 
 .header-spacer {
     flex: 1;
 }
 
-
 .header-icon {
 
     width: 39px;
+
     height: 39px;
 
     border:
@@ -344,22 +367,12 @@ a {
     cursor: pointer;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     font-size: 15px;
-
-    transition: .2s ease;
-}
-
-
-.header-icon:hover {
-
-    background:
-        rgba(255,255,255,.14);
-
-    border-color:
-        rgba(255,255,255,.4);
 }
 
 
@@ -379,7 +392,7 @@ a {
 
 
 /* =========================================================
-   PAGE HEADER
+   COMMON HEADER
 ========================================================= */
 
 .page-header {
@@ -393,7 +406,6 @@ a {
     margin-bottom: 25px;
 }
 
-
 .page-kicker {
 
     display: flex;
@@ -404,7 +416,8 @@ a {
 
     margin-bottom: 9px;
 
-    color: var(--red);
+    color:
+        var(--red);
 
     font-size: 10px;
 
@@ -415,23 +428,24 @@ a {
     text-transform: uppercase;
 }
 
-
 .kicker-line {
 
     width: 28px;
+
     height: 4px;
 
     border-radius: 999px;
 
-    background: var(--red);
+    background:
+        var(--red);
 }
-
 
 .page-title {
 
     margin: 0;
 
-    color: var(--navy-dark);
+    color:
+        var(--navy-dark);
 
     font-size: 38px;
 
@@ -442,20 +456,21 @@ a {
     font-weight: 900;
 }
 
-
 .page-description {
 
-    margin: 10px 0 0;
+    margin:
+        10px 0 0;
 
-    color: var(--gray-600);
+    color:
+        var(--gray-600);
 
     font-size: 13px;
 }
 
-
 .today-label {
 
-    color: var(--gray-500);
+    color:
+        var(--gray-500);
 
     font-size: 11px;
 
@@ -469,7 +484,8 @@ a {
    FILTER PANEL
 ========================================================= */
 
-.filter-panel {
+.filter-panel,
+.player-filter-panel {
 
     background: white;
 
@@ -493,6 +509,11 @@ a {
     margin-bottom: 22px;
 }
 
+.player-filter-panel {
+
+    border-top-color:
+        var(--red);
+}
 
 .filter-title {
 
@@ -502,7 +523,8 @@ a {
 
     gap: 8px;
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 10px;
 
@@ -515,21 +537,22 @@ a {
     margin-bottom: 16px;
 }
 
-
 .filter-title::before {
 
     content: "";
 
     width: 5px;
+
     height: 16px;
 
     border-radius: 999px;
 
-    background: var(--red);
+    background:
+        var(--red);
 }
 
-
-.filter-row {
+.filter-row,
+.player-filter-grid {
 
     display: grid;
 
@@ -539,11 +562,15 @@ a {
     gap: 12px;
 }
 
+.player-filter-grid {
+
+    grid-template-columns:
+        1.3fr 1fr;
+}
 
 .filter-field {
     min-width: 0;
 }
-
 
 .filter-label {
 
@@ -551,7 +578,8 @@ a {
 
     margin-bottom: 7px;
 
-    color: var(--gray-600);
+    color:
+        var(--gray-600);
 
     font-size: 9px;
 
@@ -562,12 +590,9 @@ a {
     text-transform: uppercase;
 }
 
-
 .select-wrap {
-
     position: relative;
 }
-
 
 .select-wrap::after {
 
@@ -582,7 +607,8 @@ a {
     transform:
         translateY(-55%);
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 17px;
 
@@ -591,7 +617,6 @@ a {
     pointer-events: none;
 }
 
-
 .filter-select {
 
     width: 100%;
@@ -599,9 +624,11 @@ a {
     height: 44px;
 
     appearance: none;
+
     -webkit-appearance: none;
 
-    background: var(--gray-100);
+    background:
+        var(--gray-100);
 
     border:
         1px solid
@@ -612,7 +639,8 @@ a {
     padding:
         0 40px 0 13px;
 
-    color: var(--navy-dark);
+    color:
+        var(--navy-dark);
 
     font-size: 12px;
 
@@ -621,29 +649,6 @@ a {
     cursor: pointer;
 
     outline: none;
-
-    transition: .2s ease;
-}
-
-
-.filter-select:hover {
-
-    background: white;
-
-    border-color:
-        var(--gray-300);
-}
-
-
-.filter-select:focus {
-
-    background: white;
-
-    border-color: var(--red);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(227,24,55,.09);
 }
 
 
@@ -681,8 +686,8 @@ a {
         0 2px 11px;
 }
 
-
-.news-section-title {
+.news-section-title,
+.player-list-title {
 
     display: flex;
 
@@ -690,7 +695,8 @@ a {
 
     gap: 8px;
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 12px;
 
@@ -701,29 +707,31 @@ a {
     text-transform: uppercase;
 }
 
-
-.news-section-title::before {
+.news-section-title::before,
+.player-list-title::before {
 
     content: "";
 
     width: 5px;
+
     height: 17px;
 
     border-radius: 999px;
 
-    background: var(--red);
+    background:
+        var(--red);
 }
 
+.article-count,
+.player-count {
 
-.article-count {
-
-    color: var(--gray-500);
+    color:
+        var(--gray-500);
 
     font-size: 11px;
 
     font-weight: 700;
 }
-
 
 .news-list {
 
@@ -764,10 +772,8 @@ a {
 
     transition:
         transform .18s ease,
-        box-shadow .18s ease,
-        border-color .18s ease;
+        box-shadow .18s ease;
 }
-
 
 .article-card::before {
 
@@ -776,22 +782,21 @@ a {
     position: absolute;
 
     left: 0;
+
     top: 0;
+
     bottom: 0;
 
     width: 5px;
 
-    background: var(--red);
-
-    opacity: 1;
+    background:
+        var(--red);
 }
-
 
 .article-card.read::before {
-
-    background: var(--gray-300);
+    background:
+        var(--gray-300);
 }
-
 
 .article-card:hover {
 
@@ -800,18 +805,7 @@ a {
 
     box-shadow:
         var(--shadow-hover);
-
-    border-color:
-        #ccd3dc;
 }
-
-
-.article-card.read {
-
-    background:
-        #fafbfc;
-}
-
 
 .article-top {
 
@@ -824,24 +818,22 @@ a {
     margin-bottom: 9px;
 }
 
-
 .source {
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 10px;
 
     font-weight: 900;
 
-    letter-spacing: .5px;
-
     text-transform: uppercase;
 }
-
 
 .source-dot {
 
     width: 3px;
+
     height: 3px;
 
     border-radius: 50%;
@@ -850,26 +842,24 @@ a {
         var(--gray-400);
 }
 
-
 .article-type {
 
     color:
         var(--gray-500);
 
     font-size: 10px;
-
-    font-weight: 650;
 }
-
 
 .favorite-button {
 
     position: absolute;
 
     top: 15px;
+
     right: 14px;
 
     width: 38px;
+
     height: 38px;
 
     border: none;
@@ -878,63 +868,39 @@ a {
 
     background: transparent;
 
-    color: var(--gray-400);
+    color:
+        var(--gray-400);
 
     cursor: pointer;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
     font-size: 22px;
-
-    transition: .18s ease;
 }
-
-
-.favorite-button:hover {
-
-    background:
-        var(--red-soft);
-
-    color:
-        var(--red);
-
-    transform:
-        scale(1.07);
-}
-
 
 .favorite-button.favorite {
-
     color:
         var(--red);
 }
-
 
 .article-title {
 
     margin: 0;
 
-    color: var(--black);
+    color:
+        var(--black);
 
     font-size: 18px;
 
     line-height: 1.4;
 
-    letter-spacing: -.35px;
-
     font-weight: 820;
 }
 
-
-.article-card.read .article-title {
+.article-card.read
+.article-title {
 
     color:
         var(--gray-700);
 }
-
 
 .article-japanese {
 
@@ -949,7 +915,6 @@ a {
     line-height: 1.55;
 }
 
-
 .article-bottom {
 
     display: flex;
@@ -959,8 +924,8 @@ a {
     gap: 8px;
 }
 
-
-.article-date {
+.article-date,
+.status {
 
     color:
         var(--gray-500);
@@ -970,14 +935,6 @@ a {
     font-weight: 650;
 }
 
-
-.meta-separator {
-
-    color:
-        var(--gray-300);
-}
-
-
 .status {
 
     display: inline-flex;
@@ -985,19 +942,12 @@ a {
     align-items: center;
 
     gap: 5px;
-
-    color:
-        var(--gray-500);
-
-    font-size: 10px;
-
-    font-weight: 750;
 }
-
 
 .status-indicator {
 
     width: 6px;
+
     height: 6px;
 
     border-radius: 50%;
@@ -1005,7 +955,6 @@ a {
     background:
         var(--red);
 }
-
 
 .article-card.read
 .status-indicator {
@@ -1016,13 +965,12 @@ a {
 
 
 /* =========================================================
-   PLAYERS PAGE
+   PLAYERS
 ========================================================= */
 
 .players-page {
     display: none;
 }
-
 
 .players-header {
 
@@ -1035,12 +983,6 @@ a {
     margin-bottom: 20px;
 }
 
-
-.players-title-wrap {
-    min-width: 0;
-}
-
-
 .players-kicker {
 
     display: flex;
@@ -1049,7 +991,8 @@ a {
 
     gap: 8px;
 
-    color: var(--red);
+    color:
+        var(--red);
 
     font-size: 10px;
 
@@ -1062,98 +1005,52 @@ a {
     margin-bottom: 8px;
 }
 
-
 .players-kicker-line {
 
     width: 25px;
+
     height: 4px;
 
     border-radius: 999px;
 
-    background: var(--red);
+    background:
+        var(--red);
 }
-
 
 .players-title {
 
     margin: 0;
 
-    color: var(--navy-dark);
+    color:
+        var(--navy-dark);
 
     font-size: 34px;
 
     line-height: 1;
 
-    letter-spacing: -1.5px;
-
     font-weight: 900;
 }
 
-
 .players-description {
 
-    margin: 9px 0 0;
+    margin:
+        9px 0 0;
 
-    color: var(--gray-600);
+    color:
+        var(--gray-600);
 
     font-size: 12px;
 }
 
-
 .players-meta {
 
-    color: var(--gray-500);
+    color:
+        var(--gray-500);
 
     font-size: 10px;
 
     font-weight: 700;
-
-    white-space: nowrap;
 }
-
-
-/* =========================================================
-   PLAYER FILTERS
-========================================================= */
-
-.player-filter-panel {
-
-    background: white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-top:
-        4px solid
-        var(--red);
-
-    border-radius:
-        var(--radius);
-
-    box-shadow:
-        var(--shadow);
-
-    padding: 18px 20px;
-
-    margin-bottom: 20px;
-}
-
-
-.player-filter-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        1.3fr 1fr;
-
-    gap: 12px;
-}
-
-
-/* =========================================================
-   PLAYER LIST HEADER
-========================================================= */
 
 .player-list-heading {
 
@@ -1167,55 +1064,6 @@ a {
         0 2px 10px;
 }
 
-
-.player-list-title {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    color: var(--navy);
-
-    font-size: 12px;
-
-    font-weight: 900;
-
-    letter-spacing: .7px;
-
-    text-transform: uppercase;
-}
-
-
-.player-list-title::before {
-
-    content: "";
-
-    width: 5px;
-    height: 17px;
-
-    border-radius: 999px;
-
-    background: var(--red);
-}
-
-
-.player-count {
-
-    color:
-        var(--gray-500);
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   PLAYER LIST
-========================================================= */
-
 .players-list {
 
     display: flex;
@@ -1227,7 +1075,7 @@ a {
 
 
 /* =========================================================
-   PLAYER CARD
+   PLAYER ROW
 ========================================================= */
 
 .player-card {
@@ -1253,8 +1101,7 @@ a {
         1px solid
         var(--gray-200);
 
-    border-radius:
-        14px;
+    border-radius: 14px;
 
     padding:
         10px 17px 10px 21px;
@@ -1264,50 +1111,40 @@ a {
     box-shadow:
         var(--shadow);
 
+    cursor: pointer;
+
     transition:
         transform .18s ease,
-        box-shadow .18s ease,
-        border-color .18s ease;
-
-    cursor: pointer;
+        box-shadow .18s ease;
 }
 
-
-/* Active player = Phillies Red line */
-
-.player-card.active-player::before {
+.player-card::before {
 
     content: "";
 
     position: absolute;
 
     left: 0;
+
     top: 0;
+
     bottom: 0;
 
     width: 5px;
 
+    background:
+        var(--gray-300);
+}
+
+.player-card.active-player::before {
     background:
         var(--red);
 }
 
-
 .player-card.il-player::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-    bottom: 0;
-
-    width: 5px;
-
     background:
         var(--il);
 }
-
 
 .player-card:hover {
 
@@ -1316,11 +1153,7 @@ a {
 
     box-shadow:
         var(--shadow-hover);
-
-    border-color:
-        #ccd3dc;
 }
-
 
 .player-number {
 
@@ -1331,11 +1164,8 @@ a {
 
     font-weight: 900;
 
-    letter-spacing: -1px;
-
     text-align: center;
 }
-
 
 .player-bt {
 
@@ -1346,13 +1176,10 @@ a {
 
     font-weight: 900;
 
-    letter-spacing: .5px;
-
     text-align: center;
 
     white-space: nowrap;
 }
-
 
 .player-position {
 
@@ -1363,6 +1190,7 @@ a {
     justify-content: center;
 
     width: 38px;
+
     height: 30px;
 
     border-radius: 8px;
@@ -1377,11 +1205,8 @@ a {
 
     font-weight: 900;
 
-    letter-spacing: .3px;
-
     text-align: center;
 }
-
 
 .player-main {
 
@@ -1389,7 +1214,6 @@ a {
 
     padding-left: 12px;
 }
-
 
 .player-name {
 
@@ -1409,7 +1233,6 @@ a {
     text-overflow: ellipsis;
 }
 
-
 .player-status {
 
     display: flex;
@@ -1428,14 +1251,12 @@ a {
     font-weight: 750;
 
     text-transform: uppercase;
-
-    letter-spacing: .4px;
 }
-
 
 .player-status-dot {
 
     width: 6px;
+
     height: 6px;
 
     border-radius: 50%;
@@ -1444,26 +1265,22 @@ a {
         var(--gray-300);
 }
 
-
 .player-card.active-player
 .player-status-dot {
-
     background:
         var(--red);
 }
 
-
 .player-card.il-player
 .player-status-dot {
-
     background:
         var(--il);
 }
 
-
 .player-il-days {
 
-    padding: 5px 8px;
+    padding:
+        5px 8px;
 
     border-radius: 7px;
 
@@ -1482,73 +1299,223 @@ a {
 
 
 /* =========================================================
-   EMPTY
+   PLAYER FACT CARD
 ========================================================= */
 
-.empty {
+.player-fact-card {
 
-    background: white;
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fafc
+        );
 
     border:
         1px solid
         var(--gray-200);
 
+    border-left:
+        5px solid
+        var(--red);
+
     border-radius:
-        var(--radius);
+        14px;
 
-    padding: 65px 20px;
+    padding:
+        19px 20px;
 
-    text-align: center;
+    box-shadow:
+        0 10px 30px
+        rgba(0,29,62,.10);
+
+    animation:
+        factOpen .18s ease;
+
+    cursor: default;
 }
 
+@keyframes factOpen {
 
-.empty-icon {
+    from {
+        opacity: 0;
+        transform:
+            translateY(-5px);
+    }
 
-    width: 50px;
-    height: 50px;
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
 
-    margin:
-        0 auto 14px;
+}
+
+.fact-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+.fact-kicker {
+
+    color:
+        var(--red);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+.fact-name {
+
+    margin-top: 4px;
+
+    color:
+        var(--navy-dark);
+
+    font-size: 21px;
+
+    font-weight: 900;
+}
+
+.fact-meta {
+
+    margin-top: 5px;
+
+    color:
+        var(--gray-500);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.fact-close {
+
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
 
     border-radius: 50%;
+
+    background:
+        var(--gray-100);
+
+    color:
+        var(--gray-500);
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.fact-close:hover {
 
     background:
         var(--red-soft);
 
     color:
         var(--red);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
 }
 
+.fact-grid {
 
-.empty-title {
+    display: grid;
 
-    margin: 0;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(82px, 1fr)
+        );
 
-    color:
-        var(--navy);
-
-    font-size: 15px;
-
-    font-weight: 850;
+    gap: 8px;
 }
 
+.fact-stat {
 
-.empty-description {
+    padding:
+        10px;
 
-    margin:
-        7px 0 0;
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        9px;
+}
+
+.fact-label {
 
     color:
         var(--gray-500);
 
-    font-size: 11px;
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: .7px;
+}
+
+.fact-value {
+
+    margin-top: 4px;
+
+    color:
+        var(--navy-dark);
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.fact-source {
+
+    margin-top: 11px;
+
+    color:
+        var(--gray-400);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    text-align: right;
+}
+
+.fact-missing {
+
+    padding: 13px;
+
+    background:
+        var(--red-soft);
+
+    border-radius: 9px;
+
+    color:
+        var(--red-dark);
+
+    font-size: 10px;
+
+    font-weight: 750;
 }
 
 
@@ -1569,7 +1536,6 @@ a {
     gap: 12px;
 }
 
-
 .side-card {
 
     background: white;
@@ -1587,7 +1553,6 @@ a {
         var(--shadow);
 }
 
-
 .side-heading {
 
     display: flex;
@@ -1595,10 +1560,7 @@ a {
     align-items: center;
 
     justify-content: space-between;
-
-    margin-bottom: 15px;
 }
-
 
 .side-title {
 
@@ -1611,15 +1573,13 @@ a {
 
     font-weight: 900;
 
-    letter-spacing: .7px;
-
     text-transform: uppercase;
 }
 
-
 .side-title-mark {
 
-    width: 27px;
+    width: 24px;
+
     height: 4px;
 
     border-radius: 999px;
@@ -1628,30 +1588,30 @@ a {
         var(--red);
 }
 
-
 .stat-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
-    gap: 6px;
+    gap: 7px;
+
+    margin-top: 16px;
 }
-
 
 .stat {
 
+    text-align: center;
+
+    padding:
+        10px 3px;
+
     background:
-        #edf3f9;
+        var(--gray-100);
 
     border-radius: 9px;
-
-    padding: 11px 4px;
-
-    text-align: center;
 }
-
 
 .stat-number {
 
@@ -1660,26 +1620,21 @@ a {
     color:
         var(--navy);
 
-    font-size: 18px;
+    font-size: 19px;
 
     font-weight: 900;
-
-    line-height: 1;
 }
 
-
 .stat-number.red {
-
     color:
         var(--red);
 }
-
 
 .stat-label {
 
     display: block;
 
-    margin-top: 6px;
+    margin-top: 3px;
 
     color:
         var(--gray-500);
@@ -1688,9 +1643,78 @@ a {
 
     font-weight: 800;
 
-    letter-spacing: .5px;
-
     text-transform: uppercase;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty {
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        65px 20px;
+
+    text-align: center;
+}
+
+.empty-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    margin:
+        0 auto 14px;
+
+    border-radius: 50%;
+
+    background:
+        var(--red-soft);
+
+    color:
+        var(--red);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.empty-title {
+
+    margin: 0;
+
+    color:
+        var(--navy);
+
+    font-size: 15px;
+
+    font-weight: 850;
+}
+
+.empty-description {
+
+    margin:
+        7px 0 0;
+
+    color:
+        var(--gray-500);
+
+    font-size: 11px;
 }
 
 
@@ -1708,256 +1732,122 @@ a {
    RESPONSIVE
 ========================================================= */
 
-@media (max-width:1050px) {
-
-    .topbar-inner {
-        gap: 20px;
-    }
-
-    .nav-item {
-        padding: 0 9px;
-    }
-
-    .nav-item::after {
-        left: 9px;
-        right: 9px;
-    }
+@media (max-width: 850px) {
 
     .content-grid {
 
         grid-template-columns:
-            minmax(0,1fr)
-            255px;
+            1fr;
     }
+
+    .sidebar {
+
+        position: static;
+    }
+
 }
 
-
-@media (max-width:850px) {
-
-    body {
-
-        padding-bottom:
-            calc(
-                74px +
-                env(safe-area-inset-bottom)
-            );
-    }
-
+@media (max-width: 700px) {
 
     .topbar {
-
-        height: 64px;
-
-        border-bottom-width: 3px;
+        height: 66px;
     }
-
 
     .topbar-inner {
-
-        padding: 0 14px;
-
-        gap: 0;
-    }
-
-
-    .brand {
+        padding: 0 15px;
         gap: 10px;
     }
 
+    .desktop-nav,
+    .header-icon {
+        display: none;
+    }
 
     .brand-logo {
-
         width: 40px;
         height: 40px;
     }
 
-
     .brand-name {
-        font-size: 18px;
+        font-size: 17px;
     }
-
-
-    .brand-label {
-
-        font-size: 7px;
-
-        letter-spacing: 1.4px;
-    }
-
-
-    .desktop-nav {
-        display: none;
-    }
-
-
-    .header-icon {
-
-        width: 36px;
-        height: 36px;
-
-        margin-left: auto;
-    }
-
 
     .page {
-
         padding:
-            25px 13px 35px;
+            28px 14px 90px;
     }
 
-
-    .page-header {
-
-        align-items: flex-start;
-
-        margin-bottom: 19px;
-    }
-
-
-    .page-title {
-        font-size: 30px;
-    }
-
-
-    .today-label {
-        display: none;
-    }
-
-
-    .filter-panel {
-
-        padding: 16px;
-
-        border-top-width: 3px;
-    }
-
-
-    .filter-row {
-
-        grid-template-columns: 1fr;
-    }
-
-
-    .content-grid {
-        display: block;
-    }
-
-
-    .sidebar {
-        display: none;
-    }
-
-
-    .article-card {
-
-        border-radius: 13px;
-
-        padding:
-            16px 52px 15px 17px;
-    }
-
-
-    .article-title {
-
-        font-size: 15px;
-    }
-
-
-    .article-japanese {
-
-        font-size: 10.5px;
-    }
-
-
-    /* PLAYERS */
-
+    .page-header,
     .players-header {
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap: 12px;
     }
 
-
-    .players-title {
-        font-size: 30px;
+    .page-title {
+        font-size: 32px;
     }
 
-
-    .players-meta {
-        display: none;
-    }
-
-
+    .filter-row,
     .player-filter-grid {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
-
 
     .player-card {
 
         grid-template-columns:
-            46px
-            54px
-            44px
+            48px
+            52px
+            42px
             minmax(0,1fr)
             auto;
 
-        min-height: 72px;
-
         padding:
-            9px 12px 9px 16px;
+            9px 10px;
     }
-
-
-    .player-number {
-        font-size: 18px;
-    }
-
-
-    .player-bt {
-        font-size: 10px;
-    }
-
-
-    .player-position {
-
-        width: 34px;
-        height: 28px;
-
-        font-size: 9px;
-    }
-
-
-    .player-main {
-        padding-left: 9px;
-    }
-
 
     .player-name {
-        font-size: 14px;
+        font-size: 13px;
     }
-
 
     .player-il-days {
-        font-size: 8px;
-        padding: 4px 6px;
+        display: none;
     }
 
+    .player-fact-card {
+        padding: 16px;
+    }
 
-    /* MOBILE NAV */
+    .fact-grid {
+        grid-template-columns:
+            repeat(3,1fr);
+    }
 
     .mobile-nav {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(4,1fr);
 
         position: fixed;
 
         left: 0;
+
         right: 0;
+
         bottom: 0;
 
-        height: 74px;
+        z-index: 1100;
 
-        padding-bottom:
-            env(safe-area-inset-bottom);
+        height: 65px;
 
         background:
             rgba(255,255,255,.97);
@@ -1967,26 +1857,11 @@ a {
             var(--gray-200);
 
         box-shadow:
-            0 -5px 22px
-            rgba(0,29,62,.09);
-
-        display: flex;
-
-        z-index: 2000;
-
-        backdrop-filter:
-            blur(14px);
-
-        -webkit-backdrop-filter:
-            blur(14px);
+            0 -5px 20px
+            rgba(0,0,0,.08);
     }
 
-
     .mobile-nav-item {
-
-        flex: 1;
-
-        height: 100%;
 
         border: none;
 
@@ -2003,122 +1878,77 @@ a {
 
         justify-content: center;
 
-        gap: 4px;
+        gap: 3px;
 
         font-size: 9px;
 
         font-weight: 800;
-
-        cursor: pointer;
-
-        position: relative;
     }
-
-
-    .mobile-nav-item::before {
-
-        content: "";
-
-        position: absolute;
-
-        top: 0;
-
-        left: 25%;
-        right: 25%;
-
-        height: 3px;
-
-        border-radius:
-            0 0 999px 999px;
-
-        background:
-            var(--red);
-
-        transform:
-            scaleX(0);
-
-        transition:
-            transform .2s ease;
-    }
-
 
     .mobile-nav-item.active {
-
         color:
-            var(--navy);
+            var(--red);
     }
-
-
-    .mobile-nav-item.active::before {
-
-        transform:
-            scaleX(1);
-    }
-
 
     .mobile-nav-icon {
-
-        height: 25px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
         font-size: 18px;
     }
+
 }
 
 
-@media (max-width:420px) {
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
 
-    .page {
+.loading-message {
 
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+    padding:
+        35px 20px;
 
+    background: white;
 
-    .page-title {
-        font-size: 28px;
-    }
+    border:
+        1px solid
+        var(--gray-200);
 
+    border-radius:
+        var(--radius);
 
-    .player-card {
+    color:
+        var(--gray-500);
 
-        grid-template-columns:
-            40px
-            50px
-            40px
-            minmax(0,1fr);
-    }
+    text-align: center;
 
+    font-size: 12px;
 
-    .player-il-days {
-        display: none;
-    }
+    font-weight: 700;
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+<!-- =======================================================
+     TOPBAR
+======================================================= -->
 
 <header class="topbar">
 
     <div class="topbar-inner">
 
+
         <a
             href="#"
             class="brand"
-            onclick="showPage('news'); return false;"
+            onclick="
+                showPage('news');
+                return false;
+            "
         >
 
             <div class="brand-logo">
@@ -2141,6 +1971,7 @@ a {
 
             </div>
 
+
             <div class="brand-copy">
 
                 <div class="brand-name">
@@ -2161,7 +1992,9 @@ a {
             <button
                 class="nav-item active"
                 data-page="news"
-                onclick="showPage('news')"
+                onclick="
+                    showPage('news')
+                "
             >
                 News
             </button>
@@ -2169,7 +2002,9 @@ a {
             <button
                 class="nav-item"
                 data-page="games"
-                onclick="showPage('games')"
+                onclick="
+                    showPage('games')
+                "
             >
                 Games
             </button>
@@ -2177,7 +2012,9 @@ a {
             <button
                 class="nav-item"
                 data-page="players"
-                onclick="showPage('players')"
+                onclick="
+                    showPage('players')
+                "
             >
                 Players
             </button>
@@ -2185,7 +2022,9 @@ a {
             <button
                 class="nav-item"
                 data-page="more"
-                onclick="showPage('more')"
+                onclick="
+                    showPage('more')
+                "
             >
                 More
             </button>
@@ -2199,7 +2038,9 @@ a {
         <button
             class="header-icon"
             title="Settings"
-            onclick="alert('Settings will be added later.')"
+            onclick="
+                alert('Settings will be added later.')
+            "
         >
             ⚙
         </button>
@@ -2209,16 +2050,16 @@ a {
 </header>
 
 
-<!-- =========================================================
+<!-- =======================================================
      MAIN
-========================================================= -->
+======================================================= -->
 
 <main class="page">
 
 
-<!-- =========================================================
+<!-- =======================================================
      NEWS PAGE
-========================================================= -->
+======================================================= -->
 
 <section id="news-page">
 
@@ -2245,7 +2086,10 @@ a {
 
         </div>
 
-        <div class="today-label">
+        <div
+            class="today-label"
+            id="today-label"
+        >
             AUG 10, 2026
         </div>
 
@@ -2258,7 +2102,9 @@ a {
             Filter Articles
         </div>
 
+
         <div class="filter-row">
+
 
             <div class="filter-field">
 
@@ -2274,7 +2120,9 @@ a {
                     <select
                         id="period-select"
                         class="filter-select"
-                        onchange="setPeriod(this.value)"
+                        onchange="
+                            setPeriod(this.value)
+                        "
                     >
 
                         <option value="1">
@@ -2317,10 +2165,15 @@ a {
                     <select
                         id="status-select"
                         class="filter-select"
-                        onchange="setStatusFilter(this.value)"
+                        onchange="
+                            setStatusFilter(this.value)
+                        "
                     >
 
-                        <option value="all" selected>
+                        <option
+                            value="all"
+                            selected
+                        >
                             All articles
                         </option>
 
@@ -2353,10 +2206,15 @@ a {
                     <select
                         id="favorite-select"
                         class="filter-select"
-                        onchange="setFavoriteFilter(this.value)"
+                        onchange="
+                            setFavoriteFilter(this.value)
+                        "
                     >
 
-                        <option value="all" selected>
+                        <option
+                            value="all"
+                            selected
+                        >
                             All articles
                         </option>
 
@@ -2395,6 +2253,7 @@ a {
 
             </div>
 
+
             <div
                 id="news-list"
                 class="news-list"
@@ -2417,6 +2276,7 @@ a {
 
                 </div>
 
+
                 <div class="stat-grid">
 
                     <div class="stat">
@@ -2434,6 +2294,7 @@ a {
 
                     </div>
 
+
                     <div class="stat">
 
                         <span
@@ -2448,6 +2309,7 @@ a {
                         </span>
 
                     </div>
+
 
                     <div class="stat">
 
@@ -2475,9 +2337,9 @@ a {
 </section>
 
 
-<!-- =========================================================
+<!-- =======================================================
      PLAYERS PAGE
-========================================================= -->
+======================================================= -->
 
 <section
     id="players-page"
@@ -2518,11 +2380,10 @@ a {
     </section>
 
 
-    <!-- PLAYER FILTER -->
-
     <section class="player-filter-panel">
 
         <div class="player-filter-grid">
+
 
             <div class="filter-field">
 
@@ -2538,7 +2399,9 @@ a {
                     <select
                         id="player-position-select"
                         class="filter-select"
-                        onchange="setPlayerPosition(this.value)"
+                        onchange="
+                            setPlayerPosition(this.value)
+                        "
                     >
 
                         <option value="all">
@@ -2582,7 +2445,9 @@ a {
                     <select
                         id="player-status-select"
                         class="filter-select"
-                        onchange="setPlayerStatus(this.value)"
+                        onchange="
+                            setPlayerStatus(this.value)
+                        "
                     >
 
                         <option value="all">
@@ -2602,6 +2467,7 @@ a {
                 </div>
 
             </div>
+
 
         </div>
 
@@ -2627,14 +2493,20 @@ a {
     <div
         id="players-list"
         class="players-list"
-    ></div>
+    >
+
+        <div class="loading-message">
+            Loading roster...
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- =========================================================
-     GAMES PLACEHOLDER
-========================================================= -->
+<!-- =======================================================
+     GAMES
+======================================================= -->
 
 <section
     id="games-page"
@@ -2665,6 +2537,7 @@ a {
 
     </section>
 
+
     <div class="empty">
 
         <div class="empty-icon">
@@ -2684,9 +2557,9 @@ a {
 </section>
 
 
-<!-- =========================================================
-     MORE PLACEHOLDER
-========================================================= -->
+<!-- =======================================================
+     MORE
+======================================================= -->
 
 <section
     id="more-page"
@@ -2717,6 +2590,7 @@ a {
 
     </section>
 
+
     <div class="empty">
 
         <div class="empty-icon">
@@ -2739,16 +2613,19 @@ a {
 </main>
 
 
-<!-- =========================================================
+<!-- =======================================================
      MOBILE NAV
-========================================================= -->
+======================================================= -->
 
 <nav class="mobile-nav">
+
 
     <button
         class="mobile-nav-item active"
         data-mobile="news"
-        onclick="showPage('news')"
+        onclick="
+            showPage('news')
+        "
     >
 
         <span class="mobile-nav-icon">
@@ -2765,7 +2642,9 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="games"
-        onclick="showPage('games')"
+        onclick="
+            showPage('games')
+        "
     >
 
         <span class="mobile-nav-icon">
@@ -2782,7 +2661,9 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="players"
-        onclick="showPage('players')"
+        onclick="
+            showPage('players')
+        "
     >
 
         <span class="mobile-nav-icon">
@@ -2799,7 +2680,9 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="more"
-        onclick="showPage('more')"
+        onclick="
+            showPage('more')
+        "
     >
 
         <span class="mobile-nav-icon">
@@ -2812,157 +2695,181 @@ a {
 
     </button>
 
+
 </nav>
 
 
 <script>
 
 /* =========================================================
-   NEWS DATA
+   NEWS
 ========================================================= */
 
-const articles = [
+let articles = [
 
     {
         id: "demo-001",
-        title: "Phillies rally late to secure series win",
-        japanese: "フィリーズが終盤に反撃し、シリーズ勝ち越しを決める",
-        source: "MLB.com",
-        date: "2026-08-10T08:30:00",
-        url: "https://www.mlb.com/phillies",
-        read: false,
-        favorite: false
+        title:
+            "Phillies rally late to secure series win",
+        japanese:
+            "フィリーズが終盤に反撃し、シリーズ勝ち越しを決める",
+        source:
+            "MLB.com",
+        date:
+            "2026-08-10T08:30:00",
+        url:
+            "https://www.mlb.com/phillies",
+        read:
+            false,
+        favorite:
+            false
     },
 
     {
         id: "demo-002",
-        title: "Phillies continue to get strong production from their lineup",
-        japanese: "フィリーズ打線が引き続き好調な打撃を見せる",
-        source: "NBC Sports Philadelphia",
-        date: "2026-08-10T06:45:00",
-        url: "https://www.nbcsports.com/philadelphia/phillies",
-        read: false,
-        favorite: true
+        title:
+            "Phillies continue to get strong production from their lineup",
+        japanese:
+            "フィリーズ打線が引き続き好調な打撃を見せる",
+        source:
+            "NBC Sports Philadelphia",
+        date:
+            "2026-08-10T06:45:00",
+        url:
+            "https://www.nbcsports.com/philadelphia/phillies",
+        read:
+            false,
+        favorite:
+            true
     },
 
     {
         id: "demo-003",
-        title: "What the Phillies' latest pitching adjustments mean",
-        japanese: "フィリーズが行った最新の投手陣の調整が意味すること",
-        source: "The Athletic",
-        date: "2026-08-09T23:15:00",
-        url: "https://www.theathletic.com/mlb/team/phillies/",
-        read: true,
-        favorite: false
+        title:
+            "What the Phillies' latest pitching adjustments mean",
+        japanese:
+            "フィリーズが行った最新の投手陣の調整が意味すること",
+        source:
+            "The Athletic",
+        date:
+            "2026-08-09T23:15:00",
+        url:
+            "https://www.theathletic.com/mlb/team/phillies/",
+        read:
+            true,
+        favorite:
+            false
     },
 
     {
         id: "demo-004",
-        title: "Phillies prospect makes another strong impression",
-        japanese: "フィリーズのプロスペクトが再び強い印象を残す",
-        source: "Baseball America",
-        date: "2026-08-09T20:30:00",
-        url: "https://www.baseballamerica.com/teams/1000/philadelphia-phillies/",
-        read: false,
-        favorite: true
+        title:
+            "Phillies prospect makes another strong impression",
+        japanese:
+            "フィリーズのプロスペクトが再び強い印象を残す",
+        source:
+            "Baseball America",
+        date:
+            "2026-08-09T20:30:00",
+        url:
+            "https://www.baseballamerica.com/teams/1000/philadelphia-phillies/",
+        read:
+            false,
+        favorite:
+            true
     },
 
     {
         id: "demo-005",
-        title: "Phillies bullpen settles into a new rhythm",
-        japanese: "フィリーズのブルペンが新たなリズムをつかみ始める",
-        source: "FanGraphs",
-        date: "2026-08-09T17:10:00",
-        url: "https://www.fangraphs.com/teams/phillies",
-        read: true,
-        favorite: false
+        title:
+            "Phillies bullpen settles into a new rhythm",
+        japanese:
+            "フィリーズのブルペンが新たなリズムをつかみ始める",
+        source:
+            "FanGraphs",
+        date:
+            "2026-08-09T17:10:00",
+        url:
+            "https://www.fangraphs.com/teams/phillies",
+        read:
+            true,
+        favorite:
+            false
     }
 
 ];
 
 
+let currentPeriod = "all";
+
+let currentStatus = "all";
+
+let currentFavorite = "all";
+
+
 /* =========================================================
    PLAYER DATA
-   ---------------------------------------------------------
-   players.json が存在すれば自動取得。
-   存在しない場合でも空リストで安全に動作。
 ========================================================= */
 
 let players = [];
 
-
-/* =========================================================
-   PLAYER FILTER STATE
-========================================================= */
+let savantData = null;
 
 let currentPlayerPosition = "all";
 
 let currentPlayerStatus = "all";
 
+let openedPlayerId = null;
+
 
 /* =========================================================
-   PLAYER POSITION NORMALIZER
-   ---------------------------------------------------------
-   MLB API / players.json の表記揺れを吸収する。
+   ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   POSITION
 ========================================================= */
 
 function normalizePosition(player) {
 
-    const rawValues = [
+    let raw =
+        player.positionCode ??
+        player.position ??
+        player.primaryPosition ??
+        "";
 
-        player.primaryPosition,
+    if (
+        typeof raw === "object"
+    ) {
 
-        player.position,
-
-        player.primary_position,
-
-        player.pos,
-
-        player.positionCode,
-
-        player.position_code
-
-    ];
-
-
-    let raw = "";
-
-    for (const value of rawValues) {
-
-        if (!value) {
-            continue;
-        }
-
-        if (typeof value === "object") {
-
-            raw =
-                value.abbreviation ||
-                value.code ||
-                value.name ||
-                "";
-
-        } else {
-
-            raw = String(value);
-
-        }
-
-        if (raw) {
-            break;
-        }
+        raw =
+            raw.abbreviation ??
+            raw.code ??
+            raw.name ??
+            "";
 
     }
 
-
     raw =
-        raw
+        String(raw)
             .trim()
             .toUpperCase();
 
-
-    /* =====================================================
-       PITCHER
-    ===================================================== */
 
     if (
         raw === "P" ||
@@ -2976,10 +2883,6 @@ function normalizePosition(player) {
     }
 
 
-    /* =====================================================
-       CATCHER
-    ===================================================== */
-
     if (
         raw === "C" ||
         raw.includes("CATCH")
@@ -2989,10 +2892,6 @@ function normalizePosition(player) {
 
     }
 
-
-    /* =====================================================
-       INFIELD
-    ===================================================== */
 
     if (
         raw === "1B" ||
@@ -3034,10 +2933,6 @@ function normalizePosition(player) {
     }
 
 
-    /* =====================================================
-       OUTFIELD
-    ===================================================== */
-
     if (
         raw === "LF" ||
         raw.includes("LEFT FIELD")
@@ -3069,15 +2964,9 @@ function normalizePosition(player) {
     }
 
 
-    /*
-       MLB側から IF / OF しか来ない場合の
-       最低限のフォールバック
-    */
-
     if (
         raw === "IF" ||
-        raw.includes("INFIELDER") ||
-        raw === "INFIELD"
+        raw.includes("INFIELDER")
     ) {
 
         return "IF";
@@ -3087,8 +2976,7 @@ function normalizePosition(player) {
 
     if (
         raw === "OF" ||
-        raw.includes("OUTFIELDER") ||
-        raw === "OUTFIELD"
+        raw.includes("OUTFIELDER")
     ) {
 
         return "OF";
@@ -3102,17 +2990,25 @@ function normalizePosition(player) {
 
 
 /* =========================================================
-   PLAYER GROUP
+   POSITION GROUP
 ========================================================= */
 
 function getPlayerGroup(position) {
 
-    if (position === "P") {
+    if (
+        position === "P"
+    ) {
+
         return "P";
+
     }
 
-    if (position === "C") {
+    if (
+        position === "C"
+    ) {
+
         return "C";
+
     }
 
     if (
@@ -3120,7 +3016,8 @@ function getPlayerGroup(position) {
             "1B",
             "2B",
             "3B",
-            "SS"
+            "SS",
+            "IF"
         ].includes(position)
     ) {
 
@@ -3132,7 +3029,8 @@ function getPlayerGroup(position) {
         [
             "LF",
             "CF",
-            "RF"
+            "RF",
+            "OF"
         ].includes(position)
     ) {
 
@@ -3140,15 +3038,23 @@ function getPlayerGroup(position) {
 
     }
 
-    if (position === "IF") {
-        return "IF";
-    }
-
-    if (position === "OF") {
-        return "OF";
-    }
-
     return "OTHER";
+
+}
+
+
+/* =========================================================
+   PLAYER ID
+========================================================= */
+
+function getPlayerId(player) {
+
+    return Number(
+        player.id ??
+        player.player_id ??
+        player.playerId ??
+        0
+    );
 
 }
 
@@ -3160,20 +3066,16 @@ function getPlayerGroup(position) {
 function getPlayerNumber(player) {
 
     const value =
-
-        player.jerseyNumber ??
         player.number ??
+        player.jerseyNumber ??
         player.uniformNumber ??
-        player.jersey_number ??
         "";
-
 
     const number =
         parseInt(
             String(value),
             10
         );
-
 
     if (
         Number.isNaN(number)
@@ -3183,25 +3085,21 @@ function getPlayerNumber(player) {
 
     }
 
-
     return number;
 
 }
 
 
 /* =========================================================
-   PLAYER NAME
+   NAME
 ========================================================= */
 
 function getPlayerName(player) {
 
     return (
+        player.name ||
 
         player.fullName ||
-
-        player.full_name ||
-
-        player.name ||
 
         (
             player.firstName &&
@@ -3211,196 +3109,108 @@ function getPlayerName(player) {
         ) ||
 
         "Unknown Player"
-
     );
 
 }
 
 
 /* =========================================================
-   BATS / THROWS
+   B/T
 ========================================================= */
 
 function getBats(player) {
 
-    return (
+    if (
+        player.bt
+    ) {
 
-        player.bats ||
+        return String(
+            player.bt
+        ).split("/")[0];
 
-        player.batSide ||
+    }
 
-        player.bat_side ||
-
-        player.batsThrows?.bats ||
-
-        player.bats_throws?.bats ||
-
+    return String(
+        player.bats ??
         "—"
-
-    ).toString().toUpperCase().charAt(0);
+    )
+    .toUpperCase()
+    .charAt(0);
 
 }
 
 
 function getThrows(player) {
 
-    return (
+    if (
+        player.bt
+    ) {
 
-        player.throws ||
+        const parts =
+            String(
+                player.bt
+            ).split("/");
 
-        player.throwSide ||
+        return (
+            parts[1] ??
+            "—"
+        );
 
-        player.throw_side ||
+    }
 
-        player.batsThrows?.throws ||
-
-        player.bats_throws?.throws ||
-
+    return String(
+        player.throws ??
         "—"
-
-    ).toString().toUpperCase().charAt(0);
+    )
+    .toUpperCase()
+    .charAt(0);
 
 }
 
 
 /* =========================================================
-   ACTIVE STATUS
+   IL
 ========================================================= */
 
 function isIL(player) {
 
-    const status =
-        String(
-
-            player.status ||
-
-            player.rosterStatus ||
-
-            player.roster_status ||
-
-            ""
-
-        ).toUpperCase();
-
-
     return (
-
-        player.il === true ||
-
         player.isIL === true ||
-
-        player.injuredList === true ||
-
-        player.injured_list === true ||
-
-        status.includes("INJURED") ||
-
-        status.includes("IL")
-
+        player.il === true ||
+        player.injuredList === true
     );
 
 }
 
 
-function isActive(player) {
+function getILDays(player) {
 
     if (
-        isIL(player)
+        player.ilDays !== null &&
+        player.ilDays !== undefined &&
+        player.ilDays !== ""
     ) {
 
-        return false;
+        return String(
+            player.ilDays
+        );
 
     }
 
-
-    if (
-        player.active === true ||
-        player.isActive === true
-    ) {
-
-        return true;
-
-    }
-
-
-    const status =
-        String(
-
-            player.status ||
-
-            player.rosterStatus ||
-
-            player.roster_status ||
-
-            ""
-
-        ).toUpperCase();
-
-
-    if (
-        status.includes("ACTIVE")
-    ) {
-
-        return true;
-
-    }
-
-
-    /*
-       players.json に明示的な status が無い場合、
-       40-man 内の MLB roster として扱う。
-    */
-
-    if (
-        player.rosterType === "active" ||
-        player.roster_type === "active"
-    ) {
-
-        return true;
-
-    }
-
-
-    return false;
+    return "";
 
 }
 
 
 /* =========================================================
-   IL DAYS
+   ACTIVE
 ========================================================= */
 
-function getILDays(player) {
+function isActive(player) {
 
-    const values = [
-
-        player.ilDays,
-
-        player.il_days,
-
-        player.injuredListDays,
-
-        player.injured_list_days
-
-    ];
-
-
-    for (const value of values) {
-
-        if (
-            value !== undefined &&
-            value !== null &&
-            value !== ""
-        ) {
-
-            return String(value);
-
-        }
-
-    }
-
-
-    return "";
+    return (
+        player.active === true
+    );
 
 }
 
@@ -3412,59 +3222,78 @@ function getILDays(player) {
 function preparePlayers() {
 
     players =
-        players.map(player => {
+        players.map(
+            player => {
 
-            const position =
-                normalizePosition(player);
+                const position =
+                    normalizePosition(
+                        player
+                    );
 
+                return {
 
-            return {
+                    ...player,
 
-                ...player,
+                    _id:
+                        getPlayerId(
+                            player
+                        ),
 
-                _name:
-                    getPlayerName(player),
+                    _name:
+                        getPlayerName(
+                            player
+                        ),
 
-                _number:
-                    getPlayerNumber(player),
+                    _number:
+                        getPlayerNumber(
+                            player
+                        ),
 
-                _position:
-                    position,
+                    _position:
+                        position,
 
-                _group:
-                    getPlayerGroup(position),
+                    _group:
+                        getPlayerGroup(
+                            position
+                        ),
 
-                _bats:
-                    getBats(player),
+                    _bats:
+                        getBats(
+                            player
+                        ),
 
-                _throws:
-                    getThrows(player),
+                    _throws:
+                        getThrows(
+                            player
+                        ),
 
-                _il:
-                    isIL(player),
+                    _bt:
+                        `${
+                            getBats(player)
+                        }/${
+                            getThrows(player)
+                        }`,
 
-                _active:
-                    isActive(player),
+                    _il:
+                        isIL(
+                            player
+                        ),
 
-                _ilDays:
-                    getILDays(player)
+                    _active:
+                        isActive(
+                            player
+                        ),
 
-            };
+                    _ilDays:
+                        getILDays(
+                            player
+                        )
 
-        });
+                };
 
+            }
+        );
 
-    /*
-       DEFAULT SORT
-
-       1. Pitcher
-       2. Catcher
-       3. Infield
-       4. Outfield
-       5. Other
-
-       その中で背番号順。
-    */
 
     players.sort(
         sortPlayers
@@ -3474,30 +3303,34 @@ function preparePlayers() {
 
 
 /* =========================================================
-   PLAYER SORT
+   DEFAULT SORT
+   P → C → IF → OF → OTHER
+   WITHIN GROUP: JERSEY NUMBER
 ========================================================= */
 
-function sortPlayers(a, b) {
+function sortPlayers(a,b) {
 
-    const groupOrder = {
+    const order = {
 
         P: 1,
+
         C: 2,
+
         IF: 3,
+
         OF: 4,
+
         OTHER: 5
 
     };
 
 
     const groupDifference =
-
         (
-            groupOrder[a._group] || 99
+            order[a._group] ?? 99
         ) -
-
         (
-            groupOrder[b._group] || 99
+            order[b._group] ?? 99
         );
 
 
@@ -3519,18 +3352,35 @@ function sortPlayers(a, b) {
 
 
 /* =========================================================
-   ESCAPE
+   LOAD JSON
 ========================================================= */
 
-function escapeHtml(text) {
+async function loadJSON(file) {
 
-    const div =
-        document.createElement("div");
+    const response =
+        await fetch(
+            file +
+            "?t=" +
+            Date.now(),
+            {
+                cache:
+                    "no-store"
+            }
+        );
 
-    div.textContent =
-        text ?? "";
 
-    return div.innerHTML;
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+            `${file} HTTP ${response.status}`
+        );
+
+    }
+
+
+    return await response.json();
 
 }
 
@@ -3541,127 +3391,781 @@ function escapeHtml(text) {
 
 async function loadPlayers() {
 
-    const candidates = [
+    const data =
+        await loadJSON(
+            "players.json"
+        );
 
-        "players.json",
 
-        "data/players.json",
+    if (
+        Array.isArray(data)
+    ) {
 
-        "data/phillies-players.json"
+        players =
+            data;
+
+    }
+
+    else if (
+        data &&
+        Array.isArray(
+            data.players
+        )
+    ) {
+
+        players =
+            data.players;
+
+    }
+
+    else {
+
+        throw new Error(
+            "players.json does not contain players[]"
+        );
+
+    }
+
+
+    preparePlayers();
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+   LOAD SAVANT
+========================================================= */
+
+async function loadSavant() {
+
+    try {
+
+        savantData =
+            await loadJSON(
+                "savant.json"
+            );
+
+
+        const batterCount =
+            Array.isArray(
+                savantData?.batters
+            )
+                ? savantData.batters.length
+                : 0;
+
+
+        const pitcherCount =
+            Array.isArray(
+                savantData?.pitchers
+            )
+                ? savantData.pitchers.length
+                : 0;
+
+
+        document.getElementById(
+            "players-meta"
+        ).textContent =
+            `MLB ROSTER · STATS ${batterCount + pitcherCount}`;
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "savant.json load error:",
+            error
+        );
+
+        savantData =
+            null;
+
+        document.getElementById(
+            "players-meta"
+        ).textContent =
+            "MLB ROSTER · STATS UNAVAILABLE";
+
+    }
+
+}
+
+
+/* =========================================================
+   FIND PLAYER STATS
+========================================================= */
+
+function findSavantPlayer(playerId) {
+
+    if (
+        !savantData
+    ) {
+
+        return null;
+
+    }
+
+
+    const id =
+        Number(
+            playerId
+        );
+
+
+    const groups = [
+
+        savantData.batters,
+
+        savantData.pitchers
 
     ];
 
 
-    let loaded = false;
-
-
     for (
-        const file of candidates
+        const group of groups
     ) {
 
-        try {
+        if (
+            !Array.isArray(group)
+        ) {
 
-            const response =
-                await fetch(
-                    file,
-                    {
-                        cache: "no-store"
-                    }
-                );
-
-
-            if (
-                !response.ok
-            ) {
-
-                continue;
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            /*
-               players.json が
-
-               [
-                   {...},
-                   {...}
-               ]
-
-               の場合
-            */
-
-            if (
-                Array.isArray(data)
-            ) {
-
-                players = data;
-
-            }
-
-
-            /*
-               players.json が
-
-               {
-                   players: [...]
-               }
-
-               の場合
-            */
-
-            else if (
-                Array.isArray(
-                    data.players
-                )
-            ) {
-
-                players =
-                    data.players;
-
-            }
-
-
-            else {
-
-                continue;
-
-            }
-
-
-            preparePlayers();
-
-            renderPlayers();
-
-            loaded = true;
-
-            break;
+            continue;
 
         }
 
-        catch (error) {
 
-            console.warn(
-                "Player data load failed:",
-                file,
-                error
+        const found =
+            group.find(
+                item =>
+                    Number(
+                        item.player_id
+                    ) === id
             );
 
+
+        if (
+            found
+        ) {
+
+            return found;
+
         }
 
     }
 
 
-    if (!loaded) {
+    return null;
 
-        players = [];
+}
 
-        renderPlayers();
+
+/* =========================================================
+   STAT VALUE
+========================================================= */
+
+function getStat(stats,key) {
+
+    if (
+        !stats
+    ) {
+
+        return "—";
 
     }
+
+
+    const value =
+        stats[key];
+
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "—";
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================================================
+   FORMAT DECIMAL STATS
+========================================================= */
+
+function formatRate(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "—";
+
+    }
+
+
+    const number =
+        Number(
+            value
+        );
+
+
+    if (
+        Number.isNaN(number)
+    ) {
+
+        return String(
+            value
+        );
+
+    }
+
+
+    return number.toFixed(3);
+
+}
+
+
+/* =========================================================
+   FACT STAT
+========================================================= */
+
+function factStat(label,value) {
+
+    return `
+
+        <div class="fact-stat">
+
+            <div class="fact-label">
+                ${escapeHtml(label)}
+            </div>
+
+            <div class="fact-value">
+                ${escapeHtml(value)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE FACT CARD
+========================================================= */
+
+function createPlayerFactCard(player) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "player-fact-card";
+
+
+    const data =
+        findSavantPlayer(
+            player._id
+        );
+
+
+    const stats =
+        data?.stats ??
+        null;
+
+
+    const isPitcher =
+        player._group === "P";
+
+
+    let statHTML =
+        "";
+
+
+    if (
+        stats
+    ) {
+
+        if (
+            isPitcher
+        ) {
+
+            statHTML = [
+
+                factStat(
+                    "ERA",
+                    getStat(
+                        stats,
+                        "era"
+                    )
+                ),
+
+                factStat(
+                    "WHIP",
+                    getStat(
+                        stats,
+                        "whip"
+                    )
+                ),
+
+                factStat(
+                    "IP",
+                    getStat(
+                        stats,
+                        "ip"
+                    )
+                ),
+
+                factStat(
+                    "G",
+                    getStat(
+                        stats,
+                        "g"
+                    )
+                ),
+
+                factStat(
+                    "GS",
+                    getStat(
+                        stats,
+                        "gs"
+                    )
+                ),
+
+                factStat(
+                    "W",
+                    getStat(
+                        stats,
+                        "w"
+                    )
+                ),
+
+                factStat(
+                    "L",
+                    getStat(
+                        stats,
+                        "l"
+                    )
+                ),
+
+                factStat(
+                    "SV",
+                    getStat(
+                        stats,
+                        "sv"
+                    )
+                ),
+
+                factStat(
+                    "SO",
+                    getStat(
+                        stats,
+                        "so"
+                    )
+                ),
+
+                factStat(
+                    "BB",
+                    getStat(
+                        stats,
+                        "bb"
+                    )
+                ),
+
+                factStat(
+                    "HR",
+                    getStat(
+                        stats,
+                        "hr"
+                    )
+                )
+
+            ].join("");
+
+        }
+
+        else {
+
+            statHTML = [
+
+                factStat(
+                    "AVG",
+                    formatRate(
+                        stats.avg
+                    )
+                ),
+
+                factStat(
+                    "OBP",
+                    formatRate(
+                        stats.obp
+                    )
+                ),
+
+                factStat(
+                    "SLG",
+                    formatRate(
+                        stats.slg
+                    )
+                ),
+
+                factStat(
+                    "OPS",
+                    formatRate(
+                        stats.ops
+                    )
+                ),
+
+                factStat(
+                    "H",
+                    getStat(
+                        stats,
+                        "h"
+                    )
+                ),
+
+                factStat(
+                    "2B",
+                    getStat(
+                        stats,
+                        "2b"
+                    )
+                ),
+
+                factStat(
+                    "3B",
+                    getStat(
+                        stats,
+                        "3b"
+                    )
+                ),
+
+                factStat(
+                    "HR",
+                    getStat(
+                        stats,
+                        "hr"
+                    )
+                ),
+
+                factStat(
+                    "RBI",
+                    getStat(
+                        stats,
+                        "rbi"
+                    )
+                ),
+
+                factStat(
+                    "BB",
+                    getStat(
+                        stats,
+                        "bb"
+                    )
+                ),
+
+                factStat(
+                    "SO",
+                    getStat(
+                        stats,
+                        "so"
+                    )
+                ),
+
+                factStat(
+                    "SB",
+                    getStat(
+                        stats,
+                        "sb"
+                    )
+                ),
+
+                factStat(
+                    "PA",
+                    getStat(
+                        stats,
+                        "pa"
+                    )
+                )
+
+            ].join("");
+
+        }
+
+    }
+
+
+    const closeButton =
+        document.createElement(
+            "button"
+        );
+
+
+    closeButton.type =
+        "button";
+
+    closeButton.className =
+        "fact-close";
+
+    closeButton.textContent =
+        "×";
+
+
+    closeButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            card.remove();
+
+            openedPlayerId =
+                null;
+
+        }
+    );
+
+
+    card.innerHTML = `
+
+        <div class="fact-header">
+
+            <div>
+
+                <div class="fact-kicker">
+
+                    ${
+                        isPitcher
+                            ? "PITCHING"
+                            : "BATTING"
+                    }
+
+                </div>
+
+                <div class="fact-name">
+
+                    ${escapeHtml(
+                        player._name
+                    )}
+
+                </div>
+
+                <div class="fact-meta">
+
+                    #${escapeHtml(
+                        player._number
+                    )}
+
+                    &nbsp; · &nbsp;
+
+                    ${escapeHtml(
+                        player._bt
+                    )}
+
+                    &nbsp; · &nbsp;
+
+                    ${escapeHtml(
+                        player._position
+                    )}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        ${
+            stats
+
+                ? `
+
+                    <div class="fact-grid">
+
+                        ${statHTML}
+
+                    </div>
+
+                    `
+
+                : `
+
+                    <div class="fact-missing">
+
+                        No statistics were found
+                        for this player in
+                        <strong>savant.json</strong>.
+
+                        <br><br>
+
+                        MLB ID:
+                        ${escapeHtml(
+                            player._id
+                        )}
+
+                    </div>
+
+                    `
+        }
+
+
+        <div class="fact-source">
+
+            Source:
+            MLB Official Stats API /
+            savant.json
+
+        </div>
+
+    `;
+
+
+    card
+        .querySelector(
+            ".fact-header"
+        )
+        .appendChild(
+            closeButton
+        );
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   OPEN / CLOSE PLAYER CARD
+========================================================= */
+
+function togglePlayerCard(
+    player,
+    playerCard
+) {
+
+    const id =
+        player._id;
+
+
+    const existing =
+        document.querySelector(
+            ".player-fact-card"
+        );
+
+
+    if (
+        openedPlayerId === id
+    ) {
+
+        if (
+            existing
+        ) {
+
+            existing.remove();
+
+        }
+
+        openedPlayerId =
+            null;
+
+        playerCard.classList.remove(
+            "selected-player"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        existing
+    ) {
+
+        existing.remove();
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".player-card"
+        )
+        .forEach(
+            element => {
+
+                element.classList.remove(
+                    "selected-player"
+                );
+
+            }
+        );
+
+
+    const factCard =
+        createPlayerFactCard(
+            player
+        );
+
+
+    /*
+       ここが今回の重要部分。
+
+       選手カード自身を置き換えず、
+       その直後に詳細カードを挿入する。
+
+       したがって、
+
+       選手A
+       ↓
+       詳細カード
+       ↓
+       選手B
+
+       という構造になる。
+    */
+
+    playerCard.insertAdjacentElement(
+        "afterend",
+        factCard
+    );
+
+
+    playerCard.classList.add(
+        "selected-player"
+    );
+
+
+    openedPlayerId =
+        id;
+
+
+    setTimeout(
+        function() {
+
+            factCard.scrollIntoView({
+                behavior:
+                    "smooth",
+                block:
+                    "nearest"
+            });
+
+        },
+        30
+    );
 
 }
 
@@ -3678,22 +4182,32 @@ function renderPlayers() {
         );
 
 
-    if (!container) {
+    if (
+        !container
+    ) {
+
         return;
+
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
+
+
+    openedPlayerId =
+        null;
 
 
     let filtered =
         [...players];
 
 
-    /* POSITION FILTER */
+    /* POSITION */
 
     if (
-        currentPlayerPosition !== "all"
+        currentPlayerPosition !==
+        "all"
     ) {
 
         filtered =
@@ -3701,48 +4215,52 @@ function renderPlayers() {
                 player => {
 
                     if (
-                        currentPlayerPosition === "P"
+                        currentPlayerPosition ===
+                        "P"
                     ) {
 
                         return (
-                            player._group === "P"
+                            player._group ===
+                            "P"
                         );
 
                     }
-
 
                     if (
-                        currentPlayerPosition === "C"
+                        currentPlayerPosition ===
+                        "C"
                     ) {
 
                         return (
-                            player._group === "C"
+                            player._group ===
+                            "C"
                         );
 
                     }
-
 
                     if (
-                        currentPlayerPosition === "IF"
+                        currentPlayerPosition ===
+                        "IF"
                     ) {
 
                         return (
-                            player._group === "IF"
+                            player._group ===
+                            "IF"
                         );
 
                     }
-
 
                     if (
-                        currentPlayerPosition === "OF"
+                        currentPlayerPosition ===
+                        "OF"
                     ) {
 
                         return (
-                            player._group === "OF"
+                            player._group ===
+                            "OF"
                         );
 
                     }
-
 
                     return true;
 
@@ -3752,10 +4270,11 @@ function renderPlayers() {
     }
 
 
-    /* STATUS FILTER */
+    /* STATUS */
 
     if (
-        currentPlayerStatus === "active"
+        currentPlayerStatus ===
+        "active"
     ) {
 
         filtered =
@@ -3768,7 +4287,8 @@ function renderPlayers() {
 
 
     if (
-        currentPlayerStatus === "nonactive"
+        currentPlayerStatus ===
+        "nonactive"
     ) {
 
         filtered =
@@ -3780,8 +4300,6 @@ function renderPlayers() {
     }
 
 
-    /* ALWAYS SORT */
-
     filtered.sort(
         sortPlayers
     );
@@ -3790,7 +4308,6 @@ function renderPlayers() {
     document.getElementById(
         "player-count"
     ).textContent =
-
         `${filtered.length} ${
             filtered.length === 1
                 ? "player"
@@ -3830,13 +4347,14 @@ function renderPlayers() {
     filtered.forEach(
         player => {
 
+
             const card =
                 document.createElement(
                     "article"
                 );
 
 
-            let cardClass =
+            card.className =
                 "player-card";
 
 
@@ -3844,8 +4362,9 @@ function renderPlayers() {
                 player._active
             ) {
 
-                cardClass +=
-                    " active-player";
+                card.classList.add(
+                    "active-player"
+                );
 
             }
 
@@ -3854,53 +4373,71 @@ function renderPlayers() {
                 player._il
             ) {
 
-                cardClass +=
-                    " il-player";
+                card.classList.remove(
+                    "active-player"
+                );
+
+                card.classList.add(
+                    "il-player"
+                );
 
             }
 
 
-            card.className =
-                cardClass;
+            let statusText;
 
 
-            const statusText =
+            if (
                 player._il
-                    ? "Injured List"
-                    : player._active
-                        ? "Active"
-                        : "40-Man / Non-Active";
+            ) {
+
+                statusText =
+                    "Injured List";
+
+            }
+
+            else if (
+                player._active
+            ) {
+
+                statusText =
+                    "Active";
+
+            }
+
+            else {
+
+                statusText =
+                    player.is40Man
+                        ? "40-Man / Non-Active"
+                        : "Non-Active";
+
+            }
 
 
             const ilDays =
+                player._il &&
                 player._ilDays
                     ? `
+
                         <div class="player-il-days">
-                            IL ${escapeHtml(
+
+                            IL
+                            ${escapeHtml(
                                 player._ilDays
-                            )} DAYS
+                            )}
+                            DAYS
+
                         </div>
+
                       `
                     : "";
 
 
-            /*
-               IMPORTANT
-
-               表示順は
-
-               背番号
-               B/T
-               POS
-               選手名
-               ステータス
-
-               です。
-            */
-
             card.innerHTML = `
 
                 <div class="player-number">
+
                     ${
                         player._number === 9999
                             ? "—"
@@ -3910,19 +4447,14 @@ function renderPlayers() {
                                 )
                             )
                     }
+
                 </div>
 
 
                 <div class="player-bt">
 
                     ${escapeHtml(
-                        player._bats
-                    )}
-
-                    /
-
-                    ${escapeHtml(
-                        player._throws
+                        player._bt
                     )}
 
                 </div>
@@ -3969,17 +4501,21 @@ function renderPlayers() {
 
 
             /*
-               今はタップしても詳細成績はまだ開かない。
-               次の段階でここを選手詳細画面へ接続する。
+               クリックイベントを
+               カード生成時に直接登録。
             */
 
             card.addEventListener(
                 "click",
-                function() {
+                function(event) {
 
-                    console.log(
-                        "Selected player:",
-                        player
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    togglePlayerCard(
+                        player,
+                        card
                     );
 
                 }
@@ -3997,7 +4533,7 @@ function renderPlayers() {
 
 
 /* =========================================================
-   PLAYER POSITION FILTER
+   PLAYER FILTER
 ========================================================= */
 
 function setPlayerPosition(value) {
@@ -4005,21 +4541,15 @@ function setPlayerPosition(value) {
     currentPlayerPosition =
         value;
 
-
     renderPlayers();
 
 }
 
 
-/* =========================================================
-   PLAYER STATUS FILTER
-========================================================= */
-
 function setPlayerStatus(value) {
 
     currentPlayerStatus =
         value;
-
 
     renderPlayers();
 
@@ -4030,136 +4560,134 @@ function setPlayerStatus(value) {
    NEWS STATE
 ========================================================= */
 
-let currentPeriod = "all";
+function saveState() {
 
-let currentStatus = "all";
+    try {
 
-let currentFavorite = "all";
+        localStorage.setItem(
+            "phillies-news-state",
+            JSON.stringify(
+                articles.map(
+                    article => ({
+                        id:
+                            article.id,
+                        read:
+                            article.read,
+                        favorite:
+                            article.favorite
+                    })
+                )
+            )
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "localStorage unavailable",
+            error
+        );
+
+    }
+
+}
 
 
 function loadSavedState() {
 
-    let saved = {};
-
     try {
 
-        saved =
-            JSON.parse(
-                localStorage.getItem(
-                    "phillies-news-state"
-                ) || "{}"
+        const raw =
+            localStorage.getItem(
+                "phillies-news-state"
             );
 
-    }
 
-    catch {
+        if (
+            !raw
+        ) {
 
-        saved = {};
-
-    }
-
-
-    articles.forEach(
-        article => {
-
-            if (
-                !saved[article.id]
-            ) {
-
-                return;
-
-            }
-
-
-            if (
-                typeof saved[
-                    article.id
-                ].read !== "undefined"
-            ) {
-
-                article.read =
-                    saved[
-                        article.id
-                    ].read;
-
-            }
-
-
-            if (
-                typeof saved[
-                    article.id
-                ].favorite !== "undefined"
-            ) {
-
-                article.favorite =
-                    saved[
-                        article.id
-                    ].favorite;
-
-            }
+            return;
 
         }
-    );
-
-}
 
 
-function saveState() {
+        const saved =
+            JSON.parse(
+                raw
+            );
 
-    const state = {};
 
+        if (
+            !Array.isArray(saved)
+        ) {
 
-    articles.forEach(
-        article => {
-
-            state[
-                article.id
-            ] = {
-
-                read:
-                    article.read,
-
-                favorite:
-                    article.favorite
-
-            };
+            return;
 
         }
-    );
 
 
-    localStorage.setItem(
-        "phillies-news-state",
-        JSON.stringify(state)
-    );
+        saved.forEach(
+            item => {
+
+                const article =
+                    articles.find(
+                        a =>
+                            a.id ===
+                            item.id
+                    );
+
+
+                if (
+                    !article
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    typeof item.read ===
+                    "boolean"
+                ) {
+
+                    article.read =
+                        item.read;
+
+                }
+
+
+                if (
+                    typeof item.favorite ===
+                    "boolean"
+                ) {
+
+                    article.favorite =
+                        item.favorite;
+
+                }
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "saved state error",
+            error
+        );
+
+    }
 
 }
 
 
 /* =========================================================
-   DATE
-========================================================= */
-
-function formatDate(dateString) {
-
-    return new Date(
-        dateString
-    ).toLocaleString(
-        "en-US",
-        {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "2-digit"
-        }
-    );
-
-}
-
-
-/* =========================================================
-   RENDER NEWS
+   NEWS RENDER
 ========================================================= */
 
 function renderArticles() {
@@ -4170,12 +4698,17 @@ function renderArticles() {
         );
 
 
-    if (!container) {
+    if (
+        !container
+    ) {
+
         return;
+
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
     let filtered =
@@ -4187,7 +4720,8 @@ function renderArticles() {
 
 
     if (
-        currentPeriod !== "all"
+        currentPeriod !==
+        "all"
     ) {
 
         const days =
@@ -4197,8 +4731,8 @@ function renderArticles() {
 
 
         const limit =
-            new Date(
-                Date.now() -
+            Date.now() -
+            (
                 days *
                 24 *
                 60 *
@@ -4212,14 +4746,16 @@ function renderArticles() {
                 article =>
                     new Date(
                         article.date
-                    ) >= limit
+                    ).getTime() >=
+                    limit
             );
 
     }
 
 
     if (
-        currentStatus === "unread"
+        currentStatus ===
+        "unread"
     ) {
 
         filtered =
@@ -4232,7 +4768,8 @@ function renderArticles() {
 
 
     if (
-        currentStatus === "read"
+        currentStatus ===
+        "read"
     ) {
 
         filtered =
@@ -4245,7 +4782,8 @@ function renderArticles() {
 
 
     if (
-        currentFavorite === "favorite"
+        currentFavorite ===
+        "favorite"
     ) {
 
         filtered =
@@ -4260,7 +4798,6 @@ function renderArticles() {
     document.getElementById(
         "article-count"
     ).textContent =
-
         `${filtered.length} ${
             filtered.length === 1
                 ? "article"
@@ -4317,38 +4854,10 @@ function renderArticles() {
                 );
 
 
-            card.addEventListener(
-                "click",
-                function(event) {
-
-                    if (
-                        event.target.closest(
-                            ".favorite-button"
-                        )
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    markAsRead(
-                        article.id
-                    );
-
-
-                    window.open(
-                        article.url,
-                        "_blank"
-                    );
-
-                }
-            );
-
-
             card.innerHTML = `
 
                 <button
+                    type="button"
                     class="
                         favorite-button
                         ${
@@ -4372,9 +4881,11 @@ function renderArticles() {
                 <div class="article-top">
 
                     <span class="source">
+
                         ${escapeHtml(
                             article.source
                         )}
+
                     </span>
 
                     <span class="source-dot"></span>
@@ -4387,28 +4898,34 @@ function renderArticles() {
 
 
                 <h2 class="article-title">
+
                     ${escapeHtml(
                         article.title
                     )}
+
                 </h2>
 
 
                 <p class="article-japanese">
+
                     ${escapeHtml(
                         article.japanese
                     )}
+
                 </p>
 
 
                 <div class="article-bottom">
 
                     <span class="article-date">
+
                         ${formatDate(
                             article.date
                         )}
+
                     </span>
 
-                    <span class="meta-separator">
+                    <span>
                         ·
                     </span>
 
@@ -4431,6 +4948,41 @@ function renderArticles() {
             `;
 
 
+            card.addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target.closest(
+                            ".favorite-button"
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    markAsRead(
+                        article.id
+                    );
+
+
+                    if (
+                        article.url
+                    ) {
+
+                        window.open(
+                            article.url,
+                            "_blank"
+                        );
+
+                    }
+
+                }
+            );
+
+
             const favoriteButton =
                 card.querySelector(
                     ".favorite-button"
@@ -4440,6 +4992,8 @@ function renderArticles() {
             favoriteButton.addEventListener(
                 "click",
                 function(event) {
+
+                    event.preventDefault();
 
                     event.stopPropagation();
 
@@ -4464,6 +5018,10 @@ function renderArticles() {
 }
 
 
+/* =========================================================
+   ARTICLE ACTIONS
+========================================================= */
+
 function toggleFavorite(id) {
 
     const article =
@@ -4473,8 +5031,12 @@ function toggleFavorite(id) {
         );
 
 
-    if (!article) {
+    if (
+        !article
+    ) {
+
         return;
+
     }
 
 
@@ -4498,12 +5060,18 @@ function markAsRead(id) {
         );
 
 
-    if (!article) {
+    if (
+        !article
+    ) {
+
         return;
+
     }
 
 
-    article.read = true;
+    article.read =
+        true;
+
 
     saveState();
 
@@ -4512,20 +5080,24 @@ function markAsRead(id) {
 }
 
 
-function setPeriod(period) {
+/* =========================================================
+   NEWS FILTERS
+========================================================= */
+
+function setPeriod(value) {
 
     currentPeriod =
-        period;
+        value;
 
     renderArticles();
 
 }
 
 
-function setStatusFilter(status) {
+function setStatusFilter(value) {
 
     currentStatus =
-        status;
+        value;
 
     renderArticles();
 
@@ -4542,32 +5114,108 @@ function setFavoriteFilter(value) {
 }
 
 
+/* =========================================================
+   COUNTS
+========================================================= */
+
 function updateCounts() {
 
-    document.getElementById(
-        "news-count"
-    ).textContent =
-        articles.length;
+    const newsCount =
+        document.getElementById(
+            "news-count"
+        );
 
 
-    document.getElementById(
-        "unread-count"
-    ).textContent =
-
-        articles.filter(
-            article =>
-                !article.read
-        ).length;
+    const unreadCount =
+        document.getElementById(
+            "unread-count"
+        );
 
 
-    document.getElementById(
-        "favorite-count"
-    ).textContent =
+    const favoriteCount =
+        document.getElementById(
+            "favorite-count"
+        );
 
-        articles.filter(
-            article =>
-                article.favorite
-        ).length;
+
+    if (
+        newsCount
+    ) {
+
+        newsCount.textContent =
+            articles.length;
+
+    }
+
+
+    if (
+        unreadCount
+    ) {
+
+        unreadCount.textContent =
+            articles.filter(
+                article =>
+                    !article.read
+            ).length;
+
+    }
+
+
+    if (
+        favoriteCount
+    ) {
+
+        favoriteCount.textContent =
+            articles.filter(
+                article =>
+                    article.favorite
+            ).length;
+
+    }
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(date) {
+
+    const value =
+        new Date(
+            date
+        );
+
+
+    if (
+        Number.isNaN(
+            value.getTime()
+        )
+    ) {
+
+        return String(
+            date
+        );
+
+    }
+
+
+    return value.toLocaleString(
+        "en-US",
+        {
+            month:
+                "short",
+            day:
+                "numeric",
+            year:
+                "numeric",
+            hour:
+                "numeric",
+            minute:
+                "2-digit"
+        }
+    );
 
 }
 
@@ -4608,9 +5256,14 @@ function showPage(page) {
     ).forEach(
         element => {
 
-            if (!element) {
+            if (
+                !element
+            ) {
+
                 return;
+
             }
+
 
             element.style.display =
                 "none";
@@ -4638,7 +5291,8 @@ function showPage(page) {
 
                 item.classList.toggle(
                     "active",
-                    item.dataset.page === page
+                    item.dataset.page ===
+                    page
                 );
 
             }
@@ -4654,17 +5308,20 @@ function showPage(page) {
 
                 item.classList.toggle(
                     "active",
-                    item.dataset.mobile === page
+                    item.dataset.mobile ===
+                    page
                 );
 
             }
         );
 
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    window.scrollTo(
+        {
+            top: 0,
+            behavior: "smooth"
+        }
+    );
 
 }
 
@@ -4673,15 +5330,104 @@ function showPage(page) {
    INITIALIZE
 ========================================================= */
 
-loadSavedState();
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
 
-renderArticles();
 
-loadPlayers();
+        loadSavedState();
 
-showPage("news");
+        renderArticles();
+
+
+        const today =
+            new Date();
+
+
+        document.getElementById(
+            "today-label"
+        ).textContent =
+            today.toLocaleDateString(
+                "en-US",
+                {
+                    month:
+                        "short",
+                    day:
+                        "numeric",
+                    year:
+                        "numeric"
+                }
+            ).toUpperCase();
+
+
+        try {
+
+            await Promise.all(
+                [
+                    loadPlayers(),
+                    loadSavant()
+                ]
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Initialization error:",
+                error
+            );
+
+
+            const container =
+                document.getElementById(
+                    "players-list"
+                );
+
+
+            if (
+                container &&
+                players.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            !
+                        </div>
+
+                        <h2 class="empty-title">
+                            Roster could not be loaded
+                        </h2>
+
+                        <p class="empty-description">
+
+                            ${escapeHtml(
+                                error.message
+                            )}
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        showPage(
+            "news"
+        );
+
+    }
+);
 
 </script>
 
 </body>
+
 </html>
