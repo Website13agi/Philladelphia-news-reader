@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phillies News</title>
+
+    <style>
+        /* =========================================================
+           基本設定
+        ========================================================= */
+
+        :root {
+            --phillies-red: #E81828;
+            --phillies-dark-red: #C8102E;
+            --phillies-navy: #002D62;
+
+            --background: #f5f6f8;
+            --card-background: #ffffff;
+            --text: #171717;
+            --sub-text: #6b7280;
+            --border: #e5e7eb;
+
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background: var(--background);
+            color: var(--text);
+
+            padding-bottom: 80px;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           ヘッダー
+        ========================================================= */
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            height: 70px;
+
+            padding: 0 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: var(--phillies-red);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-subtitle {
+            font-size: 10px;
+            color: var(--sub-text);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-button {
+            width: 38px;
+            height: 38px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #f3f4f6;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+            transition: 0.2s;
+        }
+
+        .header-button:hover {
+            background: #e5e7eb;
+        }
+
+        /* =========================================================
+           メイン
+        ========================================================= */
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            padding: 32px 24px 60px;
+        }
+
+        .page-heading {
+            margin-bottom: 24px;
+        }
+
+        .page-heading h1 {
+            margin: 0;
+
+            font-size: 32px;
+            font-weight: 800;
+
+            letter-spacing: -1px;
+        }
+
+        .page-heading p {
+            margin: 6px 0 0;
+
+            color: var(--sub-text);
+
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           フィルター
+        ========================================================= */
+
+        .filters {
+            background: #ffffff;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            padding: 14px;
+
+            margin-bottom: 22px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+        .filter-row + .filter-row {
+            margin-top: 10px;
+        }
+
+        .filter-label {
+            width: 70px;
+
+            color: var(--sub-text);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-button {
+            border: 1px solid var(--border);
+
+            background: #ffffff;
+
+            color: #4b5563;
+
+            border-radius: 999px;
+
+            padding: 8px 14px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .filter-button:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .filter-button.active {
+            background: var(--phillies-red);
+            color: #ffffff;
+
+            border-color: var(--phillies-red);
+        }
+
+        /* =========================================================
+           記事一覧
+        ========================================================= */
+
+        .news-layout {
+            display: grid;
+
+            grid-template-columns: minmax(0, 1fr) 280px;
+
+            gap: 24px;
+
+            align-items: start;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        /* =========================================================
+           記事カード
+        ========================================================= */
+
+        .article-card {
+            position: relative;
+
+            background: var(--card-background);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 20px 52px 18px 20px;
+
+            box-shadow: var(--shadow);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.09);
+
+            border-color: #d1d5db;
+        }
+
+        .article-card.read {
+            opacity: 0.68;
+        }
+
+        .article-card.read .article-title {
+            color: #4b5563;
+        }
+
+        .favorite-button {
+            position: absolute;
+
+            top: 17px;
+            right: 17px;
+
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+
+            color: #9ca3af;
+
+            transition:
+                transform 0.15s,
+                color 0.15s,
+                background 0.15s;
+        }
+
+        .favorite-button:hover {
+            background: #fef2f2;
+
+            transform: scale(1.08);
+        }
+
+        .favorite-button.favorite {
+            color: var(--phillies-red);
+        }
+
+        .article-title {
+            margin: 0 0 7px;
+
+            font-size: 18px;
+
+            line-height: 1.45;
+
+            font-weight: 750;
+
+            letter-spacing: -0.2px;
+
+            color: #171717;
+        }
+
+        .article-japanese {
+            margin: 0 0 15px;
+
+            color: #7b8190;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+
+            font-weight: 400;
+        }
+
+        .article-meta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            color: var(--sub-text);
+
+            font-size: 12px;
+        }
+
+        .source {
+            font-weight: 700;
+
+            color: var(--phillies-navy);
+        }
+
+        .meta-dot {
+            color: #c4c8cf;
+        }
+
+        .read-status {
+            margin-left: auto;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--phillies-red);
+        }
+
+        .read .status-dot {
+            background: #cbd5e1;
+        }
+
+        /* =========================================================
+           サイドバー
+        ========================================================= */
+
+        .sidebar {
+            position: sticky;
+            top: 94px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+        .sidebar-card {
+            background: #ffffff;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-title {
+            margin: 0 0 14px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            color: #171717;
+        }
+
+        .sidebar-line {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 9px 0;
+
+            border-bottom: 1px solid #f0f1f3;
+
+            font-size: 13px;
+        }
+
+        .sidebar-line:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-label {
+            color: var(--sub-text);
+        }
+
+        .sidebar-value {
+            font-weight: 750;
+        }
+
+        .phillies-accent {
+            color: var(--phillies-red);
+        }
+
+        /* =========================================================
+           空の状態
+        ========================================================= */
+
+        .empty-state {
+            background: #ffffff;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: var(--sub-text);
+        }
+
+        .empty-icon {
+            font-size: 34px;
+
+            margin-bottom: 10px;
+        }
+
+        .empty-title {
+            margin: 0 0 5px;
+
+            font-weight: 750;
+
+            color: #374151;
+        }
+
+        .empty-text {
+            margin: 0;
+
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           モバイルナビゲーション
+        ========================================================= */
+
+        .mobile-nav {
+            display: none;
+
+            position: fixed;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 64px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-top: 1px solid var(--border);
+
+            z-index: 200;
+
+            box-shadow:
+                0 -3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-nav-item {
+            flex: 1;
+
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 3px;
+
+            color: #8b929d;
+
+            cursor: pointer;
+
+            font-size: 10px;
+
+            font-weight: 650;
+        }
+
+        .mobile-nav-icon {
+            font-size: 19px;
+
+            line-height: 1;
+        }
+
+        .mobile-nav-item.active {
+            color: var(--phillies-red);
+        }
+
+        /* =========================================================
+           PC用ナビゲーション
+        ========================================================= */
+
+        .desktop-nav {
+            display: flex;
+
+            gap: 5px;
+        }
+
+        .desktop-nav-button {
+            border: none;
+
+            background: transparent;
+
+            padding: 8px 11px;
+
+            border-radius: 8px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            font-weight: 650;
+
+            cursor: pointer;
+        }
+
+        .desktop-nav-button:hover {
+            background: #f3f4f6;
+
+            color: #171717;
+        }
+
+        .desktop-nav-button.active {
+            color: var(--phillies-red);
+        }
+
+        /* =========================================================
+           レスポンシブ
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .news-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding-bottom: 70px;
+            }
+
+            .header-inner {
+                height: 60px;
+
+                padding: 0 16px;
+            }
+
+            .brand-mark {
+                width: 34px;
+                height: 34px;
+
+                font-size: 14px;
+            }
+
+            .brand-title {
+                font-size: 18px;
+            }
+
+            .main {
+                padding: 22px 14px 35px;
+            }
+
+            .page-heading {
+                margin-bottom: 18px;
+            }
+
+            .page-heading h1 {
+                font-size: 27px;
+            }
+
+            .filters {
+                padding: 12px;
+
+                border-radius: 12px;
+            }
+
+            .filter-label {
+                width: 100%;
+
+                margin-bottom: 2px;
+            }
+
+            .filter-row + .filter-row {
+                margin-top: 13px;
+            }
+
+            .filter-button {
+                padding: 7px 12px;
+
+                font-size: 12px;
+            }
+
+            .article-card {
+                padding:
+                    17px
+                    48px
+                    16px
+                    16px;
+
+                border-radius: 12px;
+            }
+
+            .article-title {
+                font-size: 16px;
+
+                line-height: 1.5;
+            }
+
+            .article-japanese {
+                font-size: 12px;
+
+                margin-bottom: 13px;
+            }
+
+            .article-meta {
+                font-size: 11px;
+            }
+
+            .read-status {
+                width: 100%;
+
+                margin-left: 0;
+
+                margin-top: 2px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         ヘッダー
+    ========================================================== -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="#" class="brand">
+
+                <div class="brand-mark">
+                    P
+                </div>
+
+                <div class="brand-text">
+
+                    <div class="brand-title">
+                        Phillies
+                    </div>
+
+                    <div class="brand-subtitle">
+                        Daily News
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <nav class="desktop-nav">
+
+                <button
+                    class="desktop-nav-button active"
+                    onclick="showNews()"
+                >
+                    News
+                </button>
+
+                <button
+                    class="desktop-nav-button"
+                    onclick="showNews()"
+                >
+                    Games
+                </button>
+
+                <button
+                    class="desktop-nav-button"
+                    onclick="showNews()"
+                >
+                    Players
+                </button>
+
+                <button
+                    class="desktop-nav-button"
+                    onclick="setStatusFilter('favorite')"
+                >
+                    Saved
+                </button>
+
+            </nav>
+
+
+            <div class="header-right">
+
+                <button
+                    class="header-button"
+                    title="Settings"
+                    onclick="alert('設定画面は後で追加します')"
+                >
+                    ⚙
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         メイン
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <div class="page-heading">
+
+            <h1>
+                Phillies News
+            </h1>
+
+            <p>
+                Philadelphia Phillies news, updates and analysis
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             フィルター
+        ====================================================== -->
+
+        <section class="filters">
+
+
+            <!-- 期間 -->
+
+            <div class="filter-row">
+
+                <div class="filter-label">
+                    Period
+                </div>
+
+                <button
+                    class="filter-button active"
+                    data-period="all"
+                    onclick="setPeriod('all')"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-period="1"
+                    onclick="setPeriod('1')"
+                >
+                    1 Day
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-period="3"
+                    onclick="setPeriod('3')"
+                >
+                    3 Days
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-period="7"
+                    onclick="setPeriod('7')"
+                >
+                    7 Days
+                </button>
+
+            </div>
+
+
+            <!-- 状態 -->
+
+            <div class="filter-row">
+
+                <div class="filter-label">
+                    Status
+                </div>
+
+                <button
+                    class="filter-button active"
+                    data-status="all"
+                    onclick="setStatusFilter('all')"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-status="unread"
+                    onclick="setStatusFilter('unread')"
+                >
+                    Unread
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-status="read"
+                    onclick="setStatusFilter('read')"
+                >
+                    Read
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-status="favorite"
+                    onclick="setStatusFilter('favorite')"
+                >
+                    ★ Favorites
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             ニュース＋サイドバー
+        ====================================================== -->
+
+        <div class="news-layout">
+
+
+            <!-- ニュース -->
+
+            <section>
+
+                <div
+                    id="news-list"
+                    class="news-list"
+                ></div>
+
+            </section>
+
+
+
+            <!-- サイドバー -->
+
+            <aside class="sidebar">
+
+
+                <div class="sidebar-card">
+
+                    <h2 class="sidebar-title">
+                        Today's Phillies
+                    </h2>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            News
+                        </span>
+
+                        <span
+                            class="sidebar-value"
+                            id="news-count"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            Unread
+                        </span>
+
+                        <span
+                            class="sidebar-value phillies-accent"
+                            id="unread-count"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            Favorites
+                        </span>
+
+                        <span
+                            class="sidebar-value"
+                            id="favorite-count"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="sidebar-card">
+
+                    <h2 class="sidebar-title">
+                        Quick Info
+                    </h2>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            Team
+                        </span>
+
+                        <span class="sidebar-value">
+                            PHI
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            League
+                        </span>
+
+                        <span class="sidebar-value">
+                            NL East
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-line">
+
+                        <span class="sidebar-label">
+                            Source
+                        </span>
+
+                        <span class="sidebar-value">
+                            Multiple
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         スマホ用下部ナビゲーション
+    ========================================================== -->
+
+    <nav class="mobile-nav">
+
+
+        <button
+            class="mobile-nav-item active"
+            onclick="showNews()"
+        >
+
+            <span class="mobile-nav-icon">
+                📰
+            </span>
+
+            <span>
+                News
+            </span>
+
+        </button>
+
+
+        <button
+            class="mobile-nav-item"
+            onclick="showNews()"
+        >
+
+            <span class="mobile-nav-icon">
+                ⚾
+            </span>
+
+            <span>
+                Games
+            </span>
+
+        </button>
+
+
+        <button
+            class="mobile-nav-item"
+            onclick="showNews()"
+        >
+
+            <span class="mobile-nav-icon">
+                👤
+            </span>
+
+            <span>
+                Players
+            </span>
+
+        </button>
+
+
+        <button
+            class="mobile-nav-item"
+            onclick="setStatusFilter('favorite')"
+        >
+
+            <span class="mobile-nav-icon">
+                ★
+            </span>
+
+            <span>
+                Saved
+            </span>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         JavaScript
+    ========================================================== -->
+
+    <script>
+
+        /* =========================================================
+           ダミー記事
+           ※後で実際のニュース取得システムに置き換えます
+        ========================================================= */
+
+        const articles = [
+
+            {
+                id: "demo-001",
+
+                title:
+                    "Phillies rally late to secure series win",
+
+                japanese:
+                    "フィリーズが終盤に反撃し、シリーズ勝ち越しを決める",
+
+                source:
+                    "MLB.com",
+
+                date:
+                    "2026-08-10T08:30:00",
+
+                url:
+                    "https://www.mlb.com/phillies",
+
+                read: false,
+
+                favorite: false
+            },
+
+
+            {
+                id: "demo-002",
+
+                title:
+                    "Phillies continue to get strong production from their lineup",
+
+                japanese:
+                    "フィリーズ打線が引き続き好調な打撃を見せる",
+
+                source:
+                    "NBC Sports Philadelphia",
+
+                date:
+                    "2026-08-10T06:45:00",
+
+                url:
+                    "https://www.nbcsports.com/philadelphia/phillies",
+
+                read: false,
+
+                favorite: true
+            },
+
+
+            {
+                id: "demo-003",
+
+                title:
+                    "What the Phillies' latest pitching adjustments mean",
+
+                japanese:
+                    "フィリーズが行った最新の投手陣の調整が意味すること",
+
+                source:
+                    "The Athletic",
+
+                date:
+                    "2026-08-09T23:15:00",
+
+                url:
+                    "https://www.theathletic.com/mlb/team/phillies/",
+
+                read: true,
+
+                favorite: false
+            },
+
+
+            {
+                id: "demo-004",
+
+                title:
+                    "Phillies prospect makes another strong impression",
+
+                japanese:
+                    "フィリーズのプロスペクトが再び強い印象を残す",
+
+                source:
+                    "Baseball America",
+
+                date:
+                    "2026-08-09T20:30:00",
+
+                url:
+                    "https://www.baseballamerica.com/teams/1000/philadelphia-phillies/",
+
+                read: false,
+
+                favorite: true
+            },
+
+
+            {
+                id: "demo-005",
+
+                title:
+                    "Phillies bullpen settles into a new rhythm",
+
+                japanese:
+                    "フィリーズのブルペンが新たなリズムをつかみ始める",
+
+                source:
+                    "FanGraphs",
+
+                date:
+                    "2026-08-09T17:10:00",
+
+                url:
+                    "https://www.fangraphs.com/teams/phillies",
+
+                read: true,
+
+                favorite: false
+            },
+
+
+            {
+                id: "demo-006",
+
+                title:
+                    "Five things to watch as the Phillies head into the next series",
+
+                japanese:
+                    "次のシリーズに向けて注目したいフィリーズの5つのポイント",
+
+                source:
+                    "CBS Sports",
+
+                date:
+                    "2026-08-09T13:20:00",
+
+                url:
+                    "https://www.cbssports.com/mlb/teams/PHI/philadelphia-phillies/",
+
+                read: false,
+
+                favorite: false
+            },
+
+
+            {
+                id: "demo-007",
+
+                title:
+                    "Phillies' defense remains a key part of their success",
+
+                japanese:
+                    "フィリーズの守備がチームの成功を支える重要な要素に",
+
+                source:
+                    "ESPN",
+
+                date:
+                    "2026-08-08T22:00:00",
+
+                url:
+                    "https://www.espn.com/mlb/team/_/name/phi/philadelphia-phillies",
+
+                read: true,
+
+                favorite: true
+            }
+
+        ];
+
+
+
+        /* =========================================================
+           保存データを読み込む
+        ========================================================== */
+
+        function loadSavedState() {
+
+            const saved =
+                JSON.parse(
+                    localStorage.getItem(
+                        "phillies-news-state"
+                    ) || "{}"
+                );
+
+
+            articles.forEach(article => {
+
+                if (saved[article.id]) {
+
+                    article.read =
+                        saved[article.id].read ??
+                        article.read;
+
+                    article.favorite =
+                        saved[article.id].favorite ??
+                        article.favorite;
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =========================================================
+           状態を保存
+        ========================================================== */
+
+        function saveState() {
+
+            const state = {};
+
+            articles.forEach(article => {
+
+                state[article.id] = {
+
+                    read: article.read,
+
+                    favorite: article.favorite
+
+                };
+
+            });
+
+
+            localStorage.setItem(
+
+                "phillies-news-state",
+
+                JSON.stringify(state)
+
+            );
+
+        }
+
+
+
+        /* =========================================================
+           現在のフィルター
+        ========================================================== */
+
+        let currentPeriod = "all";
+
+        let currentStatus = "all";
+
+
+
+        /* =========================================================
+           日付表示
+        ========================================================== */
+
+        function formatDate(dateString) {
+
+            const date =
+                new Date(dateString);
+
+
+            const month =
+                date.toLocaleString(
+                    "en-US",
+                    {
+                        month: "short"
+                    }
+                );
+
+            const day =
+                date.getDate();
+
+            const year =
+                date.getFullYear();
+
+
+            const hours =
+                String(
+                    date.getHours()
+                ).padStart(2, "0");
+
+
+            const minutes =
+                String(
+                    date.getMinutes()
+                ).padStart(2, "0");
+
+
+            return `${month} ${day}, ${year} · ${hours}:${minutes}`;
+
+        }
+
+
+
+        /* =========================================================
+           記事一覧を表示
+        ========================================================== */
+
+        function renderArticles() {
+
+            const container =
+                document.getElementById(
+                    "news-list"
+                );
+
+
+            container.innerHTML = "";
+
+
+            const now =
+                new Date();
+
+
+            /* -----------------------------------------
+               常に新着順
+            ----------------------------------------- */
+
+            let filtered =
+                [...articles]
+                .sort(
+                    (a, b) =>
+                        new Date(b.date) -
+                        new Date(a.date)
+                );
+
+
+            /* -----------------------------------------
+               期間フィルター
+            ----------------------------------------- */
+
+            if (currentPeriod !== "all") {
+
+                const days =
+                    Number(currentPeriod);
+
+                const limit =
+                    new Date(
+                        now.getTime() -
+                        days *
+                        24 *
+                        60 *
+                        60 *
+                        1000
+                    );
+
+
+                filtered =
+                    filtered.filter(
+                        article =>
+                            new Date(article.date) >=
+                            limit
+                    );
+
+            }
+
+
+            /* -----------------------------------------
+               状態フィルター
+            ----------------------------------------- */
+
+            if (currentStatus === "unread") {
+
+                filtered =
+                    filtered.filter(
+                        article =>
+                            !article.read
+                    );
+
+            }
+
+
+            if (currentStatus === "read") {
+
+                filtered =
+                    filtered.filter(
+                        article =>
+                            article.read
+                    );
+
+            }
+
+
+            if (currentStatus === "favorite") {
+
+                filtered =
+                    filtered.filter(
+                        article =>
+                            article.favorite
+                    );
+
+            }
+
+
+            /* -----------------------------------------
+               0件の場合
+            ----------------------------------------- */
+
+            if (filtered.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📰
+                        </div>
+
+                        <p class="empty-title">
+                            No articles found
+                        </p>
+
+                        <p class="empty-text">
+                            There are no articles matching your current filters.
+                        </p>
+
+                    </div>
+
+                `;
+
+                updateCounts();
+
+                return;
+            }
+
+
+
+            /* -----------------------------------------
+               記事カード生成
+            ----------------------------------------- */
+
+            filtered.forEach(article => {
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                card.className =
+                    "article-card" +
+                    (article.read
+                        ? " read"
+                        : "");
+
+
+                card.onclick =
+                    function(event) {
+
+                        if (
+                            event.target.closest(
+                                ".favorite-button"
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        markAsRead(
+                            article.id
+                        );
+
+
+                        window.open(
+                            article.url,
+                            "_blank"
+                        );
+
+                    };
+
+
+
+                card.innerHTML = `
+
+                    <button
+                        class="favorite-button
+                        ${article.favorite
+                            ? "favorite"
+                            : ""}"
+                        aria-label="Favorite"
+                        title="Favorite"
+                        onclick="toggleFavorite(event, '${article.id}')"
+                    >
+                        ${article.favorite ? "★" : "☆"}
+                    </button>
+
+
+                    <h2 class="article-title">
+                        ${escapeHtml(article.title)}
+                    </h2>
+
+
+                    <p class="article-japanese">
+                        ${escapeHtml(article.japanese)}
+                    </p>
+
+
+                    <div class="article-meta">
+
+                        <span class="source">
+                            ${escapeHtml(article.source)}
+                        </span>
+
+                        <span class="meta-dot">
+                            •
+                        </span>
+
+                        <span>
+                            ${formatDate(article.date)}
+                        </span>
+
+
+                        <span class="read-status">
+
+                            <span class="status-dot"></span>
+
+                            ${
+                                article.read
+                                    ? "Read"
+                                    : "Unread"
+                            }
+
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            });
+
+
+            updateCounts();
+
+        }
+
+
+
+        /* =========================================================
+           お気に入り切り替え
+        ========================================================== */
+
+        function toggleFavorite(
+            event,
+            id
+        ) {
+
+            event.stopPropagation();
+
+
+            const article =
+                articles.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!article) {
+                return;
+            }
+
+
+            article.favorite =
+                !article.favorite;
+
+
+            saveState();
+
+            renderArticles();
+
+        }
+
+
+
+        /* =========================================================
+           既読にする
+        ========================================================== */
+
+        function markAsRead(id) {
+
+            const article =
+                articles.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!article) {
+                return;
+            }
+
+
+            article.read = true;
+
+
+            saveState();
+
+            renderArticles();
+
+        }
+
+
+
+        /* =========================================================
+           期間変更
+        ========================================================== */
+
+        function setPeriod(period) {
+
+            currentPeriod =
+                period;
+
+
+            document
+                .querySelectorAll(
+                    "[data-period]"
+                )
+                .forEach(button => {
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.period ===
+                        period
+                    );
+
+                });
+
+
+            renderArticles();
+
+        }
+
+
+
+        /* =========================================================
+           状態変更
+        ========================================================== */
+
+        function setStatusFilter(status) {
+
+            currentStatus =
+                status;
+
+
+            document
+                .querySelectorAll(
+                    "[data-status]"
+                )
+                .forEach(button => {
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.status ===
+                        status
+                    );
+
+                });
+
+
+            renderArticles();
+
+        }
+
+
+
+        /* =========================================================
+           カウント
+        ========================================================== */
+
+        function updateCounts() {
+
+            const total =
+                articles.length;
+
+
+            const unread =
+                articles.filter(
+                    article =>
+                        !article.read
+                ).length;
+
+
+            const favorites =
+                articles.filter(
+                    article =>
+                        article.favorite
+                ).length;
+
+
+            document.getElementById(
+                "news-count"
+            ).textContent =
+                total;
+
+
+            document.getElementById(
+                "unread-count"
+            ).textContent =
+                unread;
+
+
+            document.getElementById(
+                "favorite-count"
+            ).textContent =
+                favorites;
+
+        }
+
+
+
+        /* =========================================================
+           XSS対策用
+        ========================================================== */
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                text;
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        /* =========================================================
+           News画面
+        ========================================================== */
+
+        function showNews() {
+
+            currentStatus =
+                "all";
+
+
+            document
+                .querySelectorAll(
+                    "[data-status]"
+                )
+                .forEach(button => {
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.status ===
+                        "all"
+                    );
+
+                });
+
+
+            renderArticles();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+
+        /* =========================================================
+           初期化
+        ========================================================== */
+
+        loadSavedState();
+
+        renderArticles();
+
+    </script>
+
+</body>
+</html>
