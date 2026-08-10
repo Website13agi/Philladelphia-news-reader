@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T18:00:23.385254+00:00",
+  "updatedAt": "2026-08-10T21:25:57.737780+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -269,13 +269,13 @@
       "bats": "L",
       "throws": "R",
       "bt": "L/R",
-      "active": false,
+      "active": true,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "A",
+      "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/663767"
     },
     {
@@ -290,13 +290,13 @@
       "bats": "R",
       "throws": "R",
       "bt": "R/R",
-      "active": true,
+      "active": false,
       "is40Man": true,
-      "isIL": false,
+      "isIL": true,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "D15",
+      "statusDescription": "Injured 15-Day",
       "mlbUrl": "https://www.mlb.com/player/668873"
     },
     {
