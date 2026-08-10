@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 # =========================================================
-# Phillies Roster Updater
+# PHILLIES ROSTER UPDATER
 # MLB Stats API
 # =========================================================
 
@@ -17,7 +17,7 @@ OUTPUT_FILE = Path("players.json")
 
 USER_AGENT = (
     "Mozilla/5.0 "
-    "(compatible; PhilliesDailyRoster/1.0)"
+    "(compatible; PhilliesDailyRoster/2.0)"
 )
 
 
@@ -27,7 +27,7 @@ USER_AGENT = (
 
 def get_json(url):
 
-    print(f"GET {url}")
+    print(f"GET: {url}")
 
     request = urllib.request.Request(
         url,
@@ -42,15 +42,15 @@ def get_json(url):
         timeout=30
     ) as response:
 
-        raw = response.read()
+        data = response.read()
 
     return json.loads(
-        raw.decode("utf-8")
+        data.decode("utf-8")
     )
 
 
 # =========================================================
-# MLB ROSTER
+# ROSTER
 # =========================================================
 
 def get_roster(roster_type):
@@ -77,7 +77,41 @@ def get_roster(roster_type):
 
 
 # =========================================================
-# POSITION
+# POSITION NORMALIZATION
+#
+# MLB Stats APIでは
+#
+# Pitcher:
+#   P
+#
+# Catcher:
+#   C
+#
+# First Base:
+#   3
+#
+# Second Base:
+#   4
+#
+# Third Base:
+#   5
+#
+# Shortstop:
+#   6
+#
+# Left Field:
+#   7
+#
+# Center Field:
+#   8
+#
+# Right Field:
+#   9
+#
+# Designated Hitter:
+#   10
+#
+# というコードが使用される場合がある。
 # =========================================================
 
 def normalize_position(position):
@@ -97,50 +131,139 @@ def normalize_position(position):
             "name",
             ""
         )
-    ).lower()
+    ).strip().lower()
 
+    # -----------------------------------------------------
     # Pitcher
+    # -----------------------------------------------------
+
     if (
         code == "P"
         or name == "pitcher"
+        or "pitcher" in name
     ):
         return "Pitchers"
 
+    # -----------------------------------------------------
     # Catcher
+    # -----------------------------------------------------
+
     if (
         code == "C"
         or name == "catcher"
+        or "catcher" in name
     ):
         return "Catchers"
 
+    # -----------------------------------------------------
     # Infield
+    #
+    # API may return:
+    #
+    # 1B / 2B / 3B / SS
+    # 3 / 4 / 5 / 6
+    #
+    # or names such as:
+    #
+    # First Base
+    # Second Base
+    # Third Base
+    # Shortstop
+    # Infielder
+    # -----------------------------------------------------
+
+    infield_codes = {
+        "1B",
+        "2B",
+        "3B",
+        "SS",
+        "3",
+        "4",
+        "5",
+        "6",
+    }
+
+    infield_names = {
+        "first base",
+        "second base",
+        "third base",
+        "shortstop",
+        "infielder",
+        "infield",
+    }
+
     if (
-        code in {
-            "1B",
-            "2B",
-            "3B",
-            "SS"
-        }
-        or name == "infielder"
+        code in infield_codes
+        or name in infield_names
+        or "infielder" in name
     ):
         return "Infielders"
 
+    # -----------------------------------------------------
     # Outfield
+    #
+    # API may return:
+    #
+    # LF / CF / RF / OF
+    # 7 / 8 / 9
+    #
+    # or names such as:
+    #
+    # Left Field
+    # Center Field
+    # Right Field
+    # Outfielder
+    # -----------------------------------------------------
+
+    outfield_codes = {
+        "LF",
+        "CF",
+        "RF",
+        "OF",
+        "7",
+        "8",
+        "9",
+    }
+
+    outfield_names = {
+        "left field",
+        "center field",
+        "right field",
+        "outfielder",
+        "outfield",
+    }
+
     if (
-        code in {
-            "LF",
-            "CF",
-            "RF",
-            "OF"
-        }
-        or name == "outfielder"
+        code in outfield_codes
+        or name in outfield_names
+        or "outfielder" in name
     ):
         return "Outfielders"
 
-    # Designated hitter
+    # -----------------------------------------------------
+    # Designated Hitter
+    #
+    # UIでは野手として扱う
+    # -----------------------------------------------------
+
     if (
         code == "DH"
+        or code == "10"
         or name == "designated hitter"
+        or "designated hitter" in name
+    ):
+        return "Infielders"
+
+    # -----------------------------------------------------
+    # Utility / Two-Way
+    #
+    # 野手として登録されている場合は
+    # 名前から可能な限り判定
+    # -----------------------------------------------------
+
+    if (
+        "utility" in name
+        or "two-way" in name
     ):
         return "Infielders"
 
@@ -151,7 +274,7 @@ def normalize_position(position):
 # STATUS
 # =========================================================
 
-def normalize_status(
+def get_status(
     entry,
     active_ids
 ):
@@ -179,35 +302,25 @@ def normalize_status(
     # IL
     # -----------------------------------------------------
 
-    il_words = [
-        "injured",
-        "injury",
-        "10-day injured",
-        "15-day injured",
-        "60-day injured",
-        "7-day injured",
-        "il",
-    ]
-
     if (
         "IL" in code
-        or any(
-            word in description
-            for word in il_words
-        )
+        or "INJURED" in code
+        or "INJURED" in description.upper()
+        or "injured" in description
+        or "injury" in description
     ):
         return "IL"
 
     # -----------------------------------------------------
-    # Active roster
+    # Active
     # -----------------------------------------------------
 
-    player = entry.get(
+    person = entry.get(
         "person",
         {}
     )
 
-    player_id = player.get(
+    player_id = person.get(
         "id"
     )
 
@@ -215,7 +328,7 @@ def normalize_status(
         return "ACTIVE"
 
     # -----------------------------------------------------
-    # 40-man roster
+    # 40-man only
     # -----------------------------------------------------
 
     return "40-MAN"
@@ -225,7 +338,7 @@ def normalize_status(
 # PLAYER
 # =========================================================
 
-def make_player(
+def create_player(
     entry,
     active_ids
 ):
@@ -250,46 +363,82 @@ def make_player(
     if not name:
         return None
 
-    position = entry.get(
+    position_data = entry.get(
         "position",
         {}
     )
 
-    status = normalize_status(
+    number = entry.get(
+        "jerseyNumber"
+    )
+
+    if number is None:
+        number = ""
+
+    number = str(
+        number
+    ).strip()
+
+    position = normalize_position(
+        position_data
+    )
+
+    status = get_status(
         entry,
         active_ids
     )
 
-    jersey_number = entry.get(
-        "jerseyNumber"
-    )
+    return {
 
-    # jerseyNumber may be missing
-    if jersey_number is None:
-        jersey_number = ""
+        "id":
+            player_id,
 
-    player = {
-        "id": player_id,
+        "name":
+            name,
 
-        "name": name,
+        "number":
+            number,
 
-        "number": str(
-            jersey_number
-        ),
+        "position":
+            position,
 
-        "position": normalize_position(
-            position
-        ),
+        "status":
+            status,
 
-        "status": status,
+        "mlb_url":
+            (
+                "https://www.mlb.com/player/"
+                f"{player_id}"
+            ),
 
-        "mlb_url": (
-            "https://www.mlb.com/player/"
-            f"{player_id}"
-        ),
     }
 
-    return player
+
+# =========================================================
+# NUMBER SORT
+# =========================================================
+
+def number_sort_value(number):
+
+    if number is None:
+        return 9999
+
+    number = str(
+        number
+    ).strip()
+
+    if not number:
+        return 9999
+
+    try:
+
+        return int(
+            number
+        )
+
+    except ValueError:
+
+        return 9999
 
 
 # =========================================================
@@ -299,19 +448,19 @@ def make_player(
 def main():
 
     print(
-        "========================================"
+        "=========================================="
     )
 
     print(
-        "Updating Philadelphia Phillies roster"
+        "Philadelphia Phillies Roster Update"
     )
 
     print(
-        "========================================"
+        "=========================================="
     )
 
     # -----------------------------------------------------
-    # Active roster
+    # ACTIVE
     # -----------------------------------------------------
 
     active_roster = get_roster(
@@ -319,8 +468,7 @@ def main():
     )
 
     print(
-        f"Active roster: "
-        f"{len(active_roster)}"
+        f"Active roster: {len(active_roster)}"
     )
 
     active_ids = set()
@@ -344,7 +492,7 @@ def main():
             )
 
     # -----------------------------------------------------
-    # 40-man roster
+    # 40-MAN
     # -----------------------------------------------------
 
     forty_roster = get_roster(
@@ -352,19 +500,18 @@ def main():
     )
 
     print(
-        f"40-man roster: "
-        f"{len(forty_roster)}"
+        f"40-man roster: {len(forty_roster)}"
     )
 
     # -----------------------------------------------------
-    # Merge
+    # MERGE
     # -----------------------------------------------------
 
     players_by_id = {}
 
     for entry in forty_roster:
 
-        player = make_player(
+        player = create_player(
             entry,
             active_ids
         )
@@ -377,70 +524,103 @@ def main():
         ] = player
 
     # -----------------------------------------------------
-    # Safety check
-    #
-    # API failureなどで空データを
-    # players.jsonに書き込まない
+    # Safety
     # -----------------------------------------------------
 
-    if len(players_by_id) == 0:
+    if not players_by_id:
 
         raise RuntimeError(
-            "No Phillies players were returned "
-            "from MLB Stats API. "
-            "Existing players.json was not overwritten."
+            "MLB Stats API returned "
+            "zero Phillies players."
         )
-
-    # -----------------------------------------------------
-    # Sort
-    # -----------------------------------------------------
-
-    position_order = {
-        "Pitchers": 1,
-        "Catchers": 2,
-        "Infielders": 3,
-        "Outfielders": 4,
-        "Other": 5,
-    }
 
     players = list(
         players_by_id.values()
     )
 
+    # -----------------------------------------------------
+    # POSITION ORDER
+    # -----------------------------------------------------
+
+    position_order = {
+
+        "Pitchers": 1,
+
+        "Catchers": 2,
+
+        "Infielders": 3,
+
+        "Outfielders": 4,
+
+        "Other": 5,
+
+    }
+
+    # -----------------------------------------------------
+    # SORT
+    #
+    # ① ポジション
+    # ② 背番号
+    # ③ 名前
+    #
+    # 背番号なしは最後
+    # -----------------------------------------------------
+
     players.sort(
+
         key=lambda player: (
+
             position_order.get(
                 player["position"],
                 99
             ),
-            player["name"].lower()
+
+            number_sort_value(
+                player["number"]
+            ),
+
+            player["name"].lower(),
+
         )
+
     )
 
     # -----------------------------------------------------
-    # Statistics
+    # COUNTS
     # -----------------------------------------------------
 
     active_count = sum(
+
         1
+
         for player in players
+
         if player["status"] == "ACTIVE"
+
     )
 
     il_count = sum(
+
         1
+
         for player in players
+
         if player["status"] == "IL"
+
     )
 
     forty_count = sum(
+
         1
+
         for player in players
+
         if player["status"] == "40-MAN"
+
     )
 
     # -----------------------------------------------------
-    # Output
+    # OUTPUT
     # -----------------------------------------------------
 
     output = {
@@ -478,14 +658,16 @@ def main():
 
             "forty_man":
                 forty_count,
+
         },
 
         "players":
             players,
+
     }
 
     # -----------------------------------------------------
-    # Write
+    # WRITE
     # -----------------------------------------------------
 
     OUTPUT_FILE.write_text(
@@ -497,14 +679,19 @@ def main():
         ),
 
         encoding="utf-8"
+
+    )
+
+    # -----------------------------------------------------
+    # LOG
+    # -----------------------------------------------------
+
+    print(
+        "------------------------------------------"
     )
 
     print(
-        "----------------------------------------"
-    )
-
-    print(
-        f"Players: {len(players)}"
+        f"Total: {len(players)}"
     )
 
     print(
@@ -520,17 +707,13 @@ def main():
     )
 
     print(
-        "players.json successfully updated."
+        "Roster update completed."
     )
 
     print(
-        "----------------------------------------"
+        "------------------------------------------"
     )
 
-
-# =========================================================
-# RUN
-# =========================================================
 
 if __name__ == "__main__":
 
