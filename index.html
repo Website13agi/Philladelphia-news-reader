@@ -1,25 +1,31 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Phillies Daily</title>
+
 
 <style>
 
 /* =========================================================
    PHILLIES DAILY
-   UI V6
+   INDEX V6
+   NEWS / GAMES / PLAYERS / MORE
 ========================================================= */
 
 :root {
 
     --red: #e31837;
     --red-dark: #c8102e;
-    --red-soft: #fff0f2;
+    --red-soft: #fff1f3;
 
     --navy: #002d62;
     --navy-dark: #001b3d;
@@ -39,18 +45,18 @@
     --gray-200: #e4e8ed;
     --gray-100: #f2f4f7;
 
-    --il: #eab308;
-    --il-soft: #fff9db;
-
     --background: #f4f6f9;
+
+    --yellow: #f4c542;
+    --yellow-soft: #fff8dc;
 
     --radius: 16px;
 
     --shadow:
-        0 4px 18px rgba(0,29,62,.065);
+        0 5px 22px rgba(0, 29, 62, .065);
 
     --shadow-hover:
-        0 14px 34px rgba(0,29,62,.13);
+        0 14px 35px rgba(0, 29, 62, .13);
 }
 
 
@@ -90,7 +96,7 @@ body {
         antialiased;
 
     padding-bottom:
-        84px;
+        30px;
 }
 
 button,
@@ -114,7 +120,18 @@ a {
 
 .topbar {
 
-    height: 76px;
+    height: 78px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #00152f 0%,
+            #002d62 58%,
+            #003b7d 100%
+        );
+
+    border-bottom:
+        4px solid var(--red);
 
     position: sticky;
 
@@ -122,27 +139,16 @@ a {
 
     z-index: 1000;
 
-    background:
-        linear-gradient(
-            105deg,
-            #00152f 0%,
-            #002d62 65%,
-            #003d80 100%
-        );
-
-    border-bottom:
-        4px solid var(--red);
-
     box-shadow:
-        0 5px 24px
-        rgba(0,24,54,.20);
+        0 6px 24px rgba(0, 24, 54, .20);
 }
+
 
 .topbar-inner {
 
-    height: 100%;
+    max-width: 1320px;
 
-    max-width: 1280px;
+    height: 100%;
 
     margin: 0 auto;
 
@@ -171,15 +177,20 @@ a {
     min-width: max-content;
 }
 
+
 .brand-logo {
 
-    width: 48px;
+    width: 49px;
 
-    height: 48px;
+    height: 49px;
 
     border-radius: 50%;
 
     background: white;
+
+    border:
+        2px solid
+        rgba(255,255,255,.92);
 
     display: flex;
 
@@ -190,13 +201,9 @@ a {
     overflow: hidden;
 
     box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.25);
-
-    border:
-        2px solid
-        rgba(255,255,255,.92);
+        0 4px 13px rgba(0,0,0,.23);
 }
+
 
 .brand-logo img {
 
@@ -206,6 +213,7 @@ a {
 
     object-fit: contain;
 }
+
 
 .logo-fallback {
 
@@ -220,6 +228,7 @@ a {
     font-style: italic;
 }
 
+
 .brand-copy {
 
     display: flex;
@@ -229,16 +238,18 @@ a {
     line-height: 1;
 }
 
+
 .brand-name {
 
     color: white;
 
-    font-size: 20px;
+    font-size: 21px;
 
-    font-weight: 900;
+    font-weight: 950;
 
-    letter-spacing: -.7px;
+    letter-spacing: -.8px;
 }
+
 
 .brand-label {
 
@@ -251,7 +262,7 @@ a {
 
     font-weight: 850;
 
-    letter-spacing: 1.8px;
+    letter-spacing: 2px;
 
     text-transform: uppercase;
 }
@@ -269,8 +280,9 @@ a {
 
     align-items: center;
 
-    gap: 3px;
+    gap: 2px;
 }
+
 
 .nav-item {
 
@@ -283,16 +295,19 @@ a {
     background: transparent;
 
     color:
-        rgba(255,255,255,.58);
+        rgba(255,255,255,.56);
 
-    font-size: 13px;
+    font-size: 12px;
 
-    font-weight: 800;
+    font-weight: 850;
 
     cursor: pointer;
 
     position: relative;
+
+    transition: .2s ease;
 }
+
 
 .nav-item::after {
 
@@ -311,15 +326,13 @@ a {
     border-radius:
         999px 999px 0 0;
 
-    background:
-        var(--red);
+    background: var(--red);
 
-    transform:
-        scaleX(0);
+    transform: scaleX(0);
 
-    transition:
-        transform .2s ease;
+    transition: .2s ease;
 }
+
 
 .nav-item:hover,
 .nav-item.active {
@@ -327,26 +340,27 @@ a {
     color: white;
 }
 
+
 .nav-item.active::after {
 
-    transform:
-        scaleX(1);
+    transform: scaleX(1);
 }
 
-.header-spacer {
 
+.header-spacer {
     flex: 1;
 }
 
+
 .header-icon {
 
-    width: 39px;
+    width: 40px;
 
-    height: 39px;
+    height: 40px;
 
     border:
         1px solid
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.20);
 
     border-radius: 50%;
 
@@ -364,6 +378,18 @@ a {
     justify-content: center;
 
     font-size: 15px;
+
+    transition: .2s ease;
+}
+
+
+.header-icon:hover {
+
+    background:
+        rgba(255,255,255,.14);
+
+    border-color:
+        rgba(255,255,255,.4);
 }
 
 
@@ -373,13 +399,18 @@ a {
 
 .page {
 
-    max-width: 1280px;
+    max-width: 1320px;
 
     margin: 0 auto;
 
     padding:
         40px 28px 70px;
 }
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
 
 .page-header {
 
@@ -389,8 +420,9 @@ a {
 
     align-items: flex-end;
 
-    margin-bottom: 26px;
+    margin-bottom: 25px;
 }
+
 
 .page-kicker {
 
@@ -406,16 +438,17 @@ a {
 
     font-size: 10px;
 
-    font-weight: 900;
+    font-weight: 950;
 
-    letter-spacing: 1.6px;
+    letter-spacing: 1.7px;
 
     text-transform: uppercase;
 }
 
+
 .kicker-line {
 
-    width: 28px;
+    width: 29px;
 
     height: 4px;
 
@@ -424,143 +457,57 @@ a {
     background: var(--red);
 }
 
+
 .page-title {
 
     margin: 0;
 
     color: var(--navy-dark);
 
-    font-size: 38px;
+    font-size: 39px;
 
     line-height: 1;
 
-    letter-spacing: -1.8px;
+    letter-spacing: -1.9px;
 
-    font-weight: 900;
+    font-weight: 950;
 }
+
 
 .page-description {
 
-    margin: 10px 0 0;
+    margin:
+        10px 0 0;
 
-    color: var(--gray-600);
+    color:
+        var(--gray-600);
 
     font-size: 13px;
 }
 
+
 .today-label {
 
-    color: var(--gray-500);
+    color:
+        var(--gray-500);
 
     font-size: 11px;
 
-    font-weight: 700;
+    font-weight: 750;
 }
 
 
 /* =========================================================
-   CONTENT
+   FILTER
 ========================================================= */
 
-.content-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0,1fr)
-        292px;
-
-    gap: 22px;
-
-    align-items: start;
-}
-
-
-/* =========================================================
-   PLAYER PAGE
-========================================================= */
-
-.players-page {
-
-    display: none;
-}
-
-.players-page.active {
-
-    display: block;
-}
-
-
-/* =========================================================
-   PLAYER HEADER
-========================================================= */
-
-.players-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: flex-end;
-
-    margin-bottom: 20px;
-}
-
-.players-title-wrap {
-
-    display: flex;
-
-    flex-direction: column;
-}
-
-.players-kicker {
-
-    color: var(--red);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 7px;
-}
-
-.players-title {
-
-    margin: 0;
-
-    color: var(--navy-dark);
-
-    font-size: 31px;
-
-    font-weight: 900;
-
-    letter-spacing: -1.3px;
-}
-
-.players-subtitle {
-
-    margin-top: 7px;
-
-    color: var(--gray-600);
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   PLAYER FILTER
-========================================================= */
-
-.player-filter {
+.filter-panel {
 
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-top:
         4px solid var(--navy);
@@ -568,45 +515,78 @@ a {
     border-radius:
         var(--radius);
 
+    box-shadow:
+        var(--shadow);
+
     padding:
         18px 20px 20px;
 
-    margin-bottom: 22px;
-
-    box-shadow:
-        var(--shadow);
+    margin-bottom:
+        22px;
 }
 
-.player-filter-title {
 
-    color: var(--navy);
+.filter-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        var(--navy);
 
     font-size: 10px;
 
-    font-weight: 900;
+    font-weight: 950;
 
     letter-spacing: 1.3px;
 
     text-transform: uppercase;
 
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
-.player-filter-row {
+
+.filter-title::before {
+
+    content: "";
+
+    width: 5px;
+
+    height: 16px;
+
+    border-radius: 999px;
+
+    background: var(--red);
+}
+
+
+.filter-row {
 
     display: grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(3, 1fr);
 
     gap: 12px;
 }
+
+
+.filter-field {
+    min-width: 0;
+}
+
 
 .filter-label {
 
     display: block;
 
-    color: var(--gray-600);
+    margin-bottom: 7px;
+
+    color:
+        var(--gray-600);
 
     font-size: 9px;
 
@@ -615,16 +595,16 @@ a {
     letter-spacing: .7px;
 
     text-transform: uppercase;
-
-    margin-bottom: 7px;
 }
 
-.player-select-wrap {
+
+.select-wrap {
 
     position: relative;
 }
 
-.player-select-wrap::after {
+
+.select-wrap::after {
 
     content: "⌄";
 
@@ -634,9 +614,11 @@ a {
 
     top: 50%;
 
-    transform: translateY(-55%);
+    transform:
+        translateY(-55%);
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 17px;
 
@@ -645,7 +627,8 @@ a {
     pointer-events: none;
 }
 
-.player-select {
+
+.filter-select {
 
     width: 100%;
 
@@ -655,18 +638,20 @@ a {
 
     -webkit-appearance: none;
 
-    border:
-        1px solid var(--gray-200);
-
-    border-radius: 10px;
-
     background:
         var(--gray-100);
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius: 10px;
 
     padding:
         0 40px 0 13px;
 
-    color: var(--navy-dark);
+    color:
+        var(--navy-dark);
 
     font-size: 12px;
 
@@ -675,9 +660,21 @@ a {
     cursor: pointer;
 
     outline: none;
+
+    transition: .2s ease;
 }
 
-.player-select:focus {
+
+.filter-select:hover {
+
+    background: white;
+
+    border-color:
+        var(--gray-300);
+}
+
+
+.filter-select:focus {
 
     background: white;
 
@@ -690,10 +687,28 @@ a {
 
 
 /* =========================================================
-   PLAYER SUMMARY
+   CONTENT
 ========================================================= */
 
-.player-summary {
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        292px;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.news-section-header {
 
     display: flex;
 
@@ -705,26 +720,464 @@ a {
         0 2px 11px;
 }
 
-.player-summary-title {
 
-    color: var(--navy);
+.news-section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        var(--navy);
 
     font-size: 12px;
 
-    font-weight: 900;
+    font-weight: 950;
 
     letter-spacing: .7px;
 
     text-transform: uppercase;
 }
 
-.player-summary-count {
 
-    color: var(--gray-500);
+.news-section-title::before {
+
+    content: "";
+
+    width: 5px;
+
+    height: 17px;
+
+    border-radius: 999px;
+
+    background: var(--red);
+}
+
+
+.article-count {
+
+    color:
+        var(--gray-500);
 
     font-size: 11px;
 
     font-weight: 700;
+}
+
+
+/* =========================================================
+   NEWS
+========================================================= */
+
+.news-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+
+.article-card {
+
+    position: relative;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        19px 59px 17px 21px;
+
+    cursor: pointer;
+
+    box-shadow:
+        var(--shadow);
+
+    overflow: hidden;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+}
+
+
+.article-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 5px;
+
+    background:
+        var(--red);
+
+    opacity: 1;
+}
+
+
+.article-card.read::before {
+
+    background:
+        var(--gray-300);
+}
+
+
+.article-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        var(--shadow-hover);
+
+    border-color:
+        #ccd3dc;
+}
+
+
+.article-card.read {
+
+    background:
+        #fafbfc;
+}
+
+
+.article-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 9px;
+}
+
+
+.source {
+
+    color:
+        var(--navy);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+
+    text-transform: uppercase;
+}
+
+
+.source-dot {
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background:
+        var(--gray-400);
+}
+
+
+.article-type {
+
+    color:
+        var(--gray-500);
+
+    font-size: 10px;
+
+    font-weight: 650;
+}
+
+
+.article-title {
+
+    margin: 0;
+
+    color:
+        var(--black);
+
+    font-size: 18px;
+
+    line-height: 1.4;
+
+    letter-spacing: -.35px;
+
+    font-weight: 850;
+}
+
+
+.article-card.read .article-title {
+
+    color:
+        var(--gray-700);
+}
+
+
+.article-japanese {
+
+    margin:
+        7px 0 15px;
+
+    color:
+        var(--gray-600);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+.article-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.article-date,
+.status {
+
+    color:
+        var(--gray-500);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+.status-indicator {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+}
+
+
+.article-card.read .status-indicator {
+
+    background:
+        var(--gray-300);
+}
+
+
+/* =========================================================
+   PLAYERS PAGE
+========================================================= */
+
+.players-page {
+
+    display: none;
+}
+
+
+.players-toolbar {
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-top:
+        4px solid var(--navy);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    padding: 18px 20px 20px;
+
+    margin-bottom: 22px;
+}
+
+
+.players-toolbar-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+
+.players-toolbar-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color:
+        var(--navy);
+
+    font-size: 11px;
+
+    font-weight: 950;
+
+    letter-spacing: 1.1px;
+
+    text-transform: uppercase;
+}
+
+
+.players-toolbar-title::before {
+
+    content: "";
+
+    width: 5px;
+
+    height: 17px;
+
+    border-radius: 999px;
+
+    background: var(--red);
+}
+
+
+.roster-total {
+
+    color:
+        var(--gray-500);
+
+    font-size: 10px;
+
+    font-weight: 750;
+}
+
+
+.players-filter-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   PLAYER GROUP
+========================================================= */
+
+.player-groups {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 26px;
+}
+
+
+.player-group {
+
+    min-width: 0;
+}
+
+
+.player-group-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin:
+        0 2px 11px;
+}
+
+
+.player-group-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color:
+        var(--navy);
+
+    font-size: 13px;
+
+    font-weight: 950;
+
+    letter-spacing: .3px;
+
+    text-transform: uppercase;
+}
+
+
+.player-group-title::before {
+
+    content: "";
+
+    width: 5px;
+
+    height: 19px;
+
+    border-radius: 999px;
+
+    background:
+        var(--red);
+}
+
+
+.player-group-count {
+
+    color:
+        var(--gray-500);
+
+    font-size: 10px;
+
+    font-weight: 750;
 }
 
 
@@ -737,40 +1190,41 @@ a {
     display: grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0, 1fr));
 
-    gap: 12px;
+    gap: 10px;
 }
 
-
-/* =========================================================
-   PLAYER CARD
-========================================================= */
 
 .player-card {
 
     position: relative;
 
-    overflow: hidden;
+    min-height: 102px;
 
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius: 16px;
+    border-radius:
+        15px;
 
     padding:
-        18px 19px 17px 23px;
+        17px 17px 15px 22px;
 
     box-shadow:
         var(--shadow);
+
+    overflow: hidden;
 
     transition:
         transform .18s ease,
         box-shadow .18s ease,
         border-color .18s ease;
 }
+
 
 .player-card:hover {
 
@@ -781,13 +1235,16 @@ a {
         var(--shadow-hover);
 
     border-color:
-        #cbd3dc;
+        #ccd3dc;
 }
 
 
-/* ACTIVE RED LINE */
+/*
+   ACTIVE
+   Phillies Red
+*/
 
-.player-card.active-player::before {
+.player-card.active::before {
 
     content: "";
 
@@ -806,9 +1263,12 @@ a {
 }
 
 
-/* IL YELLOW LINE */
+/*
+   IL
+   Yellow
+*/
 
-.player-card.il-player::before {
+.player-card.il::before {
 
     content: "";
 
@@ -823,15 +1283,22 @@ a {
     width: 5px;
 
     background:
-        var(--il);
+        var(--yellow);
 }
 
 
-/* =========================================================
-   PLAYER CARD TOP
-========================================================= */
+.player-card.active.il::before {
 
-.player-card-top {
+    background:
+        linear-gradient(
+            to bottom,
+            var(--red) 0 50%,
+            var(--yellow) 50% 100%
+        );
+}
+
+
+.player-card-header {
 
     display: flex;
 
@@ -839,16 +1306,16 @@ a {
 
     justify-content: space-between;
 
-    gap: 12px;
-
-    margin-bottom: 13px;
+    gap: 10px;
 }
+
 
 .player-number {
 
-    color: var(--gray-300);
+    color:
+        var(--gray-400);
 
-    font-size: 25px;
+    font-size: 24px;
 
     line-height: 1;
 
@@ -857,7 +1324,101 @@ a {
     letter-spacing: -1px;
 }
 
+
+.player-card.active .player-number {
+
+    color:
+        var(--red);
+}
+
+
+.player-name {
+
+    margin-top: 3px;
+
+    color:
+        var(--navy-dark);
+
+    font-size: 16px;
+
+    line-height: 1.2;
+
+    font-weight: 900;
+
+    letter-spacing: -.25px;
+}
+
+
+.player-name-wrap {
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
 .player-status {
+
+    flex-shrink: 0;
+
+    padding:
+        5px 8px;
+
+    border-radius: 999px;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+}
+
+
+.player-status.active {
+
+    background:
+        var(--red-soft);
+
+    color:
+        var(--red);
+}
+
+
+.player-status.il {
+
+    background:
+        var(--yellow-soft);
+
+    color:
+        #8b6900;
+}
+
+
+.player-status.inactive {
+
+    background:
+        var(--gray-100);
+
+    color:
+        var(--gray-500);
+}
+
+
+.player-card-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 14px;
+}
+
+
+.player-bt {
 
     display: inline-flex;
 
@@ -868,7 +1429,77 @@ a {
     padding:
         5px 8px;
 
-    border-radius: 999px;
+    background:
+        var(--navy-soft);
+
+    border-radius: 7px;
+
+    color:
+        var(--navy);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+}
+
+
+.player-role {
+
+    color:
+        var(--gray-500);
+
+    font-size: 9px;
+
+    font-weight: 750;
+}
+
+
+.il-days {
+
+    margin-left: auto;
+
+    color:
+        #9a7400;
+
+    font-size: 9px;
+
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   EMPTY PLAYERS
+========================================================= */
+
+.players-empty {
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    padding: 65px 20px;
+
+    text-align: center;
+}
+
+
+.players-empty-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    margin:
+        0 auto 14px;
+
+    border-radius: 50%;
 
     background:
         var(--navy-soft);
@@ -876,469 +1507,38 @@ a {
     color:
         var(--navy);
 
-    font-size: 8px;
-
-    font-weight: 900;
-
-    letter-spacing: .7px;
-
-    text-transform: uppercase;
-}
-
-.player-status-dot {
-
-    width: 6px;
-
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: var(--navy);
-}
-
-.player-status.il {
-
-    background:
-        var(--il-soft);
-
-    color:
-        #956b00;
-}
-
-.player-status.il .player-status-dot {
-
-    background:
-        var(--il);
-}
-
-
-/* =========================================================
-   PLAYER NAME
-========================================================= */
-
-.player-name {
-
-    margin: 0;
-
-    color: var(--black);
-
-    font-size: 20px;
-
-    line-height: 1.15;
-
-    font-weight: 900;
-
-    letter-spacing: -.5px;
-}
-
-.player-position {
-
-    margin-top: 6px;
-
-    color: var(--red);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   PLAYER META
-========================================================= */
-
-.player-meta {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 7px;
-
-    margin-top: 15px;
-}
-
-.player-meta-item {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    padding:
-        6px 8px;
-
-    border-radius: 8px;
-
-    background:
-        var(--gray-100);
-
-    color:
-        var(--gray-700);
-
-    font-size: 9px;
-
-    font-weight: 800;
-}
-
-.player-meta-label {
-
-    color:
-        var(--gray-500);
-
-    font-size: 8px;
-
-    font-weight: 900;
-
-    letter-spacing: .5px;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   IL DETAILS
-========================================================= */
-
-.il-detail {
-
-    margin-top: 12px;
-
-    padding:
-        9px 10px;
-
-    border-radius: 9px;
-
-    background:
-        var(--il-soft);
-
-    border:
-        1px solid
-        rgba(234,179,8,.25);
-
-    color:
-        #806000;
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    line-height: 1.45;
-}
-
-.il-detail strong {
-
-    color:
-        #664d00;
-}
-
-
-/* =========================================================
-   PLAYER ERROR / LOADING
-========================================================= */
-
-.player-loading,
-.player-error,
-.player-empty {
-
-    grid-column:
-        1 / -1;
-
-    background: white;
-
-    border:
-        1px solid var(--gray-200);
-
-    border-radius:
-        var(--radius);
-
-    padding:
-        55px 20px;
-
-    text-align: center;
-
-    box-shadow:
-        var(--shadow);
-}
-
-.player-loading-title,
-.player-error-title,
-.player-empty-title {
-
-    color:
-        var(--navy);
-
-    font-size: 15px;
-
-    font-weight: 900;
-}
-
-.player-loading-text,
-.player-error-text,
-.player-empty-text {
-
-    margin-top: 7px;
-
-    color:
-        var(--gray-500);
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   NEWS
-========================================================= */
-
-.news-section-header {
-
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
-
-    margin:
-        0 2px 11px;
-}
-
-.news-section-title {
-
-    color: var(--navy);
-
-    font-size: 12px;
-
-    font-weight: 900;
-
-    letter-spacing: .7px;
-
-    text-transform: uppercase;
-}
-
-.article-count {
-
-    color: var(--gray-500);
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-
-.news-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-}
-
-.article-card {
-
-    position: relative;
-
-    background: white;
-
-    border:
-        1px solid var(--gray-200);
-
-    border-radius:
-        var(--radius);
-
-    padding:
-        19px 59px 17px 21px;
-
-    cursor: pointer;
-
-    box-shadow:
-        var(--shadow);
-
-    overflow: hidden;
-}
-
-.article-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    bottom: 0;
-
-    width: 5px;
-
-    background: var(--red);
-
-    opacity: 1;
-}
-
-.article-card.read {
-
-    background:
-        #fafbfc;
-}
-
-.article-card.read::before {
-
-    background:
-        var(--gray-300);
-}
-
-.article-top {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    margin-bottom: 9px;
-}
-
-.source {
-
-    color: var(--navy);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: .5px;
-
-    text-transform: uppercase;
-}
-
-.source-dot {
-
-    width: 3px;
-
-    height: 3px;
-
-    border-radius: 50%;
-
-    background:
-        var(--gray-400);
-}
-
-.article-type {
-
-    color: var(--gray-500);
-
-    font-size: 10px;
-
-    font-weight: 650;
-}
-
-.favorite-button {
-
-    position: absolute;
-
-    top: 15px;
-
-    right: 14px;
-
-    width: 38px;
-
-    height: 38px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: transparent;
-
-    color: var(--gray-400);
-
-    cursor: pointer;
+    justify-content: center;
 
     font-size: 22px;
 }
 
-.favorite-button.favorite {
 
-    color: var(--red);
-}
-
-.article-title {
+.players-empty-title {
 
     margin: 0;
 
-    color: var(--black);
+    color:
+        var(--navy);
 
-    font-size: 18px;
+    font-size: 16px;
 
-    line-height: 1.4;
-
-    font-weight: 820;
+    font-weight: 900;
 }
 
-.article-card.read .article-title {
 
-    color: var(--gray-700);
-}
-
-.article-japanese {
+.players-empty-description {
 
     margin:
-        7px 0 15px;
+        8px 0 0;
 
-    color: var(--gray-600);
+    color:
+        var(--gray-500);
 
-    font-size: 12px;
-
-    line-height: 1.55;
-}
-
-.article-bottom {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-}
-
-.article-date,
-.status {
-
-    color: var(--gray-500);
-
-    font-size: 10px;
-
-    font-weight: 700;
-}
-
-.status {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 5px;
-}
-
-.status-indicator {
-
-    width: 6px;
-
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: var(--red);
-}
-
-.article-card.read .status-indicator {
-
-    background: var(--gray-300);
+    font-size: 11px;
 }
 
 
@@ -1350,7 +1550,7 @@ a {
 
     position: sticky;
 
-    top: 96px;
+    top: 98px;
 
     display: flex;
 
@@ -1359,12 +1559,14 @@ a {
     gap: 12px;
 }
 
+
 .side-card {
 
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-radius:
         var(--radius);
@@ -1374,6 +1576,7 @@ a {
     box-shadow:
         var(--shadow);
 }
+
 
 .side-heading {
 
@@ -1386,20 +1589,23 @@ a {
     margin-bottom: 15px;
 }
 
+
 .side-title {
 
     margin: 0;
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     font-size: 12px;
 
-    font-weight: 900;
+    font-weight: 950;
 
     letter-spacing: .7px;
 
     text-transform: uppercase;
 }
+
 
 .side-title-mark {
 
@@ -1414,108 +1620,273 @@ a {
 
 
 /* =========================================================
-   MOBILE NAV
+   STATS
 ========================================================= */
 
-.mobile-nav {
+.stat-grid {
 
-    position: fixed;
+    display: grid;
 
-    left: 0;
+    grid-template-columns:
+        repeat(3,1fr);
 
-    right: 0;
-
-    bottom: 0;
-
-    height: 74px;
-
-    background:
-        rgba(255,255,255,.97);
-
-    border-top:
-        1px solid var(--gray-200);
-
-    box-shadow:
-        0 -5px 22px
-        rgba(0,29,62,.09);
-
-    display: flex;
-
-    z-index: 2000;
-
-    backdrop-filter:
-        blur(14px);
+    gap: 6px;
 }
 
-.mobile-nav-item {
 
-    flex: 1;
+.stat {
 
-    height: 100%;
+    background:
+        var(--navy-soft);
+
+    border-radius: 9px;
+
+    padding: 11px 4px;
+
+    text-align: center;
+}
+
+
+.stat-number {
+
+    display: block;
+
+    color:
+        var(--navy);
+
+    font-size: 18px;
+
+    font-weight: 950;
+
+    line-height: 1;
+}
+
+
+.stat-number.red {
+
+    color:
+        var(--red);
+}
+
+
+.stat-label {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color:
+        var(--gray-500);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
+
+.game-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--navy),
+            var(--navy-deep)
+        );
 
     border: none;
 
-    background: transparent;
+    color: white;
+}
 
-    color: var(--gray-500);
 
-    display: flex;
+.game-card .side-title {
 
-    flex-direction: column;
+    color: white;
+}
 
-    align-items: center;
 
-    justify-content: center;
+.game-card .side-title-mark {
 
-    gap: 4px;
+    background: var(--red);
+}
+
+
+.game-label {
+
+    color:
+        rgba(255,255,255,.55);
 
     font-size: 9px;
 
     font-weight: 800;
 
-    cursor: pointer;
+    letter-spacing: 1px;
 
-    position: relative;
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
 }
 
-.mobile-nav-item::before {
 
-    content: "";
+.game-opponent {
 
-    position: absolute;
+    font-size: 22px;
 
-    top: 0;
+    font-weight: 950;
+}
 
-    left: 25%;
 
-    right: 25%;
+.game-time {
 
-    height: 3px;
+    margin-top: 4px;
+
+    color:
+        rgba(255,255,255,.7);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   STANDINGS
+========================================================= */
+
+.standings-wrap {
+
+    overflow-x: auto;
+
+    margin: 0 -18px;
+
+    padding: 0 18px;
+}
+
+
+.standings-table {
+
+    width: 100%;
+
+    min-width: 430px;
+
+    border-collapse: collapse;
+}
+
+
+.standings-table th {
+
+    padding: 7px 5px;
+
+    color:
+        var(--gray-500);
+
+    font-size: 8px;
+
+    font-weight: 850;
+
+    text-align: center;
+
+    letter-spacing: .4px;
+
+    text-transform: uppercase;
+
+    border-bottom:
+        1px solid
+        var(--gray-200);
+}
+
+
+.standings-table th:first-child,
+.standings-table td:first-child {
+
+    text-align: left;
+}
+
+
+.standings-table th:nth-child(2),
+.standings-table td:nth-child(2) {
+
+    text-align: left;
+}
+
+
+.standings-table td {
+
+    padding: 9px 5px;
+
+    color:
+        var(--gray-700);
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    text-align: center;
+
+    border-bottom:
+        1px solid
+        var(--gray-100);
+}
+
+
+.standings-table tr.phillies {
+
+    background:
+        var(--red-soft);
+}
+
+
+.standings-table tr.phillies td {
+
+    color:
+        var(--navy);
+
+    font-weight: 850;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty {
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
 
     border-radius:
-        0 0 999px 999px;
+        var(--radius);
 
-    background: var(--red);
+    padding: 65px 20px;
 
-    transform: scaleX(0);
-
-    transition:
-        transform .2s ease;
+    text-align: center;
 }
 
-.mobile-nav-item.active {
 
-    color: var(--navy);
-}
+.empty-icon {
 
-.mobile-nav-item.active::before {
+    width: 50px;
 
-    transform: scaleX(1);
-}
+    height: 50px;
 
-.mobile-nav-icon {
+    margin: 0 auto 14px;
 
-    height: 25px;
+    border-radius: 50%;
+
+    background:
+        var(--red-soft);
+
+    color:
+        var(--red);
 
     display: flex;
 
@@ -1523,7 +1894,123 @@ a {
 
     justify-content: center;
 
-    font-size: 18px;
+    font-size: 22px;
+}
+
+
+.empty-title {
+
+    margin: 0;
+
+    color:
+        var(--navy);
+
+    font-size: 15px;
+
+    font-weight: 900;
+}
+
+
+.empty-description {
+
+    margin: 7px 0 0;
+
+    color:
+        var(--gray-500);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.placeholder-page {
+
+    display: none;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.placeholder-title {
+
+    margin: 0;
+
+    color:
+        var(--navy);
+
+    font-size: 24px;
+
+    font-weight: 950;
+}
+
+
+.placeholder-description {
+
+    margin-top: 10px;
+
+    color:
+        var(--gray-500);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav {
+
+    display: none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .topbar-inner {
+        gap: 18px;
+    }
+
+    .nav-item {
+        padding: 0 9px;
+    }
+
+    .nav-item::after {
+        left: 8px;
+        right: 8px;
+    }
+
+    .content-grid {
+        grid-template-columns:
+            minmax(0,1fr)
+            255px;
+    }
+
+    .player-grid {
+        grid-template-columns:
+            1fr;
+    }
 }
 
 
@@ -1533,12 +2020,23 @@ a {
 
 @media (max-width: 850px) {
 
+    body {
+
+        padding-bottom:
+            calc(
+                74px +
+                env(safe-area-inset-bottom)
+            );
+    }
+
+
     .topbar {
 
         height: 64px;
 
         border-bottom-width: 3px;
     }
+
 
     .topbar-inner {
 
@@ -1547,6 +2045,12 @@ a {
         gap: 0;
     }
 
+
+    .brand {
+        gap: 10px;
+    }
+
+
     .brand-logo {
 
         width: 40px;
@@ -1554,15 +2058,24 @@ a {
         height: 40px;
     }
 
-    .brand-name {
 
+    .brand-name {
         font-size: 18px;
     }
 
-    .desktop-nav {
 
+    .brand-label {
+
+        font-size: 7px;
+
+        letter-spacing: 1.4px;
+    }
+
+
+    .desktop-nav {
         display: none;
     }
+
 
     .header-icon {
 
@@ -1573,72 +2086,264 @@ a {
         margin-left: auto;
     }
 
+
     .page {
 
         padding:
-            25px 13px 40px;
+            25px 13px 35px;
     }
+
+
+    .page-header {
+
+        align-items: flex-start;
+
+        margin-bottom: 19px;
+    }
+
+
+    .page-kicker {
+
+        font-size: 9px;
+
+        letter-spacing: 1.3px;
+
+        margin-bottom: 8px;
+    }
+
 
     .page-title {
 
         font-size: 30px;
+
+        letter-spacing: -1.4px;
     }
 
-    .content-grid {
 
-        display: block;
+    .page-description {
+
+        max-width: 280px;
+
+        margin-top: 8px;
+
+        font-size: 11px;
+
+        line-height: 1.5;
     }
 
-    .sidebar {
 
+    .today-label {
         display: none;
     }
 
-    .players-header {
 
-        align-items: flex-start;
+    .filter-panel {
+
+        padding: 16px;
+
+        border-top-width: 3px;
+
+        margin-bottom: 20px;
     }
 
-    .players-title {
 
-        font-size: 27px;
-    }
-
-    .player-filter-row {
+    .filter-row {
 
         grid-template-columns: 1fr;
+
+        gap: 11px;
     }
 
-    .player-grid {
 
-        grid-template-columns: 1fr;
+    .filter-select {
+
+        height: 46px;
+
+        border-radius: 11px;
     }
 
-    .player-card {
 
-        padding:
-            17px 17px 16px 21px;
+    .content-grid {
+        display: block;
     }
 
-    .player-name {
 
-        font-size: 19px;
+    .sidebar {
+        display: none;
     }
+
 
     .article-card {
+
+        border-radius: 13px;
 
         padding:
             16px 52px 15px 17px;
     }
 
+
     .article-title {
 
         font-size: 15px;
+
+        line-height: 1.48;
     }
+
 
     .article-japanese {
 
+        margin:
+            6px 0 12px;
+
         font-size: 10.5px;
+    }
+
+
+    .players-toolbar {
+
+        padding: 16px;
+    }
+
+
+    .players-filter-row {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .player-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+    }
+
+
+    .player-card {
+
+        min-height: 98px;
+    }
+
+
+    .mobile-nav {
+
+        position: fixed;
+
+        left: 0;
+
+        right: 0;
+
+        bottom: 0;
+
+        height: 74px;
+
+        padding-bottom:
+            env(safe-area-inset-bottom);
+
+        background:
+            rgba(255,255,255,.97);
+
+        border-top:
+            1px solid
+            var(--gray-200);
+
+        box-shadow:
+            0 -5px 22px
+            rgba(0,29,62,.09);
+
+        display: flex;
+
+        z-index: 2000;
+
+        backdrop-filter: blur(14px);
+
+        -webkit-backdrop-filter:
+            blur(14px);
+    }
+
+
+    .mobile-nav-item {
+
+        flex: 1;
+
+        height: 100%;
+
+        border: none;
+
+        background: transparent;
+
+        color:
+            var(--gray-500);
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 4px;
+
+        font-size: 9px;
+
+        font-weight: 800;
+
+        cursor: pointer;
+
+        position: relative;
+    }
+
+
+    .mobile-nav-item::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+
+        left: 25%;
+
+        right: 25%;
+
+        height: 3px;
+
+        border-radius:
+            0 0 999px 999px;
+
+        background: var(--red);
+
+        transform: scaleX(0);
+
+        transition: .2s ease;
+    }
+
+
+    .mobile-nav-item.active {
+
+        color:
+            var(--navy);
+    }
+
+
+    .mobile-nav-item.active::before {
+
+        transform: scaleX(1);
+    }
+
+
+    .mobile-nav-icon {
+
+        height: 25px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 18px;
     }
 }
 
@@ -1656,19 +2361,19 @@ a {
         padding-right: 10px;
     }
 
-    .player-filter {
 
-        padding: 15px;
+    .page-title {
+        font-size: 28px;
     }
 
-    .player-card {
-
-        border-radius: 14px;
-    }
 
     .player-name {
+        font-size: 15px;
+    }
 
-        font-size: 18px;
+
+    .player-number {
+        font-size: 22px;
     }
 }
 
@@ -1687,6 +2392,7 @@ a {
 <header class="topbar">
 
     <div class="topbar-inner">
+
 
         <a
             href="#"
@@ -1713,6 +2419,7 @@ a {
                 </span>
 
             </div>
+
 
             <div class="brand-copy">
 
@@ -1771,16 +2478,15 @@ a {
 
         <button
             class="header-icon"
-            onclick="alert('Settings will be added later.')"
-            title="Settings"
+            title="More"
+            onclick="showPage('more')"
         >
-            ⚙
+            ⋯
         </button>
 
     </div>
 
 </header>
-
 
 
 <!-- =========================================================
@@ -1795,7 +2501,7 @@ a {
 ========================================================= -->
 
 <section
-    id="news-page"
+    id="page-news"
     class="page-view"
 >
 
@@ -1811,15 +2517,18 @@ a {
 
             </div>
 
+
             <h1 class="page-title">
                 Phillies News
             </h1>
+
 
             <p class="page-description">
                 Your daily feed for Phillies news, analysis and updates.
             </p>
 
         </div>
+
 
         <div class="today-label">
             AUG 10, 2026
@@ -1828,7 +2537,141 @@ a {
     </section>
 
 
+    <section class="filter-panel">
+
+        <div class="filter-title">
+            Filter Articles
+        </div>
+
+
+        <div class="filter-row">
+
+            <div class="filter-field">
+
+                <label
+                    class="filter-label"
+                    for="period-select"
+                >
+                    Time Range
+                </label>
+
+
+                <div class="select-wrap">
+
+                    <select
+                        id="period-select"
+                        class="filter-select"
+                        onchange="setPeriod(this.value)"
+                    >
+
+                        <option value="1">
+                            Last 24 hours
+                        </option>
+
+                        <option value="3">
+                            Last 3 days
+                        </option>
+
+                        <option value="7">
+                            Last 7 days
+                        </option>
+
+                        <option
+                            value="all"
+                            selected
+                        >
+                            All articles
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-field">
+
+                <label
+                    class="filter-label"
+                    for="status-select"
+                >
+                    Show
+                </label>
+
+
+                <div class="select-wrap">
+
+                    <select
+                        id="status-select"
+                        class="filter-select"
+                        onchange="setStatusFilter(this.value)"
+                    >
+
+                        <option
+                            value="all"
+                            selected
+                        >
+                            All articles
+                        </option>
+
+                        <option value="unread">
+                            Unread only
+                        </option>
+
+                        <option value="read">
+                            Read only
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-field">
+
+                <label
+                    class="filter-label"
+                    for="favorite-select"
+                >
+                    Favorites
+                </label>
+
+
+                <div class="select-wrap">
+
+                    <select
+                        id="favorite-select"
+                        class="filter-select"
+                        onchange="setFavoriteFilter(this.value)"
+                    >
+
+                        <option
+                            value="all"
+                            selected
+                        >
+                            All articles
+                        </option>
+
+                        <option value="favorite">
+                            ★ Favorites only
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
     <div class="content-grid">
+
 
         <section>
 
@@ -1837,6 +2680,7 @@ a {
                 <div class="news-section-title">
                     Latest News
                 </div>
+
 
                 <div
                     class="article-count"
@@ -1847,6 +2691,7 @@ a {
 
             </div>
 
+
             <div
                 id="news-list"
                 class="news-list"
@@ -1854,7 +2699,9 @@ a {
 
         </section>
 
+
         <aside class="sidebar">
+
 
             <section class="side-card">
 
@@ -1868,83 +2715,188 @@ a {
 
                 </div>
 
-                <div style="
-                    display:grid;
-                    grid-template-columns:repeat(3,1fr);
-                    gap:6px;
-                ">
 
-                    <div style="
-                        background:var(--navy-soft);
-                        border-radius:9px;
-                        padding:11px 4px;
-                        text-align:center;
-                    ">
+                <div class="stat-grid">
 
-                        <strong
+                    <div class="stat">
+
+                        <span
+                            class="stat-number"
                             id="news-count"
-                            style="
-                                display:block;
-                                color:var(--navy);
-                                font-size:18px;
-                            "
                         >
                             0
-                        </strong>
+                        </span>
 
-                        <small>
-                            NEWS
-                        </small>
+                        <span class="stat-label">
+                            News
+                        </span>
 
                     </div>
 
-                    <div style="
-                        background:var(--red-soft);
-                        border-radius:9px;
-                        padding:11px 4px;
-                        text-align:center;
-                    ">
 
-                        <strong
+                    <div class="stat">
+
+                        <span
+                            class="stat-number red"
                             id="unread-count"
-                            style="
-                                display:block;
-                                color:var(--red);
-                                font-size:18px;
-                            "
                         >
                             0
-                        </strong>
+                        </span>
 
-                        <small>
-                            UNREAD
-                        </small>
+                        <span class="stat-label">
+                            Unread
+                        </span>
 
                     </div>
 
-                    <div style="
-                        background:var(--navy-soft);
-                        border-radius:9px;
-                        padding:11px 4px;
-                        text-align:center;
-                    ">
 
-                        <strong
+                    <div class="stat">
+
+                        <span
+                            class="stat-number"
                             id="favorite-count"
-                            style="
-                                display:block;
-                                color:var(--navy);
-                                font-size:18px;
-                            "
                         >
                             0
-                        </strong>
+                        </span>
 
-                        <small>
-                            SAVED
-                        </small>
+                        <span class="stat-label">
+                            Saved
+                        </span>
 
                     </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="side-card game-card">
+
+                <div class="side-heading">
+
+                    <h2 class="side-title">
+                        Next Game
+                    </h2>
+
+                    <span class="side-title-mark"></span>
+
+                </div>
+
+
+                <div class="game-label">
+                    Upcoming
+                </div>
+
+
+                <div class="game-opponent">
+                    Phillies
+                </div>
+
+
+                <div class="game-time">
+                    Game information will appear here
+                </div>
+
+            </section>
+
+
+            <section class="side-card">
+
+                <div class="side-heading">
+
+                    <h2 class="side-title">
+                        NL East Standings
+                    </h2>
+
+                    <span class="side-title-mark"></span>
+
+                </div>
+
+
+                <div class="standings-wrap">
+
+                    <table class="standings-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+                                <th>Team</th>
+                                <th>W</th>
+                                <th>L</th>
+                                <th>PCT</th>
+                                <th>GB</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr class="phillies">
+
+                                <td>1</td>
+                                <td>Phillies</td>
+                                <td>68</td>
+                                <td>45</td>
+                                <td>.602</td>
+                                <td>—</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>2</td>
+                                <td>Braves</td>
+                                <td>62</td>
+                                <td>51</td>
+                                <td>.549</td>
+                                <td>6.0</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>3</td>
+                                <td>Mets</td>
+                                <td>59</td>
+                                <td>54</td>
+                                <td>.522</td>
+                                <td>9.0</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>4</td>
+                                <td>Marlins</td>
+                                <td>52</td>
+                                <td>61</td>
+                                <td>.460</td>
+                                <td>16.0</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>5</td>
+                                <td>Nationals</td>
+                                <td>43</td>
+                                <td>70</td>
+                                <td>.381</td>
+                                <td>25.0</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -1957,16 +2909,15 @@ a {
 </section>
 
 
-
 <!-- =========================================================
-     GAMES PAGE
+     PLAYERS PAGE
 ========================================================= -->
 
 <section
-    id="games-page"
-    class="page-view"
-    style="display:none;"
+    id="page-players"
+    class="players-page"
 >
+
 
     <section class="page-header">
 
@@ -1980,131 +2931,77 @@ a {
 
             </div>
 
+
             <h1 class="page-title">
-                Games
+                Players
             </h1>
 
+
             <p class="page-description">
-                Recent results, upcoming games and NL East standings.
+                Phillies roster, status and player information.
             </p>
 
         </div>
 
+
+        <div
+            class="today-label"
+            id="players-date"
+        >
+            ROSTER
+        </div>
+
     </section>
 
-    <div
-        id="games-content"
-        class="content-grid"
-    >
 
-        <section>
+    <!-- PLAYER FILTER -->
 
-            <div class="side-card">
+    <section class="players-toolbar">
 
-                <div class="side-heading">
+        <div class="players-toolbar-top">
 
-                    <h2 class="side-title">
-                        Recent Games
-                    </h2>
-
-                    <span class="side-title-mark"></span>
-
-                </div>
-
-                <div id="recent-games">
-                    Loading...
-                </div>
-
+            <div class="players-toolbar-title">
+                Roster
             </div>
 
-        </section>
 
-        <aside class="sidebar">
-
-            <section class="side-card">
-
-                <div class="side-heading">
-
-                    <h2 class="side-title">
-                        NL East
-                    </h2>
-
-                    <span class="side-title-mark"></span>
-
-                </div>
-
-                <div id="standings">
-                    Loading...
-                </div>
-
-            </section>
-
-        </aside>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     PLAYERS PAGE
-========================================================= -->
-
-<section
-    id="players-page"
-    class="players-page"
->
-
-    <div class="players-header">
-
-        <div class="players-title-wrap">
-
-            <div class="players-kicker">
-                Philadelphia Phillies
-            </div>
-
-            <h1 class="players-title">
-                Players
-            </h1>
-
-            <div class="players-subtitle">
-                Current roster, positions and player status
+            <div
+                class="roster-total"
+                id="roster-total"
+            >
+                0 players
             </div>
 
         </div>
 
-    </div>
+
+        <div class="players-filter-row">
 
 
-    <!-- FILTER -->
+            <!-- POSITION -->
 
-    <section class="player-filter">
-
-        <div class="player-filter-title">
-            Roster Filters
-        </div>
-
-        <div class="player-filter-row">
-
-            <div>
+            <div class="filter-field">
 
                 <label
                     class="filter-label"
-                    for="position-filter"
+                    for="player-position-select"
                 >
                     Position Group
                 </label>
 
-                <div class="player-select-wrap">
+
+                <div class="select-wrap">
 
                     <select
-                        id="position-filter"
-                        class="player-select"
-                        onchange="renderPlayers()"
+                        id="player-position-select"
+                        class="filter-select"
+                        onchange="setPlayerPosition(this.value)"
                     >
 
-                        <option value="all">
+                        <option
+                            value="all"
+                            selected
+                        >
                             All Players
                         </option>
 
@@ -2131,33 +3028,35 @@ a {
             </div>
 
 
-            <div>
+            <!-- STATUS -->
+
+            <div class="filter-field">
 
                 <label
                     class="filter-label"
-                    for="status-filter"
+                    for="player-status-select"
                 >
                     Roster Status
                 </label>
 
-                <div class="player-select-wrap">
+
+                <div class="select-wrap">
 
                     <select
-                        id="status-filter"
-                        class="player-select"
-                        onchange="renderPlayers()"
+                        id="player-status-select"
+                        class="filter-select"
+                        onchange="setPlayerStatus(this.value)"
                     >
 
-                        <option value="all">
-                            Active + IL
-                        </option>
-
-                        <option value="active">
+                        <option
+                            value="active"
+                            selected
+                        >
                             Active only
                         </option>
 
-                        <option value="il">
-                            IL only
+                        <option value="all">
+                            All roster
                         </option>
 
                     </select>
@@ -2171,43 +3070,33 @@ a {
     </section>
 
 
-    <div class="player-summary">
-
-        <div class="player-summary-title">
-            Phillies Roster
-        </div>
-
-        <div
-            id="player-count"
-            class="player-summary-count"
-        >
-            0 players
-        </div>
-
-    </div>
-
-
     <div
-        id="player-grid"
-        class="player-grid"
-    >
-
-        <div class="player-loading">
-
-            <div class="player-loading-title">
-                Loading roster
-            </div>
-
-            <div class="player-loading-text">
-                Fetching current player information from MLB Stats API.
-            </div>
-
-        </div>
-
-    </div>
+        id="player-groups"
+        class="player-groups"
+    ></div>
 
 </section>
 
+
+<!-- =========================================================
+     GAMES PAGE
+========================================================= -->
+
+<section
+    id="page-games"
+    class="placeholder-page"
+>
+
+    <h1 class="placeholder-title">
+        Games
+    </h1>
+
+
+    <p class="placeholder-description">
+        Game information will be connected here.
+    </p>
+
+</section>
 
 
 <!-- =========================================================
@@ -2215,39 +3104,22 @@ a {
 ========================================================= -->
 
 <section
-    id="more-page"
-    class="page-view"
-    style="display:none;"
+    id="page-more"
+    class="placeholder-page"
 >
 
-    <section class="page-header">
+    <h1 class="placeholder-title">
+        More
+    </h1>
 
-        <div>
 
-            <div class="page-kicker">
-
-                <span class="kicker-line"></span>
-
-                Phillies Daily
-
-            </div>
-
-            <h1 class="page-title">
-                More
-            </h1>
-
-            <p class="page-description">
-                Additional features will be added here.
-            </p>
-
-        </div>
-
-    </section>
+    <p class="placeholder-description">
+        More features will be added here.
+    </p>
 
 </section>
 
 </main>
-
 
 
 <!-- =========================================================
@@ -2256,9 +3128,10 @@ a {
 
 <nav class="mobile-nav">
 
+
     <button
         class="mobile-nav-item active"
-        data-page="news"
+        data-mobile="news"
         onclick="showPage('news')"
     >
 
@@ -2275,7 +3148,7 @@ a {
 
     <button
         class="mobile-nav-item"
-        data-page="games"
+        data-mobile="games"
         onclick="showPage('games')"
     >
 
@@ -2292,7 +3165,7 @@ a {
 
     <button
         class="mobile-nav-item"
-        data-page="players"
+        data-mobile="players"
         onclick="showPage('players')"
     >
 
@@ -2309,7 +3182,7 @@ a {
 
     <button
         class="mobile-nav-item"
-        data-page="more"
+        data-mobile="more"
         onclick="showPage('more')"
     >
 
@@ -2326,23 +3199,10 @@ a {
 </nav>
 
 
-
 <script>
 
 /* =========================================================
-   MLB CONFIG
-========================================================= */
-
-const MLB_API =
-    "https://statsapi.mlb.com/api/v1";
-
-const PHILLIES_TEAM_ID =
-    143;
-
-
-/* =========================================================
-   DEMO NEWS
-   ※ 記事取得機能を接続するまでの仮データ
+   NEWS DATA
 ========================================================= */
 
 const articles = [
@@ -2384,116 +3244,1398 @@ const articles = [
 
 
 /* =========================================================
-   PLAYER STATE
+   STATE
 ========================================================= */
 
-let philliesPlayers = [];
+let currentPeriod = "all";
 
-let playersLoaded = false;
+let currentStatus = "all";
+
+let currentFavorite = "all";
+
+let currentPage = "news";
+
+let currentPlayerPosition = "all";
+
+let currentPlayerStatus = "active";
 
 
 /* =========================================================
-   PAGE SWITCHING
+   PLAYER DATA
 ========================================================= */
 
-function showPage(page) {
+let players = [];
 
-    const pages = [
-        "news",
-        "games",
-        "players",
-        "more"
-    ];
 
-    pages.forEach(name => {
+/*
+    ここでロスターJSONを読み込みます。
 
-        const element =
-            document.getElementById(
-                name + "-page"
+    第一候補:
+        players.json
+
+    これまで作成したファイル名が
+    players.json ならそのまま使用できます。
+
+    JSONが
+        { "players": [...] }
+    形式でも
+        [...]
+    形式でも対応します。
+*/
+
+const PLAYER_DATA_FILES = [
+
+    "players.json",
+
+    "player_roster.json",
+
+    "phillies_players.json"
+
+];
+
+
+/* =========================================================
+   LOAD PLAYER DATA
+========================================================= */
+
+async function loadPlayers() {
+
+    let loaded = false;
+
+
+    for (
+        const file of PLAYER_DATA_FILES
+    ) {
+
+        try {
+
+            const response =
+                await fetch(
+                    file,
+                    {
+                        cache:
+                            "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+                continue;
+            }
+
+
+            const data =
+                await response.json();
+
+
+            let rawPlayers = [];
+
+
+            if (
+                Array.isArray(data)
+            ) {
+
+                rawPlayers =
+                    data;
+
+            } else if (
+                Array.isArray(data.players)
+            ) {
+
+                rawPlayers =
+                    data.players;
+
+            } else if (
+                Array.isArray(data.roster)
+            ) {
+
+                rawPlayers =
+                    data.roster;
+
+            } else if (
+                Array.isArray(data.rosterPlayers)
+            ) {
+
+                rawPlayers =
+                    data.rosterPlayers;
+
+            }
+
+
+            if (
+                rawPlayers.length > 0
+            ) {
+
+                players =
+                    rawPlayers
+                        .map(normalizePlayer)
+                        .filter(Boolean);
+
+
+                loaded = true;
+
+                break;
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                `Player data load failed: ${file}`,
+                error
             );
 
-        if (!element) {
-            return;
         }
 
-        element.style.display =
-            name === page
-                ? "block"
-                : "none";
-
-    });
+    }
 
 
-    document
-        .querySelectorAll(
-            ".nav-item"
-        )
-        .forEach(button => {
+    if (!loaded) {
 
-            button.classList.toggle(
-                "active",
-                button.dataset.page === page
-            );
+        players = [];
 
-        });
-
-
-    document
-        .querySelectorAll(
-            ".mobile-nav-item"
-        )
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.page === page
-            );
-
-        });
-
-
-    if (page === "players") {
-
-        loadPhilliesRoster();
+        console.warn(
+            "No player roster JSON was found."
+        );
 
     }
 
 
-    if (page === "games") {
-
-        loadGames();
-
-    }
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    renderPlayers();
 
 }
 
 
 /* =========================================================
-   NEWS
+   NORMALIZE PLAYER
+========================================================= */
+
+function normalizePlayer(raw) {
+
+    if (!raw) {
+        return null;
+    }
+
+
+    const name =
+        raw.fullName ||
+        raw.name ||
+        raw.playerName ||
+        (
+            raw.firstName &&
+            raw.lastName
+                ? `${raw.firstName} ${raw.lastName}`
+                : ""
+        );
+
+
+    if (!name) {
+        return null;
+    }
+
+
+    const numberRaw =
+        raw.jerseyNumber ??
+        raw.number ??
+        raw.jersey ??
+        raw.uniformNumber ??
+        "";
+
+
+    const number =
+        String(numberRaw)
+            .replace("#", "")
+            .trim();
+
+
+    const positionRaw =
+        raw.position ||
+        raw.primaryPosition ||
+        raw.positionName ||
+        raw.pos ||
+        "";
+
+
+    const position =
+        typeof positionRaw === "object"
+            ? (
+                positionRaw.name ||
+                positionRaw.abbreviation ||
+                ""
+            )
+            : String(positionRaw);
+
+
+    const positionAbbr =
+        raw.positionAbbreviation ||
+        (
+            typeof positionRaw === "object"
+                ? (
+                    positionRaw.abbreviation ||
+                    ""
+                )
+                : ""
+        );
+
+
+    const batSide =
+        raw.batSide ||
+        raw.bats ||
+        raw.battingHand ||
+        raw.bat_hand ||
+        raw.hittingHand ||
+        "";
+
+
+    const pitchHand =
+        raw.pitchHand ||
+        raw.throws ||
+        raw.pitchingHand ||
+        raw.pitch_hand ||
+        "";
+
+
+    const statusRaw =
+        raw.status ||
+        raw.rosterStatus ||
+        raw.statusCode ||
+        "";
+
+
+    const status =
+        typeof statusRaw === "object"
+            ? (
+                statusRaw.description ||
+                statusRaw.code ||
+                ""
+            )
+            : String(statusRaw);
+
+
+    const rosterType =
+        raw.rosterType ||
+        raw.roster ||
+        raw.rosterLevel ||
+        raw.type ||
+        "";
+
+
+    const ilDays =
+        getILDays(raw);
+
+
+    const active =
+        detectActive(
+            raw,
+            status,
+            rosterType
+        );
+
+
+    const il =
+        detectIL(
+            raw,
+            status,
+            rosterType
+        );
+
+
+    const group =
+        detectPositionGroup(
+            position,
+            positionAbbr,
+            raw
+        );
+
+
+    return {
+
+        id:
+            raw.id ||
+            raw.playerId ||
+            name,
+
+        name,
+
+        number,
+
+        position:
+            positionAbbr ||
+            position,
+
+        group,
+
+        batSide:
+            normalizeHand(
+                batSide
+            ),
+
+        pitchHand:
+            normalizeHand(
+                pitchHand
+            ),
+
+        active,
+
+        il,
+
+        ilDays,
+
+        status,
+
+        rosterType
+
+    };
+
+}
+
+
+/* =========================================================
+   HAND NORMALIZATION
+========================================================= */
+
+function normalizeHand(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    const text =
+        String(value)
+            .toLowerCase()
+            .trim();
+
+
+    if (
+        text === "l" ||
+        text.includes("left")
+    ) {
+
+        return "L";
+
+    }
+
+
+    if (
+        text === "r" ||
+        text.includes("right")
+    ) {
+
+        return "R";
+
+    }
+
+
+    if (
+        text === "s" ||
+        text.includes("switch")
+    ) {
+
+        return "S";
+
+    }
+
+
+    return String(value).charAt(0).toUpperCase();
+
+}
+
+
+/* =========================================================
+   POSITION GROUP
+========================================================= */
+
+function detectPositionGroup(
+    position,
+    abbreviation,
+    raw
+) {
+
+    const text = (
+        String(position) +
+        " " +
+        String(abbreviation) +
+        " " +
+        String(
+            raw.positionType || ""
+        )
+    ).toLowerCase();
+
+
+    if (
+        text.includes("pitch") ||
+        text.includes("p") &&
+        !text.includes("1b") &&
+        !text.includes("2b") &&
+        !text.includes("3b") &&
+        !text.includes("ss")
+    ) {
+
+        return "pitcher";
+
+    }
+
+
+    if (
+        text.includes("catch") ||
+        text.includes("c")
+    ) {
+
+        return "catcher";
+
+    }
+
+
+    if (
+        text.includes("first") ||
+        text.includes("second") ||
+        text.includes("third") ||
+        text.includes("shortstop") ||
+        text.includes("infielder") ||
+        text.includes("1b") ||
+        text.includes("2b") ||
+        text.includes("3b") ||
+        text.includes("ss")
+    ) {
+
+        return "infielder";
+
+    }
+
+
+    if (
+        text.includes("outfield") ||
+        text.includes("left field") ||
+        text.includes("center field") ||
+        text.includes("right field") ||
+        text.includes("lf") ||
+        text.includes("cf") ||
+        text.includes("rf")
+    ) {
+
+        return "outfielder";
+
+    }
+
+
+    /*
+        MLB APIの position.type が
+        Pitcher / Catcher / Infielder / Outfielder
+        の場合
+    */
+
+    const type =
+        String(
+            raw.positionType ||
+            ""
+        ).toLowerCase();
+
+
+    if (
+        type.includes("pitch")
+    ) {
+        return "pitcher";
+    }
+
+
+    if (
+        type.includes("catch")
+    ) {
+        return "catcher";
+    }
+
+
+    if (
+        type.includes("infield")
+    ) {
+        return "infielder";
+    }
+
+
+    if (
+        type.includes("outfield")
+    ) {
+        return "outfielder";
+    }
+
+
+    return "other";
+
+}
+
+
+/* =========================================================
+   ACTIVE DETECTION
+========================================================= */
+
+function detectActive(
+    raw,
+    status,
+    rosterType
+) {
+
+    if (
+        raw.active === true ||
+        raw.isActive === true
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        raw.active === false ||
+        raw.isActive === false
+    ) {
+
+        return false;
+
+    }
+
+
+    const text = (
+        String(status) +
+        " " +
+        String(rosterType)
+    ).toLowerCase();
+
+
+    if (
+        text.includes("active")
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        text.includes("injured") ||
+        text.includes("il") ||
+        text.includes("disabled") ||
+        text.includes("inactive") ||
+        text.includes("assigned") ||
+        text.includes("restricted")
+    ) {
+
+        return false;
+
+    }
+
+
+    /*
+        40-man rosterとして取得された
+        データを基本的にActiveではないものとして扱う。
+    */
+
+    if (
+        text.includes("40-man") ||
+        text.includes("40 man") ||
+        text.includes("forty")
+    ) {
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   IL DETECTION
+========================================================= */
+
+function detectIL(
+    raw,
+    status,
+    rosterType
+) {
+
+    if (
+        raw.il === true ||
+        raw.isIL === true ||
+        raw.injuredList === true
+    ) {
+
+        return true;
+
+    }
+
+
+    const text = (
+        String(status) +
+        " " +
+        String(rosterType) +
+        " " +
+        String(raw.statusDescription || "")
+    ).toLowerCase();
+
+
+    return (
+        text.includes("injured list") ||
+        text.includes("injured-list") ||
+        text.includes("il ") ||
+        text === "il" ||
+        text.includes("disabled list")
+    );
+
+}
+
+
+/* =========================================================
+   IL DAYS
+========================================================= */
+
+function getILDays(raw) {
+
+    const direct =
+        raw.ilDays ??
+        raw.injuredListDays ??
+        raw.daysOnIL ??
+        raw.daysOnInjuredList ??
+        raw.daysInjured;
+
+
+    if (
+        direct !== undefined &&
+        direct !== null &&
+        direct !== ""
+    ) {
+
+        const value =
+            Number(direct);
+
+
+        if (
+            Number.isFinite(value)
+        ) {
+
+            return value;
+
+        }
+
+    }
+
+
+    const start =
+        raw.ilStartDate ||
+        raw.injuredListStartDate ||
+        raw.injuryStartDate ||
+        raw.statusStartDate;
+
+
+    if (!start) {
+        return null;
+    }
+
+
+    const startDate =
+        new Date(start);
+
+
+    if (
+        Number.isNaN(
+            startDate.getTime()
+        )
+    ) {
+
+        return null;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const diff =
+        now.getTime() -
+        startDate.getTime();
+
+
+    const days =
+        Math.floor(
+            diff /
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
+        );
+
+
+    return Math.max(
+        0,
+        days
+    );
+
+}
+
+
+/* =========================================================
+   PLAYER SORT
+========================================================= */
+
+const POSITION_ORDER = {
+
+    pitcher: 1,
+
+    catcher: 2,
+
+    infielder: 3,
+
+    outfielder: 4,
+
+    other: 5
+
+};
+
+
+function playerNumberSort(a, b) {
+
+    const groupA =
+        POSITION_ORDER[
+            a.group
+        ] || 99;
+
+
+    const groupB =
+        POSITION_ORDER[
+            b.group
+        ] || 99;
+
+
+    if (
+        groupA !== groupB
+    ) {
+
+        return groupA - groupB;
+
+    }
+
+
+    const numberA =
+        parseInt(
+            a.number,
+            10
+        );
+
+
+    const numberB =
+        parseInt(
+            b.number,
+            10
+        );
+
+
+    const validA =
+        Number.isFinite(numberA);
+
+
+    const validB =
+        Number.isFinite(numberB);
+
+
+    if (
+        validA &&
+        validB
+    ) {
+
+        return numberA - numberB;
+
+    }
+
+
+    if (validA) {
+        return -1;
+    }
+
+
+    if (validB) {
+        return 1;
+    }
+
+
+    return a.name.localeCompare(
+        b.name
+    );
+
+}
+
+
+/* =========================================================
+   PLAYER RENDER
+========================================================= */
+
+function renderPlayers() {
+
+    const container =
+        document.getElementById(
+            "player-groups"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    let filtered =
+        [...players];
+
+
+    /*
+        STATUS
+    */
+
+    if (
+        currentPlayerStatus === "active"
+    ) {
+
+        filtered =
+            filtered.filter(
+                player =>
+                    player.active
+            );
+
+    }
+
+
+    /*
+        POSITION
+    */
+
+    if (
+        currentPlayerPosition !== "all"
+    ) {
+
+        filtered =
+            filtered.filter(
+                player =>
+                    player.group ===
+                    currentPlayerPosition
+            );
+
+    }
+
+
+    /*
+        SORT
+
+        デフォルトは
+
+        投手
+        ↓
+        捕手
+        ↓
+        内野手
+        ↓
+        外野手
+
+        各区分内で背番号順
+    */
+
+    filtered.sort(
+        playerNumberSort
+    );
+
+
+    document.getElementById(
+        "roster-total"
+    ).textContent =
+        `${filtered.length} ${
+            filtered.length === 1
+                ? "player"
+                : "players"
+        }`;
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="players-empty">
+
+                <div class="players-empty-icon">
+                    ⚾
+                </div>
+
+                <h2 class="players-empty-title">
+                    No players found
+                </h2>
+
+                <p class="players-empty-description">
+                    No players match the current roster filters.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+        GROUPS
+    */
+
+    const groups = [
+
+        {
+            key: "pitcher",
+            title: "Pitchers"
+        },
+
+        {
+            key: "catcher",
+            title: "Catchers"
+        },
+
+        {
+            key: "infielder",
+            title: "Infielders"
+        },
+
+        {
+            key: "outfielder",
+            title: "Outfielders"
+        },
+
+        {
+            key: "other",
+            title: "Other"
+        }
+
+    ];
+
+
+    groups.forEach(
+        group => {
+
+            if (
+                currentPlayerPosition !== "all" &&
+                currentPlayerPosition !== group.key
+            ) {
+
+                return;
+
+            }
+
+
+            const groupPlayers =
+                filtered.filter(
+                    player =>
+                        player.group ===
+                        group.key
+                );
+
+
+            if (
+                groupPlayers.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            const section =
+                document.createElement(
+                    "section"
+                );
+
+
+            section.className =
+                "player-group";
+
+
+            section.innerHTML = `
+
+                <div class="player-group-header">
+
+                    <div class="player-group-title">
+                        ${group.title}
+                    </div>
+
+                    <div class="player-group-count">
+                        ${groupPlayers.length}
+                    </div>
+
+                </div>
+
+                <div class="player-grid"></div>
+
+            `;
+
+
+            const grid =
+                section.querySelector(
+                    ".player-grid"
+                );
+
+
+            groupPlayers.forEach(
+                player => {
+
+                    grid.appendChild(
+                        createPlayerCard(
+                            player
+                        )
+                    );
+
+                }
+            );
+
+
+            container.appendChild(
+                section
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+
+function createPlayerCard(
+    player
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    const classes = [
+        "player-card"
+    ];
+
+
+    if (
+        player.active
+    ) {
+
+        classes.push(
+            "active"
+        );
+
+    }
+
+
+    if (
+        player.il
+    ) {
+
+        classes.push(
+            "il"
+        );
+
+    }
+
+
+    card.className =
+        classes.join(" ");
+
+
+    /*
+        B/T
+
+        投手:
+            B / T
+
+        野手:
+            B / T
+
+        例:
+            R / R
+            L / L
+            S / R
+    */
+
+    const bats =
+        player.batSide ||
+        "—";
+
+
+    const throws =
+        player.pitchHand ||
+        "—";
+
+
+    const bt =
+        player.group === "pitcher"
+            ? `${bats} / ${throws}`
+            : `${bats} / ${throws}`;
+
+
+    let statusHtml =
+        "";
+
+
+    if (
+        player.il
+    ) {
+
+        statusHtml = `
+            <span class="player-status il">
+                IL
+            </span>
+        `;
+
+    } else if (
+        player.active
+    ) {
+
+        statusHtml = `
+            <span class="player-status active">
+                Active
+            </span>
+        `;
+
+    } else {
+
+        statusHtml = `
+            <span class="player-status inactive">
+                40-Man
+            </span>
+        `;
+
+    }
+
+
+    let ilDaysHtml = "";
+
+
+    if (
+        player.il &&
+        player.ilDays !== null &&
+        player.ilDays !== undefined
+    ) {
+
+        ilDaysHtml = `
+            <span class="il-days">
+                IL ${player.ilDays} days
+            </span>
+        `;
+
+    }
+
+
+    card.innerHTML = `
+
+        <div class="player-card-header">
+
+            <div class="player-number">
+                ${
+                    player.number
+                        ? `#${escapeHtml(player.number)}`
+                        : "#—"
+                }
+            </div>
+
+
+            <div class="player-name-wrap">
+
+                <div class="player-name">
+                    ${escapeHtml(player.name)}
+                </div>
+
+            </div>
+
+
+            ${statusHtml}
+
+        </div>
+
+
+        <div class="player-card-bottom">
+
+            <span class="player-bt">
+                B/T&nbsp; ${escapeHtml(bt)}
+            </span>
+
+            ${ilDaysHtml}
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   PLAYER FILTERS
+========================================================= */
+
+function setPlayerPosition(
+    value
+) {
+
+    currentPlayerPosition =
+        value;
+
+
+    renderPlayers();
+
+}
+
+
+function setPlayerStatus(
+    value
+) {
+
+    currentPlayerStatus =
+        value;
+
+
+    renderPlayers();
+
+}
+
+
+/* =========================================================
+   NEWS STORAGE
+========================================================= */
+
+function loadSavedState() {
+
+    let saved = {};
+
+
+    try {
+
+        saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "phillies-news-state"
+                ) || "{}"
+            );
+
+    } catch (error) {
+
+        saved = {};
+
+    }
+
+
+    articles.forEach(
+        article => {
+
+            if (
+                !saved[article.id]
+            ) {
+                return;
+            }
+
+
+            if (
+                typeof
+                saved[article.id].read
+                !== "undefined"
+            ) {
+
+                article.read =
+                    saved[article.id].read;
+
+            }
+
+
+            if (
+                typeof
+                saved[article.id].favorite
+                !== "undefined"
+            ) {
+
+                article.favorite =
+                    saved[article.id].favorite;
+
+            }
+
+        }
+    );
+
+}
+
+
+function saveState() {
+
+    const state = {};
+
+
+    articles.forEach(
+        article => {
+
+            state[article.id] = {
+
+                read:
+                    article.read,
+
+                favorite:
+                    article.favorite
+
+            };
+
+        }
+    );
+
+
+    localStorage.setItem(
+        "phillies-news-state",
+        JSON.stringify(state)
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE
 ========================================================= */
 
 function escapeHtml(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.textContent =
-        text == null
-            ? ""
-            : String(text);
+        text ?? "";
+
 
     return div.innerHTML;
 
 }
 
 
-function formatDate(dateString) {
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(
+    dateString
+) {
 
     return new Date(
         dateString
@@ -2511,99 +4653,27 @@ function formatDate(dateString) {
 }
 
 
-function loadNewsState() {
+/* =========================================================
+   NEWS RENDER
+========================================================= */
 
-    let saved = {};
-
-    try {
-
-        saved =
-            JSON.parse(
-                localStorage.getItem(
-                    "phillies-news-state"
-                ) || "{}"
-            );
-
-    } catch {
-
-        saved = {};
-
-    }
-
-
-    articles.forEach(article => {
-
-        if (!saved[article.id]) {
-            return;
-        }
-
-        if (
-            typeof saved[article.id].read
-            !== "undefined"
-        ) {
-
-            article.read =
-                saved[article.id].read;
-
-        }
-
-        if (
-            typeof saved[article.id].favorite
-            !== "undefined"
-        ) {
-
-            article.favorite =
-                saved[article.id].favorite;
-
-        }
-
-    });
-
-}
-
-
-function saveNewsState() {
-
-    const state = {};
-
-    articles.forEach(article => {
-
-        state[article.id] = {
-
-            read:
-                article.read,
-
-            favorite:
-                article.favorite
-
-        };
-
-    });
-
-
-    localStorage.setItem(
-        "phillies-news-state",
-        JSON.stringify(state)
-    );
-
-}
-
-
-function renderNews() {
+function renderArticles() {
 
     const container =
         document.getElementById(
             "news-list"
         );
 
+
     if (!container) {
         return;
     }
 
+
     container.innerHTML = "";
 
 
-    const sorted =
+    let filtered =
         [...articles].sort(
             (a,b) =>
                 new Date(b.date) -
@@ -2611,1087 +4681,112 @@ function renderNews() {
         );
 
 
-    sorted.forEach(article => {
+    if (
+        currentPeriod !== "all"
+    ) {
 
-        const card =
-            document.createElement("article");
-
-        card.className =
-            "article-card" +
-            (
-                article.read
-                    ? " read"
-                    : ""
+        const days =
+            Number(
+                currentPeriod
             );
 
 
-        card.innerHTML = `
+        const limit =
+            new Date(
+                Date.now() -
+                days *
+                24 *
+                60 *
+                60 *
+                1000
+            );
 
-            <button
-                class="
-                    favorite-button
-                    ${
-                        article.favorite
-                            ? "favorite"
-                            : ""
-                    }
-                "
-                aria-label="Favorite"
-            >
-                ${
+
+        filtered =
+            filtered.filter(
+                article =>
+                    new Date(article.date)
+                    >= limit
+            );
+
+    }
+
+
+    if (
+        currentStatus === "unread"
+    ) {
+
+        filtered =
+            filtered.filter(
+                article =>
+                    !article.read
+            );
+
+    }
+
+
+    if (
+        currentStatus === "read"
+    ) {
+
+        filtered =
+            filtered.filter(
+                article =>
+                    article.read
+            );
+
+    }
+
+
+    if (
+        currentFavorite === "favorite"
+    ) {
+
+        filtered =
+            filtered.filter(
+                article =>
                     article.favorite
-                        ? "★"
-                        : "☆"
-                }
-            </button>
-
-            <div class="article-top">
-
-                <span class="source">
-                    ${escapeHtml(article.source)}
-                </span>
-
-                <span class="source-dot"></span>
-
-                <span class="article-type">
-                    Phillies
-                </span>
-
-            </div>
-
-            <h2 class="article-title">
-                ${escapeHtml(article.title)}
-            </h2>
-
-            <p class="article-japanese">
-                ${escapeHtml(article.japanese)}
-            </p>
-
-            <div class="article-bottom">
-
-                <span class="article-date">
-                    ${formatDate(article.date)}
-                </span>
-
-                <span>
-                    ·
-                </span>
-
-                <span class="status">
-
-                    <span class="status-indicator"></span>
-
-                    ${
-                        article.read
-                            ? "Read"
-                            : "Unread"
-                    }
-
-                </span>
-
-            </div>
-
-        `;
-
-
-        card.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target.closest(
-                        ".favorite-button"
-                    )
-                ) {
-                    return;
-                }
-
-
-                article.read = true;
-
-                saveNewsState();
-
-                window.open(
-                    article.url,
-                    "_blank"
-                );
-
-                renderNews();
-
-            }
-        );
-
-
-        card.querySelector(
-            ".favorite-button"
-        ).addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-                article.favorite =
-                    !article.favorite;
-
-                saveNewsState();
-
-                renderNews();
-
-            }
-        );
-
-
-        container.appendChild(card);
-
-    });
-
-
-    updateNewsCounts();
-
-}
-
-
-function updateNewsCounts() {
-
-    const newsCount =
-        document.getElementById(
-            "news-count"
-        );
-
-    const unreadCount =
-        document.getElementById(
-            "unread-count"
-        );
-
-    const favoriteCount =
-        document.getElementById(
-            "favorite-count"
-        );
-
-
-    if (newsCount) {
-
-        newsCount.textContent =
-            articles.length;
-
-    }
-
-
-    if (unreadCount) {
-
-        unreadCount.textContent =
-            articles.filter(
-                a => !a.read
-            ).length;
-
-    }
-
-
-    if (favoriteCount) {
-
-        favoriteCount.textContent =
-            articles.filter(
-                a => a.favorite
-            ).length;
-
-    }
-
-
-    const articleCount =
-        document.getElementById(
-            "article-count"
-        );
-
-    if (articleCount) {
-
-        articleCount.textContent =
-            `${articles.length} articles`;
-
-    }
-
-}
-
-
-/* =========================================================
-   PLAYER HELPERS
-========================================================= */
-
-function getPositionGroup(position) {
-
-    if (!position) {
-        return "other";
-    }
-
-
-    const code =
-        String(
-            position.abbreviation ||
-            position.code ||
-            ""
-        ).toUpperCase();
-
-
-    const name =
-        String(
-            position.name ||
-            ""
-        ).toLowerCase();
-
-
-    if (
-        code === "P" ||
-        code === "RP" ||
-        code === "SP" ||
-        name.includes("pitcher")
-    ) {
-
-        return "pitcher";
-
-    }
-
-
-    if (
-        code === "C" ||
-        name.includes("catcher")
-    ) {
-
-        return "catcher";
-
-    }
-
-
-    if (
-        [
-            "1B",
-            "2B",
-            "3B",
-            "SS",
-            "IF"
-        ].includes(code) ||
-        name.includes("first base") ||
-        name.includes("second base") ||
-        name.includes("third base") ||
-        name.includes("shortstop") ||
-        name.includes("infielder")
-    ) {
-
-        return "infielder";
-
-    }
-
-
-    if (
-        [
-            "LF",
-            "CF",
-            "RF",
-            "OF"
-        ].includes(code) ||
-        name.includes("outfield")
-    ) {
-
-        return "outfielder";
-
-    }
-
-
-    /*
-       DHは野手として扱う。
-       その場合は個人カードでDHと表示。
-    */
-
-    if (
-        code === "DH" ||
-        name.includes("designated hitter")
-    ) {
-
-        return "infielder";
-
-    }
-
-
-    return "other";
-
-}
-
-
-function getPositionLabel(position) {
-
-    if (!position) {
-        return "—";
-    }
-
-
-    return (
-        position.abbreviation ||
-        position.name ||
-        "—"
-    );
-
-}
-
-
-function getHandLabel(hand) {
-
-    if (!hand) {
-        return "—";
-    }
-
-
-    const code =
-        String(
-            hand.code ||
-            ""
-        ).toUpperCase();
-
-
-    if (code === "R") {
-        return "Right";
-    }
-
-    if (code === "L") {
-        return "Left";
-    }
-
-    if (
-        code === "S"
-    ) {
-        return "Switch";
-    }
-
-
-    return (
-        hand.description ||
-        code ||
-        "—"
-    );
-
-}
-
-
-/* =========================================================
-   IL DETECTION
-========================================================= */
-
-function isILPlayer(player) {
-
-    const status =
-        player.status || {};
-
-
-    const code =
-        String(
-            status.code ||
-            ""
-        ).toUpperCase();
-
-
-    const description =
-        String(
-            status.description ||
-            ""
-        ).toLowerCase();
-
-
-    if (
-        code.includes("IL") ||
-        description.includes("injured") ||
-        description.includes("injured list") ||
-        description.includes("disabled")
-    ) {
-
-        return true;
-
-    }
-
-
-    return false;
-
-}
-
-
-/* =========================================================
-   IL DATE
-========================================================= */
-
-async function getILTransactions(playerId) {
-
-    /*
-       MLB Transactions APIから
-       該当選手のIL関連トランザクションを取得する。
-
-       API側の返却形式が変更された場合にも
-       ページ全体が落ちないようにする。
-    */
-
-    try {
-
-        const today =
-            new Date()
-                .toISOString()
-                .slice(0,10);
-
-
-        const url =
-            `${MLB_API}/transactions` +
-            `?sportId=1` +
-            `&teamId=${PHILLIES_TEAM_ID}` +
-            `&startDate=2020-01-01` +
-            `&endDate=${today}`;
-
-
-        const response =
-            await fetch(url);
-
-
-        if (!response.ok) {
-            return null;
-        }
-
-
-        const data =
-            await response.json();
-
-
-        const transactions =
-            Array.isArray(
-                data.transactions
-            )
-                ? data.transactions
-                : [];
-
-
-        const playerTransactions =
-            transactions.filter(
-                transaction => {
-
-                    return (
-                        transaction.person &&
-                        Number(
-                            transaction.person.id
-                        ) === Number(playerId)
-                    );
-
-                }
-            );
-
-
-        const ilTransactions =
-            playerTransactions
-                .filter(transaction => {
-
-                    const type =
-                        String(
-                            transaction.typeDesc ||
-                            transaction.description ||
-                            ""
-                        ).toLowerCase();
-
-                    const desc =
-                        String(
-                            transaction.description ||
-                            ""
-                        ).toLowerCase();
-
-                    return (
-                        type.includes("injured") ||
-                        type.includes("il") ||
-                        desc.includes("injured list") ||
-                        desc.includes("10-day") ||
-                        desc.includes("15-day") ||
-                        desc.includes("60-day")
-                    );
-
-                })
-                .sort(
-                    (a,b) =>
-                        new Date(
-                            b.date ||
-                            b.effectiveDate ||
-                            0
-                        ) -
-                        new Date(
-                            a.date ||
-                            a.effectiveDate ||
-                            0
-                        )
-                );
-
-
-        if (!ilTransactions.length) {
-            return null;
-        }
-
-
-        const latest =
-            ilTransactions[0];
-
-
-        const dateString =
-            latest.effectiveDate ||
-            latest.date;
-
-
-        if (!dateString) {
-            return null;
-        }
-
-
-        const start =
-            new Date(dateString);
-
-
-        if (
-            Number.isNaN(
-                start.getTime()
-            )
-        ) {
-
-            return null;
-
-        }
-
-
-        const now =
-            new Date();
-
-
-        /*
-           MLBの「何日ILか」は
-           カレンダー日数として表示。
-
-           当日を1日目として計算。
-        */
-
-        const diff =
-            Math.floor(
-                (
-                    new Date(
-                        now.getFullYear(),
-                        now.getMonth(),
-                        now.getDate()
-                    ) -
-                    new Date(
-                        start.getFullYear(),
-                        start.getMonth(),
-                        start.getDate()
-                    )
-                )
-                /
-                86400000
-            );
-
-
-        return {
-
-            date:
-                dateString,
-
-            days:
-                Math.max(
-                    1,
-                    diff + 1
-                ),
-
-            description:
-                latest.description ||
-                latest.typeDesc ||
-                "Injured List"
-
-        };
-
-    } catch {
-
-        return null;
-
-    }
-
-}
-
-
-/* =========================================================
-   ROSTER
-========================================================= */
-
-async function loadPhilliesRoster() {
-
-    const grid =
-        document.getElementById(
-            "player-grid"
-        );
-
-    if (!grid) {
-        return;
-    }
-
-
-    /*
-       毎回取得する。
-       これによりロスター変更を
-       ページを開くたびに反映できる。
-    */
-
-    grid.innerHTML = `
-
-        <div class="player-loading">
-
-            <div class="player-loading-title">
-                Loading Phillies roster
-            </div>
-
-            <div class="player-loading-text">
-                MLB official roster data is being loaded.
-            </div>
-
-        </div>
-
-    `;
-
-
-    try {
-
-        const url =
-            `${MLB_API}/teams/${PHILLIES_TEAM_ID}` +
-            `/roster?rosterType=40Man`;
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                `MLB API error: ${response.status}`
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        const roster =
-            Array.isArray(
-                data.roster
-            )
-                ? data.roster
-                : [];
-
-
-        if (!roster.length) {
-
-            throw new Error(
-                "No roster data returned."
-            );
-
-        }
-
-
-        /*
-           40人枠データから選手IDを抽出。
-        */
-
-        const ids =
-            roster
-                .map(player =>
-                    player.person &&
-                    player.person.id
-                )
-                .filter(Boolean);
-
-
-        /*
-           選手の詳細情報をまとめて取得。
-           MLB Stats APIのpeople endpoint。
-        */
-
-        const people =
-            await getPeople(ids);
-
-
-        const peopleMap =
-            new Map(
-                people.map(
-                    person =>
-                        [
-                            Number(person.id),
-                            person
-                        ]
-                )
-            );
-
-
-        philliesPlayers =
-            roster.map(
-                rosterPlayer => {
-
-                    const id =
-                        Number(
-                            rosterPlayer.person.id
-                        );
-
-
-                    const person =
-                        peopleMap.get(id) ||
-                        {};
-
-
-                    return {
-
-                        id,
-
-                        name:
-                            person.fullName ||
-                            rosterPlayer.person.fullName ||
-                            "Unknown Player",
-
-                        number:
-                            Number(
-                                rosterPlayer.jerseyNumber ||
-                                person.primaryNumber ||
-                                999
-                            ),
-
-                        position:
-                            person.primaryPosition ||
-                            rosterPlayer.position ||
-                            {},
-
-                        batSide:
-                            person.batSide ||
-                            {},
-
-                        pitchHand:
-                            person.pitchHand ||
-                            {},
-
-                        status:
-                            rosterPlayer.status ||
-                            {},
-
-                        active:
-                            rosterPlayer.status &&
-                            rosterPlayer.status.code ===
-                                "A",
-
-                        il:
-                            isILPlayer(
-                                rosterPlayer
-                            ),
-
-                        ilInfo:
-                            null
-
-                    };
-
-                }
-            );
-
-
-        /*
-           IL選手だけトランザクションを調査。
-        */
-
-        const ilPlayers =
-            philliesPlayers.filter(
-                player =>
-                    player.il
-            );
-
-
-        await Promise.all(
-            ilPlayers.map(
-                async player => {
-
-                    player.ilInfo =
-                        await getILTransactions(
-                            player.id
-                        );
-
-                }
-            )
-        );
-
-
-        playersLoaded = true;
-
-        renderPlayers();
-
-    } catch (error) {
-
-        console.error(
-            "Phillies roster error:",
-            error
-        );
-
-
-        grid.innerHTML = `
-
-            <div class="player-error">
-
-                <div class="player-error-title">
-                    Roster data could not be loaded
-                </div>
-
-                <div class="player-error-text">
-                    ${escapeHtml(
-                        error.message ||
-                        "Unknown error"
-                    )}
-                    <br><br>
-                    Please refresh the page and try again.
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   PEOPLE API
-========================================================= */
-
-async function getPeople(ids) {
-
-    if (!ids.length) {
-        return [];
-    }
-
-
-    const results = [];
-
-
-    /*
-       API URLが長くなりすぎないよう
-       25人単位に分割。
-    */
-
-    for (
-        let i = 0;
-        i < ids.length;
-        i += 25
-    ) {
-
-        const batch =
-            ids.slice(
-                i,
-                i + 25
-            );
-
-
-        const url =
-            `${MLB_API}/people` +
-            `?personIds=${batch.join(",")}`;
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-            continue;
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            Array.isArray(
-                data.people
-            )
-        ) {
-
-            results.push(
-                ...data.people
-            );
-
-        }
-
-    }
-
-
-    return results;
-
-}
-
-
-/* =========================================================
-   PLAYER RENDER
-========================================================= */
-
-function renderPlayers() {
-
-    const grid =
-        document.getElementById(
-            "player-grid"
-        );
-
-    const count =
-        document.getElementById(
-            "player-count"
-        );
-
-
-    if (!grid) {
-        return;
-    }
-
-
-    if (!playersLoaded) {
-        return;
-    }
-
-
-    const positionFilter =
-        document.getElementById(
-            "position-filter"
-        ).value;
-
-
-    const statusFilter =
-        document.getElementById(
-            "status-filter"
-        ).value;
-
-
-    let filtered =
-        [...philliesPlayers];
-
-
-    /*
-       POSITION
-    */
-
-    if (
-        positionFilter !== "all"
-    ) {
-
-        filtered =
-            filtered.filter(
-                player =>
-                    getPositionGroup(
-                        player.position
-                    ) === positionFilter
             );
 
     }
 
 
-    /*
-       STATUS
-    */
-
-    if (
-        statusFilter === "active"
-    ) {
-
-        filtered =
-            filtered.filter(
-                player =>
-                    player.active &&
-                    !player.il
-            );
-
-    }
-
-
-    if (
-        statusFilter === "il"
-    ) {
-
-        filtered =
-            filtered.filter(
-                player =>
-                    player.il
-            );
-
-    }
-
-
-    /*
-       背番号順
-       背番号がない選手は最後。
-    */
-
-    filtered.sort(
-        (a,b) => {
-
-            const numberA =
-                Number.isFinite(a.number)
-                    ? a.number
-                    : 999;
-
-            const numberB =
-                Number.isFinite(b.number)
-                    ? b.number
-                    : 999;
-
-            if (
-                numberA !== numberB
-            ) {
-
-                return (
-                    numberA -
-                    numberB
-                );
-
-            }
-
-
-            return a.name.localeCompare(
-                b.name
-            );
-
-        }
-    );
-
-
-    count.textContent =
+    document.getElementById(
+        "article-count"
+    ).textContent =
         `${filtered.length} ${
             filtered.length === 1
-                ? "player"
-                : "players"
+                ? "article"
+                : "articles"
         }`;
 
 
-    grid.innerHTML = "";
+    if (
+        filtered.length === 0
+    ) {
 
+        container.innerHTML = `
 
-    if (!filtered.length) {
+            <div class="empty">
 
-        grid.innerHTML = `
-
-            <div class="player-empty">
-
-                <div class="player-empty-title">
-                    No players found
+                <div class="empty-icon">
+                    ★
                 </div>
 
-                <div class="player-empty-text">
-                    Try changing the roster filters.
-                </div>
+                <h2 class="empty-title">
+                    Nothing here yet
+                </h2>
+
+                <p class="empty-description">
+                    No articles match your current filters.
+                </p>
 
             </div>
 
         `;
+
+
+        updateCounts();
 
         return;
 
@@ -3699,7 +4794,7 @@ function renderPlayers() {
 
 
     filtered.forEach(
-        player => {
+        article => {
 
             const card =
                 document.createElement(
@@ -3707,488 +4802,413 @@ function renderPlayers() {
                 );
 
 
-            const positionGroup =
-                getPositionGroup(
-                    player.position
-                );
-
-
-            const isIL =
-                player.il;
-
-
-            const isActive =
-                player.active &&
-                !isIL;
-
-
             card.className =
-                "player-card" +
+                "article-card" +
                 (
-                    isActive
-                        ? " active-player"
-                        : ""
-                ) +
-                (
-                    isIL
-                        ? " il-player"
+                    article.read
+                        ? " read"
                         : ""
                 );
 
 
-            const statusText =
-                isIL
-                    ? "IL"
-                    : isActive
-                        ? "Active"
-                        : "Roster";
+            card.addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target.closest(
+                            ".favorite-button"
+                        )
+                    ) {
+
+                        return;
+
+                    }
 
 
-            const statusClass =
-                isIL
-                    ? "il"
-                    : "";
+                    markAsRead(
+                        article.id
+                    );
 
 
-            let positionText =
-                getPositionLabel(
-                    player.position
-                );
-
-
-            if (
-                positionGroup === "pitcher"
-            ) {
-
-                positionText =
-                    "PITCHER";
-
-            }
-
-
-            /*
-               IL表示
-            */
-
-            let ilHtml = "";
-
-
-            if (isIL) {
-
-                if (
-                    player.ilInfo
-                ) {
-
-                    const date =
-                        new Date(
-                            player.ilInfo.date
-                        ).toLocaleDateString(
-                            "en-US",
-                            {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric"
-                            }
-                        );
-
-
-                    ilHtml = `
-
-                        <div class="il-detail">
-
-                            <strong>
-                                IL DAY ${player.ilInfo.days}
-                            </strong>
-
-                            ·
-                            Placed ${date}
-
-                            <br>
-
-                            ${escapeHtml(
-                                player.ilInfo.description
-                            )}
-
-                        </div>
-
-                    `;
-
-                } else {
-
-                    ilHtml = `
-
-                        <div class="il-detail">
-
-                            <strong>
-                                INJURED LIST
-                            </strong>
-
-                            <br>
-
-                            IL placement date unavailable
-
-                        </div>
-
-                    `;
+                    window.open(
+                        article.url,
+                        "_blank"
+                    );
 
                 }
-
-            }
+            );
 
 
             card.innerHTML = `
 
-                <div class="player-card-top">
-
-                    <div class="player-number">
-
-                        #${
-                            Number.isFinite(
-                                player.number
-                            )
-                                ? player.number
-                                : "—"
+                <button
+                    class="
+                        favorite-button
+                        ${
+                            article.favorite
+                                ? "favorite"
+                                : ""
                         }
+                    "
+                    aria-label="Save article"
+                    title="${
+                        article.favorite
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                    }"
+                >
+                    ${
+                        article.favorite
+                            ? "★"
+                            : "☆"
+                    }
+                </button>
 
-                    </div>
 
+                <div class="article-top">
 
-                    <div
-                        class="
-                            player-status
-                            ${statusClass}
-                        "
-                    >
+                    <span class="source">
+                        ${escapeHtml(article.source)}
+                    </span>
 
-                        <span
-                            class="player-status-dot"
-                        ></span>
+                    <span class="source-dot"></span>
 
-                        ${statusText}
-
-                    </div>
+                    <span class="article-type">
+                        Phillies
+                    </span>
 
                 </div>
 
 
-                <h2 class="player-name">
-
-                    ${escapeHtml(
-                        player.name
-                    )}
-
+                <h2 class="article-title">
+                    ${escapeHtml(article.title)}
                 </h2>
 
 
-                <div class="player-position">
-
-                    ${escapeHtml(
-                        positionText
-                    )}
-
-                </div>
+                <p class="article-japanese">
+                    ${escapeHtml(article.japanese)}
+                </p>
 
 
-                <div class="player-meta">
+                <div class="article-bottom">
 
+                    <span class="article-date">
+                        ${formatDate(article.date)}
+                    </span>
 
-                    <div class="player-meta-item">
+                    <span>
+                        ·
+                    </span>
 
-                        <span
-                            class="player-meta-label"
-                        >
-                            BATS
-                        </span>
-
-                        ${
-                            escapeHtml(
-                                getHandLabel(
-                                    player.batSide
-                                )
-                            )
-                        }
-
-                    </div>
-
-
-                    <div class="player-meta-item">
+                    <span class="status">
 
                         <span
-                            class="player-meta-label"
-                        >
-                            THROWS
-                        </span>
+                            class="status-indicator"
+                        ></span>
 
                         ${
-                            escapeHtml(
-                                getHandLabel(
-                                    player.pitchHand
-                                )
-                            )
+                            article.read
+                                ? "Read"
+                                : "Unread"
                         }
 
-                    </div>
-
-
-                    ${
-                        positionGroup !== "pitcher"
-                            ? `
-                                <div class="player-meta-item">
-
-                                    <span
-                                        class="player-meta-label"
-                                    >
-                                        POS
-                                    </span>
-
-                                    ${
-                                        escapeHtml(
-                                            getPositionLabel(
-                                                player.position
-                                            )
-                                        )
-                                    }
-
-                                </div>
-                            `
-                            : ""
-                    }
+                    </span>
 
                 </div>
-
-
-                ${ilHtml}
 
             `;
 
 
-            grid.appendChild(card);
+            const favoriteButton =
+                card.querySelector(
+                    ".favorite-button"
+                );
+
+
+            favoriteButton.addEventListener(
+                "click",
+                function(event) {
+
+                    event.stopPropagation();
+
+                    toggleFavorite(
+                        article.id
+                    );
+
+                }
+            );
+
+
+            container.appendChild(
+                card
+            );
 
         }
     );
+
+
+    updateCounts();
 
 }
 
 
 /* =========================================================
-   GAMES
+   FAVORITE
 ========================================================= */
 
-async function loadGames() {
+function toggleFavorite(
+    id
+) {
 
-    const recent =
-        document.getElementById(
-            "recent-games"
+    const article =
+        articles.find(
+            item =>
+                item.id === id
         );
 
 
-    if (!recent) {
+    if (!article) {
         return;
     }
 
 
-    recent.innerHTML =
-        "Loading recent games...";
+    article.favorite =
+        !article.favorite;
 
 
-    try {
+    saveState();
 
-        const today =
-            new Date();
+    renderArticles();
 
-
-        const start =
-            new Date(
-                today.getTime() -
-                7 * 86400000
-            )
-                .toISOString()
-                .slice(0,10);
+}
 
 
-        const end =
-            today
-                .toISOString()
-                .slice(0,10);
+/* =========================================================
+   READ
+========================================================= */
 
+function markAsRead(
+    id
+) {
 
-        const url =
-            `${MLB_API}/schedule` +
-            `?sportId=1` +
-            `&teamId=${PHILLIES_TEAM_ID}` +
-            `&startDate=${start}` +
-            `&endDate=${end}`;
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-            throw new Error(
-                "Schedule request failed"
-            );
-        }
-
-
-        const data =
-            await response.json();
-
-
-        const dates =
-            Array.isArray(
-                data.dates
-            )
-                ? data.dates
-                : [];
-
-
-        const games = [];
-
-
-        dates.forEach(date => {
-
-            if (
-                Array.isArray(
-                    date.games
-                )
-            ) {
-
-                games.push(
-                    ...date.games
-                );
-
-            }
-
-        });
-
-
-        games.sort(
-            (a,b) =>
-                new Date(
-                    b.gameDate
-                ) -
-                new Date(
-                    a.gameDate
-                )
+    const article =
+        articles.find(
+            item =>
+                item.id === id
         );
 
 
-        if (!games.length) {
+    if (!article) {
+        return;
+    }
 
-            recent.innerHTML =
-                "No recent games found.";
 
-            return;
+    article.read =
+        true;
+
+
+    saveState();
+
+    renderArticles();
+
+}
+
+
+/* =========================================================
+   NEWS FILTER
+========================================================= */
+
+function setPeriod(
+    period
+) {
+
+    currentPeriod =
+        period;
+
+
+    document.getElementById(
+        "period-select"
+    ).value =
+        period;
+
+
+    renderArticles();
+
+}
+
+
+function setStatusFilter(
+    status
+) {
+
+    currentStatus =
+        status;
+
+
+    document.getElementById(
+        "status-select"
+    ).value =
+        status;
+
+
+    renderArticles();
+
+}
+
+
+function setFavoriteFilter(
+    value
+) {
+
+    currentFavorite =
+        value;
+
+
+    document.getElementById(
+        "favorite-select"
+    ).value =
+        value;
+
+
+    renderArticles();
+
+}
+
+
+/* =========================================================
+   NEWS COUNTS
+========================================================= */
+
+function updateCounts() {
+
+    const total =
+        articles.length;
+
+
+    const unread =
+        articles.filter(
+            article =>
+                !article.read
+        ).length;
+
+
+    const favorites =
+        articles.filter(
+            article =>
+                article.favorite
+        ).length;
+
+
+    document.getElementById(
+        "news-count"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "unread-count"
+    ).textContent =
+        unread;
+
+
+    document.getElementById(
+        "favorite-count"
+    ).textContent =
+        favorites;
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(
+    page
+) {
+
+    currentPage =
+        page;
+
+
+    document
+        .querySelectorAll(
+            ".page-view, .players-page, .placeholder-page"
+        )
+        .forEach(
+            section => {
+
+                section.style.display =
+                    "none";
+
+            }
+        );
+
+
+    const target =
+        document.getElementById(
+            `page-${page}`
+        );
+
+
+    if (target) {
+
+        if (
+            page === "players"
+        ) {
+
+            target.style.display =
+                "block";
+
+            renderPlayers();
+
+        } else {
+
+            target.style.display =
+                "block";
 
         }
 
-
-        recent.innerHTML = "";
-
-
-        games
-            .slice(0,5)
-            .forEach(game => {
-
-                const row =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                row.style.cssText = `
-                    padding:14px 0;
-                    border-bottom:1px solid var(--gray-100);
-                `;
-
-
-                const away =
-                    game.teams.away.team.name;
-
-
-                const home =
-                    game.teams.home.team.name;
-
-
-                const awayScore =
-                    game.teams.away.score;
-
-
-                const homeScore =
-                    game.teams.home.score;
-
-
-                const gameDate =
-                    new Date(
-                        game.gameDate
-                    ).toLocaleDateString(
-                        "en-US",
-                        {
-                            month:"short",
-                            day:"numeric"
-                        }
-                    );
-
-
-                row.innerHTML = `
-
-                    <div style="
-                        color:var(--gray-500);
-                        font-size:9px;
-                        font-weight:800;
-                        margin-bottom:6px;
-                    ">
-                        ${gameDate}
-                    </div>
-
-                    <div style="
-                        display:flex;
-                        justify-content:space-between;
-                        gap:10px;
-                        color:var(--navy);
-                        font-size:12px;
-                        font-weight:850;
-                    ">
-
-                        <span>
-                            ${escapeHtml(away)}
-                            ${away === "Philadelphia Phillies"
-                                ? " " + awayScore
-                                : ""
-                            }
-                        </span>
-
-                        <span>
-                            ${home === "Philadelphia Phillies"
-                                ? homeScore + " "
-                                : ""
-                            }
-                            ${escapeHtml(home)}
-                        </span>
-
-                    </div>
-
-                `;
-
-
-                recent.appendChild(row);
-
-            });
-
-    } catch (error) {
-
-        recent.innerHTML =
-            "Game data could not be loaded.";
-
-        console.error(error);
-
     }
+
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(
+            item => {
+
+                item.classList.toggle(
+                    "active",
+                    item.dataset.page === page
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".mobile-nav-item"
+        )
+        .forEach(
+            item => {
+
+                item.classList.toggle(
+                    "active",
+                    item.dataset.mobile === page
+                );
+
+            }
+        );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
 }
 
@@ -4197,12 +5217,16 @@ async function loadGames() {
    INITIALIZE
 ========================================================= */
 
-loadNewsState();
+loadSavedState();
 
-renderNews();
+renderArticles();
+
+loadPlayers();
+
+showPage("news");
 
 </script>
 
 </body>
+
 </html>
-```
