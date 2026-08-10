@@ -3579,121 +3579,7 @@ function getStat(stats,key) {
         stats[key];
 
 
-    if (
-        value === null ||
-        value === undefined ||
-        value === ""
-    ) {
-
-        return "—";
-
-    }
-
-
-    return value;
-
-}
-
-
-/* =========================================================
-   FORMAT DECIMAL STATS
-========================================================= */
-
-function formatRate(value) {
-
-    if (
-        value === null ||
-        value === undefined ||
-        value === ""
-    ) {
-
-        return "—";
-
-    }
-
-
-    const number =
-        Number(
-            value
-        );
-
-
-    if (
-        Number.isNaN(number)
-    ) {
-
-        return String(
-            value
-        );
-
-    }
-
-
-    return number.toFixed(3);
-
-}
-
-
-/* =========================================================
-   FACT STAT
-========================================================= */
-
-function factStat(label,value) {
-
-    return `
-
-        <div class="fact-stat">
-
-            <div class="fact-label">
-                ${escapeHtml(label)}
-            </div>
-
-            <div class="fact-value">
-                ${escapeHtml(value)}
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   CREATE FACT CARD
-========================================================= */
-
-function createPlayerFactCard(player) {
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-
-    card.className =
-        "player-fact-card";
-
-
-    const data =
-        findSavantPlayer(
-            player._id
-        );
-
-
-    const stats =
-        data?.stats ??
-        null;
-
-
-    const isPitcher =
-        player._group === "P";
-
-
-    let statHTML =
-        "";
-
-
+   ```javascript
     if (
         stats
     ) {
@@ -3703,30 +3589,6 @@ function createPlayerFactCard(player) {
         ) {
 
             statHTML = [
-
-                factStat(
-                    "ERA",
-                    getStat(
-                        stats,
-                        "era"
-                    )
-                ),
-
-                factStat(
-                    "WHIP",
-                    getStat(
-                        stats,
-                        "whip"
-                    )
-                ),
-
-                factStat(
-                    "IP",
-                    getStat(
-                        stats,
-                        "ip"
-                    )
-                ),
 
                 factStat(
                     "G",
@@ -3745,19 +3607,14 @@ function createPlayerFactCard(player) {
                 ),
 
                 factStat(
-                    "W",
-                    getStat(
+                    "W-L",
+                    `${getStat(
                         stats,
                         "w"
-                    )
-                ),
-
-                factStat(
-                    "L",
-                    getStat(
+                    )}-${getStat(
                         stats,
                         "l"
-                    )
+                    )}`
                 ),
 
                 factStat(
@@ -3769,12 +3626,120 @@ function createPlayerFactCard(player) {
                 ),
 
                 factStat(
+                    "IP",
+                    getStat(
+                        stats,
+                        "ip"
+                    )
+                ),
+
+                factStat(
                     "SO",
                     getStat(
                         stats,
                         "so"
                     )
                 ),
+
+                factStat(
+                    "BB",
+                    getStat(
+                        stats,
+                        "bb"
+                    )
+                ),
+
+                factStat(
+                    "ERA",
+                    getStat(
+                        stats,
+                        "era"
+                    )
+                ),
+
+                factStat(
+                    "WHIP",
+                    getStat(
+                        stats,
+                        "whip"
+                    )
+                )
+
+            ].join("");
+
+        }
+
+        else {
+
+            statHTML = [
+
+                factStat(
+                    "PA",
+                    getStat(
+                        stats,
+                        "pa"
+                    )
+                ),
+
+                factStat(
+                    "AVE",
+                    formatRate(
+                        stats.avg
+                    )
+                ),
+
+                factStat(
+                    "OBP",
+                    formatRate(
+                        stats.obp
+                    )
+                ),
+
+                factStat(
+                    "OPS",
+                    formatRate(
+                        stats.ops
+                    )
+                ),
+
+                factStat(
+                    "HR",
+                    getStat(
+                        stats,
+                        "hr"
+                    )
+                ),
+
+                factStat(
+                    "BB",
+                    getStat(
+                        stats,
+                        "bb"
+                    )
+                ),
+
+                factStat(
+                    "SO",
+                    getStat(
+                        stats,
+                        "so"
+                    )
+                ),
+
+                factStat(
+                    "SB",
+                    getStat(
+                        stats,
+                        "sb"
+                    )
+                )
+
+            ].join("");
+
+        }
+
+    }
+```
 
                 factStat(
                     "BB",
