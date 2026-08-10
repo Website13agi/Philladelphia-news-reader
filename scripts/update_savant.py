@@ -1,3 +1,4 @@
+```python
 import json
 import os
 import sys
@@ -74,9 +75,7 @@ def fetch_json(url):
     try:
 
         return json.loads(
-            raw.decode(
-                "utf-8"
-            )
+            raw.decode("utf-8")
         )
 
     except Exception as error:
@@ -109,20 +108,14 @@ def load_players():
 
         data = json.load(file)
 
-    if isinstance(
-        data,
-        dict
-    ):
+    if isinstance(data, dict):
 
         players = data.get(
             "players",
             []
         )
 
-    elif isinstance(
-        data,
-        list
-    ):
+    elif isinstance(data, list):
 
         players = data
 
@@ -173,16 +166,20 @@ def load_players():
 
             continue
 
+        # 40-Manのみを対象
+        if player.get("is40Man") is not True:
+            continue
+
         result[player_id] = player
 
     if not result:
 
         raise RuntimeError(
-            "players.jsonから選手IDを取得できませんでした。"
+            "players.jsonから40-Man選手を取得できませんでした。"
         )
 
     print(
-        "players.json players:",
+        "40-Man players:",
         len(result)
     )
 
@@ -193,9 +190,7 @@ def load_players():
 # MLB STATS API
 # =========================================================
 
-def build_stats_url(
-    group
-):
+def build_stats_url(group):
 
     params = {
         "stats": "season",
@@ -215,9 +210,7 @@ def build_stats_url(
     )
 
 
-def get_stats(
-    group
-):
+def get_stats(group):
 
     url = build_stats_url(
         group
@@ -278,9 +271,7 @@ def get_stats(
 # VALUE
 # =========================================================
 
-def number(
-    value
-):
+def number(value):
 
     if value is None:
         return None
@@ -325,9 +316,43 @@ def number(
 # BATTING
 # =========================================================
 
-def parse_batter(
-    split
-):
+def empty_batting_stats():
+
+    return {
+
+        "g": 0,
+        "ab": 0,
+        "pa": 0,
+        "h": 0,
+
+        "1b": 0,
+        "2b": 0,
+        "3b": 0,
+        "hr": 0,
+
+        "rbi": 0,
+        "bb": 0,
+        "so": 0,
+
+        "sb": 0,
+        "cs": 0,
+
+        "avg": None,
+        "obp": None,
+        "slg": None,
+        "ops": None,
+
+        "r": 0,
+        "tb": 0,
+
+        "ibb": 0,
+        "hbp": 0,
+        "sf": 0,
+        "sh": 0,
+    }
+
+
+def parse_batter(split):
 
     player = split.get(
         "player",
@@ -347,6 +372,7 @@ def parse_batter(
         return None
 
     return {
+
         "player_id": int(
             player_id
         ),
@@ -457,9 +483,40 @@ def parse_batter(
 # PITCHING
 # =========================================================
 
-def parse_pitcher(
-    split
-):
+def empty_pitching_stats():
+
+    return {
+
+        "g": 0,
+        "gs": 0,
+
+        "ip": 0.0,
+        "bf": 0,
+
+        "w": 0,
+        "l": 0,
+        "sv": 0,
+
+        "h": 0,
+        "er": 0,
+        "hr": 0,
+        "bb": 0,
+        "so": 0,
+
+        "era": None,
+        "whip": None,
+
+        "h9": None,
+        "hr9": None,
+        "bb9": None,
+        "k9": None,
+        "kbb": None,
+
+        "baa": None,
+    }
+
+
+def parse_pitcher(split):
 
     player = split.get(
         "player",
@@ -479,6 +536,7 @@ def parse_pitcher(
         return None
 
     return {
+
         "player_id": int(
             player_id
         ),
@@ -574,54 +632,16 @@ def parse_pitcher(
 
 
 # =========================================================
-# MAIN
+# STAT MAP
 # =========================================================
 
-def main():
+def make_batting_map(
+    splits
+):
 
-    print(
-        "=" * 70
-    )
+    result = {}
 
-    print(
-        "PHILADELPHIA PHILLIES"
-    )
-
-    print(
-        "MLB OFFICIAL STATS API UPDATE"
-    )
-
-    print(
-        "=" * 70
-    )
-
-    # -----------------------------------------------------
-    # players.json
-    # -----------------------------------------------------
-
-    players = load_players()
-
-    # -----------------------------------------------------
-    # MLB API
-    # -----------------------------------------------------
-
-    batting_splits = get_stats(
-        "hitting"
-    )
-
-    pitching_splits = get_stats(
-        "pitching"
-    )
-
-    # -----------------------------------------------------
-    # BATTERS
-    # -----------------------------------------------------
-
-    batters = []
-
-    seen_batters = set()
-
-    for split in batting_splits:
+    for split in splits:
 
         player = parse_batter(
             split
@@ -634,29 +654,23 @@ def main():
             "player_id"
         ]
 
-        if player_id not in players:
-            continue
+        # 同じ選手が複数splitに
+        # 出る可能性があるため、
+        # 最初の1件を採用
+        if player_id not in result:
 
-        if player_id in seen_batters:
-            continue
+            result[player_id] = player
 
-        seen_batters.add(
-            player_id
-        )
+    return result
 
-        batters.append(
-            player
-        )
 
-    # -----------------------------------------------------
-    # PITCHERS
-    # -----------------------------------------------------
+def make_pitching_map(
+    splits
+):
 
-    pitchers = []
+    result = {}
 
-    seen_pitchers = set()
-
-    for split in pitching_splits:
+    for split in splits:
 
         player = parse_pitcher(
             split
@@ -669,77 +683,157 @@ def main():
             "player_id"
         ]
 
-        if player_id not in players:
-            continue
+        if player_id not in result:
 
-        if player_id in seen_pitchers:
-            continue
+            result[player_id] = player
 
-        seen_pitchers.add(
-            player_id
+    return result
+
+
+# =========================================================
+# BUILD ALL ROSTER PLAYERS
+# =========================================================
+
+def build_all_players(
+    players,
+    batting_map,
+    pitching_map
+):
+
+    batters = []
+    pitchers = []
+
+    batting_count = 0
+    pitching_count = 0
+
+    for player_id, player in players.items():
+
+        position_code = (
+            player.get(
+                "positionCode"
+            )
+            or ""
         )
 
-        pitchers.append(
-            player
+        group = (
+            player.get(
+                "group"
+            )
+            or ""
         )
 
-    # -----------------------------------------------------
-    # Sort
-    # -----------------------------------------------------
+        name = (
+            player.get(
+                "name"
+            )
+            or player.get(
+                "fullName"
+            )
+            or ""
+        )
 
+        # =================================================
+        # Pitcher
+        # =================================================
+
+        is_pitcher = (
+            position_code == "P"
+            or group.lower() == "pitcher"
+        )
+
+        if is_pitcher:
+
+            if player_id in pitching_map:
+
+                record = pitching_map[
+                    player_id
+                ]
+
+                pitching_count += 1
+
+            else:
+
+                record = {
+
+                    "player_id":
+                        player_id,
+
+                    "player_name":
+                        name,
+
+                    "stats":
+                        empty_pitching_stats(),
+                }
+
+            pitchers.append(
+                record
+            )
+
+        # =================================================
+        # Batter
+        # =================================================
+
+        else:
+
+            if player_id in batting_map:
+
+                record = batting_map[
+                    player_id
+                ]
+
+                batting_count += 1
+
+            else:
+
+                record = {
+
+                    "player_id":
+                        player_id,
+
+                    "player_name":
+                        name,
+
+                    "stats":
+                        empty_batting_stats(),
+                }
+
+            batters.append(
+                record
+            )
+
+    # 名前順
     batters.sort(
-        key=lambda x: (
+        key=lambda x:
             x.get(
                 "player_name"
             )
             or ""
-        )
     )
 
     pitchers.sort(
-        key=lambda x: (
+        key=lambda x:
             x.get(
                 "player_name"
             )
             or ""
-        )
     )
 
-    # -----------------------------------------------------
-    # Validation
-    # -----------------------------------------------------
-
-    total = (
-        len(batters)
-        + len(pitchers)
+    return (
+        batters,
+        pitchers,
+        batting_count,
+        pitching_count,
     )
 
-    print()
-    print(
-        "Matched batters:",
-        len(batters)
-    )
 
-    print(
-        "Matched pitchers:",
-        len(pitchers)
-    )
+# =========================================================
+# OUTPUT
+# =========================================================
 
-    print(
-        "Total:",
-        total
-    )
-
-    if total == 0:
-
-        raise RuntimeError(
-            "MLB公式APIからPhillies選手の成績を"
-            "1件も取得できませんでした。"
-        )
-
-    # -----------------------------------------------------
-    # OUTPUT
-    # -----------------------------------------------------
+def save_output(
+    batters,
+    pitchers
+):
 
     output = {
 
@@ -776,10 +870,6 @@ def main():
             pitchers,
     }
 
-    # -----------------------------------------------------
-    # Atomic write
-    # -----------------------------------------------------
-
     temp_file = (
         OUTPUT_FILE
         + ".tmp"
@@ -807,22 +897,98 @@ def main():
         OUTPUT_FILE
     )
 
-    # -----------------------------------------------------
-    # SUCCESS
-    # -----------------------------------------------------
+    return output
 
-    print()
+
+# =========================================================
+# MAIN
+# =========================================================
+
+def main():
+
     print(
         "=" * 70
     )
 
     print(
-        "SUCCESS"
+        "PHILADELPHIA PHILLIES"
     )
 
     print(
-        "Output:",
-        OUTPUT_FILE
+        "MLB OFFICIAL STATS API"
+    )
+
+    print(
+        "ALL 40-MAN ROSTER UPDATE"
+    )
+
+    print(
+        "=" * 70
+    )
+
+    # -----------------------------------------------------
+    # 40-Man roster
+    # -----------------------------------------------------
+
+    players = load_players()
+
+    # -----------------------------------------------------
+    # MLB API
+    # -----------------------------------------------------
+
+    batting_splits = get_stats(
+        "hitting"
+    )
+
+    pitching_splits = get_stats(
+        "pitching"
+    )
+
+    # -----------------------------------------------------
+    # Maps
+    # -----------------------------------------------------
+
+    batting_map = make_batting_map(
+        batting_splits
+    )
+
+    pitching_map = make_pitching_map(
+        pitching_splits
+    )
+
+    # -----------------------------------------------------
+    # 全40-Manを生成
+    # -----------------------------------------------------
+
+    (
+        batters,
+        pitchers,
+        batting_count,
+        pitching_count,
+    ) = build_all_players(
+        players,
+        batting_map,
+        pitching_map,
+    )
+
+    total = (
+        len(batters)
+        +
+        len(pitchers)
+    )
+
+    # -----------------------------------------------------
+    # Validation
+    # -----------------------------------------------------
+
+    print()
+    print(
+        "=============================================="
+    )
+
+    print(
+        "40-Man roster:",
+        len(players)
     )
 
     print(
@@ -836,8 +1002,59 @@ def main():
     )
 
     print(
+        "Total:",
+        total
+    )
+
+    print(
+        "Batters with MLB stats:",
+        batting_count
+    )
+
+    print(
+        "Pitchers with MLB stats:",
+        pitching_count
+    )
+
+    print(
+        "=============================================="
+    )
+
+    if total != len(players):
+
+        raise RuntimeError(
+            "40-Man選手数とsavant.jsonの選手数が一致しません。"
+        )
+
+    # -----------------------------------------------------
+    # Save
+    # -----------------------------------------------------
+
+    output = save_output(
+        batters,
+        pitchers,
+    )
+
+    print()
+    print(
+        "SUCCESS"
+    )
+
+    print(
+        "Output:",
+        OUTPUT_FILE
+    )
+
+    print(
+        "Total players:",
+        total
+    )
+
+    print(
         "Updated:",
-        output["updatedAt"]
+        output[
+            "updatedAt"
+        ]
     )
 
     print(
@@ -875,3 +1092,4 @@ if __name__ == "__main__":
         )
 
         sys.exit(1)
+```
