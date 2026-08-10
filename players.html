@@ -1,3 +1,2612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Phillies Daily — Players</title>
+
+
+<style>
+
+/* =========================================================
+   PHILLIES DAILY
+   PLAYERS V2
+========================================================= */
+
+:root {
+
+    --red:
+        #e31837;
+
+    --red-dark:
+        #c8102e;
+
+    --red-soft:
+        #fff0f2;
+
+    --navy:
+        #002d62;
+
+    --navy-dark:
+        #001b3d;
+
+    --navy-deep:
+        #00152f;
+
+    --white:
+        #ffffff;
+
+    --black:
+        #10151d;
+
+    --gray-900:
+        #252b34;
+
+    --gray-700:
+        #4c5663;
+
+    --gray-600:
+        #687381;
+
+    --gray-500:
+        #89939f;
+
+    --gray-400:
+        #adb5bf;
+
+    --gray-300:
+        #d5dbe2;
+
+    --gray-200:
+        #e4e8ed;
+
+    --gray-100:
+        #f2f4f7;
+
+    --background:
+        #f4f6f9;
+
+    --il:
+        #f2b705;
+
+    --il-dark:
+        #9a7300;
+
+    --il-soft:
+        #fff7d6;
+
+    --green:
+        #218542;
+
+    --green-soft:
+        #e9f7ee;
+
+    --radius:
+        16px;
+
+    --shadow:
+        0 4px 18px
+        rgba(0,29,62,.065);
+
+    --shadow-hover:
+        0 14px 34px
+        rgba(0,29,62,.13);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing:
+        border-box;
+}
+
+
+html {
+    scroll-behavior:
+        smooth;
+}
+
+
+body {
+
+    margin:
+        0;
+
+    background:
+        var(--background);
+
+    color:
+        var(--black);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    padding-bottom:
+        30px;
+}
+
+
+a {
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.topbar {
+
+    height:
+        76px;
+
+    background:
+
+        linear-gradient(
+            105deg,
+            var(--navy-deep),
+            var(--navy) 62%,
+            #003875
+        );
+
+    border-bottom:
+        4px solid
+        var(--red);
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        1000;
+
+    box-shadow:
+        0 5px 22px
+        rgba(0,24,54,.19);
+}
+
+
+.topbar-inner {
+
+    max-width:
+        1280px;
+
+    height:
+        100%;
+
+    margin:
+        auto;
+
+    padding:
+        0 28px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        32px;
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    min-width:
+        max-content;
+}
+
+
+.brand-logo {
+
+    width:
+        48px;
+
+    height:
+        48px;
+
+    border-radius:
+        50%;
+
+    background:
+        white;
+
+    border:
+        2px solid
+        rgba(255,255,255,.9);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,.2);
+}
+
+
+.brand-logo img {
+
+    width:
+        88%;
+
+    height:
+        88%;
+
+    object-fit:
+        contain;
+
+}
+
+
+.brand-name {
+
+    color:
+        white;
+
+    font-size:
+        20px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -.6px;
+}
+
+
+.brand-label {
+
+    margin-top:
+        5px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size:
+        8px;
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        1.7px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.desktop-nav {
+
+    height:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        2px;
+}
+
+
+.nav-item {
+
+    height:
+        100%;
+
+    padding:
+        0 15px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    position:
+        relative;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:
+        13px;
+
+    font-weight:
+        850;
+
+    transition:
+        .2s ease;
+}
+
+
+.nav-item:hover,
+.nav-item.active {
+
+    color:
+        white;
+}
+
+
+.nav-item.active::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        14px;
+
+    right:
+        14px;
+
+    bottom:
+        -4px;
+
+    height:
+        4px;
+
+    background:
+        var(--red);
+
+    border-radius:
+        999px 999px 0 0;
+}
+
+
+.header-spacer {
+
+    flex:
+        1;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+
+    max-width:
+        1280px;
+
+    margin:
+        auto;
+
+    padding:
+        42px 28px 70px;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-kicker {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    margin-bottom:
+        10px;
+
+    color:
+        var(--red);
+
+    font-size:
+        10px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.7px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.page-kicker::before {
+
+    content:
+        "";
+
+    width:
+        30px;
+
+    height:
+        4px;
+
+    background:
+        var(--red);
+
+    border-radius:
+        999px;
+}
+
+
+.page-title {
+
+    margin:
+        0;
+
+    color:
+        var(--navy-dark);
+
+    font-size:
+        42px;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -2px;
+
+    font-weight:
+        950;
+}
+
+
+.page-description {
+
+    margin:
+        11px 0 27px;
+
+    color:
+        var(--gray-600);
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   ROSTER SUMMARY
+========================================================= */
+
+.roster-header {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            white,
+            #fbfcfe
+        );
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    padding:
+        18px 20px;
+
+    margin-bottom:
+        28px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+}
+
+
+.roster-header::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        5px;
+
+    background:
+        var(--red);
+}
+
+
+.roster-info {
+
+    padding-left:
+        6px;
+}
+
+
+.roster-source {
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .8px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.roster-source strong {
+
+    color:
+        var(--navy);
+
+}
+
+
+.roster-updated {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        10px;
+
+}
+
+
+.roster-stats {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+}
+
+
+.roster-stat {
+
+    min-width:
+        76px;
+
+    padding:
+        9px 12px;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        11px;
+
+    background:
+        white;
+
+    text-align:
+        center;
+}
+
+
+.roster-stat-number {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        17px;
+
+    font-weight:
+        950;
+
+    line-height:
+        1;
+}
+
+
+.roster-stat-label {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        7px;
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        .5px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.roster-stat.il {
+
+    background:
+        var(--il-soft);
+
+    border-color:
+        rgba(242,183,5,.35);
+}
+
+
+.roster-stat.il
+.roster-stat-number {
+
+    color:
+        var(--il-dark);
+}
+
+
+/* =========================================================
+   POSITION SECTION
+========================================================= */
+
+.position-section {
+
+    margin-bottom:
+        34px;
+}
+
+
+.position-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.position-heading-left {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.position-title {
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+    font-weight:
+        950;
+
+    letter-spacing:
+        .8px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.position-mark {
+
+    width:
+        5px;
+
+    height:
+        19px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--red);
+}
+
+
+.position-count {
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        10px;
+
+    font-weight:
+        750;
+}
+
+
+/* =========================================================
+   PLAYER GRID
+========================================================= */
+
+.player-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        11px;
+
+}
+
+
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+
+.player-card {
+
+    position:
+        relative;
+
+    min-height:
+        104px;
+
+    padding:
+        18px
+        18px
+        16px
+        96px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    overflow:
+        hidden;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+
+}
+
+
+.player-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        4px;
+
+    background:
+        var(--red);
+
+    opacity:
+        0;
+
+    transition:
+        opacity .18s ease;
+}
+
+
+.player-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        #cbd3dc;
+
+    box-shadow:
+        var(--shadow-hover);
+}
+
+
+.player-card:hover::before {
+
+    opacity:
+        1;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.player-number {
+
+    position:
+        absolute;
+
+    left:
+        16px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    width:
+        64px;
+
+    height:
+        64px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--navy),
+            var(--navy-deep)
+        );
+
+    color:
+        white;
+
+    border-radius:
+        15px;
+
+    font-size:
+        23px;
+
+    font-weight:
+        950;
+
+    letter-spacing:
+        -1px;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.12),
+        0 5px 12px
+        rgba(0,29,62,.14);
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.player-name {
+
+    padding-right:
+        74px;
+
+    color:
+        var(--black);
+
+    font-size:
+        17px;
+
+    line-height:
+        1.2;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -.3px;
+}
+
+
+.player-meta {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .7px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.player-status {
+
+    position:
+        absolute;
+
+    right:
+        14px;
+
+    top:
+        14px;
+
+    padding:
+        5px 8px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        7px;
+
+    font-weight:
+        950;
+
+    letter-spacing:
+        .7px;
+}
+
+
+.status-active {
+
+    color:
+        var(--green);
+
+    background:
+        var(--green-soft);
+}
+
+
+.status-40 {
+
+    color:
+        var(--navy);
+
+    background:
+        #edf3f9;
+
+}
+
+
+.status-il {
+
+    color:
+        var(--il-dark);
+
+    background:
+        var(--il-soft);
+
+    border:
+        1px solid
+        rgba(242,183,5,.4);
+}
+
+
+/* =========================================================
+   IL CARD
+========================================================= */
+
+.player-card.il {
+
+    background:
+        linear-gradient(
+            120deg,
+            #fffdf3,
+            white
+        );
+
+    border-color:
+        rgba(242,183,5,.45);
+}
+
+
+.player-card.il::before {
+
+    background:
+        var(--il);
+
+    opacity:
+        1;
+}
+
+
+.player-card.il
+.player-number {
+
+    background:
+        var(--il);
+
+    color:
+        #332700;
+
+    box-shadow:
+        0 5px 12px
+        rgba(242,183,5,.22);
+}
+
+
+/* =========================================================
+   OTHER
+========================================================= */
+
+.other-section {
+
+    display:
+        none;
+}
+
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.message {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        55px 20px;
+
+    text-align:
+        center;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav {
+
+    display:
+        none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width: 900px) {
+
+    .player-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width: 700px) {
+
+    body {
+
+        padding-bottom:
+            76px;
+
+    }
+
+
+    .topbar {
+
+        height:
+            64px;
+
+        border-bottom-width:
+            3px;
+
+    }
+
+
+    .topbar-inner {
+
+        padding:
+            0 14px;
+
+        gap:
+            0;
+
+    }
+
+
+    .desktop-nav {
+
+        display:
+            none;
+
+    }
+
+
+    .brand-logo {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+    }
+
+
+    .brand-name {
+
+        font-size:
+            18px;
+
+    }
+
+
+    .brand-label {
+
+        font-size:
+            7px;
+
+    }
+
+
+    .page {
+
+        padding:
+            28px 13px 40px;
+
+    }
+
+
+    .page-title {
+
+        font-size:
+            32px;
+
+    }
+
+
+    .page-description {
+
+        font-size:
+            11px;
+
+        line-height:
+            1.5;
+
+    }
+
+
+    .roster-header {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        padding:
+            17px;
+
+    }
+
+
+    .roster-stats {
+
+        width:
+            100%;
+
+    }
+
+
+    .roster-stat {
+
+        flex:
+            1;
+
+        min-width:
+            0;
+
+    }
+
+
+    .player-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            9px;
+
+    }
+
+
+    .player-card {
+
+        min-height:
+            94px;
+
+        padding:
+            16px
+            14px
+            14px
+            84px;
+
+    }
+
+
+    .player-number {
+
+        left:
+            13px;
+
+        width:
+            58px;
+
+        height:
+            58px;
+
+        border-radius:
+            14px;
+
+        font-size:
+            21px;
+
+    }
+
+
+    .player-name {
+
+        font-size:
+            15px;
+
+        padding-right:
+            62px;
+
+    }
+
+
+    .player-status {
+
+        right:
+            11px;
+
+        top:
+            11px;
+
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE NAV
+    ----------------------------------------------------- */
+
+    .mobile-nav {
+
+        position:
+            fixed;
+
+        left:
+            0;
+
+        right:
+            0;
+
+        bottom:
+            0;
+
+        height:
+            76px;
+
+        display:
+            flex;
+
+        background:
+            rgba(255,255,255,.97);
+
+        border-top:
+            1px solid
+            var(--gray-200);
+
+        box-shadow:
+            0 -6px 22px
+            rgba(0,29,62,.09);
+
+        backdrop-filter:
+            blur(14px);
+
+        -webkit-backdrop-filter:
+            blur(14px);
+
+        z-index:
+            2000;
+
+    }
+
+
+    .mobile-nav-item {
+
+        flex:
+            1;
+
+        border:
+            none;
+
+        background:
+            transparent;
+
+        color:
+            var(--gray-500);
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        gap:
+            5px;
+
+        font-size:
+            9px;
+
+        font-weight:
+            850;
+
+        position:
+            relative;
+
+    }
+
+
+    .mobile-nav-item.active {
+
+        color:
+            var(--navy);
+
+    }
+
+
+    .mobile-nav-item.active::before {
+
+        content:
+            "";
+
+        position:
+            absolute;
+
+        top:
+            0;
+
+        left:
+            25%;
+
+        right:
+            25%;
+
+        height:
+            3px;
+
+        background:
+            var(--red);
+
+        border-radius:
+            0 0 999px 999px;
+
+    }
+
+
+    .mobile-nav-icon {
+
+        font-size:
+            18px;
+
+        height:
+            22px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width: 420px) {
+
+    .page {
+
+        padding-left:
+            10px;
+
+        padding-right:
+            10px;
+
+    }
+
+
+    .page-title {
+
+        font-size:
+            29px;
+
+    }
+
+
+    .player-card {
+
+        padding-left:
+            78px;
+
+    }
+
+
+    .player-number {
+
+        width:
+            54px;
+
+        height:
+            54px;
+
+        font-size:
+            20px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <div class="brand-logo">
+
+                <img
+                    src="phillies-logo.png"
+                    alt="Philadelphia Phillies"
+                >
+
+            </div>
+
+
+            <div>
+
+                <div class="brand-name">
+                    Phillies
+                </div>
+
+                <div class="brand-label">
+                    Daily News
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <nav class="desktop-nav">
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+                News
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                Games
+            </a>
+
+            <a
+                href="players.html"
+                class="nav-item active"
+            >
+                Players
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                More
+            </a>
+
+        </nav>
+
+
+        <div class="header-spacer"></div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="page">
+
+
+    <div class="page-kicker">
+        Philadelphia Phillies
+    </div>
+
+
+    <h1 class="page-title">
+        Players
+    </h1>
+
+
+    <p class="page-description">
+        Phillies roster, 40-man roster and injured list.
+    </p>
+
+
+
+    <!-- ===================================================
+         ROSTER SUMMARY
+    ==================================================== -->
+
+    <section class="roster-header">
+
+
+        <div class="roster-info">
+
+            <div class="roster-source">
+
+                Roster Source:
+                <strong>MLB Stats API</strong>
+
+            </div>
+
+
+            <div
+                class="roster-updated"
+                id="roster-updated"
+            >
+                Updating roster...
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="roster-stats"
+            id="roster-stats"
+        >
+
+            <div class="roster-stat">
+
+                <span
+                    class="roster-stat-number"
+                    id="total-count"
+                >
+                    —
+                </span>
+
+                <span class="roster-stat-label">
+                    40-Man
+                </span>
+
+            </div>
+
+
+            <div class="roster-stat">
+
+                <span
+                    class="roster-stat-number"
+                    id="active-count"
+                >
+                    —
+                </span>
+
+                <span class="roster-stat-label">
+                    Active
+                </span>
+
+            </div>
+
+
+            <div class="roster-stat il">
+
+                <span
+                    class="roster-stat-number"
+                    id="il-count"
+                >
+                    —
+                </span>
+
+                <span class="roster-stat-label">
+                    IL
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PLAYERS
+    ==================================================== -->
+
+    <div id="players-container">
+
+        <div class="message">
+            Loading Phillies roster...
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     MOBILE NAV
+======================================================= -->
+
+<nav class="mobile-nav">
+
+    <a
+        href="index.html"
+        class="mobile-nav-item"
+    >
+
+        <span class="mobile-nav-icon">
+            📰
+        </span>
+
+        <span>
+            News
+        </span>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="mobile-nav-item"
+    >
+
+        <span class="mobile-nav-icon">
+            ⚾
+        </span>
+
+        <span>
+            Games
+        </span>
+
+    </a>
+
+
+    <a
+        href="players.html"
+        class="mobile-nav-item active"
+    >
+
+        <span class="mobile-nav-icon">
+            👤
+        </span>
+
+        <span>
+            Players
+        </span>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="mobile-nav-item"
+    >
+
+        <span class="mobile-nav-icon">
+            •••
+        </span>
+
+        <span>
+            More
+        </span>
+
+    </a>
+
+</nav>
+
+
+
+<script>
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const POSITION_ORDER = [
+
+    "Pitchers",
+
+    "Catchers",
+
+    "Infielders",
+
+    "Outfielders"
+
+];
+
+
+const POSITION_LABELS = {
+
+    Pitchers:
+        "Pitchers",
+
+    Catchers:
+        "Catchers",
+
+    Infielders:
+        "Infielders",
+
+    Outfielders:
+        "Outfielders"
+
+};
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   NUMBER SORT
+========================================================= */
+
+function numberValue(number) {
+
+    if (
+        number === null ||
+        number === undefined
+    ) {
+
+        return 9999;
+
+    }
+
+    const value =
+        String(number).trim();
+
+    if (!value) {
+
+        return 9999;
+
+    }
+
+    const parsed =
+        Number(value);
+
+    if (
+        Number.isNaN(parsed)
+    ) {
+
+        return 9999;
+
+    }
+
+    return parsed;
+
+}
+
+
+/* =========================================================
+   SORT PLAYERS
+========================================================= */
+
+function sortPlayers(players) {
+
+    return [...players].sort(
+        (a, b) => {
+
+            const numberDifference =
+                numberValue(a.number)
+                -
+                numberValue(b.number);
+
+            if (
+                numberDifference !== 0
+            ) {
+
+                return numberDifference;
+
+            }
+
+            return String(
+                a.name || ""
+            ).localeCompare(
+                String(
+                    b.name || ""
+                ),
+                "en",
+                {
+                    sensitivity:
+                        "base"
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function statusLabel(status) {
+
+    if (
+        status === "ACTIVE"
+    ) {
+
+        return "ACTIVE";
+
+    }
+
+    if (
+        status === "IL"
+    ) {
+
+        return "IL";
+
+    }
+
+    return "40-MAN";
+
+}
+
+
+function statusClass(status) {
+
+    if (
+        status === "ACTIVE"
+    ) {
+
+        return "status-active";
+
+    }
+
+    if (
+        status === "IL"
+    ) {
+
+        return "status-il";
+
+    }
+
+    return "status-40";
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderPlayers(data) {
+
+    const container =
+        document.getElementById(
+            "players-container"
+        );
+
+    container.innerHTML =
+        "";
+
+    if (
+        !data ||
+        !Array.isArray(
+            data.players
+        )
+    ) {
+
+        container.innerHTML = `
+
+            <div class="message">
+
+                Roster data is unavailable.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const players =
+        data.players;
+
+
+    /* -----------------------------------------------------
+       SUMMARY
+    ----------------------------------------------------- */
+
+    const total =
+        players.length;
+
+
+    const active =
+        players.filter(
+            player =>
+                player.status ===
+                "ACTIVE"
+        ).length;
+
+
+    const il =
+        players.filter(
+            player =>
+                player.status ===
+                "IL"
+        ).length;
+
+
+    document.getElementById(
+        "total-count"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "active-count"
+    ).textContent =
+        active;
+
+
+    document.getElementById(
+        "il-count"
+    ).textContent =
+        il;
+
+
+    /* -----------------------------------------------------
+       POSITION SECTIONS
+    ----------------------------------------------------- */
+
+    POSITION_ORDER.forEach(
+        position => {
+
+            const positionPlayers =
+                sortPlayers(
+
+                    players.filter(
+                        player =>
+                            player.position
+                            ===
+                            position
+                    )
+
+                );
+
+
+            if (
+                positionPlayers.length
+                ===
+                0
+            ) {
+
+                return;
+
+            }
+
+
+            const section =
+                document.createElement(
+                    "section"
+                );
+
+
+            section.className =
+                "position-section";
+
+
+            section.innerHTML = `
+
+                <div
+                    class="position-heading"
+                >
+
+                    <div
+                        class="
+                            position-heading-left
+                        "
+                    >
+
+                        <span
+                            class="position-mark"
+                        ></span>
+
+                        <span
+                            class="position-title"
+                        >
+                            ${POSITION_LABELS[position]}
+                        </span>
+
+                    </div>
+
+
+                    <span
+                        class="position-count"
+                    >
+                        ${positionPlayers.length}
+                        players
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="player-grid"
+                ></div>
+
+            `;
+
+
+            const grid =
+                section.querySelector(
+                    ".player-grid"
+                );
+
+
+            positionPlayers.forEach(
+                player => {
+
+                    const card =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    card.className =
+                        "player-card" +
+                        (
+                            player.status
+                            ===
+                            "IL"
+                                ? " il"
+                                : ""
+                        );
+
+
+                    card.href =
+                        player.mlb_url
+                        ||
+                        "#";
+
+
+                    card.target =
+                        "_blank";
+
+
+                    card.rel =
+                        "noopener noreferrer";
+
+
+                    const number =
+                        player.number
+                        ||
+                        "—";
+
+
+                    card.innerHTML = `
+
+                        <div
+                            class="player-number"
+                        >
+                            ${escapeHtml(
+                                number
+                            )}
+                        </div>
+
+
+                        <div
+                            class="player-name"
+                        >
+                            ${escapeHtml(
+                                player.name
+                            )}
+                        </div>
+
+
+                        <div
+                            class="player-meta"
+                        >
+                            ${escapeHtml(
+                                position
+                            )}
+                        </div>
+
+
+                        <div
+                            class="
+                                player-status
+                                ${statusClass(
+                                    player.status
+                                )}
+                            "
+                        >
+                            ${statusLabel(
+                                player.status
+                            )}
+                        </div>
+
+                    `;
+
+
+                    grid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+
+            container.appendChild(
+                section
+            );
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       OTHER
+       Unexpected API position data is not silently lost.
+       Display it at the bottom if it exists.
+    ----------------------------------------------------- */
+
+    const otherPlayers =
+        sortPlayers(
+
+            players.filter(
+                player =>
+                    !POSITION_ORDER.includes(
+                        player.position
+                    )
+            )
+
+        );
+
+
+    if (
+        otherPlayers.length > 0
+    ) {
+
+        const section =
+            document.createElement(
+                "section"
+            );
+
+
+        section.className =
+            "position-section";
+
+
+        section.innerHTML = `
+
+            <div
+                class="position-heading"
+            >
+
+                <div
+                    class="
+                        position-heading-left
+                    "
+                >
+
+                    <span
+                        class="position-mark"
+                    ></span>
+
+                    <span
+                        class="position-title"
+                    >
+                        Other
+                    </span>
+
+                </div>
+
+
+                <span
+                    class="position-count"
+                >
+                    ${otherPlayers.length}
+                    players
+                </span>
+
+            </div>
+
+
+            <div
+                class="player-grid"
+            ></div>
+
+        `;
+
+
+        const grid =
+            section.querySelector(
+                ".player-grid"
+            );
+
+
+        otherPlayers.forEach(
+            player => {
+
+                const card =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                card.className =
+                    "player-card" +
+                    (
+                        player.status
+                        ===
+                        "IL"
+                            ? " il"
+                            : ""
+                    );
+
+
+                card.href =
+                    player.mlb_url
+                    ||
+                    "#";
+
+
+                card.target =
+                    "_blank";
+
+
+                card.rel =
+                    "noopener noreferrer";
+
+
+                card.innerHTML = `
+
+                    <div
+                        class="player-number"
+                    >
+                        ${escapeHtml(
+                            player.number ||
+                            "—"
+                        )}
+                    </div>
+
+                    <div
+                        class="player-name"
+                    >
+                        ${escapeHtml(
+                            player.name
+                        )}
+                    </div>
+
+                    <div
+                        class="player-meta"
+                    >
+                        ${escapeHtml(
+                            player.position
+                        )}
+                    </div>
+
+                    <div
+                        class="
+                            player-status
+                            ${statusClass(
+                                player.status
+                            )}
+                        "
+                    >
+                        ${statusLabel(
+                            player.status
+                        )}
+                    </div>
+
+                `;
+
+
+                grid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        container.appendChild(
+            section
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       UPDATED
+    ----------------------------------------------------- */
+
+    const updated =
+        document.getElementById(
+            "roster-updated"
+        );
+
+
+    if (
+        data.updated_at
+    ) {
+
+        const date =
+            new Date(
+                data.updated_at
+            );
+
+
+        updated.textContent =
+            "Last updated: " +
+            date.toLocaleString(
+                "en-US",
+                {
+                    month:
+                        "short",
+
+                    day:
+                        "numeric",
+
+                    year:
+                        "numeric",
+
+                    hour:
+                        "numeric",
+
+                    minute:
+                        "2-digit"
+                }
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
 async function loadPlayers() {
 
     const container =
@@ -5,73 +2614,54 @@ async function loadPlayers() {
             "players-container"
         );
 
-    const updated =
-        document.getElementById(
-            "roster-updated"
-        );
 
     try {
 
-        updated.textContent =
-            "Loading MLB roster...";
-
         const response =
             await fetch(
-                "players.json?ts=" +
+
+                "players.json?ts="
+                +
                 Date.now(),
+
                 {
-                    cache: "no-store"
+                    cache:
+                        "no-store"
                 }
+
             );
 
-        if (!response.ok) {
+
+        if (
+            !response.ok
+        ) {
 
             throw new Error(
-                "players.json HTTP " +
+                "HTTP " +
                 response.status
             );
 
         }
 
+
         const data =
             await response.json();
 
-        if (
-            !data ||
-            !Array.isArray(
-                data.players
-            )
-        ) {
 
-            throw new Error(
-                "Invalid players.json"
-            );
-
-        }
-
-        if (
-            data.players.length === 0
-        ) {
-
-            throw new Error(
-                "players.json contains no players"
-            );
-
-        }
-
-        renderPlayers(data);
+        renderPlayers(
+            data
+        );
 
     }
 
-    catch (error) {
+
+    catch(error) {
 
         console.error(
             "Phillies roster error:",
             error
         );
 
-        updated.textContent =
-            "Roster unavailable";
 
         container.innerHTML = `
 
@@ -83,15 +2673,8 @@ async function loadPlayers() {
 
                 <br><br>
 
-                players.json could not be loaded.
-
-                <br>
-
-                Please run the
-                <strong>
-                    Update Phillies Roster
-                </strong>
-                GitHub Action.
+                Please check the latest
+                GitHub Actions roster update.
 
             </div>
 
@@ -102,4 +2685,15 @@ async function loadPlayers() {
 }
 
 
+/* =========================================================
+   START
+========================================================= */
+
 loadPlayers();
+
+</script>
+
+
+</body>
+
+</html>
