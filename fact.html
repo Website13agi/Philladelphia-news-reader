@@ -15,1002 +15,448 @@
 <style>
 
 :root {
-
-    --navy:
-        #002d72;
-
-    --navy-dark:
-        #001f4d;
-
-    --red:
-        #e81828;
-
-    --red-dark:
-        #c8102e;
-
-    --white:
-        #ffffff;
-
-    --gray-50:
-        #f7f8fa;
-
-    --gray-100:
-        #eef1f5;
-
-    --gray-200:
-        #dfe4ea;
-
-    --gray-400:
-        #9aa5b1;
-
-    --gray-500:
-        #697586;
-
-    --gray-700:
-        #344054;
-
-    --shadow:
-        0 10px 30px
-        rgba(0, 31, 77, .10);
-
+    --navy: #002d72;
+    --navy-dark: #001f4d;
+    --red: #e81828;
+    --red-dark: #c8102e;
+    --white: #ffffff;
+    --gray-50: #f7f8fa;
+    --gray-100: #eef1f5;
+    --gray-200: #dfe4ea;
+    --gray-400: #9aa5b1;
+    --gray-500: #697586;
+    --gray-700: #344054;
 }
-
 
 * {
-
-    box-sizing:
-        border-box;
-
+    box-sizing: border-box;
 }
 
-
 body {
-
-    margin:
-        0;
-
-    background:
-        var(--gray-50);
-
-    color:
-        var(--navy-dark);
-
+    margin: 0;
+    background: var(--gray-50);
+    color: var(--navy-dark);
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
 }
 
-
 .header {
-
-    position:
-        sticky;
-
-    top:
-        0;
-
-    z-index:
-        20;
-
+    position: sticky;
+    top: 0;
+    z-index: 100;
     background:
         linear-gradient(
             135deg,
             var(--navy-dark),
             var(--navy)
         );
-
-    color:
-        white;
-
+    color: white;
     box-shadow:
         0 4px 18px
         rgba(0,0,0,.16);
-
 }
-
 
 .header-inner {
-
-    max-width:
-        1200px;
-
-    margin:
-        auto;
-
-    padding:
-        17px 22px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
+    max-width: 1200px;
+    margin: auto;
+    padding: 17px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-
 
 .brand {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        12px;
-
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
-
 
 .brand-mark {
-
-    width:
-        42px;
-
-    height:
-        42px;
-
-    border-radius:
-        50%;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        var(--red);
-
-    color:
-        white;
-
-    font-size:
-        23px;
-
-    font-weight:
-        900;
-
-    border:
-        2px solid
-        rgba(255,255,255,.8);
-
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--red);
+    color: white;
+    font-size: 23px;
+    font-weight: 900;
+    border: 2px solid rgba(255,255,255,.8);
 }
-
 
 .brand-name {
-
-    font-size:
-        19px;
-
-    font-weight:
-        900;
-
+    font-size: 19px;
+    font-weight: 900;
 }
-
 
 .brand-sub {
-
-    margin-top:
-        2px;
-
-    font-size:
-        9px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        1.4px;
-
-    opacity:
-        .65;
-
+    margin-top: 2px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    opacity: .65;
 }
-
 
 .header-season {
-
-    font-size:
-        10px;
-
-    font-weight:
-        800;
-
-    letter-spacing:
-        1px;
-
-    opacity:
-        .75;
-
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    opacity: .75;
 }
-
 
 .container {
-
-    max-width:
-        1200px;
-
-    margin:
-        auto;
-
-    padding:
-        30px 20px 60px;
-
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 20px 60px;
 }
-
 
 .page-heading {
-
-    display:
-        flex;
-
-    align-items:
-        flex-end;
-
-    justify-content:
-        space-between;
-
-    gap:
-        20px;
-
-    margin-bottom:
-        22px;
-
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
 }
-
 
 .kicker {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        8px;
-
-    color:
-        var(--red);
-
-    font-size:
-        10px;
-
-    font-weight:
-        900;
-
-    letter-spacing:
-        1.5px;
-
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
 }
-
 
 .kicker-line {
-
-    width:
-        28px;
-
-    height:
-        3px;
-
-    background:
-        var(--red);
-
+    width: 28px;
+    height: 3px;
+    background: var(--red);
 }
-
 
 h1 {
-
-    margin:
-        7px 0 0;
-
-    font-size:
-        clamp(
-            30px,
-            5vw,
-            44px
-        );
-
-    letter-spacing:
-        -1.5px;
-
+    margin: 7px 0 0;
+    font-size: clamp(30px, 5vw, 44px);
+    letter-spacing: -1.5px;
 }
-
 
 .description {
-
-    margin:
-        8px 0 0;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        13px;
-
+    margin: 8px 0 0;
+    color: var(--gray-500);
+    font-size: 13px;
 }
-
 
 .data-status {
-
-    padding:
-        9px 13px;
-
-    background:
-        white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-radius:
-        9px;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        9px;
-
-    font-weight:
-        800;
-
+    padding: 9px 13px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 9px;
+    color: var(--gray-500);
+    font-size: 9px;
+    font-weight: 800;
 }
-
 
 .toolbar {
-
-    display:
-        flex;
-
-    gap:
-        10px;
-
-    flex-wrap:
-        wrap;
-
-    margin-bottom:
-        18px;
-
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
 }
-
 
 .control {
-
-    background:
-        white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-radius:
-        9px;
-
-    padding:
-        10px 12px;
-
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 9px;
+    padding: 10px 12px;
 }
-
 
 .control label {
-
-    display:
-        block;
-
-    margin-bottom:
-        5px;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        8px;
-
-    font-weight:
-        900;
-
-    letter-spacing:
-        .8px;
-
-    text-transform:
-        uppercase;
-
+    display: block;
+    margin-bottom: 5px;
+    color: var(--gray-500);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .8px;
+    text-transform: uppercase;
 }
-
 
 select {
-
-    min-width:
-        150px;
-
-    border:
-        none;
-
-    outline:
-        none;
-
-    background:
-        transparent;
-
-    color:
-        var(--navy-dark);
-
-    font-size:
-        12px;
-
-    font-weight:
-        800;
-
+    min-width: 150px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--navy-dark);
+    font-size: 12px;
+    font-weight: 800;
 }
-
 
 .players {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        7px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
 }
-
 
 .player-row {
-
-    position:
-        relative;
-
-    display:
-        grid;
-
+    position: relative;
+    display: grid;
     grid-template-columns:
         50px
-        55px
-        65px
-        minmax(150px, 1fr)
-        80px
-        80px;
-
-    align-items:
-        center;
-
-    min-height:
-        72px;
-
-    padding:
-        10px 15px;
-
-    background:
-        white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-radius:
-        12px;
-
-    cursor:
-        pointer;
-
-    transition:
-        .18s ease;
-
-    box-shadow:
-        0 2px 8px
-        rgba(0,0,0,.025);
-
+        60px
+        minmax(160px, 1fr)
+        75px
+        90px;
+    align-items: center;
+    min-height: 72px;
+    padding: 10px 15px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .18s ease;
 }
-
 
 .player-row:hover {
-
-    transform:
-        translateY(-1px);
-
-    border-color:
-        rgba(232,24,40,.35);
-
+    transform: translateY(-1px);
+    border-color: rgba(232,24,40,.35);
     box-shadow:
-        var(--shadow);
-
+        0 8px 25px
+        rgba(0,45,114,.10);
 }
-
 
 .player-row.active {
-
-    border-left:
-        4px solid
-        var(--red);
-
+    border-left: 4px solid var(--red);
 }
-
 
 .player-number {
-
-    color:
-        var(--gray-400);
-
-    font-size:
-        13px;
-
-    font-weight:
-        900;
-
+    color: var(--gray-400);
+    font-size: 13px;
+    font-weight: 900;
 }
-
 
 .player-position {
-
-    color:
-        var(--red);
-
-    font-size:
-        10px;
-
-    font-weight:
-        900;
-
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 900;
 }
-
 
 .player-name {
-
-    font-size:
-        15px;
-
-    font-weight:
-        900;
-
+    font-size: 15px;
+    font-weight: 900;
 }
-
 
 .player-name small {
-
-    display:
-        block;
-
-    margin-top:
-        3px;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        9px;
-
-    font-weight:
-        700;
-
+    display: block;
+    margin-top: 3px;
+    color: var(--gray-500);
+    font-size: 9px;
+    font-weight: 700;
 }
-
 
 .player-bt {
-
-    color:
-        var(--gray-700);
-
-    font-size:
-        10px;
-
-    font-weight:
-        850;
-
+    color: var(--gray-700);
+    font-size: 10px;
+    font-weight: 850;
 }
-
 
 .player-status {
-
-    justify-self:
-        end;
-
-    padding:
-        5px 8px;
-
-    border-radius:
-        999px;
-
-    background:
-        var(--gray-100);
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        8px;
-
-    font-weight:
-        900;
-
+    justify-self: end;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: var(--gray-100);
+    color: var(--gray-500);
+    font-size: 8px;
+    font-weight: 900;
 }
-
 
 .player-row.active .player-status {
-
-    background:
-        rgba(232,24,40,.09);
-
-    color:
-        var(--red);
-
+    background: rgba(232,24,40,.09);
+    color: var(--red);
 }
-
 
 /* =====================================================
    DETAIL CARD
 ===================================================== */
 
-
 .fact-card {
-
-    margin:
-        -1px 0 8px;
-
-    padding:
-        20px;
-
+    width: 100%;
+    margin: -1px 0 8px;
+    padding: 20px;
     background:
         linear-gradient(
             135deg,
             #ffffff,
             #f8fafc
         );
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-left:
-        5px solid
-        var(--red);
-
-    border-radius:
-        12px;
-
+    border: 1px solid var(--gray-200);
+    border-left: 5px solid var(--red);
+    border-radius: 12px;
     box-shadow:
-        var(--shadow);
-
+        0 10px 30px
+        rgba(0,31,77,.10);
     animation:
         factOpen
         .2s ease;
-
 }
-
 
 @keyframes factOpen {
 
     from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(-5px);
-
+        opacity: 0;
+        transform: translateY(-6px);
     }
 
     to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
+        opacity: 1;
+        transform: translateY(0);
     }
 
 }
 
-
 .fact-header {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        15px;
-
-    margin-bottom:
-        17px;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 17px;
 }
-
 
 .fact-type {
-
-    color:
-        var(--red);
-
-    font-size:
-        8px;
-
-    font-weight:
-        900;
-
-    letter-spacing:
-        1.5px;
-
+    color: var(--red);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
 }
-
 
 .fact-name {
-
-    margin-top:
-        4px;
-
-    font-size:
-        21px;
-
-    font-weight:
-        900;
-
+    margin-top: 4px;
+    font-size: 21px;
+    font-weight: 900;
 }
-
 
 .fact-meta {
-
-    margin-top:
-        5px;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        10px;
-
-    font-weight:
-        750;
-
+    margin-top: 5px;
+    color: var(--gray-500);
+    font-size: 10px;
+    font-weight: 750;
 }
-
 
 .fact-close {
-
-    width:
-        32px;
-
-    height:
-        32px;
-
-    border:
-        none;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--gray-100);
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        18px;
-
-    cursor:
-        pointer;
-
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: var(--gray-100);
+    color: var(--gray-500);
+    font-size: 18px;
+    cursor: pointer;
 }
-
 
 .fact-close:hover {
-
-    background:
-        rgba(232,24,40,.1);
-
-    color:
-        var(--red);
-
+    background: rgba(232,24,40,.1);
+    color: var(--red);
 }
 
-
 .fact-grid {
-
-    display:
-        grid;
-
+    display: grid;
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(
-                95px,
-                1fr
-            )
+            minmax(95px, 1fr)
         );
-
-    gap:
-        8px;
-
+    gap: 8px;
 }
-
 
 .fact-stat {
-
-    padding:
-        11px;
-
-    background:
-        white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-radius:
-        9px;
-
+    padding: 11px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 9px;
 }
-
 
 .fact-stat-label {
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        8px;
-
-    font-weight:
-        900;
-
-    letter-spacing:
-        .7px;
-
+    color: var(--gray-500);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: .7px;
 }
-
 
 .fact-stat-value {
-
-    margin-top:
-        4px;
-
-    color:
-        var(--navy-dark);
-
-    font-size:
-        17px;
-
-    font-weight:
-        900;
-
+    margin-top: 4px;
+    color: var(--navy-dark);
+    font-size: 17px;
+    font-weight: 900;
 }
-
 
 .fact-source {
-
-    margin-top:
-        13px;
-
-    color:
-        var(--gray-400);
-
-    font-size:
-        8px;
-
-    font-weight:
-        700;
-
-    text-align:
-        right;
-
+    margin-top: 13px;
+    color: var(--gray-400);
+    font-size: 8px;
+    font-weight: 700;
+    text-align: right;
 }
 
+.fact-error {
+    padding: 14px;
+    background: rgba(232,24,40,.06);
+    border: 1px solid rgba(232,24,40,.15);
+    border-radius: 9px;
+    color: var(--red-dark);
+    font-size: 11px;
+    font-weight: 700;
+}
 
 .message {
-
-    padding:
-        30px;
-
-    background:
-        white;
-
-    border:
-        1px solid
-        var(--gray-200);
-
-    border-radius:
-        12px;
-
-    text-align:
-        center;
-
-    color:
-        var(--gray-500);
-
-    font-size:
-        12px;
-
-    font-weight:
-        700;
-
+    padding: 30px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 12px;
+    font-weight: 700;
 }
 
-
-@media (max-width:700px) {
+@media (max-width: 700px) {
 
     .page-heading {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     .player-row {
-
         grid-template-columns:
             40px
             45px
             1fr
             65px;
-
-        padding:
-            10px;
-
+        padding: 10px;
     }
 
     .player-bt {
-
-        display:
-            none;
-
+        display: none;
     }
 
     .player-status {
-
-        justify-self:
-            end;
-
+        justify-self: end;
     }
 
     .fact-grid {
-
         grid-template-columns:
-            repeat(
-                3,
-                1fr
-            );
-
+            repeat(3, 1fr);
     }
 
     .fact-stat {
-
-        padding:
-            8px;
-
+        padding: 8px;
     }
 
     .fact-stat-value {
-
-        font-size:
-            14px;
-
+        font-size: 14px;
     }
 
 }
-
 
 </style>
 
@@ -1083,14 +529,13 @@ select {
             id="data-status"
             class="data-status"
         >
-            Loading data...
+            Loading...
         </div>
 
     </section>
 
 
     <section class="toolbar">
-
 
         <div class="control">
 
@@ -1153,7 +598,6 @@ select {
 
         </div>
 
-
     </section>
 
 
@@ -1174,14 +618,9 @@ select {
 
 <script>
 
-
-"use strict";
-
-
 /* =====================================================
-   GLOBAL
+   DATA
 ===================================================== */
-
 
 let roster = [];
 
@@ -1195,168 +634,71 @@ let statusFilter = "all";
 
 
 /* =====================================================
-   ESCAPE
+   HTML ESCAPE
 ===================================================== */
-
 
 function escapeHtml(value) {
 
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
 /* =====================================================
-   POSITION
+   LOAD JSON
 ===================================================== */
 
+async function loadJSON(url) {
 
-function getPosition(player) {
+    const response =
+        await fetch(
+            url + "?t=" + Date.now()
+        );
 
-    const position =
-        String(
-            player.position ??
-            player.pos ??
-            player._position ??
-            ""
-        )
-        .toUpperCase();
+    if (!response.ok) {
 
-
-    if (
-        position === "P" ||
-        position === "SP" ||
-        position === "RP"
-    ) {
-
-        return "P";
+        throw new Error(
+            url +
+            " HTTP " +
+            response.status
+        );
 
     }
 
-
-    if (
-        position === "C"
-    ) {
-
-        return "C";
-
-    }
-
-
-    if (
-        [
-            "1B",
-            "2B",
-            "3B",
-            "SS",
-            "IF"
-        ].includes(position)
-    ) {
-
-        return "IF";
-
-    }
-
-
-    if (
-        [
-            "LF",
-            "CF",
-            "RF",
-            "OF"
-        ].includes(position)
-    ) {
-
-        return "OF";
-
-    }
-
-
-    return position || "—";
+    return await response.json();
 
 }
 
 
 /* =====================================================
-   EXACT POSITION
+   NORMALIZE PLAYERS
 ===================================================== */
 
-
-function getExactPosition(player) {
-
-    const position =
-        String(
-            player.position ??
-            player.pos ??
-            player._position ??
-            ""
-        )
-        .toUpperCase();
-
-
-    return position || "—";
-
-}
-
-
-/* =====================================================
-   ACTIVE
-===================================================== */
-
-
-function isActive(player) {
+function normalizePlayers(data) {
 
     if (
-        player.active === true
+        Array.isArray(data)
     ) {
 
-        return true;
+        return data;
 
     }
 
+    if (
+        data &&
+        Array.isArray(data.players)
+    ) {
 
-    const status =
-        String(
-            player.status ??
-            player.roster_status ??
-            player._status ??
-            ""
-        )
-        .toLowerCase();
+        return data.players;
 
+    }
 
-    return (
-        status.includes("active") &&
-        !status.includes("il") &&
-        !status.includes("injured")
-    );
+    return [];
 
 }
 
@@ -1365,13 +707,13 @@ function isActive(player) {
    PLAYER ID
 ===================================================== */
 
-
 function getPlayerId(player) {
 
     return Number(
         player.id ??
         player.player_id ??
         player.playerId ??
+        player.mlb_id ??
         0
     );
 
@@ -1379,16 +721,15 @@ function getPlayerId(player) {
 
 
 /* =====================================================
-   PLAYER NAME
+   NAME
 ===================================================== */
-
 
 function getPlayerName(player) {
 
     return (
-        player.name ??
-        player.full_name ??
         player.fullName ??
+        player.full_name ??
+        player.name ??
         player._name ??
         "Unknown Player"
     );
@@ -1400,15 +741,135 @@ function getPlayerName(player) {
    NUMBER
 ===================================================== */
 
-
 function getNumber(player) {
 
     return (
         player.number ??
-        player.jersey_number ??
         player.jerseyNumber ??
+        player.jersey_number ??
         player._number ??
         "—"
+    );
+
+}
+
+
+/* =====================================================
+   EXACT POSITION
+===================================================== */
+
+function getExactPosition(player) {
+
+    const value =
+        player.positionCode ??
+        player.position ??
+        player.pos ??
+        player._position ??
+        "";
+
+    return String(
+        value
+    ).toUpperCase() || "—";
+
+}
+
+
+/* =====================================================
+   FILTER POSITION
+===================================================== */
+
+function getPositionGroup(player) {
+
+    const pos =
+        getExactPosition(
+            player
+        );
+
+    if (
+        pos === "P" ||
+        pos === "SP" ||
+        pos === "RP"
+    ) {
+
+        return "P";
+
+    }
+
+    if (
+        pos === "C"
+    ) {
+
+        return "C";
+
+    }
+
+    if (
+        [
+            "1B",
+            "2B",
+            "3B",
+            "SS",
+            "IF"
+        ].includes(pos)
+    ) {
+
+        return "IF";
+
+    }
+
+    if (
+        [
+            "LF",
+            "CF",
+            "RF",
+            "OF"
+        ].includes(pos)
+    ) {
+
+        return "OF";
+
+    }
+
+    return "all";
+
+}
+
+
+/* =====================================================
+   ACTIVE
+===================================================== */
+
+function isActive(player) {
+
+    if (
+        player.active === true
+    ) {
+
+        return true;
+
+    }
+
+    if (
+        player.active === false
+    ) {
+
+        return false;
+
+    }
+
+    const status =
+        String(
+            player.status ??
+            player.rosterStatus ??
+            player.roster_status ??
+            player._status ??
+            ""
+        )
+        .toLowerCase();
+
+    return (
+        status === "active" ||
+        status === "active roster"
     );
 
 }
@@ -1418,11 +879,11 @@ function getNumber(player) {
    B/T
 ===================================================== */
 
-
 function getBats(player) {
 
     return (
         player.bats ??
+        player.battingHand ??
         player.batting_hand ??
         player._bats ??
         "—"
@@ -1435,6 +896,7 @@ function getThrows(player) {
 
     return (
         player.throws ??
+        player.throwingHand ??
         player.throwing_hand ??
         player._throws ??
         "—"
@@ -1444,158 +906,10 @@ function getThrows(player) {
 
 
 /* =====================================================
-   LOAD JSON
+   FIND SAVANT PLAYER
 ===================================================== */
 
-
-async function loadJSON(
-    url
-) {
-
-    const response =
-        await fetch(
-            url,
-            {
-                cache:
-                    "no-store"
-            }
-        );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            `${url}: HTTP ${response.status}`
-        );
-
-    }
-
-
-    return response.json();
-
-}
-
-
-/* =====================================================
-   LOAD DATA
-===================================================== */
-
-
-async function loadData() {
-
-    try {
-
-        const [
-            playersData,
-            savantData
-        ] = await Promise.all([
-
-            loadJSON(
-                "players.json"
-            ),
-
-            loadJSON(
-                "savant.json"
-            )
-
-        ]);
-
-
-        if (
-            Array.isArray(
-                playersData
-            )
-        ) {
-
-            roster =
-                playersData;
-
-        }
-
-        else if (
-            Array.isArray(
-                playersData.players
-            )
-        ) {
-
-            roster =
-                playersData.players;
-
-        }
-
-        else {
-
-            roster = [];
-
-        }
-
-
-        statsData =
-            savantData;
-
-
-        document
-            .getElementById(
-                "data-status"
-            )
-            .textContent =
-            `${roster.length} players · stats loaded`;
-
-
-        renderPlayers();
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        document
-            .getElementById(
-                "data-status"
-            )
-            .textContent =
-            "Data loading error";
-
-
-        document
-            .getElementById(
-                "players"
-            )
-            .innerHTML = `
-
-                <div class="message">
-
-                    Unable to load
-                    player data.
-
-                    <br><br>
-
-                    ${escapeHtml(
-                        error.message
-                    )}
-
-                </div>
-
-            `;
-
-    }
-
-}
-
-
-/* =====================================================
-   FIND STATS
-===================================================== */
-
-
-function findStats(
-    player
-) {
+function findStats(player) {
 
     if (!statsData) {
 
@@ -1603,45 +917,41 @@ function findStats(
 
     }
 
-
-    const id =
+    const playerId =
         getPlayerId(
             player
         );
 
-
-    const groups = [];
-
-
     if (
-        Array.isArray(
-            statsData.batters
-        )
+        !playerId
     ) {
 
-        groups.push(
-            statsData.batters
-        );
+        return null;
 
     }
 
 
-    if (
-        Array.isArray(
-            statsData.pitchers
-        )
-    ) {
+    const groups = [
 
-        groups.push(
-            statsData.pitchers
-        );
+        statsData.batters,
 
-    }
+        statsData.pitchers
+
+    ];
 
 
     for (
         const group of groups
     ) {
+
+        if (
+            !Array.isArray(group)
+        ) {
+
+            continue;
+
+        }
+
 
         const found =
             group.find(
@@ -1650,7 +960,7 @@ function findStats(
                         item.player_id ??
                         item.id ??
                         item.playerId
-                    ) === id
+                    ) === playerId
             );
 
 
@@ -1669,13 +979,12 @@ function findStats(
 
 
 /* =====================================================
-   VALUE
+   GET STAT
 ===================================================== */
 
-
-function getStat(
+function stat(
     stats,
-    ...keys
+    keys
 ) {
 
     for (
@@ -1685,7 +994,8 @@ function getStat(
         if (
             stats &&
             stats[key] !== undefined &&
-            stats[key] !== null
+            stats[key] !== null &&
+            stats[key] !== ""
         ) {
 
             return stats[key];
@@ -1693,7 +1003,6 @@ function getStat(
         }
 
     }
-
 
     return "—";
 
@@ -1703,7 +1012,6 @@ function getStat(
 /* =====================================================
    STAT BOX
 ===================================================== */
-
 
 function statBox(
     label,
@@ -1715,11 +1023,15 @@ function statBox(
         <div class="fact-stat">
 
             <div class="fact-stat-label">
+
                 ${escapeHtml(label)}
+
             </div>
 
             <div class="fact-stat-value">
+
                 ${escapeHtml(value)}
+
             </div>
 
         </div>
@@ -1730,13 +1042,10 @@ function statBox(
 
 
 /* =====================================================
-   DETAIL CARD
+   CREATE FACT CARD
 ===================================================== */
 
-
-function createFactCard(
-    player
-) {
+function createFactCard(player) {
 
     const result =
         findStats(
@@ -1756,136 +1065,120 @@ function createFactCard(
         );
 
 
-    const isPitcher =
-        getPosition(player)
-        === "P";
+    const pitcher =
+        getPositionGroup(
+            player
+        ) === "P";
 
 
-    let boxes = "";
+    let html = "";
 
 
-    if (isPitcher) {
+    if (pitcher) {
 
-        boxes = [
+        html = [
 
             statBox(
                 "ERA",
-                getStat(
+                stat(
                     stats,
-                    "era",
-                    "ERA"
+                    ["ERA", "era"]
                 )
             ),
 
             statBox(
                 "WHIP",
-                getStat(
+                stat(
                     stats,
-                    "whip",
-                    "WHIP"
+                    ["WHIP", "whip"]
                 )
             ),
 
             statBox(
                 "IP",
-                getStat(
+                stat(
                     stats,
-                    "ip",
-                    "IP"
+                    ["IP", "ip"]
                 )
             ),
 
             statBox(
                 "G",
-                getStat(
+                stat(
                     stats,
-                    "g",
-                    "G"
+                    ["G", "g"]
                 )
             ),
 
             statBox(
                 "GS",
-                getStat(
+                stat(
                     stats,
-                    "gs",
-                    "GS"
+                    ["GS", "gs"]
                 )
             ),
 
             statBox(
                 "W",
-                getStat(
+                stat(
                     stats,
-                    "w",
-                    "W"
+                    ["W", "w"]
                 )
             ),
 
             statBox(
                 "L",
-                getStat(
+                stat(
                     stats,
-                    "l",
-                    "L"
+                    ["L", "l"]
                 )
             ),
 
             statBox(
                 "SV",
-                getStat(
+                stat(
                     stats,
-                    "sv",
-                    "SV"
+                    ["SV", "sv"]
                 )
             ),
 
             statBox(
                 "SO",
-                getStat(
+                stat(
                     stats,
-                    "so",
-                    "SO",
-                    "strikeouts"
+                    ["SO", "so", "strikeouts"]
                 )
             ),
 
             statBox(
                 "BB",
-                getStat(
+                stat(
                     stats,
-                    "bb",
-                    "BB",
-                    "walks"
+                    ["BB", "bb", "walks"]
                 )
             ),
 
             statBox(
                 "HR",
-                getStat(
+                stat(
                     stats,
-                    "hr",
-                    "HR"
+                    ["HR", "hr"]
                 )
             ),
 
             statBox(
                 "K/9",
-                getStat(
+                stat(
                     stats,
-                    "k9",
-                    "K9",
-                    "k_per_9"
+                    ["K9", "k9", "K/9"]
                 )
             ),
 
             statBox(
                 "BB/9",
-                getStat(
+                stat(
                     stats,
-                    "bb9",
-                    "BB9",
-                    "bb_per_9"
+                    ["BB9", "bb9", "BB/9"]
                 )
             )
 
@@ -1895,114 +1188,101 @@ function createFactCard(
 
     else {
 
-        boxes = [
+        html = [
 
             statBox(
                 "AVG",
-                getStat(
+                stat(
                     stats,
-                    "avg",
-                    "AVG"
+                    ["AVG", "avg"]
                 )
             ),
 
             statBox(
                 "OBP",
-                getStat(
+                stat(
                     stats,
-                    "obp",
-                    "OBP"
+                    ["OBP", "obp"]
                 )
             ),
 
             statBox(
                 "SLG",
-                getStat(
+                stat(
                     stats,
-                    "slg",
-                    "SLG"
+                    ["SLG", "slg"]
                 )
             ),
 
             statBox(
                 "OPS",
-                getStat(
+                stat(
                     stats,
-                    "ops",
-                    "OPS"
+                    ["OPS", "ops"]
                 )
             ),
 
             statBox(
                 "HR",
-                getStat(
+                stat(
                     stats,
-                    "hr",
-                    "HR"
+                    ["HR", "hr"]
                 )
             ),
 
             statBox(
                 "RBI",
-                getStat(
+                stat(
                     stats,
-                    "rbi",
-                    "RBI"
+                    ["RBI", "rbi"]
                 )
             ),
 
             statBox(
                 "H",
-                getStat(
+                stat(
                     stats,
-                    "h",
-                    "H",
-                    "hits"
+                    ["H", "h", "hits"]
                 )
             ),
 
             statBox(
                 "2B",
-                getStat(
+                stat(
                     stats,
-                    "2b",
-                    "2B"
+                    ["2B", "2b"]
                 )
             ),
 
             statBox(
                 "3B",
-                getStat(
+                stat(
                     stats,
-                    "3b",
-                    "3B"
+                    ["3B", "3b"]
                 )
             ),
 
             statBox(
                 "BB",
-                getStat(
+                stat(
                     stats,
-                    "bb",
-                    "BB"
+                    ["BB", "bb", "walks"]
                 )
             ),
 
             statBox(
                 "SO",
-                getStat(
+                stat(
                     stats,
-                    "so",
-                    "SO"
+                    ["SO", "so", "strikeouts"]
                 )
             ),
 
             statBox(
                 "SB",
-                getStat(
+                stat(
                     stats,
-                    "sb",
-                    "SB"
+                    ["SB", "sb"]
                 )
             )
 
@@ -2030,7 +1310,7 @@ function createFactCard(
                 <div class="fact-type">
 
                     ${
-                        isPitcher
+                        pitcher
                             ? "PITCHING"
                             : "BATTING"
                     }
@@ -2083,9 +1363,8 @@ function createFactCard(
 
 
             <button
-                class="fact-close"
                 type="button"
-                aria-label="Close"
+                class="fact-close"
             >
                 ×
             </button>
@@ -2100,28 +1379,37 @@ function createFactCard(
 
                     <div class="fact-grid">
 
-                        ${boxes}
+                        ${html}
 
                     </div>
 
-                `
+                  `
 
                 : `
 
-                    <div class="message">
+                    <div class="fact-error">
 
-                        Statistics are not
-                        available for this player yet.
+                        Statistics for this player
+                        were not found in savant.json.
+
+                        <br><br>
+
+                        MLB ID:
+                        ${escapeHtml(
+                            getPlayerId(
+                                player
+                            )
+                        )}
 
                     </div>
 
-                `
+                  `
         }
 
 
         <div class="fact-source">
 
-            MLB statistics ·
+            Data:
             savant.json
 
         </div>
@@ -2157,7 +1445,6 @@ function createFactCard(
    TOGGLE
 ===================================================== */
 
-
 function togglePlayer(
     player,
     row
@@ -2169,7 +1456,14 @@ function togglePlayer(
         );
 
 
-    const existing =
+    console.log(
+        "PLAYER CLICK:",
+        getPlayerName(player),
+        id
+    );
+
+
+    const oldCard =
         document.querySelector(
             ".fact-card"
         );
@@ -2179,9 +1473,9 @@ function togglePlayer(
         openedPlayerId === id
     ) {
 
-        if (existing) {
+        if (oldCard) {
 
-            existing.remove();
+            oldCard.remove();
 
         }
 
@@ -2193,9 +1487,9 @@ function togglePlayer(
     }
 
 
-    if (existing) {
+    if (oldCard) {
 
-        existing.remove();
+        oldCard.remove();
 
     }
 
@@ -2219,95 +1513,98 @@ function togglePlayer(
 
 
 /* =====================================================
-   FILTER
+   RENDER
 ===================================================== */
 
+function renderPlayers() {
 
-function filteredPlayers() {
-
-    return roster.filter(
-        player => {
-
-            const position =
-                getPosition(
-                    player
-                );
+    const container =
+        document.getElementById(
+            "players"
+        );
 
 
-            if (
-                positionFilter !== "all" &&
-                position !== positionFilter
-            ) {
+    container.innerHTML =
+        "";
 
-                return false;
+
+    let players =
+        roster.filter(
+            player => {
+
+                if (
+                    positionFilter !==
+                    "all"
+                ) {
+
+                    if (
+                        getPositionGroup(
+                            player
+                        ) !==
+                        positionFilter
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                if (
+                    statusFilter ===
+                    "active"
+                ) {
+
+                    if (
+                        !isActive(
+                            player
+                        )
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                if (
+                    statusFilter ===
+                    "nonactive"
+                ) {
+
+                    if (
+                        isActive(
+                            player
+                        )
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                return true;
 
             }
+        );
 
 
-            const active =
-                isActive(
-                    player
-                );
-
-
-            if (
-                statusFilter ===
-                "active" &&
-                !active
-            ) {
-
-                return false;
-
-            }
-
-
-            if (
-                statusFilter ===
-                "nonactive" &&
-                active
-            ) {
-
-                return false;
-
-            }
-
-
-            return true;
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   SORT
-===================================================== */
-
-
-function sortPlayers(
-    players
-) {
-
-    return [...players]
-        .sort(
-            (
-                a,
-                b
-            ) => {
+    players =
+        [...players].sort(
+            (a,b) => {
 
                 const na =
                     Number(
-                        getNumber(
-                            a
-                        )
+                        getNumber(a)
                     );
 
                 const nb =
                     Number(
-                        getNumber(
-                            b
-                        )
+                        getNumber(b)
                     );
 
 
@@ -2327,31 +1624,6 @@ function sortPlayers(
                     );
 
             }
-        );
-
-}
-
-
-/* =====================================================
-   RENDER
-===================================================== */
-
-
-function renderPlayers() {
-
-    const container =
-        document.getElementById(
-            "players"
-        );
-
-
-    container.innerHTML =
-        "";
-
-
-    const players =
-        sortPlayers(
-            filteredPlayers()
         );
 
 
@@ -2389,7 +1661,9 @@ function renderPlayers() {
 
 
         if (
-            isActive(player)
+            isActive(
+                player
+            )
         ) {
 
             row.classList.add(
@@ -2434,7 +1708,7 @@ function renderPlayers() {
                 <small>
 
                     ${escapeHtml(
-                        getPosition(
+                        getPositionGroup(
                             player
                         )
                     )}
@@ -2476,8 +1750,12 @@ function renderPlayers() {
         `;
 
 
-        row.addEventListener(
-            "click",
+        /*
+         * 重要:
+         * clickイベントをここで直接登録
+         */
+
+        row.onclick =
             function() {
 
                 togglePlayer(
@@ -2485,8 +1763,7 @@ function renderPlayers() {
                     row
                 );
 
-            }
-        );
+            };
 
 
         container.appendChild(
@@ -2501,7 +1778,6 @@ function renderPlayers() {
 /* =====================================================
    FILTER EVENTS
 ===================================================== */
-
 
 document
     .getElementById(
@@ -2544,14 +1820,111 @@ document
 
 
 /* =====================================================
-   START
+   INITIAL LOAD
 ===================================================== */
 
+async function start() {
 
-loadData();
+    const status =
+        document.getElementById(
+            "data-status"
+        );
 
+
+    try {
+
+        status.textContent =
+            "Loading roster...";
+
+
+        const playersData =
+            await loadJSON(
+                "players.json"
+            );
+
+
+        roster =
+            normalizePlayers(
+                playersData
+            );
+
+
+        status.textContent =
+            "Loading statistics...";
+
+
+        try {
+
+            statsData =
+                await loadJSON(
+                    "savant.json"
+                );
+
+        }
+
+        catch (statsError) {
+
+            console.error(
+                "savant.json error:",
+                statsError
+            );
+
+            statsData =
+                null;
+
+        }
+
+
+        status.textContent =
+            `${roster.length} players`;
+
+
+        renderPlayers();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "fact.html error:",
+            error
+        );
+
+
+        status.textContent =
+            "ERROR";
+
+
+        document
+            .getElementById(
+                "players"
+            )
+            .innerHTML = `
+
+                <div class="message">
+
+                    Unable to load players.
+
+                    <br><br>
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
+                </div>
+
+            `;
+
+    }
+
+}
+
+
+start();
 
 </script>
+
 
 </body>
 
