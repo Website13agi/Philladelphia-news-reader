@@ -10,37 +10,43 @@
 <style>
 
 /* =========================================================
-   PHILLIES DAILY — UI V3
+   PHILLIES DAILY
+   UI V4
 ========================================================= */
 
 :root {
-    --phillies-red: #e31837;
-    --phillies-red-dark: #c8102e;
-    --phillies-navy: #002d62;
-    --phillies-navy-dark: #001b3d;
-    --phillies-navy-light: #eaf0f7;
+
+    --red: #e31837;
+    --red-dark: #c8102e;
+    --red-soft: #fff0f2;
+
+    --navy: #002d62;
+    --navy-dark: #001b3d;
+    --navy-deep: #00152f;
+    --navy-soft: #edf3f9;
 
     --white: #ffffff;
-    --black: #11151c;
 
-    --gray-900: #252a32;
-    --gray-700: #4f5661;
-    --gray-600: #68717d;
-    --gray-500: #89919c;
-    --gray-400: #adb4bd;
-    --gray-300: #d6dbe1;
-    --gray-200: #e5e8ec;
+    --black: #10151d;
+
+    --gray-900: #252b34;
+    --gray-700: #4c5663;
+    --gray-600: #687381;
+    --gray-500: #89939f;
+    --gray-400: #adb5bf;
+    --gray-300: #d5dbe2;
+    --gray-200: #e4e8ed;
     --gray-100: #f2f4f7;
 
-    --background: #f5f7fa;
-
-    --shadow:
-        0 3px 15px rgba(0, 29, 62, 0.055);
-
-    --shadow-hover:
-        0 12px 32px rgba(0, 29, 62, 0.11);
+    --background: #f4f6f9;
 
     --radius: 15px;
+
+    --shadow:
+        0 4px 18px rgba(0, 29, 62, 0.065);
+
+    --shadow-hover:
+        0 12px 32px rgba(0, 29, 62, 0.12);
 }
 
 
@@ -59,9 +65,11 @@ html {
 body {
     margin: 0;
 
-    background: var(--background);
+    background:
+        var(--background);
 
-    color: var(--black);
+    color:
+        var(--black);
 
     font-family:
         Inter,
@@ -73,9 +81,11 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing:
+        antialiased;
 
-    padding-bottom: 30px;
+    padding-bottom:
+        30px;
 }
 
 button,
@@ -84,55 +94,68 @@ select {
 }
 
 button {
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
 }
 
 
 /* =========================================================
-   HEADER
+   TOPBAR
 ========================================================= */
 
 .topbar {
-    height: 74px;
+
+    height: 76px;
 
     background:
         linear-gradient(
-            90deg,
-            var(--phillies-navy-dark),
-            var(--phillies-navy)
+            100deg,
+            var(--navy-deep) 0%,
+            var(--navy) 65%,
+            #003875 100%
         );
 
     border-bottom:
-        3px solid var(--phillies-red);
+        4px solid var(--red);
 
     position: sticky;
+
     top: 0;
 
     z-index: 1000;
 
     box-shadow:
-        0 4px 18px rgba(0, 29, 62, 0.15);
+        0 5px 22px
+        rgba(0, 24, 54, 0.19);
 }
 
+
 .topbar-inner {
-    max-width: 1280px;
+
+    max-width:
+        1280px;
 
     height: 100%;
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
-    padding: 0 28px;
+    padding:
+        0 28px;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 38px;
+    gap:
+        34px;
 }
 
 
@@ -141,212 +164,297 @@ a {
 ========================================================= */
 
 .brand {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 12px;
+    align-items:
+        center;
 
-    min-width: max-content;
+    gap:
+        12px;
+
+    min-width:
+        max-content;
 }
+
 
 .brand-logo {
-    width: 47px;
-    height: 47px;
 
-    border-radius: 50%;
+    width:
+        48px;
 
-    background: var(--white);
+    height:
+        48px;
 
-    display: flex;
+    border-radius:
+        50%;
 
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
+    background:
+        white;
 
     border:
-        2px solid rgba(255,255,255,0.8);
+        2px solid
+        rgba(255,255,255,0.9);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
 
     box-shadow:
-        0 3px 10px rgba(0,0,0,0.18);
+        0 4px 12px
+        rgba(0,0,0,0.2);
 }
 
-
-/*
-    将来的に公式Philliesロゴ画像を
-    phillies-logo.png として配置できます。
-
-    画像がない場合でも「P」が表示される
-    フォールバックにしています。
-*/
 
 .brand-logo img {
-    width: 82%;
-    height: 82%;
 
-    object-fit: contain;
+    width:
+        84%;
+
+    height:
+        84%;
+
+    object-fit:
+        contain;
 }
+
 
 .logo-fallback {
-    color: var(--phillies-red);
 
-    font-family: Georgia, serif;
+    color:
+        var(--red);
 
-    font-size: 25px;
+    font-family:
+        Georgia,
+        serif;
 
-    font-weight: 900;
+    font-size:
+        27px;
 
-    font-style: italic;
+    font-weight:
+        900;
+
+    font-style:
+        italic;
 }
+
 
 .brand-copy {
-    display: flex;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    line-height: 1;
+    flex-direction:
+        column;
+
+    line-height:
+        1;
 }
+
 
 .brand-name {
-    color: white;
 
-    font-size: 19px;
+    color:
+        white;
 
-    font-weight: 850;
+    font-size:
+        20px;
 
-    letter-spacing: -0.6px;
+    font-weight:
+        900;
+
+    letter-spacing:
+        -0.7px;
 }
 
+
 .brand-label {
-    margin-top: 6px;
+
+    margin-top:
+        6px;
 
     color:
         rgba(255,255,255,0.58);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    font-weight: 800;
+    font-weight:
+        850;
 
-    letter-spacing: 1.7px;
+    letter-spacing:
+        1.8px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
 
 
 /* =========================================================
-   NAVIGATION
+   DESKTOP NAV
 ========================================================= */
 
 .desktop-nav {
-    display: flex;
 
-    align-items: center;
+    height:
+        100%;
 
-    height: 100%;
+    display:
+        flex;
 
-    gap: 2px;
+    align-items:
+        center;
+
+    gap:
+        3px;
 }
+
 
 .nav-item {
-    position: relative;
 
-    height: 100%;
+    height:
+        100%;
 
-    padding: 0 15px;
+    padding:
+        0 15px;
 
-    border: none;
+    border:
+        none;
 
-    background: transparent;
+    background:
+        transparent;
 
     color:
-        rgba(255,255,255,0.62);
+        rgba(255,255,255,0.58);
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    font-weight: 750;
+    font-weight:
+        800;
 
-    cursor: pointer;
+    cursor:
+        pointer;
+
+    position:
+        relative;
 
     transition:
-        color 0.2s ease;
+        color .2s ease;
 }
+
 
 .nav-item::after {
-    content: "";
 
-    position: absolute;
+    content:
+        "";
 
-    left: 15px;
-    right: 15px;
-    bottom: -3px;
+    position:
+        absolute;
 
-    height: 3px;
+    left:
+        14px;
 
-    background: var(--phillies-red);
+    right:
+        14px;
 
-    transform: scaleX(0);
+    bottom:
+        -4px;
+
+    height:
+        4px;
+
+    border-radius:
+        999px 999px 0 0;
+
+    background:
+        var(--red);
+
+    transform:
+        scaleX(0);
 
     transition:
-        transform 0.2s ease;
+        transform .2s ease;
 }
 
-.nav-item:hover {
-    color: white;
-}
 
+.nav-item:hover,
 .nav-item.active {
-    color: white;
+
+    color:
+        white;
 }
+
 
 .nav-item.active::after {
-    transform: scaleX(1);
+
+    transform:
+        scaleX(1);
 }
+
 
 .header-spacer {
     flex: 1;
 }
 
 
-/* =========================================================
-   HEADER ICON
-========================================================= */
-
 .header-icon {
-    width: 38px;
-    height: 38px;
+
+    width:
+        39px;
+
+    height:
+        39px;
 
     border:
         1px solid
-        rgba(255,255,255,0.2);
+        rgba(255,255,255,0.22);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     background:
         rgba(255,255,255,0.06);
 
-    color: white;
+    color:
+        white;
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:
+        center;
 
-    font-size: 15px;
+    justify-content:
+        center;
+
+    font-size:
+        15px;
 
     transition:
-        background 0.2s,
-        border-color 0.2s;
+        .2s ease;
 }
 
+
 .header-icon:hover {
+
     background:
-        rgba(255,255,255,0.13);
+        rgba(255,255,255,0.14);
 
     border-color:
-        rgba(255,255,255,0.35);
+        rgba(255,255,255,0.4);
 }
 
 
@@ -355,9 +463,12 @@ a {
 ========================================================= */
 
 .page {
-    max-width: 1280px;
 
-    margin: 0 auto;
+    max-width:
+        1280px;
+
+    margin:
+        0 auto;
 
     padding:
         40px 28px 65px;
@@ -369,80 +480,116 @@ a {
 ========================================================= */
 
 .page-header {
-    display: flex;
 
-    align-items: flex-end;
+    display:
+        flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    margin-bottom: 25px;
+    align-items:
+        flex-end;
+
+    margin-bottom:
+        25px;
 }
+
 
 .page-kicker {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    align-items:
+        center;
 
-    margin-bottom: 9px;
+    gap:
+        9px;
 
-    color: var(--phillies-red);
+    margin-bottom:
+        9px;
 
-    font-size: 10px;
+    color:
+        var(--red);
 
-    font-weight: 850;
+    font-size:
+        10px;
 
-    letter-spacing: 1.5px;
+    font-weight:
+        900;
 
-    text-transform: uppercase;
+    letter-spacing:
+        1.6px;
+
+    text-transform:
+        uppercase;
 }
+
 
 .kicker-line {
-    width: 25px;
-    height: 3px;
+
+    width:
+        28px;
+
+    height:
+        4px;
+
+    border-radius:
+        999px;
 
     background:
-        var(--phillies-navy);
-
-    border-radius: 999px;
+        var(--red);
 }
+
 
 .page-title {
-    margin: 0;
 
-    color: var(--phillies-navy-dark);
+    margin:
+        0;
 
-    font-size: 37px;
+    color:
+        var(--navy-dark);
 
-    line-height: 1.05;
+    font-size:
+        38px;
 
-    letter-spacing: -1.7px;
+    line-height:
+        1;
 
-    font-weight: 880;
+    letter-spacing:
+        -1.8px;
+
+    font-weight:
+        900;
 }
 
+
 .page-description {
+
     margin:
-        9px 0 0;
+        10px 0 0;
 
     color:
         var(--gray-600);
 
-    font-size: 13px;
+    font-size:
+        13px;
 }
 
+
 .today-label {
+
     color:
         var(--gray-500);
 
-    font-size: 11px;
+    font-size:
+        11px;
 
-    font-weight: 650;
+    font-weight:
+        700;
 
-    text-align: right;
-
-    white-space: nowrap;
+    white-space:
+        nowrap;
 }
 
 
@@ -451,10 +598,16 @@ a {
 ========================================================= */
 
 .filter-panel {
-    background: white;
+
+    background:
+        white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
+
+    border-top:
+        4px solid var(--navy);
 
     border-radius:
         var(--radius);
@@ -463,156 +616,214 @@ a {
         var(--shadow);
 
     padding:
-        17px 19px;
+        18px 20px 20px;
 
     margin-bottom:
         22px;
 }
 
+
 .filter-title {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    align-items:
+        center;
 
-    margin-bottom: 14px;
+    gap:
+        8px;
 
-    color: var(--phillies-navy);
+    color:
+        var(--navy);
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 850;
+    font-weight:
+        900;
 
-    letter-spacing: 1.1px;
+    letter-spacing:
+        1.3px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        16px;
 }
+
 
 .filter-title::before {
-    content: "";
 
-    width: 4px;
-    height: 15px;
+    content:
+        "";
+
+    width:
+        5px;
+
+    height:
+        16px;
+
+    border-radius:
+        999px;
 
     background:
-        var(--phillies-red);
-
-    border-radius: 999px;
+        var(--red);
 }
+
 
 .filter-row {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
-        1fr
-        1fr;
+        repeat(3, 1fr);
 
-    gap: 14px;
+    gap:
+        12px;
 }
+
 
 .filter-field {
-    position: relative;
+
+    min-width:
+        0;
 }
 
-.filter-label {
-    display: block;
 
-    margin-bottom: 7px;
+.filter-label {
+
+    display:
+        block;
+
+    margin-bottom:
+        7px;
 
     color:
         var(--gray-600);
 
-    font-size: 10px;
+    font-size:
+        9px;
 
-    font-weight: 800;
+    font-weight:
+        850;
 
-    letter-spacing: 0.6px;
+    letter-spacing:
+        .7px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
 
-
-/* =========================================================
-   CUSTOM-LOOK SELECT
-========================================================= */
 
 .select-wrap {
-    position: relative;
+
+    position:
+        relative;
 }
+
 
 .select-wrap::after {
-    content: "⌄";
 
-    position: absolute;
+    content:
+        "⌄";
 
-    right: 15px;
-    top: 50%;
+    position:
+        absolute;
+
+    right:
+        14px;
+
+    top:
+        50%;
 
     transform:
-        translateY(-56%);
+        translateY(-55%);
 
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 17px;
+    font-size:
+        17px;
 
-    font-weight: 800;
+    font-weight:
+        900;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 }
 
-.filter-select {
-    width: 100%;
 
-    appearance: none;
-    -webkit-appearance: none;
+.filter-select {
+
+    width:
+        100%;
+
+    height:
+        44px;
+
+    appearance:
+        none;
+
+    -webkit-appearance:
+        none;
 
     background:
         var(--gray-100);
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-radius:
         10px;
 
-    color:
-        var(--phillies-navy-dark);
-
     padding:
-        12px 42px 12px 14px;
+        0 40px 0 13px;
 
-    font-size: 12px;
+    color:
+        var(--navy-dark);
 
-    font-weight: 750;
+    font-size:
+        12px;
 
-    cursor: pointer;
+    font-weight:
+        800;
 
-    outline: none;
+    cursor:
+        pointer;
+
+    outline:
+        none;
 
     transition:
-        border-color 0.2s,
-        background 0.2s,
-        box-shadow 0.2s;
+        .2s ease;
 }
 
+
 .filter-select:hover {
-    background: white;
+
+    background:
+        white;
 
     border-color:
         var(--gray-300);
 }
 
+
 .filter-select:focus {
-    background: white;
+
+    background:
+        white;
 
     border-color:
-        var(--phillies-navy);
+        var(--red);
 
     box-shadow:
         0 0 0 3px
-        rgba(0,45,98,0.09);
+        rgba(227,24,55,.09);
 }
 
 
@@ -621,15 +832,19 @@ a {
 ========================================================= */
 
 .content-grid {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         minmax(0, 1fr)
-        285px;
+        292px;
 
-    gap: 22px;
+    gap:
+        22px;
 
-    align-items: start;
+    align-items:
+        start;
 }
 
 
@@ -638,54 +853,78 @@ a {
 ========================================================= */
 
 .news-section-header {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: space-between;
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
 
     margin:
-        0 2px 10px;
+        0 2px 11px;
 }
+
 
 .news-section-title {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    align-items:
+        center;
+
+    gap:
+        8px;
 
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    font-weight: 850;
+    font-weight:
+        900;
 
-    letter-spacing: 0.6px;
+    letter-spacing:
+        .7px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
+
 
 .news-section-title::before {
-    content: "";
 
-    width: 4px;
-    height: 15px;
+    content:
+        "";
 
-    border-radius: 999px;
+    width:
+        5px;
+
+    height:
+        17px;
+
+    border-radius:
+        999px;
 
     background:
-        var(--phillies-red);
+        var(--red);
 }
 
+
 .article-count {
+
     color:
         var(--gray-500);
 
-    font-size: 11px;
+    font-size:
+        11px;
 
-    font-weight: 650;
+    font-weight:
+        700;
 }
 
 
@@ -694,11 +933,15 @@ a {
 ========================================================= */
 
 .news-list {
-    display: flex;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    gap: 9px;
+    flex-direction:
+        column;
+
+    gap:
+        9px;
 }
 
 
@@ -707,74 +950,99 @@ a {
 ========================================================= */
 
 .article-card {
-    position: relative;
+
+    position:
+        relative;
 
     background:
-        var(--white);
+        white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-radius:
         var(--radius);
 
     padding:
-        20px 58px 18px 21px;
+        19px 59px 17px 21px;
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
     box-shadow:
         var(--shadow);
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        border-color 0.18s ease;
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
 }
+
 
 .article-card::before {
-    content: "";
 
-    position: absolute;
+    content:
+        "";
 
-    left: 0;
-    top: 0;
-    bottom: 0;
+    position:
+        absolute;
 
-    width: 4px;
+    left:
+        0;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        5px;
 
     background:
-        var(--phillies-red);
+        var(--red);
 
-    opacity: 0;
+    opacity:
+        0;
 
     transition:
-        opacity 0.18s ease;
+        opacity .18s ease;
 }
 
+
 .article-card:hover {
+
     transform:
         translateY(-2px);
 
-    border-color:
-        #cfd5dc;
-
     box-shadow:
         var(--shadow-hover);
+
+    border-color:
+        #ccd3dc;
 }
+
 
 .article-card:hover::before {
-    opacity: 1;
+
+    opacity:
+        1;
 }
 
+
 .article-card.read {
+
     background:
         #fafbfc;
 }
 
+
 .article-card.read::before {
+
     background:
         var(--gray-300);
 }
@@ -785,46 +1053,66 @@ a {
 ========================================================= */
 
 .article-top {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 7px;
+    align-items:
+        center;
+
+    gap:
+        7px;
 
     margin-bottom:
-        10px;
+        9px;
 }
+
 
 .source {
+
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 850;
+    font-weight:
+        900;
 
-    letter-spacing: 0.4px;
+    letter-spacing:
+        .5px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
 
+
 .source-dot {
-    width: 3px;
-    height: 3px;
+
+    width:
+        3px;
+
+    height:
+        3px;
+
+    border-radius:
+        50%;
 
     background:
         var(--gray-400);
-
-    border-radius: 50%;
 }
 
+
 .article-type {
+
     color:
         var(--gray-500);
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 650;
+    font-weight:
+        650;
 }
 
 
@@ -833,53 +1121,71 @@ a {
 ========================================================= */
 
 .favorite-button {
-    position: absolute;
 
-    top: 17px;
-    right: 16px;
+    position:
+        absolute;
 
-    width: 35px;
-    height: 35px;
+    top:
+        15px;
 
-    border: none;
+    right:
+        14px;
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
 
     background:
         transparent;
 
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
     color:
         var(--gray-400);
 
-    font-size: 22px;
+    cursor:
+        pointer;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        22px;
 
     transition:
-        color 0.18s,
-        background 0.18s,
-        transform 0.18s;
+        .18s ease;
 }
+
 
 .favorite-button:hover {
+
     background:
-        var(--phillies-navy-light);
+        var(--red-soft);
 
     color:
-        var(--phillies-red);
+        var(--red);
 
     transform:
-        scale(1.08);
+        scale(1.07);
 }
 
+
 .favorite-button.favorite {
+
     color:
-        var(--phillies-red);
+        var(--red);
 }
 
 
@@ -888,97 +1194,123 @@ a {
 ========================================================= */
 
 .article-title {
-    margin: 0;
 
-    max-width: 850px;
+    margin:
+        0;
 
     color:
         var(--black);
 
-    font-size: 18px;
+    font-size:
+        18px;
 
-    line-height: 1.4;
+    line-height:
+        1.4;
 
     letter-spacing:
-        -0.3px;
+        -.35px;
 
-    font-weight: 790;
+    font-weight:
+        820;
 }
 
+
 .article-card.read .article-title {
+
     color:
         var(--gray-700);
 }
 
+
 .article-japanese {
+
     margin:
-        7px 0 16px;
+        7px 0 15px;
 
     color:
         var(--gray-600);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.55;
-
-    font-weight: 450;
+    line-height:
+        1.55;
 }
 
-
-/* =========================================================
-   ARTICLE META
-========================================================= */
 
 .article-bottom {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    align-items:
+        center;
 
-    min-height: 18px;
+    gap:
+        8px;
 }
 
+
 .article-date {
+
     color:
         var(--gray-500);
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 600;
+    font-weight:
+        650;
 }
 
+
 .meta-separator {
+
     color:
         var(--gray-300);
 }
 
+
 .status {
-    display: inline-flex;
 
-    align-items: center;
+    display:
+        inline-flex;
 
-    gap: 5px;
+    align-items:
+        center;
+
+    gap:
+        5px;
 
     color:
         var(--gray-500);
 
-    font-size: 10px;
+    font-size:
+        10px;
 
-    font-weight: 700;
+    font-weight:
+        750;
 }
+
 
 .status-indicator {
-    width: 6px;
-    height: 6px;
 
-    border-radius: 50%;
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
 
     background:
-        var(--phillies-red);
+        var(--red);
 }
 
+
 .article-card.read .status-indicator {
+
     background:
         var(--gray-300);
 }
@@ -989,23 +1321,32 @@ a {
 ========================================================= */
 
 .sidebar {
-    position: sticky;
 
-    top: 94px;
+    position:
+        sticky;
 
-    display: flex;
+    top:
+        96px;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    gap: 12px;
+    flex-direction:
+        column;
+
+    gap:
+        12px;
 }
 
+
 .side-card {
+
     background:
-        var(--white);
+        white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-radius:
         var(--radius);
@@ -1017,204 +1358,391 @@ a {
         var(--shadow);
 }
 
+
 .side-heading {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: space-between;
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
 
     margin-bottom:
         15px;
 }
 
+
 .side-title {
-    margin: 0;
+
+    margin:
+        0;
 
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    font-weight: 850;
+    font-weight:
+        900;
 
-    letter-spacing: 0.5px;
+    letter-spacing:
+        .7px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
 
-.side-title-mark {
-    width: 24px;
-    height: 3px;
 
-    border-radius: 999px;
+.side-title-mark {
+
+    width:
+        27px;
+
+    height:
+        4px;
+
+    border-radius:
+        999px;
 
     background:
-        var(--phillies-red);
+        var(--red);
 }
 
 
 /* =========================================================
-   STATS
+   FEED STATS
 ========================================================= */
 
 .stat-grid {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 6px;
+    gap:
+        6px;
 }
 
+
 .stat {
+
     background:
-        var(--gray-100);
+        var(--navy-soft);
 
     border-radius:
         9px;
 
     padding:
-        11px 5px;
+        11px 4px;
 
-    text-align: center;
+    text-align:
+        center;
 }
+
 
 .stat-number {
-    display: block;
+
+    display:
+        block;
 
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 18px;
+    font-size:
+        18px;
 
-    font-weight: 850;
+    font-weight:
+        900;
 
-    line-height: 1;
+    line-height:
+        1;
 }
+
 
 .stat-number.red {
+
     color:
-        var(--phillies-red);
+        var(--red);
 }
 
-.stat-label {
-    display: block;
 
-    margin-top: 6px;
+.stat-label {
+
+    display:
+        block;
+
+    margin-top:
+        6px;
 
     color:
         var(--gray-500);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    font-weight: 750;
+    font-weight:
+        800;
 
-    letter-spacing: 0.5px;
+    letter-spacing:
+        .5px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 }
 
 
 /* =========================================================
-   GAME CARD
+   NEXT GAME
 ========================================================= */
 
 .game-card {
+
     background:
         linear-gradient(
             145deg,
-            var(--phillies-navy),
-            var(--phillies-navy-dark)
+            var(--navy),
+            var(--navy-deep)
         );
 
-    color: white;
+    border:
+        none;
 
-    border: none;
+    color:
+        white;
 }
+
 
 .game-card .side-title {
-    color: white;
+
+    color:
+        white;
 }
+
 
 .game-card .side-title-mark {
+
     background:
-        var(--phillies-red);
+        var(--red);
 }
+
 
 .game-label {
+
     color:
-        rgba(255,255,255,0.58);
+        rgba(255,255,255,.55);
 
-    font-size: 9px;
+    font-size:
+        9px;
 
-    font-weight: 750;
+    font-weight:
+        800;
 
-    letter-spacing: 1px;
+    letter-spacing:
+        1px;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 
-    margin-bottom: 7px;
+    margin-bottom:
+        6px;
 }
+
 
 .game-opponent {
-    font-size: 22px;
 
-    font-weight: 850;
+    font-size:
+        22px;
 
-    letter-spacing: -0.5px;
+    font-weight:
+        900;
 }
 
+
 .game-time {
-    margin-top: 4px;
+
+    margin-top:
+        4px;
 
     color:
-        rgba(255,255,255,0.72);
+        rgba(255,255,255,.7);
 
-    font-size: 11px;
+    font-size:
+        11px;
 }
 
 
 /* =========================================================
-   INFO
+   NL EAST STANDINGS
 ========================================================= */
 
-.info-row {
-    display: flex;
+.standings-card {
 
-    align-items: center;
+    overflow:
+        hidden;
+}
 
-    justify-content: space-between;
+
+.standings-wrap {
+
+    overflow-x:
+        auto;
+
+    margin:
+        0 -18px;
 
     padding:
-        10px 0;
+        0 18px;
 
-    border-bottom:
-        1px solid var(--gray-100);
+    scrollbar-width:
+        thin;
 }
 
-.info-row:last-child {
-    border-bottom: none;
 
-    padding-bottom: 0;
+.standings-table {
+
+    width:
+        100%;
+
+    min-width:
+        430px;
+
+    border-collapse:
+        collapse;
 }
 
-.info-label {
+
+.standings-table th {
+
+    padding:
+        7px 5px;
+
     color:
         var(--gray-500);
 
-    font-size: 11px;
+    font-size:
+        8px;
 
-    font-weight: 600;
+    font-weight:
+        850;
+
+    text-align:
+        center;
+
+    letter-spacing:
+        .4px;
+
+    text-transform:
+        uppercase;
+
+    border-bottom:
+        1px solid
+        var(--gray-200);
 }
 
-.info-value {
+
+.standings-table th:first-child {
+
+    text-align:
+        left;
+
+    width:
+        28px;
+}
+
+
+.standings-table th:nth-child(2) {
+
+    text-align:
+        left;
+}
+
+
+.standings-table td {
+
+    padding:
+        9px 5px;
+
     color:
-        var(--phillies-navy);
+        var(--gray-700);
 
-    font-size: 11px;
+    font-size:
+        10px;
 
-    font-weight: 800;
+    font-weight:
+        650;
+
+    text-align:
+        center;
+
+    border-bottom:
+        1px solid
+        var(--gray-100);
+}
+
+
+.standings-table td:first-child {
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    text-align:
+        left;
+}
+
+
+.standings-table td:nth-child(2) {
+
+    color:
+        var(--navy);
+
+    font-weight:
+        850;
+
+    text-align:
+        left;
+}
+
+
+.standings-table tr.phillies {
+
+    background:
+        var(--red-soft);
+}
+
+
+.standings-table tr.phillies td {
+
+    color:
+        var(--navy);
+
+    font-weight:
+        850;
+}
+
+
+.standings-table tr.phillies td:first-child {
+
+    color:
+        var(--red);
+}
+
+
+.standings-table tr:last-child td {
+
+    border-bottom:
+        none;
 }
 
 
@@ -1223,11 +1751,13 @@ a {
 ========================================================= */
 
 .empty {
+
     background:
-        var(--white);
+        white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-radius:
         var(--radius);
@@ -1235,51 +1765,71 @@ a {
     padding:
         65px 20px;
 
-    text-align: center;
+    text-align:
+        center;
 }
 
+
 .empty-icon {
-    width: 50px;
-    height: 50px;
+
+    width:
+        50px;
+
+    height:
+        50px;
 
     margin:
         0 auto 14px;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     background:
-        var(--phillies-navy-light);
+        var(--red-soft);
 
     color:
-        var(--phillies-red);
+        var(--red);
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:
+        center;
 
-    font-size: 22px;
+    justify-content:
+        center;
+
+    font-size:
+        22px;
 }
+
 
 .empty-title {
-    margin: 0;
+
+    margin:
+        0;
 
     color:
-        var(--phillies-navy);
+        var(--navy);
 
-    font-size: 15px;
+    font-size:
+        15px;
 
-    font-weight: 800;
+    font-weight:
+        850;
 }
 
+
 .empty-description {
+
     margin:
         7px 0 0;
 
     color:
         var(--gray-500);
 
-    font-size: 11px;
+    font-size:
+        11px;
 }
 
 
@@ -1288,124 +1838,440 @@ a {
 ========================================================= */
 
 .mobile-nav {
-    display: none;
+
+    display:
+        none;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
 ========================================================= */
 
 @media (max-width: 1050px) {
 
     .topbar-inner {
-        gap: 20px;
+
+        gap:
+            20px;
     }
 
     .nav-item {
+
         padding:
             0 9px;
     }
 
     .nav-item::after {
-        left: 9px;
-        right: 9px;
+
+        left:
+            9px;
+
+        right:
+            9px;
     }
 
     .content-grid {
+
         grid-template-columns:
-            minmax(0, 1fr)
-            250px;
+            minmax(0,1fr)
+            255px;
     }
 
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 850px) {
 
     body {
-        padding-bottom: 74px;
+
+        padding-bottom:
+            calc(
+                74px +
+                env(safe-area-inset-bottom)
+            );
     }
+
+
+    /* HEADER */
 
     .topbar {
-        height: 64px;
+
+        height:
+            64px;
+
+        border-bottom-width:
+            3px;
     }
+
 
     .topbar-inner {
+
         padding:
-            0 16px;
+            0 14px;
+
+        gap:
+            0;
     }
+
+
+    .brand {
+
+        gap:
+            10px;
+    }
+
 
     .brand-logo {
-        width: 39px;
-        height: 39px;
+
+        width:
+            40px;
+
+        height:
+            40px;
     }
+
 
     .brand-name {
-        font-size: 18px;
+
+        font-size:
+            18px;
     }
+
+
+    .brand-label {
+
+        font-size:
+            7px;
+
+        letter-spacing:
+            1.4px;
+    }
+
 
     .desktop-nav {
-        display: none;
+
+        display:
+            none;
     }
+
+
+    .header-icon {
+
+        width:
+            36px;
+
+        height:
+            36px;
+
+        margin-left:
+            auto;
+    }
+
+
+    /* PAGE */
 
     .page {
+
         padding:
-            26px 15px 40px;
+            25px 13px 35px;
     }
+
 
     .page-header {
+
         align-items:
             flex-start;
+
+        margin-bottom:
+            19px;
     }
+
+
+    .page-kicker {
+
+        font-size:
+            9px;
+
+        letter-spacing:
+            1.3px;
+
+        margin-bottom:
+            8px;
+    }
+
+
+    .kicker-line {
+
+        width:
+            22px;
+
+        height:
+            3px;
+    }
+
 
     .page-title {
-        font-size: 31px;
+
+        font-size:
+            30px;
+
+        letter-spacing:
+            -1.4px;
     }
+
+
+    .page-description {
+
+        max-width:
+            280px;
+
+        margin-top:
+            8px;
+
+        font-size:
+            11px;
+
+        line-height:
+            1.5;
+    }
+
 
     .today-label {
-        display: none;
+
+        display:
+            none;
     }
+
+
+    /* FILTER */
+
+    .filter-panel {
+
+        padding:
+            16px;
+
+        border-top-width:
+            3px;
+
+        margin-bottom:
+            20px;
+    }
+
+
+    .filter-title {
+
+        margin-bottom:
+            13px;
+    }
+
 
     .filter-row {
+
         grid-template-columns:
             1fr;
+
+        gap:
+            11px;
     }
+
+
+    .filter-label {
+
+        margin-bottom:
+            6px;
+
+        font-size:
+            8px;
+    }
+
+
+    .filter-select {
+
+        height:
+            46px;
+
+        border-radius:
+            11px;
+
+        font-size:
+            12px;
+    }
+
+
+    /* CONTENT */
 
     .content-grid {
-        grid-template-columns:
-            1fr;
+
+        display:
+            block;
     }
+
 
     .sidebar {
-        display: none;
+
+        display:
+            none;
     }
 
+
+    .news-section-header {
+
+        margin-bottom:
+            9px;
+    }
+
+
+    .news-section-title {
+
+        font-size:
+            11px;
+    }
+
+
+    .article-count {
+
+        font-size:
+            10px;
+    }
+
+
+    /* ARTICLE */
+
+    .news-list {
+
+        gap:
+            8px;
+    }
+
+
+    .article-card {
+
+        border-radius:
+            13px;
+
+        padding:
+            16px 52px 15px 17px;
+    }
+
+
+    .article-card::before {
+
+        width:
+            4px;
+    }
+
+
+    .article-top {
+
+        margin-bottom:
+            8px;
+    }
+
+
+    .source,
+    .article-type {
+
+        font-size:
+            9px;
+    }
+
+
+    .article-title {
+
+        font-size:
+            15px;
+
+        line-height:
+            1.48;
+
+        letter-spacing:
+            -.2px;
+    }
+
+
+    .article-japanese {
+
+        margin:
+            6px 0 12px;
+
+        font-size:
+            10.5px;
+
+        line-height:
+            1.55;
+    }
+
+
+    .article-date,
+    .status {
+
+        font-size:
+            9px;
+    }
+
+
+    .favorite-button {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        top:
+            12px;
+
+        right:
+            9px;
+
+        font-size:
+            22px;
+    }
+
+
+    /* MOBILE NAV */
+
     .mobile-nav {
-        position: fixed;
 
-        left: 0;
-        right: 0;
-        bottom: 0;
+        position:
+            fixed;
 
-        height: 74px;
+        left:
+            0;
 
-        background:
-            rgba(255,255,255,0.97);
+        right:
+            0;
 
-        border-top:
-            1px solid var(--gray-200);
+        bottom:
+            0;
 
-        display: flex;
-
-        z-index: 2000;
+        height:
+            74px;
 
         padding-bottom:
             env(safe-area-inset-bottom);
 
+        background:
+            rgba(255,255,255,.97);
+
+        border-top:
+            1px solid
+            var(--gray-200);
+
         box-shadow:
-            0 -5px 20px
-            rgba(0,0,0,0.07);
+            0 -5px 22px
+            rgba(0,29,62,.09);
+
+        display:
+            flex;
+
+        z-index:
+            2000;
 
         backdrop-filter:
             blur(14px);
@@ -1414,10 +2280,17 @@ a {
             blur(14px);
     }
 
-    .mobile-nav-item {
-        flex: 1;
 
-        border: none;
+    .mobile-nav-item {
+
+        flex:
+            1;
+
+        height:
+            100%;
+
+        border:
+            none;
 
         background:
             transparent;
@@ -1425,95 +2298,152 @@ a {
         color:
             var(--gray-500);
 
-        cursor: pointer;
+        display:
+            flex;
 
-        display: flex;
+        flex-direction:
+            column;
 
-        flex-direction: column;
+        align-items:
+            center;
 
-        align-items: center;
+        justify-content:
+            center;
 
-        justify-content: center;
+        gap:
+            4px;
 
-        gap: 4px;
+        font-size:
+            9px;
 
-        font-size: 9px;
+        font-weight:
+            800;
 
-        font-weight: 750;
+        cursor:
+            pointer;
+
+        position:
+            relative;
     }
 
-    .mobile-nav-icon {
-        height: 25px;
 
-        display: flex;
+    .mobile-nav-item::before {
 
-        align-items: center;
+        content:
+            "";
 
-        font-size: 18px;
+        position:
+            absolute;
+
+        top:
+            0;
+
+        left:
+            25%;
+
+        right:
+            25%;
+
+        height:
+            3px;
+
+        border-radius:
+            0 0 999px 999px;
+
+        background:
+            var(--red);
+
+        transform:
+            scaleX(0);
+
+        transition:
+            transform .2s ease;
     }
+
 
     .mobile-nav-item.active {
+
         color:
-            var(--phillies-navy);
+            var(--navy);
+    }
+
+
+    .mobile-nav-item.active::before {
+
+        transform:
+            scaleX(1);
+    }
+
+
+    .mobile-nav-icon {
+
+        height:
+            25px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        font-size:
+            18px;
     }
 
 }
 
 
-@media (max-width: 560px) {
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
 
     .page {
-        padding:
-            22px 12px 30px;
+
+        padding-left:
+            10px;
+
+        padding-right:
+            10px;
     }
 
-    .page-kicker {
-        font-size: 9px;
-    }
 
     .page-title {
-        font-size: 28px;
+
+        font-size:
+            28px;
     }
 
-    .page-description {
-        font-size: 11px;
-    }
 
     .filter-panel {
+
         padding:
-            15px;
+            14px;
     }
 
-    .filter-select {
-        padding:
-            12px 40px 12px 13px;
-    }
 
     .article-card {
-        padding:
-            16px 48px 15px 17px;
 
-        border-radius:
-            12px;
+        padding:
+            15px 49px 14px 15px;
     }
+
 
     .article-title {
-        font-size: 15px;
 
-        line-height:
-            1.47;
+        font-size:
+            14px;
     }
+
 
     .article-japanese {
-        font-size: 11px;
 
-        margin-top: 6px;
-        margin-bottom: 13px;
-    }
-
-    .article-date,
-    .status {
-        font-size: 9px;
+        font-size:
+            10px;
     }
 
 }
@@ -1526,22 +2456,28 @@ a {
 @keyframes favoritePop {
 
     0% {
-        transform: scale(1);
+        transform:
+            scale(1);
     }
 
     45% {
-        transform: scale(1.35);
+        transform:
+            scale(1.35);
     }
 
     100% {
-        transform: scale(1);
+        transform:
+            scale(1);
     }
-
 }
 
+
 .favorite-pop {
+
     animation:
-        favoritePop 0.25s ease;
+        favoritePop
+        .25s
+        ease;
 }
 
 </style>
@@ -1569,17 +2505,18 @@ a {
             <div class="brand-logo">
 
                 <!--
-                    公式ロゴ画像を置く場合：
+                    GitHubに公式Philliesロゴを
                     phillies-logo.png
-
-                    GitHubリポジトリのindex.htmlと
-                    同じ階層に配置してください。
+                    として配置すると表示されます。
                 -->
 
                 <img
                     src="phillies-logo.png"
                     alt="Philadelphia Phillies"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='block';
+                    "
                 >
 
                 <span
@@ -1636,7 +2573,7 @@ a {
             <button
                 class="nav-item"
                 data-page="saved"
-                onclick="setStatusFilter('favorite')"
+                onclick="setFavoriteFilter('favorite')"
             >
                 Saved
             </button>
@@ -1715,7 +2652,7 @@ a {
         <div class="filter-row">
 
 
-            <!-- PERIOD -->
+            <!-- TIME RANGE -->
 
             <div class="filter-field">
 
@@ -1761,7 +2698,7 @@ a {
 
 
 
-            <!-- STATUS -->
+            <!-- SHOW -->
 
             <div class="filter-field">
 
@@ -1795,8 +2732,42 @@ a {
                             Read only
                         </option>
 
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAVORITES -->
+
+            <div class="filter-field">
+
+                <label
+                    class="filter-label"
+                    for="favorite-select"
+                >
+                    Favorites
+                </label>
+
+                <div class="select-wrap">
+
+                    <select
+                        id="favorite-select"
+                        class="filter-select"
+                        onchange="setFavoriteFilter(this.value)"
+                    >
+
+                        <option
+                            value="all"
+                            selected
+                        >
+                            All articles
+                        </option>
+
                         <option value="favorite">
-                            ★ Saved only
+                            ★ Favorites only
                         </option>
 
                     </select>
@@ -1847,12 +2818,14 @@ a {
 
 
 
-        <!-- SIDEBAR -->
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
 
         <aside class="sidebar">
 
 
-            <!-- STATS -->
+            <!-- FEED STATS -->
 
             <section class="side-card">
 
@@ -1923,7 +2896,7 @@ a {
 
 
 
-            <!-- GAME -->
+            <!-- NEXT GAME -->
 
             <section class="side-card game-card">
 
@@ -1954,14 +2927,14 @@ a {
 
 
 
-            <!-- INFO -->
+            <!-- NL EAST STANDINGS -->
 
-            <section class="side-card">
+            <section class="side-card standings-card">
 
                 <div class="side-heading">
 
                     <h2 class="side-title">
-                        Quick Info
+                        NL East Standings
                     </h2>
 
                     <span class="side-title-mark"></span>
@@ -1969,54 +2942,192 @@ a {
                 </div>
 
 
-                <div class="info-row">
+                <div class="standings-wrap">
 
-                    <span class="info-label">
-                        Team
-                    </span>
+                    <table class="standings-table">
 
-                    <span class="info-value">
-                        PHI
-                    </span>
+                        <thead>
 
-                </div>
+                            <tr>
 
+                                <th>
+                                    #
+                                </th>
 
-                <div class="info-row">
+                                <th>
+                                    Team
+                                </th>
 
-                    <span class="info-label">
-                        League
-                    </span>
+                                <th>
+                                    W
+                                </th>
 
-                    <span class="info-value">
-                        National League
-                    </span>
+                                <th>
+                                    L
+                                </th>
 
-                </div>
+                                <th>
+                                    PCT
+                                </th>
 
+                                <th>
+                                    GB
+                                </th>
 
-                <div class="info-row">
+                            </tr>
 
-                    <span class="info-label">
-                        Division
-                    </span>
-
-                    <span class="info-value">
-                        NL East
-                    </span>
-
-                </div>
+                        </thead>
 
 
-                <div class="info-row">
+                        <tbody>
 
-                    <span class="info-label">
-                        Feed
-                    </span>
+                            <tr class="phillies">
 
-                    <span class="info-value">
-                        Multiple Sources
-                    </span>
+                                <td>
+                                    1
+                                </td>
+
+                                <td>
+                                    Phillies
+                                </td>
+
+                                <td>
+                                    68
+                                </td>
+
+                                <td>
+                                    45
+                                </td>
+
+                                <td>
+                                    .602
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+                                    Braves
+                                </td>
+
+                                <td>
+                                    62
+                                </td>
+
+                                <td>
+                                    51
+                                </td>
+
+                                <td>
+                                    .549
+                                </td>
+
+                                <td>
+                                    6.0
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+                                    Mets
+                                </td>
+
+                                <td>
+                                    59
+                                </td>
+
+                                <td>
+                                    54
+                                </td>
+
+                                <td>
+                                    .522
+                                </td>
+
+                                <td>
+                                    9.0
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    4
+                                </td>
+
+                                <td>
+                                    Marlins
+                                </td>
+
+                                <td>
+                                    52
+                                </td>
+
+                                <td>
+                                    61
+                                </td>
+
+                                <td>
+                                    .460
+                                </td>
+
+                                <td>
+                                    16.0
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+                                    Nationals
+                                </td>
+
+                                <td>
+                                    43
+                                </td>
+
+                                <td>
+                                    70
+                                </td>
+
+                                <td>
+                                    .381
+                                </td>
+
+                                <td>
+                                    25.0
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
@@ -2091,7 +3202,7 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="saved"
-        onclick="setStatusFilter('favorite')"
+        onclick="setFavoriteFilter('favorite')"
     >
 
         <span class="mobile-nav-icon">
@@ -2108,12 +3219,7 @@ a {
 
 
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
 <script>
-
 
 /* =========================================================
    DEMO ARTICLES
@@ -2123,168 +3229,78 @@ const articles = [
 
     {
         id: "demo-001",
-
-        title:
-            "Phillies rally late to secure series win",
-
-        japanese:
-            "フィリーズが終盤に反撃し、シリーズ勝ち越しを決める",
-
-        source:
-            "MLB.com",
-
-        date:
-            "2026-08-10T08:30:00",
-
-        url:
-            "https://www.mlb.com/phillies",
-
+        title: "Phillies rally late to secure series win",
+        japanese: "フィリーズが終盤に反撃し、シリーズ勝ち越しを決める",
+        source: "MLB.com",
+        date: "2026-08-10T08:30:00",
+        url: "https://www.mlb.com/phillies",
         read: false,
-
         favorite: false
     },
-
 
     {
         id: "demo-002",
-
-        title:
-            "Phillies continue to get strong production from their lineup",
-
-        japanese:
-            "フィリーズ打線が引き続き好調な打撃を見せる",
-
-        source:
-            "NBC Sports Philadelphia",
-
-        date:
-            "2026-08-10T06:45:00",
-
-        url:
-            "https://www.nbcsports.com/philadelphia/phillies",
-
+        title: "Phillies continue to get strong production from their lineup",
+        japanese: "フィリーズ打線が引き続き好調な打撃を見せる",
+        source: "NBC Sports Philadelphia",
+        date: "2026-08-10T06:45:00",
+        url: "https://www.nbcsports.com/philadelphia/phillies",
         read: false,
-
         favorite: true
     },
-
 
     {
         id: "demo-003",
-
-        title:
-            "What the Phillies' latest pitching adjustments mean",
-
-        japanese:
-            "フィリーズが行った最新の投手陣の調整が意味すること",
-
-        source:
-            "The Athletic",
-
-        date:
-            "2026-08-09T23:15:00",
-
-        url:
-            "https://www.theathletic.com/mlb/team/phillies/",
-
+        title: "What the Phillies' latest pitching adjustments mean",
+        japanese: "フィリーズが行った最新の投手陣の調整が意味すること",
+        source: "The Athletic",
+        date: "2026-08-09T23:15:00",
+        url: "https://www.theathletic.com/mlb/team/phillies/",
         read: true,
-
         favorite: false
     },
-
 
     {
         id: "demo-004",
-
-        title:
-            "Phillies prospect makes another strong impression",
-
-        japanese:
-            "フィリーズのプロスペクトが再び強い印象を残す",
-
-        source:
-            "Baseball America",
-
-        date:
-            "2026-08-09T20:30:00",
-
-        url:
-            "https://www.baseballamerica.com/teams/1000/philadelphia-phillies/",
-
+        title: "Phillies prospect makes another strong impression",
+        japanese: "フィリーズのプロスペクトが再び強い印象を残す",
+        source: "Baseball America",
+        date: "2026-08-09T20:30:00",
+        url: "https://www.baseballamerica.com/teams/1000/philadelphia-phillies/",
         read: false,
-
         favorite: true
     },
 
-
     {
         id: "demo-005",
-
-        title:
-            "Phillies bullpen settles into a new rhythm",
-
-        japanese:
-            "フィリーズのブルペンが新たなリズムをつかみ始める",
-
-        source:
-            "FanGraphs",
-
-        date:
-            "2026-08-09T17:10:00",
-
-        url:
-            "https://www.fangraphs.com/teams/phillies",
-
+        title: "Phillies bullpen settles into a new rhythm",
+        japanese: "フィリーズのブルペンが新たなリズムをつかみ始める",
+        source: "FanGraphs",
+        date: "2026-08-09T17:10:00",
+        url: "https://www.fangraphs.com/teams/phillies",
         read: true,
-
         favorite: false
     },
-
 
     {
         id: "demo-006",
-
-        title:
-            "Five things to watch as the Phillies head into the next series",
-
-        japanese:
-            "次のシリーズに向けて注目したいフィリーズの5つのポイント",
-
-        source:
-            "CBS Sports",
-
-        date:
-            "2026-08-09T13:20:00",
-
-        url:
-            "https://www.cbssports.com/mlb/teams/PHI/philadelphia-phillies/",
-
+        title: "Five things to watch as the Phillies head into the next series",
+        japanese: "次のシリーズに向けて注目したいフィリーズの5つのポイント",
+        source: "CBS Sports",
+        date: "2026-08-09T13:20:00",
+        url: "https://www.cbssports.com/mlb/teams/PHI/philadelphia-phillies/",
         read: false,
-
         favorite: false
     },
 
-
     {
         id: "demo-007",
-
-        title:
-            "Phillies' defense remains a key part of their success",
-
-        japanese:
-            "フィリーズの守備がチームの成功を支える重要な要素に",
-
-        source:
-            "ESPN",
-
-        date:
-            "2026-08-08T22:00:00",
-
-        url:
-            "https://www.espn.com/mlb/team/_/name/phi/philadelphia-phillies",
-
+        title: "Phillies' defense remains a key part of their success",
+        japanese: "フィリーズの守備がチームの成功を支える重要な要素に",
+        source: "ESPN",
+        date: "2026-08-08T22:00:00",
+        url: "https://www.espn.com/mlb/team/_/name/phi/philadelphia-phillies",
         read: true,
-
         favorite: true
     }
 
@@ -2299,9 +3315,11 @@ let currentPeriod = "all";
 
 let currentStatus = "all";
 
+let currentFavorite = "all";
+
 
 /* =========================================================
-   LOCAL STORAGE
+   STORAGE
 ========================================================= */
 
 function loadSavedState() {
@@ -2310,12 +3328,11 @@ function loadSavedState() {
 
     try {
 
-        saved =
-            JSON.parse(
-                localStorage.getItem(
-                    "phillies-news-state"
-                ) || "{}"
-            );
+        saved = JSON.parse(
+            localStorage.getItem(
+                "phillies-news-state"
+            ) || "{}"
+        );
 
     } catch (error) {
 
@@ -2326,28 +3343,29 @@ function loadSavedState() {
 
     articles.forEach(article => {
 
-        if (saved[article.id]) {
-
-            if (
-                typeof saved[article.id].read
-                !== "undefined"
-            ) {
-
-                article.read =
-                    saved[article.id].read;
-
-            }
+        if (!saved[article.id]) {
+            return;
+        }
 
 
-            if (
-                typeof saved[article.id].favorite
-                !== "undefined"
-            ) {
+        if (
+            typeof saved[article.id].read
+            !== "undefined"
+        ) {
 
-                article.favorite =
-                    saved[article.id].favorite;
+            article.read =
+                saved[article.id].read;
 
-            }
+        }
+
+
+        if (
+            typeof saved[article.id].favorite
+            !== "undefined"
+        ) {
+
+            article.favorite =
+                saved[article.id].favorite;
 
         }
 
@@ -2357,7 +3375,7 @@ function loadSavedState() {
 
 
 /* =========================================================
-   SAVE STATE
+   SAVE
 ========================================================= */
 
 function saveState() {
@@ -2380,18 +3398,15 @@ function saveState() {
 
 
     localStorage.setItem(
-
         "phillies-news-state",
-
         JSON.stringify(state)
-
     );
 
 }
 
 
 /* =========================================================
-   ESCAPE HTML
+   ESCAPE
 ========================================================= */
 
 function escapeHtml(text) {
@@ -2399,7 +3414,8 @@ function escapeHtml(text) {
     const div =
         document.createElement("div");
 
-    div.textContent = text;
+    div.textContent =
+        text;
 
     return div.innerHTML;
 
@@ -2407,16 +3423,14 @@ function escapeHtml(text) {
 
 
 /* =========================================================
-   DATE FORMAT
+   DATE
 ========================================================= */
 
 function formatDate(dateString) {
 
-    const date =
-        new Date(dateString);
-
-
-    return date.toLocaleString(
+    return new Date(
+        dateString
+    ).toLocaleString(
         "en-US",
         {
             month: "short",
@@ -2431,7 +3445,7 @@ function formatDate(dateString) {
 
 
 /* =========================================================
-   RENDER ARTICLES
+   RENDER
 ========================================================= */
 
 function renderArticles() {
@@ -2446,9 +3460,9 @@ function renderArticles() {
 
 
     /*
-       常に公開日時の新しい順。
-       お気に入りを選択しても、
-       お気に入り記事を上に移動させない。
+       ここが重要。
+       常に公開日時の降順。
+       フィルターしても並び順は変えない。
     */
 
     let filtered =
@@ -2459,13 +3473,12 @@ function renderArticles() {
         );
 
 
-    /* PERIOD */
+    /* TIME RANGE */
 
     if (currentPeriod !== "all") {
 
         const days =
             Number(currentPeriod);
-
 
         const limit =
             new Date(
@@ -2477,7 +3490,6 @@ function renderArticles() {
                 1000
             );
 
-
         filtered =
             filtered.filter(
                 article =>
@@ -2488,7 +3500,7 @@ function renderArticles() {
     }
 
 
-    /* STATUS */
+    /* SHOW */
 
     if (currentStatus === "unread") {
 
@@ -2512,7 +3524,9 @@ function renderArticles() {
     }
 
 
-    if (currentStatus === "favorite") {
+    /* FAVORITES */
+
+    if (currentFavorite === "favorite") {
 
         filtered =
             filtered.filter(
@@ -2592,13 +3606,13 @@ function renderArticles() {
                         ".favorite-button"
                     )
                 ) {
-
                     return;
-
                 }
 
 
-                markAsRead(article.id);
+                markAsRead(
+                    article.id
+                );
 
 
                 window.open(
@@ -2624,8 +3638,8 @@ function renderArticles() {
                 aria-label="Save article"
                 title="${
                     article.favorite
-                        ? "Remove from saved"
-                        : "Save article"
+                        ? "Remove from favorites"
+                        : "Add to favorites"
                 }"
             >
                 ${
@@ -2701,15 +3715,16 @@ function renderArticles() {
                 event.stopPropagation();
 
                 toggleFavorite(
-                    article.id,
-                    favoriteButton
+                    article.id
                 );
 
             }
         );
 
 
-        container.appendChild(card);
+        container.appendChild(
+            card
+        );
 
     });
 
@@ -2723,10 +3738,7 @@ function renderArticles() {
    FAVORITE
 ========================================================= */
 
-function toggleFavorite(
-    id,
-    button
-) {
+function toggleFavorite(id) {
 
     const article =
         articles.find(
@@ -2745,27 +3757,6 @@ function toggleFavorite(
 
 
     saveState();
-
-
-    if (button) {
-
-        button.classList.add(
-            "favorite-pop"
-        );
-
-        setTimeout(
-            () => {
-
-                button.classList.remove(
-                    "favorite-pop"
-                );
-
-            },
-            250
-        );
-
-    }
-
 
     renderArticles();
 
@@ -2790,7 +3781,9 @@ function markAsRead(id) {
     }
 
 
-    article.read = true;
+    article.read =
+        true;
+
 
     saveState();
 
@@ -2809,18 +3802,10 @@ function setPeriod(period) {
         period;
 
 
-    const select =
-        document.getElementById(
-            "period-select"
-        );
-
-
-    if (select) {
-
-        select.value =
-            period;
-
-    }
+    document.getElementById(
+        "period-select"
+    ).value =
+        period;
 
 
     renderArticles();
@@ -2838,21 +3823,40 @@ function setStatusFilter(status) {
         status;
 
 
-    const select =
-        document.getElementById(
-            "status-select"
-        );
+    document.getElementById(
+        "status-select"
+    ).value =
+        status;
 
 
-    if (select) {
+    setActivePage("news");
 
-        select.value =
-            status;
+    setActiveMobile("news");
 
-    }
+    renderArticles();
+
+}
 
 
-    if (status === "favorite") {
+/* =========================================================
+   FAVORITE FILTER
+========================================================= */
+
+function setFavoriteFilter(value) {
+
+    currentFavorite =
+        value;
+
+
+    document.getElementById(
+        "favorite-select"
+    ).value =
+        value;
+
+
+    if (
+        value === "favorite"
+    ) {
 
         setActivePage("saved");
 
@@ -2930,8 +3934,7 @@ function setActivePage(page) {
 
             item.classList.toggle(
                 "active",
-                item.dataset.page
-                === page
+                item.dataset.page === page
             );
 
         });
@@ -2949,8 +3952,7 @@ function setActiveMobile(page) {
 
             item.classList.toggle(
                 "active",
-                item.dataset.mobile
-                === page
+                item.dataset.mobile === page
             );
 
         });
@@ -2963,35 +3965,32 @@ function showNews() {
     currentStatus =
         "all";
 
-
-    const statusSelect =
-        document.getElementById(
-            "status-select"
-        );
+    currentFavorite =
+        "all";
 
 
-    if (statusSelect) {
+    document.getElementById(
+        "status-select"
+    ).value =
+        "all";
 
-        statusSelect.value =
-            "all";
 
-    }
+    document.getElementById(
+        "favorite-select"
+    ).value =
+        "all";
 
 
     setActivePage("news");
 
     setActiveMobile("news");
 
-
     renderArticles();
 
 
     window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
     });
 
 }
