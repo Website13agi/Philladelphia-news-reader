@@ -1,0 +1,53 @@
+name: Update Phillies Roster
+
+on:
+
+  schedule:
+    - cron: "0 * * * *"
+
+  workflow_dispatch:
+
+  push:
+    paths:
+      - "scripts/update_roster.py"
+
+permissions:
+  contents: write
+
+
+jobs:
+
+  update-roster:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Update roster
+        run: |
+          python scripts/update_roster.py
+
+      - name: Check changes
+        id: changes
+        run: |
+          git diff --quiet players.json || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit roster update
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add players.json
+
+          git commit -m "Update Phillies roster"
+
+          git push
