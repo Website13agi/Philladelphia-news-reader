@@ -1,0 +1,11 @@
+{
+  "updated_at": "",
+  "source": "MLB Stats API",
+  "source_url": "https://statsapi.mlb.com/api/v1/teams/143/roster",
+  "team": "Philadelphia Phillies",
+  "team_id": 143,
+  "roster_type": "40Man",
+  "active_count": 0,
+  "players_count": 0,
+  "players": []
+}
