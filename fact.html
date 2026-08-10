@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Phillies Player Facts</title>
+
+<style>
+
+:root {
+
+    --navy:
+        #002d72;
+
+    --navy-dark:
+        #001f4d;
+
+    --red:
+        #e81828;
+
+    --red-dark:
+        #c8102e;
+
+    --white:
+        #ffffff;
+
+    --gray-50:
+        #f7f8fa;
+
+    --gray-100:
+        #eef1f5;
+
+    --gray-200:
+        #dfe4ea;
+
+    --gray-400:
+        #9aa5b1;
+
+    --gray-500:
+        #697586;
+
+    --gray-700:
+        #344054;
+
+    --shadow:
+        0 10px 30px
+        rgba(0, 31, 77, .10);
+
+}
+
+
+* {
+
+    box-sizing:
+        border-box;
+
+}
+
+
+body {
+
+    margin:
+        0;
+
+    background:
+        var(--gray-50);
+
+    color:
+        var(--navy-dark);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+.header {
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        20;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--navy-dark),
+            var(--navy)
+        );
+
+    color:
+        white;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0,0,0,.16);
+
+}
+
+
+.header-inner {
+
+    max-width:
+        1200px;
+
+    margin:
+        auto;
+
+    padding:
+        17px 22px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+}
+
+
+.brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.brand-mark {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    border-radius:
+        50%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--red);
+
+    color:
+        white;
+
+    font-size:
+        23px;
+
+    font-weight:
+        900;
+
+    border:
+        2px solid
+        rgba(255,255,255,.8);
+
+}
+
+
+.brand-name {
+
+    font-size:
+        19px;
+
+    font-weight:
+        900;
+
+}
+
+
+.brand-sub {
+
+    margin-top:
+        2px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1.4px;
+
+    opacity:
+        .65;
+
+}
+
+
+.header-season {
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+    opacity:
+        .75;
+
+}
+
+
+.container {
+
+    max-width:
+        1200px;
+
+    margin:
+        auto;
+
+    padding:
+        30px 20px 60px;
+
+}
+
+
+.page-heading {
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    margin-bottom:
+        22px;
+
+}
+
+
+.kicker {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        var(--red);
+
+    font-size:
+        10px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+.kicker-line {
+
+    width:
+        28px;
+
+    height:
+        3px;
+
+    background:
+        var(--red);
+
+}
+
+
+h1 {
+
+    margin:
+        7px 0 0;
+
+    font-size:
+        clamp(
+            30px,
+            5vw,
+            44px
+        );
+
+    letter-spacing:
+        -1.5px;
+
+}
+
+
+.description {
+
+    margin:
+        8px 0 0;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        13px;
+
+}
+
+
+.data-status {
+
+    padding:
+        9px 13px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        9px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+}
+
+
+.toolbar {
+
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    flex-wrap:
+        wrap;
+
+    margin-bottom:
+        18px;
+
+}
+
+
+.control {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        9px;
+
+    padding:
+        10px 12px;
+
+}
+
+
+.control label {
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        .8px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+select {
+
+    min-width:
+        150px;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--navy-dark);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+}
+
+
+.players {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        7px;
+
+}
+
+
+.player-row {
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        50px
+        55px
+        65px
+        minmax(150px, 1fr)
+        80px
+        80px;
+
+    align-items:
+        center;
+
+    min-height:
+        72px;
+
+    padding:
+        10px 15px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        12px;
+
+    cursor:
+        pointer;
+
+    transition:
+        .18s ease;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.025);
+
+}
+
+
+.player-row:hover {
+
+    transform:
+        translateY(-1px);
+
+    border-color:
+        rgba(232,24,40,.35);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.player-row.active {
+
+    border-left:
+        4px solid
+        var(--red);
+
+}
+
+
+.player-number {
+
+    color:
+        var(--gray-400);
+
+    font-size:
+        13px;
+
+    font-weight:
+        900;
+
+}
+
+
+.player-position {
+
+    color:
+        var(--red);
+
+    font-size:
+        10px;
+
+    font-weight:
+        900;
+
+}
+
+
+.player-name {
+
+    font-size:
+        15px;
+
+    font-weight:
+        900;
+
+}
+
+
+.player-name small {
+
+    display:
+        block;
+
+    margin-top:
+        3px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+}
+
+
+.player-bt {
+
+    color:
+        var(--gray-700);
+
+    font-size:
+        10px;
+
+    font-weight:
+        850;
+
+}
+
+
+.player-status {
+
+    justify-self:
+        end;
+
+    padding:
+        5px 8px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--gray-100);
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+}
+
+
+.player-row.active .player-status {
+
+    background:
+        rgba(232,24,40,.09);
+
+    color:
+        var(--red);
+
+}
+
+
+/* =====================================================
+   DETAIL CARD
+===================================================== */
+
+
+.fact-card {
+
+    margin:
+        -1px 0 8px;
+
+    padding:
+        20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fafc
+        );
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-left:
+        5px solid
+        var(--red);
+
+    border-radius:
+        12px;
+
+    box-shadow:
+        var(--shadow);
+
+    animation:
+        factOpen
+        .2s ease;
+
+}
+
+
+@keyframes factOpen {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-5px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.fact-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    margin-bottom:
+        17px;
+
+}
+
+
+.fact-type {
+
+    color:
+        var(--red);
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+.fact-name {
+
+    margin-top:
+        4px;
+
+    font-size:
+        21px;
+
+    font-weight:
+        900;
+
+}
+
+
+.fact-meta {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        10px;
+
+    font-weight:
+        750;
+
+}
+
+
+.fact-close {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--gray-100);
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        18px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.fact-close:hover {
+
+    background:
+        rgba(232,24,40,.1);
+
+    color:
+        var(--red);
+
+}
+
+
+.fact-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                95px,
+                1fr
+            )
+        );
+
+    gap:
+        8px;
+
+}
+
+
+.fact-stat {
+
+    padding:
+        11px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        9px;
+
+}
+
+
+.fact-stat-label {
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        .7px;
+
+}
+
+
+.fact-stat-value {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--navy-dark);
+
+    font-size:
+        17px;
+
+    font-weight:
+        900;
+
+}
+
+
+.fact-source {
+
+    margin-top:
+        13px;
+
+    color:
+        var(--gray-400);
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    text-align:
+        right;
+
+}
+
+
+.message {
+
+    padding:
+        30px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius:
+        12px;
+
+    text-align:
+        center;
+
+    color:
+        var(--gray-500);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+@media (max-width:700px) {
+
+    .page-heading {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+    .player-row {
+
+        grid-template-columns:
+            40px
+            45px
+            1fr
+            65px;
+
+        padding:
+            10px;
+
+    }
+
+    .player-bt {
+
+        display:
+            none;
+
+    }
+
+    .player-status {
+
+        justify-self:
+            end;
+
+    }
+
+    .fact-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                1fr
+            );
+
+    }
+
+    .fact-stat {
+
+        padding:
+            8px;
+
+    }
+
+    .fact-stat-value {
+
+        font-size:
+            14px;
+
+    }
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    Phillies
+                </div>
+
+                <div class="brand-sub">
+                    PLAYER FACTS
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="header-season">
+            MLB 2026
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="page-heading">
+
+        <div>
+
+            <div class="kicker">
+
+                <span class="kicker-line"></span>
+
+                PHILADELPHIA PHILLIES
+
+            </div>
+
+            <h1>
+                Player Facts
+            </h1>
+
+            <p class="description">
+                Tap a player to view detailed statistics.
+            </p>
+
+        </div>
+
+
+        <div
+            id="data-status"
+            class="data-status"
+        >
+            Loading data...
+        </div>
+
+    </section>
+
+
+    <section class="toolbar">
+
+
+        <div class="control">
+
+            <label for="position-filter">
+                Position
+            </label>
+
+            <select
+                id="position-filter"
+            >
+
+                <option value="all">
+                    All
+                </option>
+
+                <option value="P">
+                    Pitchers
+                </option>
+
+                <option value="C">
+                    Catchers
+                </option>
+
+                <option value="IF">
+                    Infielders
+                </option>
+
+                <option value="OF">
+                    Outfielders
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="control">
+
+            <label for="status-filter">
+                Roster
+            </label>
+
+            <select
+                id="status-filter"
+            >
+
+                <option value="all">
+                    All Players
+                </option>
+
+                <option value="active">
+                    Active Only
+                </option>
+
+                <option value="nonactive">
+                    Non-active
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </section>
+
+
+    <section
+        id="players"
+        class="players"
+    >
+
+        <div class="message">
+            Loading roster...
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+
+"use strict";
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+
+let roster = [];
+
+let statsData = null;
+
+let openedPlayerId = null;
+
+let positionFilter = "all";
+
+let statusFilter = "all";
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   POSITION
+===================================================== */
+
+
+function getPosition(player) {
+
+    const position =
+        String(
+            player.position ??
+            player.pos ??
+            player._position ??
+            ""
+        )
+        .toUpperCase();
+
+
+    if (
+        position === "P" ||
+        position === "SP" ||
+        position === "RP"
+    ) {
+
+        return "P";
+
+    }
+
+
+    if (
+        position === "C"
+    ) {
+
+        return "C";
+
+    }
+
+
+    if (
+        [
+            "1B",
+            "2B",
+            "3B",
+            "SS",
+            "IF"
+        ].includes(position)
+    ) {
+
+        return "IF";
+
+    }
+
+
+    if (
+        [
+            "LF",
+            "CF",
+            "RF",
+            "OF"
+        ].includes(position)
+    ) {
+
+        return "OF";
+
+    }
+
+
+    return position || "—";
+
+}
+
+
+/* =====================================================
+   EXACT POSITION
+===================================================== */
+
+
+function getExactPosition(player) {
+
+    const position =
+        String(
+            player.position ??
+            player.pos ??
+            player._position ??
+            ""
+        )
+        .toUpperCase();
+
+
+    return position || "—";
+
+}
+
+
+/* =====================================================
+   ACTIVE
+===================================================== */
+
+
+function isActive(player) {
+
+    if (
+        player.active === true
+    ) {
+
+        return true;
+
+    }
+
+
+    const status =
+        String(
+            player.status ??
+            player.roster_status ??
+            player._status ??
+            ""
+        )
+        .toLowerCase();
+
+
+    return (
+        status.includes("active") &&
+        !status.includes("il") &&
+        !status.includes("injured")
+    );
+
+}
+
+
+/* =====================================================
+   PLAYER ID
+===================================================== */
+
+
+function getPlayerId(player) {
+
+    return Number(
+        player.id ??
+        player.player_id ??
+        player.playerId ??
+        0
+    );
+
+}
+
+
+/* =====================================================
+   PLAYER NAME
+===================================================== */
+
+
+function getPlayerName(player) {
+
+    return (
+        player.name ??
+        player.full_name ??
+        player.fullName ??
+        player._name ??
+        "Unknown Player"
+    );
+
+}
+
+
+/* =====================================================
+   NUMBER
+===================================================== */
+
+
+function getNumber(player) {
+
+    return (
+        player.number ??
+        player.jersey_number ??
+        player.jerseyNumber ??
+        player._number ??
+        "—"
+    );
+
+}
+
+
+/* =====================================================
+   B/T
+===================================================== */
+
+
+function getBats(player) {
+
+    return (
+        player.bats ??
+        player.batting_hand ??
+        player._bats ??
+        "—"
+    );
+
+}
+
+
+function getThrows(player) {
+
+    return (
+        player.throws ??
+        player.throwing_hand ??
+        player._throws ??
+        "—"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD JSON
+===================================================== */
+
+
+async function loadJSON(
+    url
+) {
+
+    const response =
+        await fetch(
+            url,
+            {
+                cache:
+                    "no-store"
+            }
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `${url}: HTTP ${response.status}`
+        );
+
+    }
+
+
+    return response.json();
+
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+
+async function loadData() {
+
+    try {
+
+        const [
+            playersData,
+            savantData
+        ] = await Promise.all([
+
+            loadJSON(
+                "players.json"
+            ),
+
+            loadJSON(
+                "savant.json"
+            )
+
+        ]);
+
+
+        if (
+            Array.isArray(
+                playersData
+            )
+        ) {
+
+            roster =
+                playersData;
+
+        }
+
+        else if (
+            Array.isArray(
+                playersData.players
+            )
+        ) {
+
+            roster =
+                playersData.players;
+
+        }
+
+        else {
+
+            roster = [];
+
+        }
+
+
+        statsData =
+            savantData;
+
+
+        document
+            .getElementById(
+                "data-status"
+            )
+            .textContent =
+            `${roster.length} players · stats loaded`;
+
+
+        renderPlayers();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        document
+            .getElementById(
+                "data-status"
+            )
+            .textContent =
+            "Data loading error";
+
+
+        document
+            .getElementById(
+                "players"
+            )
+            .innerHTML = `
+
+                <div class="message">
+
+                    Unable to load
+                    player data.
+
+                    <br><br>
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
+                </div>
+
+            `;
+
+    }
+
+}
+
+
+/* =====================================================
+   FIND STATS
+===================================================== */
+
+
+function findStats(
+    player
+) {
+
+    if (!statsData) {
+
+        return null;
+
+    }
+
+
+    const id =
+        getPlayerId(
+            player
+        );
+
+
+    const groups = [];
+
+
+    if (
+        Array.isArray(
+            statsData.batters
+        )
+    ) {
+
+        groups.push(
+            statsData.batters
+        );
+
+    }
+
+
+    if (
+        Array.isArray(
+            statsData.pitchers
+        )
+    ) {
+
+        groups.push(
+            statsData.pitchers
+        );
+
+    }
+
+
+    for (
+        const group of groups
+    ) {
+
+        const found =
+            group.find(
+                item =>
+                    Number(
+                        item.player_id ??
+                        item.id ??
+                        item.playerId
+                    ) === id
+            );
+
+
+        if (found) {
+
+            return found;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   VALUE
+===================================================== */
+
+
+function getStat(
+    stats,
+    ...keys
+) {
+
+    for (
+        const key of keys
+    ) {
+
+        if (
+            stats &&
+            stats[key] !== undefined &&
+            stats[key] !== null
+        ) {
+
+            return stats[key];
+
+        }
+
+    }
+
+
+    return "—";
+
+}
+
+
+/* =====================================================
+   STAT BOX
+===================================================== */
+
+
+function statBox(
+    label,
+    value
+) {
+
+    return `
+
+        <div class="fact-stat">
+
+            <div class="fact-stat-label">
+                ${escapeHtml(label)}
+            </div>
+
+            <div class="fact-stat-value">
+                ${escapeHtml(value)}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DETAIL CARD
+===================================================== */
+
+
+function createFactCard(
+    player
+) {
+
+    const result =
+        findStats(
+            player
+        );
+
+
+    const stats =
+        result?.stats ??
+        result ??
+        {};
+
+
+    const position =
+        getExactPosition(
+            player
+        );
+
+
+    const isPitcher =
+        getPosition(player)
+        === "P";
+
+
+    let boxes = "";
+
+
+    if (isPitcher) {
+
+        boxes = [
+
+            statBox(
+                "ERA",
+                getStat(
+                    stats,
+                    "era",
+                    "ERA"
+                )
+            ),
+
+            statBox(
+                "WHIP",
+                getStat(
+                    stats,
+                    "whip",
+                    "WHIP"
+                )
+            ),
+
+            statBox(
+                "IP",
+                getStat(
+                    stats,
+                    "ip",
+                    "IP"
+                )
+            ),
+
+            statBox(
+                "G",
+                getStat(
+                    stats,
+                    "g",
+                    "G"
+                )
+            ),
+
+            statBox(
+                "GS",
+                getStat(
+                    stats,
+                    "gs",
+                    "GS"
+                )
+            ),
+
+            statBox(
+                "W",
+                getStat(
+                    stats,
+                    "w",
+                    "W"
+                )
+            ),
+
+            statBox(
+                "L",
+                getStat(
+                    stats,
+                    "l",
+                    "L"
+                )
+            ),
+
+            statBox(
+                "SV",
+                getStat(
+                    stats,
+                    "sv",
+                    "SV"
+                )
+            ),
+
+            statBox(
+                "SO",
+                getStat(
+                    stats,
+                    "so",
+                    "SO",
+                    "strikeouts"
+                )
+            ),
+
+            statBox(
+                "BB",
+                getStat(
+                    stats,
+                    "bb",
+                    "BB",
+                    "walks"
+                )
+            ),
+
+            statBox(
+                "HR",
+                getStat(
+                    stats,
+                    "hr",
+                    "HR"
+                )
+            ),
+
+            statBox(
+                "K/9",
+                getStat(
+                    stats,
+                    "k9",
+                    "K9",
+                    "k_per_9"
+                )
+            ),
+
+            statBox(
+                "BB/9",
+                getStat(
+                    stats,
+                    "bb9",
+                    "BB9",
+                    "bb_per_9"
+                )
+            )
+
+        ].join("");
+
+    }
+
+    else {
+
+        boxes = [
+
+            statBox(
+                "AVG",
+                getStat(
+                    stats,
+                    "avg",
+                    "AVG"
+                )
+            ),
+
+            statBox(
+                "OBP",
+                getStat(
+                    stats,
+                    "obp",
+                    "OBP"
+                )
+            ),
+
+            statBox(
+                "SLG",
+                getStat(
+                    stats,
+                    "slg",
+                    "SLG"
+                )
+            ),
+
+            statBox(
+                "OPS",
+                getStat(
+                    stats,
+                    "ops",
+                    "OPS"
+                )
+            ),
+
+            statBox(
+                "HR",
+                getStat(
+                    stats,
+                    "hr",
+                    "HR"
+                )
+            ),
+
+            statBox(
+                "RBI",
+                getStat(
+                    stats,
+                    "rbi",
+                    "RBI"
+                )
+            ),
+
+            statBox(
+                "H",
+                getStat(
+                    stats,
+                    "h",
+                    "H",
+                    "hits"
+                )
+            ),
+
+            statBox(
+                "2B",
+                getStat(
+                    stats,
+                    "2b",
+                    "2B"
+                )
+            ),
+
+            statBox(
+                "3B",
+                getStat(
+                    stats,
+                    "3b",
+                    "3B"
+                )
+            ),
+
+            statBox(
+                "BB",
+                getStat(
+                    stats,
+                    "bb",
+                    "BB"
+                )
+            ),
+
+            statBox(
+                "SO",
+                getStat(
+                    stats,
+                    "so",
+                    "SO"
+                )
+            ),
+
+            statBox(
+                "SB",
+                getStat(
+                    stats,
+                    "sb",
+                    "SB"
+                )
+            )
+
+        ].join("");
+
+    }
+
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "fact-card";
+
+
+    card.innerHTML = `
+
+        <div class="fact-header">
+
+            <div>
+
+                <div class="fact-type">
+
+                    ${
+                        isPitcher
+                            ? "PITCHING"
+                            : "BATTING"
+                    }
+
+                </div>
+
+                <div class="fact-name">
+
+                    ${escapeHtml(
+                        getPlayerName(
+                            player
+                        )
+                    )}
+
+                </div>
+
+                <div class="fact-meta">
+
+                    #${escapeHtml(
+                        getNumber(
+                            player
+                        )
+                    )}
+
+                    &nbsp; · &nbsp;
+
+                    ${escapeHtml(
+                        position
+                    )}
+
+                    &nbsp; · &nbsp;
+
+                    ${escapeHtml(
+                        getBats(
+                            player
+                        )
+                    )}
+
+                    /
+
+                    ${escapeHtml(
+                        getThrows(
+                            player
+                        )
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="fact-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        ${
+            result
+
+                ? `
+
+                    <div class="fact-grid">
+
+                        ${boxes}
+
+                    </div>
+
+                `
+
+                : `
+
+                    <div class="message">
+
+                        Statistics are not
+                        available for this player yet.
+
+                    </div>
+
+                `
+        }
+
+
+        <div class="fact-source">
+
+            MLB statistics ·
+            savant.json
+
+        </div>
+
+    `;
+
+
+    card
+        .querySelector(
+            ".fact-close"
+        )
+        .addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+                card.remove();
+
+                openedPlayerId =
+                    null;
+
+            }
+        );
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+
+function togglePlayer(
+    player,
+    row
+) {
+
+    const id =
+        getPlayerId(
+            player
+        );
+
+
+    const existing =
+        document.querySelector(
+            ".fact-card"
+        );
+
+
+    if (
+        openedPlayerId === id
+    ) {
+
+        if (existing) {
+
+            existing.remove();
+
+        }
+
+        openedPlayerId =
+            null;
+
+        return;
+
+    }
+
+
+    if (existing) {
+
+        existing.remove();
+
+    }
+
+
+    const card =
+        createFactCard(
+            player
+        );
+
+
+    row.insertAdjacentElement(
+        "afterend",
+        card
+    );
+
+
+    openedPlayerId =
+        id;
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+
+function filteredPlayers() {
+
+    return roster.filter(
+        player => {
+
+            const position =
+                getPosition(
+                    player
+                );
+
+
+            if (
+                positionFilter !== "all" &&
+                position !== positionFilter
+            ) {
+
+                return false;
+
+            }
+
+
+            const active =
+                isActive(
+                    player
+                );
+
+
+            if (
+                statusFilter ===
+                "active" &&
+                !active
+            ) {
+
+                return false;
+
+            }
+
+
+            if (
+                statusFilter ===
+                "nonactive" &&
+                active
+            ) {
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+
+function sortPlayers(
+    players
+) {
+
+    return [...players]
+        .sort(
+            (
+                a,
+                b
+            ) => {
+
+                const na =
+                    Number(
+                        getNumber(
+                            a
+                        )
+                    );
+
+                const nb =
+                    Number(
+                        getNumber(
+                            b
+                        )
+                    );
+
+
+                if (
+                    Number.isFinite(na) &&
+                    Number.isFinite(nb)
+                ) {
+
+                    return na - nb;
+
+                }
+
+
+                return getPlayerName(a)
+                    .localeCompare(
+                        getPlayerName(b)
+                    );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+
+function renderPlayers() {
+
+    const container =
+        document.getElementById(
+            "players"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    const players =
+        sortPlayers(
+            filteredPlayers()
+        );
+
+
+    if (
+        players.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="message">
+
+                No players found.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    for (
+        const player of players
+    ) {
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "player-row";
+
+
+        if (
+            isActive(player)
+        ) {
+
+            row.classList.add(
+                "active"
+            );
+
+        }
+
+
+        row.innerHTML = `
+
+            <div class="player-number">
+
+                #${escapeHtml(
+                    getNumber(
+                        player
+                    )
+                )}
+
+            </div>
+
+
+            <div class="player-position">
+
+                ${escapeHtml(
+                    getExactPosition(
+                        player
+                    )
+                )}
+
+            </div>
+
+
+            <div class="player-name">
+
+                ${escapeHtml(
+                    getPlayerName(
+                        player
+                    )
+                )}
+
+                <small>
+
+                    ${escapeHtml(
+                        getPosition(
+                            player
+                        )
+                    )}
+
+                </small>
+
+            </div>
+
+
+            <div class="player-bt">
+
+                ${escapeHtml(
+                    getBats(
+                        player
+                    )
+                )}
+
+                /
+
+                ${escapeHtml(
+                    getThrows(
+                        player
+                    )
+                )}
+
+            </div>
+
+
+            <div class="player-status">
+
+                ${
+                    isActive(player)
+                        ? "ACTIVE"
+                        : "NON-ACTIVE"
+                }
+
+            </div>
+
+        `;
+
+
+        row.addEventListener(
+            "click",
+            function() {
+
+                togglePlayer(
+                    player,
+                    row
+                );
+
+            }
+        );
+
+
+        container.appendChild(
+            row
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   FILTER EVENTS
+===================================================== */
+
+
+document
+    .getElementById(
+        "position-filter"
+    )
+    .addEventListener(
+        "change",
+        function() {
+
+            positionFilter =
+                this.value;
+
+            openedPlayerId =
+                null;
+
+            renderPlayers();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "status-filter"
+    )
+    .addEventListener(
+        "change",
+        function() {
+
+            statusFilter =
+                this.value;
+
+            openedPlayerId =
+                null;
+
+            renderPlayers();
+
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+
+loadData();
+
+
+</script>
+
+</body>
+
+</html>
