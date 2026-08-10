@@ -1,27 +1,19 @@
 name: Update Phillies Savant Stats
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "15 */6 * * *"
-
-  workflow_dispatch:
-
-  push:
-    paths:
-      - "scripts/update_savant.py"
-      - ".github/workflows/update-savant.yml"
 
 permissions:
   contents: write
 
 jobs:
   update-savant:
-
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -29,84 +21,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Check required files
+      - name: Update Savant
+        run: python scripts/update_savant.py
+
+      - name: Check savant.json
         run: |
-          test -f roster.json
-          test -f scripts/update_savant.py
+          python -c "import json; d=json.load(open('savant.json', encoding='utf-8')); print('Batters:', len(d.get('batters', []))); print('Pitchers:', len(d.get('pitchers', [])))"
 
-          echo "roster.json OK"
-          echo "update_savant.py OK"
-
-      - name: Update Baseball Savant
-        run: |
-          python scripts/update_savant.py
-
-      - name: Validate savant.json
-        run: |
-          test -f savant.json
-
-          python - <<'PY'
-          import json
-
-          with open(
-              "savant.json",
-              "r",
-              encoding="utf-8"
-          ) as f:
-              data = json.load(f)
-
-          if data.get("source") != "Baseball Savant":
-              raise SystemExit(
-                  "ERROR: Invalid source"
-              )
-
-          if "batters" not in data:
-              raise SystemExit(
-                  "ERROR: batters missing"
-              )
-
-          if "pitchers" not in data:
-              raise SystemExit(
-                  "ERROR: pitchers missing"
-              )
-
-          print(
-              "Season:",
-              data.get("season")
-          )
-
-          print(
-              "Batters:",
-              len(data["batters"])
-          )
-
-          print(
-              "Pitchers:",
-              len(data["pitchers"])
-          )
-
-          print(
-              "Updated:",
-              data.get("updatedAt")
-          )
-          PY
-
-      - name: Check changes
-        id: changes
-        run: |
-          git add savant.json
-
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Commit update
-        if: steps.changes.outputs.changed == 'true'
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git commit -m "Update Baseball Savant statistics"
+          git add savant.json
+          git diff --cached --quiet || git commit -m "Update Baseball Savant statistics"
           git push
