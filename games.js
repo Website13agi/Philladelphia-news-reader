@@ -1,1045 +1,1922 @@
-<!DOCTYPE html>
-<html lang="en">
+/* =========================================================
+   PHILLIES DAILY
+   GAMES DATA ENGINE
 
-<head>
+   Data:
+   MLB Stats API
 
-    <meta charset="UTF-8">
+   Features:
+   - Today's Phillies game
+   - Last 3 completed Phillies games
+   - NL East standings
+   - NL Wild Card standings
+   - Automatic refresh every 5 minutes
+========================================================= */
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Phillies Games</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
+"use strict";
 
 
-        body {
+/* =========================================================
+   CONFIG
+========================================================= */
 
-            margin: 0;
+const MLB_API =
+    "https://statsapi.mlb.com/api/v1";
 
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
+const PHILLIES_ID =
+    143;
 
-            background:
-                #f7f7f7;
+const NATIONAL_LEAGUE_ID =
+    104;
 
-            color:
-                #111827;
+const AMERICAN_LEAGUE_ID =
+    103;
 
-        }
-
-
-        .topbar {
-
-            background:
-                #071d49;
-
-            color:
-                white;
-
-            padding:
-                14px 20px;
-
-        }
+const REFRESH_INTERVAL =
+    5 * 60 * 1000;
 
 
-        .topbar-inner {
+/* =========================================================
+   HELPERS
+========================================================= */
 
-            max-width:
-                1200px;
+function apiUrl(path, params = {}) {
 
-            margin:
-                0 auto;
+    const url =
+        new URL(
+            MLB_API + path
+        );
 
-            display:
-                flex;
+    Object.entries(params).forEach(
+        ([key, value]) => {
 
-            align-items:
-                center;
+            if (
+                value !== undefined &&
+                value !== null &&
+                value !== ""
+            ) {
 
-            gap:
-                24px;
+                url.searchParams.set(
+                    key,
+                    value
+                );
+
+            }
 
         }
+    );
+
+    return url.toString();
+
+}
 
 
-        .brand {
+async function fetchJSON(url) {
 
-            color:
-                white;
+    const response =
+        await fetch(
+            url,
+            {
+                cache: "no-store"
+            }
+        );
 
-            text-decoration:
-                none;
+    if (
+        !response.ok
+    ) {
 
-            display:
-                flex;
+        throw new Error(
+            `MLB API error: ${response.status}`
+        );
 
-            align-items:
-                center;
+    }
 
-            gap:
-                12px;
+    return response.json();
 
-            font-weight:
-                700;
+}
 
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   DATE HELPERS
+========================================================= */
+
+/*
+   MLBの試合日基準。
+
+   サイトを見る場所が日本でも、
+   Philliesの試合ページなので
+   Philadelphia時間を基準にする。
+*/
+
+function philadelphiaDate() {
+
+    const formatter =
+        new Intl.DateTimeFormat(
+            "en-CA",
+            {
+                timeZone:
+                    "America/New_York",
+
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            }
+        );
+
+    return formatter.format(
+        new Date()
+    );
+
+}
+
+
+function formatGameDate(
+    dateString
+) {
+
+    if (
+        !dateString
+    ) {
+
+        return "—";
+
+    }
+
+    const date =
+        new Date(
+            dateString
+        );
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "—";
+
+    }
+
+    return new Intl.DateTimeFormat(
+        "en-US",
+        {
+            month: "short",
+            day: "numeric"
         }
+    ).format(
+        date
+    );
+
+}
 
 
-        .brand-logo {
+function formatGameTime(
+    dateString
+) {
 
-            width:
-                38px;
+    if (
+        !dateString
+    ) {
 
-            height:
-                38px;
+        return "";
 
-            display:
-                flex;
+    }
 
-            align-items:
-                center;
+    const date =
+        new Date(
+            dateString
+        );
 
-            justify-content:
-                center;
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
 
+        return "";
+
+    }
+
+    return new Intl.DateTimeFormat(
+        "en-US",
+        {
+            hour: "numeric",
+            minute: "2-digit",
+            timeZone:
+                "America/New_York"
         }
+    ).format(
+        date
+    ) + " ET";
 
+}
 
-        .brand-logo img {
 
-            max-width:
-                100%;
+/* =========================================================
+   TODAY
+========================================================= */
 
-            max-height:
-                100%;
+async function loadTodayGame() {
 
-        }
+    const container =
+        document.getElementById(
+            "today-game"
+        );
 
+    if (
+        !container
+    ) {
 
-        .brand-name {
+        return;
 
-            font-size:
-                18px;
+    }
 
-        }
+    const date =
+        philadelphiaDate();
 
+    const dateLabel =
+        document.getElementById(
+            "today-date"
+        );
 
-        .brand-label {
+    if (
+        dateLabel
+    ) {
 
-            font-size:
-                11px;
+        dateLabel.textContent =
+            formatSimpleDate(
+                date
+            );
 
-            opacity:
-                .7;
+    }
 
-            letter-spacing:
-                .08em;
 
-        }
+    try {
 
+        const data =
+            await fetchJSON(
+                apiUrl(
+                    "/schedule",
+                    {
+                        sportId: 1,
+                        teamId:
+                            PHILLIES_ID,
+                        date: date,
+                        hydrate:
+                            "linescore,decisions,probablePitcher"
+                    }
+                )
+            );
 
-        .back-link {
 
-            margin-left:
-                auto;
+        const games =
+            (
+                data.dates &&
+                data.dates[0] &&
+                data.dates[0].games
+            )
+                ? data.dates[0].games
+                : [];
 
-            color:
-                white;
 
-            text-decoration:
-                none;
-
-            opacity:
-                .9;
-
-        }
-
-
-        .page {
-
-            max-width:
-                1200px;
-
-            margin:
-                0 auto;
-
-            padding:
-                32px 20px 60px;
-
-        }
-
-
-        .page-kicker {
-
-            font-size:
-                12px;
-
-            font-weight:
-                700;
-
-            letter-spacing:
-                .12em;
-
-            color:
-                #ba0c2f;
-
-            text-transform:
-                uppercase;
-
-            margin-bottom:
-                8px;
-
-        }
-
-
-        h1 {
-
-            margin:
-                0;
-
-            font-size:
-                38px;
-
-        }
-
-
-        .description {
-
-            color:
-                #6b7280;
-
-            margin:
-                10px 0 30px;
-
-        }
-
-
-        .section {
-
-            margin-top:
-                28px;
-
-        }
-
-
-        .section-header {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            margin-bottom:
-                12px;
-
-        }
-
-
-        .section-title {
-
-            font-size:
-                20px;
-
-            font-weight:
-                800;
-
-        }
-
-
-        .section-mark {
-
-            width:
-                8px;
-
-            height:
-                8px;
-
-            background:
-                #ba0c2f;
-
-            display:
-                inline-block;
-
-            margin-left:
-                7px;
-
-        }
-
-
-        .card {
-
-            background:
-                white;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius:
-                12px;
-
-            overflow:
-                hidden;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,.04);
-
-        }
-
-
-        .today-game {
-
-            padding:
-                24px;
-
-        }
-
-
-        .game-status {
-
-            font-size:
-                12px;
-
-            font-weight:
-                800;
-
-            color:
-                #ba0c2f;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                .08em;
-
-            margin-bottom:
-                18px;
-
-        }
-
-
-        .matchup {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr auto 1fr;
-
-            align-items:
-                center;
-
-            gap:
-                20px;
-
-        }
-
-
-        .team {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                12px;
-
-        }
-
-
-        .team.away {
-
-            justify-content:
-                flex-end;
-
-            text-align:
-                right;
-
-        }
-
-
-        .team-logo {
-
-            width:
-                44px;
-
-            height:
-                44px;
-
-            object-fit:
-                contain;
-
-        }
-
-
-        .team-name {
-
-            font-weight:
-                800;
-
-        }
-
-
-        .score {
-
-            font-size:
-                34px;
-
-            font-weight:
-                900;
-
-            min-width:
-                60px;
-
-            text-align:
-                center;
-
-        }
-
-
-        .vs {
-
-            font-size:
-                13px;
-
-            color:
-                #9ca3af;
-
-            text-align:
-                center;
-
-        }
-
-
-        .game-meta {
-
-            margin-top:
-                18px;
-
-            padding-top:
-                16px;
-
-            border-top:
-                1px solid #eee;
-
-            color:
-                #6b7280;
-
-            font-size:
-                13px;
-
-            text-align:
-                center;
-
-        }
-
-
-        .recent-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap:
-                12px;
-
-        }
-
-
-        .recent-game {
-
-            padding:
-                18px;
-
-        }
-
-
-        .recent-date {
-
-            font-size:
-                11px;
-
-            color:
-                #9ca3af;
-
-            margin-bottom:
-                12px;
-
-        }
-
-
-        .recent-row {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                8px;
-
-            padding:
-                6px 0;
-
-        }
-
-
-        .recent-team {
-
-            font-weight:
-                700;
-
-        }
-
-
-        .recent-score {
-
-            font-weight:
-                900;
-
-        }
-
-
-        .result {
-
-            margin-top:
-                12px;
-
-            font-size:
-                12px;
-
-            font-weight:
-                800;
-
-        }
-
-
-        .result.win {
-
-            color:
-                #15803d;
-
-        }
-
-
-        .result.loss {
-
-            color:
-                #ba0c2f;
-
-        }
-
-
-        .result.tie {
-
-            color:
-                #6b7280;
-
-        }
-
-
-        .tables-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap:
-                16px;
-
-        }
-
-
-        table {
-
-            width:
-                100%;
-
-            border-collapse:
-                collapse;
-
-        }
-
-
-        th {
-
-            background:
-                #f3f4f6;
-
-            color:
-                #6b7280;
-
-            font-size:
-                11px;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                .05em;
-
-            padding:
-                11px 8px;
-
-            text-align:
-                left;
-
-        }
-
-
-        td {
-
-            padding:
-                12px 8px;
-
-            border-top:
-                1px solid #eee;
-
-            font-size:
-                13px;
-
-        }
-
-
-        td:not(:first-child),
-        th:not(:first-child) {
-
-            text-align:
-                right;
-
-        }
-
-
-        .rank {
-
-            font-weight:
-                900;
-
-            width:
-                32px;
-
-        }
-
-
-        .team-cell {
-
-            font-weight:
-                700;
-
-        }
-
-
-        .phillies-row {
-
-            background:
-                rgba(186,12,47,.06);
-
-        }
-
-
-        .wc-badge {
-
-            display:
-                inline-block;
-
-            font-size:
-                9px;
-
-            font-weight:
-                800;
-
-            color:
-                #ba0c2f;
-
-            margin-left:
-                5px;
-
-        }
-
-
-        .loading {
-
-            padding:
-                28px;
-
-            text-align:
-                center;
-
-            color:
-                #6b7280;
-
-        }
-
-
-        .error {
-
-            padding:
-                20px;
-
-            color:
-                #ba0c2f;
-
-            background:
-                #fff5f6;
-
-        }
-
-
-        @media (
-            max-width: 700px
+        if (
+            games.length === 0
         ) {
 
-            .page {
+            renderNoTodayGame(
+                container
+            );
 
-                padding:
-                    24px 14px 50px;
-
-            }
-
-
-            h1 {
-
-                font-size:
-                    30px;
-
-            }
-
-
-            .matchup {
-
-                gap:
-                    8px;
-
-            }
-
-
-            .team-name {
-
-                font-size:
-                    13px;
-
-            }
-
-
-            .score {
-
-                font-size:
-                    27px;
-
-                min-width:
-                    45px;
-
-            }
-
-
-            .recent-grid {
-
-                grid-template-columns:
-                    1fr;
-
-            }
-
-
-            .tables-grid {
-
-                grid-template-columns:
-                    1fr;
-
-            }
+            return;
 
         }
 
-    </style>
 
-</head>
+        /*
+           Doubleheaderの場合でも
+           今日のゲームを表示できるよう
+           最初の試合を表示。
+        */
+
+        renderTodayGame(
+            container,
+            games[0]
+        );
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+        renderError(
+            container,
+            "Today's game could not be loaded."
+        );
+
+    }
+
+}
 
 
-<body>
+/* =========================================================
+   TODAY GAME RENDER
+========================================================= */
+
+function renderTodayGame(
+    container,
+    game
+) {
+
+    const away =
+        game.teams.away;
+
+    const home =
+        game.teams.home;
+
+    const awayTeam =
+        away.team;
+
+    const homeTeam =
+        home.team;
+
+    const status =
+        game.status || {};
+
+    const abstractState =
+        status.abstractGameState ||
+        "";
+
+    const detailedState =
+        status.detailedState ||
+        "";
+
+    const awayScore =
+        away.score !== undefined
+            ? away.score
+            : null;
+
+    const homeScore =
+        home.score !== undefined
+            ? home.score
+            : null;
 
 
-<header class="topbar">
+    let middleHTML =
+        `<div class="vs">VS</div>`;
 
-    <div class="topbar-inner">
 
-        <a
-            class="brand"
-            href="index.html"
-        >
+    if (
+        abstractState ===
+            "Final" ||
+        abstractState ===
+            "Live"
+    ) {
 
-            <div class="brand-logo">
+        middleHTML = `
 
-                <img
-                    src="phillies-logo.png"
-                    alt="Philadelphia Phillies"
-                    onerror="
-                        this.style.display='none';
+            <div
+                class="today-score"
+                style="
+                    color:var(--navy-dark);
+                    font-size:28px;
+                    font-weight:900;
+                    white-space:nowrap;
+                "
+            >
+
+                ${
+                    awayScore !== null
+                        ? escapeHTML(
+                            awayScore
+                        )
+                        : "—"
+                }
+
+                <span
+                    style="
+                        color:var(--gray-400);
+                        padding:0 6px;
                     "
                 >
+                    -
+                </span>
+
+                ${
+                    homeScore !== null
+                        ? escapeHTML(
+                            homeScore
+                        )
+                        : "—"
+                }
 
             </div>
+
+        `;
+
+    }
+
+
+    const statusText =
+        getGameStatusText(
+            game
+        );
+
+
+    container.innerHTML = `
+
+        <div class="today-label">
+
+            ${escapeHTML(
+                statusText
+            )}
+
+        </div>
+
+
+        <div class="matchup">
+
+
+            <div class="team">
+
+                <div class="team-name">
+
+                    ${escapeHTML(
+                        awayTeam.name
+                    )}
+
+                </div>
+
+                <div class="team-record">
+
+                    ${
+                        away.isWinner
+                            ? "WIN"
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            ${middleHTML}
+
+
+            <div class="team">
+
+                <div class="team-name">
+
+                    ${escapeHTML(
+                        homeTeam.name
+                    )}
+
+                </div>
+
+                <div class="team-record">
+
+                    ${
+                        home.isWinner
+                            ? "WIN"
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="game-info">
+
+
+            <div class="game-info-item">
+
+                ${escapeHTML(
+                    formatGameTime(
+                        game.gameDate
+                    )
+                )}
+
+            </div>
+
+
+            <div class="game-info-item">
+
+                ${escapeHTML(
+                    game.venue?.name ||
+                    ""
+                )}
+
+            </div>
+
+
+            <div class="game-info-item">
+
+                ${escapeHTML(
+                    detailedState
+                )}
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   GAME STATUS
+========================================================= */
+
+function getGameStatusText(
+    game
+) {
+
+    const status =
+        game.status || {};
+
+    const abstractState =
+        status.abstractGameState;
+
+    if (
+        abstractState ===
+        "Final"
+    ) {
+
+        return "FINAL";
+
+    }
+
+    if (
+        abstractState ===
+        "Live"
+    ) {
+
+        return (
+            status.detailedState ||
+            "LIVE"
+        ).toUpperCase();
+
+    }
+
+    if (
+        abstractState ===
+        "Preview"
+    ) {
+
+        return "UPCOMING";
+
+    }
+
+    return (
+        status.detailedState ||
+        "TODAY"
+    ).toUpperCase();
+
+}
+
+
+/* =========================================================
+   NO GAME
+========================================================= */
+
+function renderNoTodayGame(
+    container
+) {
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ⚾
+            </div>
+
+            <h2 class="empty-title">
+                No Phillies Game Today
+            </h2>
+
+            <p class="empty-description">
+                There is no scheduled Phillies game today.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RECENT 3 GAMES
+========================================================= */
+
+async function loadRecentGames() {
+
+    const container =
+        document.getElementById(
+            "recent-games"
+        );
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const today =
+            philadelphiaDate();
+
+        const start =
+            getDateDaysAgo(
+                14
+            );
+
+
+        const data =
+            await fetchJSON(
+                apiUrl(
+                    "/schedule",
+                    {
+                        sportId: 1,
+                        teamId:
+                            PHILLIES_ID,
+                        startDate:
+                            start,
+                        endDate:
+                            today,
+                        hydrate:
+                            "linescore"
+                    }
+                )
+            );
+
+
+        let games = [];
+
+
+        if (
+            Array.isArray(
+                data.dates
+            )
+        ) {
+
+            data.dates.forEach(
+                dateEntry => {
+
+                    if (
+                        Array.isArray(
+                            dateEntry.games
+                        )
+                    ) {
+
+                        games =
+                            games.concat(
+                                dateEntry.games
+                            );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        games =
+            games
+                .filter(
+                    game =>
+                        game.status &&
+                        game.status.abstractGameState ===
+                            "Final"
+                )
+                .sort(
+                    (a, b) =>
+                        new Date(
+                            b.gameDate
+                        ) -
+                        new Date(
+                            a.gameDate
+                        )
+                )
+                .slice(
+                    0,
+                    3
+                );
+
+
+        if (
+            games.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-description">
+                        No completed games found.
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            games
+                .map(
+                    renderRecentGame
+                )
+                .join("");
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+        renderError(
+            container,
+            "Recent games could not be loaded."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RECENT GAME CARD
+========================================================= */
+
+function renderRecentGame(
+    game
+) {
+
+    const away =
+        game.teams.away;
+
+    const home =
+        game.teams.home;
+
+    const philliesIsHome =
+        home.team.id ===
+        PHILLIES_ID;
+
+    const opponent =
+        philliesIsHome
+            ? away.team
+            : home.team;
+
+    const philliesScore =
+        philliesIsHome
+            ? home.score
+            : away.score;
+
+    const opponentScore =
+        philliesIsHome
+            ? away.score
+            : home.score;
+
+    const philliesWon =
+        philliesScore >
+        opponentScore;
+
+    const resultClass =
+        philliesWon
+            ? "win"
+            : "loss";
+
+    const resultText =
+        philliesWon
+            ? "W"
+            : "L";
+
+
+    return `
+
+        <article class="game-card">
+
+
+            <div class="game-date">
+
+                ${escapeHTML(
+                    formatGameDate(
+                        game.gameDate
+                    )
+                )}
+
+            </div>
+
 
             <div>
 
-                <div class="brand-name">
-                    Phillies
-                </div>
+                <div class="game-opponent">
 
-                <div class="brand-label">
-                    Daily News
-                </div>
+                    ${
+                        philliesIsHome
+                            ? "vs"
+                            : "@"
+                    }
 
-            </div>
+                    ${escapeHTML(
+                        opponent.name
+                    )}
 
-        </a>
-
-
-        <a
-            class="back-link"
-            href="index.html"
-        >
-            ← Back
-        </a>
-
-    </div>
-
-</header>
-
-
-<main class="page">
-
-
-    <div class="page-kicker">
-        Philadelphia Phillies
-    </div>
-
-
-    <h1>
-        Games
-    </h1>
-
-
-    <p class="description">
-        Today's game, recent results and the current playoff race.
-    </p>
-
-
-    <!-- TODAY -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                Today's Game
-                <span class="section-mark"></span>
-            </div>
-
-        </div>
-
-
-        <div
-            id="today-game"
-            class="card"
-        >
-
-            <div class="loading">
-                Loading today's game...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- RECENT -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                Last 3 Games
-                <span class="section-mark"></span>
-            </div>
-
-        </div>
-
-
-        <div
-            id="recent-games"
-            class="recent-grid"
-        >
-
-            <div class="loading">
-                Loading recent games...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- STANDINGS -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                Standings
-                <span class="section-mark"></span>
-            </div>
-
-        </div>
-
-
-        <div class="tables-grid">
-
-
-            <div class="card">
-
-                <div
-                    class="loading"
-                    id="division-loading"
-                >
-                    Loading NL East...
                 </div>
 
 
-                <table
-                    id="division-table"
-                    style="display:none;"
-                >
+                <div class="game-detail">
 
-                    <thead>
+                    Final
 
-                        <tr>
+                </div>
 
-                            <th>
-                                #
-                            </th>
+            </div>
 
-                            <th>
-                                Team
-                            </th>
 
-                            <th>
-                                W
-                            </th>
+            <div class="game-result ${resultClass}">
 
-                            <th>
-                                L
-                            </th>
+                ${resultText}
 
-                            <th>
-                                PCT
-                            </th>
+                ${escapeHTML(
+                    philliesScore
+                )}
 
-                            <th>
-                                GB
-                            </th>
+                -
+
+                ${escapeHTML(
+                    opponentScore
+                )}
+
+            </div>
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   NL EAST STANDINGS
+========================================================= */
+
+async function loadNLEastStandings() {
+
+    const container =
+        document.getElementById(
+            "nl-east-standings"
+        );
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await fetchJSON(
+                apiUrl(
+                    "/standings",
+                    {
+                        leagueId:
+                            NATIONAL_LEAGUE_ID,
+                        standingsTypes:
+                            "regularSeason",
+                        season:
+                            new Date()
+                                .getFullYear(),
+                        hydrate:
+                            "team(division)"
+                    }
+                )
+            );
+
+
+        const records =
+            extractStandingsRecords(
+                data
+            );
+
+
+        const nlEast =
+            records
+                .filter(
+                    record =>
+                        record.team?.division?.id ===
+                        204
+                )
+                .sort(
+                    compareStandings
+                );
+
+
+        /*
+           MLB APIのdivision IDが
+           将来的に変わる可能性に備えて、
+           取得したdivision.nameでも判定。
+        */
+
+        const fallback =
+            records
+                .filter(
+                    record =>
+                        record.team?.division?.name ===
+                        "National League East"
+                )
+                .sort(
+                    compareStandings
+                );
+
+
+        const finalRecords =
+            nlEast.length
+                ? nlEast
+                : fallback;
+
+
+        renderStandingsTable(
+            container,
+            finalRecords
+        );
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+        renderTableError(
+            container,
+            5
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   NL WILD CARD
+========================================================= */
+
+async function loadWildCardStandings() {
+
+    const container =
+        document.getElementById(
+            "wild-card-standings"
+        );
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await fetchJSON(
+                apiUrl(
+                    "/standings",
+                    {
+                        leagueId:
+                            NATIONAL_LEAGUE_ID,
+                        standingsTypes:
+                            "regularSeason",
+                        season:
+                            new Date()
+                                .getFullYear(),
+                        hydrate:
+                            "team(division)"
+                    }
+                )
+            );
+
+
+        const records =
+            extractStandingsRecords(
+                data
+            );
+
+
+        const divisionLeaders =
+            new Set();
+
+
+        records.forEach(
+            record => {
+
+                if (
+                    Number(
+                        record.divisionRank
+                    ) === 1
+                ) {
+
+                    divisionLeaders.add(
+                        record.team.id
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*
+           Wild Cardは
+           各地区1位を除いたNLチームを
+           勝率順に並べる。
+        */
+
+        const wildCard =
+            records
+                .filter(
+                    record =>
+                        !divisionLeaders.has(
+                            record.team.id
+                        )
+                )
+                .sort(
+                    compareStandings
+                )
+                .slice(
+                    0,
+                    3
+                );
+
+
+        renderWildCardTable(
+            container,
+            wildCard
+        );
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+        renderTableError(
+            container,
+            4
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STANDINGS HELPERS
+========================================================= */
+
+function extractStandingsRecords(
+    data
+) {
+
+    const output = [];
+
+
+    if (
+        !data ||
+        !Array.isArray(
+            data.records
+        )
+    ) {
+
+        return output;
+
+    }
+
+
+    data.records.forEach(
+        divisionRecord => {
+
+            if (
+                Array.isArray(
+                    divisionRecord.teamRecords
+                )
+            ) {
+
+                divisionRecord.teamRecords.forEach(
+                    record => {
+
+                        output.push(
+                            record
+                        );
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+
+    return output;
+
+}
+
+
+function compareStandings(
+    a,
+    b
+) {
+
+    const aPct =
+        Number(
+            a.winningPercentage
+        );
+
+    const bPct =
+        Number(
+            b.winningPercentage
+        );
+
+
+    if (
+        bPct !== aPct
+    ) {
+
+        return bPct - aPct;
+
+    }
+
+
+    const aWins =
+        Number(
+            a.wins || 0
+        );
+
+    const bWins =
+        Number(
+            b.wins || 0
+        );
+
+
+    return bWins - aWins;
+
+}
+
+
+/* =========================================================
+   NL EAST TABLE
+========================================================= */
+
+function renderStandingsTable(
+    container,
+    records
+) {
+
+    if (
+        !records.length
+    ) {
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+                    No standings data.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        records
+            .map(
+                record => {
+
+                    const team =
+                        record.team || {};
+
+                    const isPhillies =
+                        team.id ===
+                        PHILLIES_ID;
+
+                    const pct =
+                        formatPercentage(
+                            record.winningPercentage
+                        );
+
+
+                    return `
+
+                        <tr
+                            class="${
+                                isPhillies
+                                    ? "phillies"
+                                    : ""
+                            }"
+                        >
+
+                            <td>
+
+                                ${escapeHTML(
+                                    team.abbreviation ||
+                                    team.name ||
+                                    "—"
+                                )}
+
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    record.wins
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    record.losses
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    pct
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    formatGamesBack(
+                                        record.gamesBack
+                                    )
+                                )}
+                            </td>
 
                         </tr>
 
-                    </thead>
+                    `;
+
+                }
+            )
+            .join("");
+
+}
 
 
-                    <tbody
-                        id="division-body"
-                    ></tbody>
+/* =========================================================
+   WILD CARD TABLE
+========================================================= */
 
-                </table>
+function renderWildCardTable(
+    container,
+    records
+) {
 
-            </div>
+    if (
+        !records.length
+    ) {
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td colspan="4">
+                    No standings data.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
 
-            <div class="card">
+    container.innerHTML =
+        records
+            .map(
+                (record, index) => {
 
-                <div
-                    class="loading"
-                    id="wildcard-loading"
-                >
-                    Loading Wild Card...
-                </div>
+                    const team =
+                        record.team || {};
+
+                    const isPhillies =
+                        team.id ===
+                        PHILLIES_ID;
 
 
-                <table
-                    id="wildcard-table"
-                    style="display:none;"
-                >
+                    return `
 
-                    <thead>
+                        <tr
+                            class="${
+                                isPhillies
+                                    ? "phillies"
+                                    : ""
+                            }"
+                        >
 
-                        <tr>
+                            <td>
 
-                            <th>
-                                #
-                            </th>
+                                ${
+                                    index + 1
+                                }.
 
-                            <th>
-                                Team
-                            </th>
+                                ${escapeHTML(
+                                    team.abbreviation ||
+                                    team.name ||
+                                    "—"
+                                )}
 
-                            <th>
-                                W
-                            </th>
+                            </td>
 
-                            <th>
-                                L
-                            </th>
+                            <td>
+                                ${escapeHTML(
+                                    record.wins
+                                )}
+                            </td>
 
-                            <th>
-                                GB
-                            </th>
+                            <td>
+                                ${escapeHTML(
+                                    record.losses
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    formatGamesBack(
+                                        record.gamesBack
+                                    )
+                                )}
+                            </td>
 
                         </tr>
 
-                    </thead>
+                    `;
+
+                }
+            )
+            .join("");
+
+}
 
 
-                    <tbody
-                        id="wildcard-body"
-                    ></tbody>
+/* =========================================================
+   PHILLIES SUMMARY
+========================================================= */
 
-                </table>
+async function loadPhilliesSummary() {
+
+    const container =
+        document.getElementById(
+            "phillies-summary"
+        );
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await fetchJSON(
+                apiUrl(
+                    "/standings",
+                    {
+                        leagueId:
+                            NATIONAL_LEAGUE_ID,
+                        standingsTypes:
+                            "regularSeason",
+                        season:
+                            new Date()
+                                .getFullYear()
+                    }
+                )
+            );
+
+
+        const records =
+            extractStandingsRecords(
+                data
+            );
+
+
+        const phillies =
+            records.find(
+                record =>
+                    record.team?.id ===
+                    PHILLIES_ID
+            );
+
+
+        if (
+            !phillies
+        ) {
+
+            container.textContent =
+                "Phillies standings unavailable.";
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:
+                        repeat(3,1fr);
+                    gap:8px;
+                    text-align:center;
+                "
+            >
+
+                <div>
+
+                    <div
+                        style="
+                            color:var(--navy-dark);
+                            font-size:20px;
+                            font-weight:900;
+                        "
+                    >
+                        ${escapeHTML(
+                            phillies.wins
+                        )}
+                    </div>
+
+                    <div
+                        style="
+                            color:var(--gray-500);
+                            font-size:8px;
+                            font-weight:800;
+                            text-transform:uppercase;
+                        "
+                    >
+                        Wins
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div
+                        style="
+                            color:var(--navy-dark);
+                            font-size:20px;
+                            font-weight:900;
+                        "
+                    >
+                        ${escapeHTML(
+                            phillies.losses
+                        )}
+                    </div>
+
+                    <div
+                        style="
+                            color:var(--gray-500);
+                            font-size:8px;
+                            font-weight:800;
+                            text-transform:uppercase;
+                        "
+                    >
+                        Losses
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div
+                        style="
+                            color:var(--navy-dark);
+                            font-size:20px;
+                            font-weight:900;
+                        "
+                    >
+                        ${escapeHTML(
+                            formatPercentage(
+                                phillies.winningPercentage
+                            )
+                        )}
+                    </div>
+
+                    <div
+                        style="
+                            color:var(--gray-500);
+                            font-size:8px;
+                            font-weight:800;
+                            text-transform:uppercase;
+                        "
+                    >
+                        PCT
+                    </div>
+
+                </div>
 
             </div>
 
+        `;
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+        container.textContent =
+            "Phillies summary unavailable.";
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMATTERS
+========================================================= */
+
+function formatPercentage(
+    value
+) {
+
+    const number =
+        Number(
+            value
+        );
+
+    if (
+        Number.isNaN(
+            number
+        )
+    ) {
+
+        return "—";
+
+    }
+
+
+    return number.toFixed(3)
+        .replace(
+            /^0/,
+            ""
+        );
+
+}
+
+
+function formatGamesBack(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "—";
+
+    }
+
+    const number =
+        Number(
+            value
+        );
+
+    if (
+        Number.isNaN(
+            number
+        )
+    ) {
+
+        return String(
+            value
+        );
+
+    }
+
+    if (
+        number === 0
+    ) {
+
+        return "—";
+
+    }
+
+    return number.toFixed(1);
+
+}
+
+
+function formatSimpleDate(
+    dateString
+) {
+
+    if (
+        !dateString
+    ) {
+
+        return "";
+
+    }
+
+    const parts =
+        dateString.split(
+            "-"
+        );
+
+    if (
+        parts.length !== 3
+    ) {
+
+        return dateString;
+
+    }
+
+    const year =
+        Number(parts[0]);
+
+    const month =
+        Number(parts[1]);
+
+    const day =
+        Number(parts[2]);
+
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+
+    return new Intl.DateTimeFormat(
+        "en-US",
+        {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+function getDateDaysAgo(
+    days
+) {
+
+    const date =
+        new Date();
+
+    date.setDate(
+        date.getDate() - days
+    );
+
+
+    const formatter =
+        new Intl.DateTimeFormat(
+            "en-CA",
+            {
+                timeZone:
+                    "America/New_York",
+
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            }
+        );
+
+
+    return formatter.format(
+        date
+    );
+
+}
+
+
+/* =========================================================
+   ERROR DISPLAY
+========================================================= */
+
+function renderError(
+    container,
+    message
+) {
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ⚠
+            </div>
+
+            <h2 class="empty-title">
+                Unable to load
+            </h2>
+
+            <p class="empty-description">
+                ${escapeHTML(
+                    message
+                )}
+            </p>
 
         </div>
 
-    </section>
+    `;
+
+}
 
 
-</main>
+function renderTableError(
+    container,
+    colspan
+) {
+
+    container.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="${colspan}"
+                style="
+                    padding:20px;
+                    text-align:center;
+                    color:var(--gray-500);
+                "
+            >
+                Unable to load standings.
+            </td>
+
+        </tr>
+
+    `;
+
+}
 
 
-<script src="games.js"></script>
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
+
+async function loadGamesPage() {
+
+    console.log(
+        "[Phillies Daily] Updating game data..."
+    );
 
 
-</body>
+    /*
+       各データを独立して取得。
 
-</html>
+       1つ失敗しても他の表示は残す。
+    */
+
+    await Promise.allSettled(
+        [
+            loadTodayGame(),
+            loadRecentGames(),
+            loadNLEastStandings(),
+            loadWildCardStandings(),
+            loadPhilliesSummary()
+        ]
+    );
+
+
+    console.log(
+        "[Phillies Daily] Game data updated."
+    );
+
+}
+
+
+/* =========================================================
+   AUTOMATIC REFRESH
+========================================================= */
+
+function startAutoRefresh() {
+
+    setInterval(
+        function() {
+
+            loadGamesPage();
+
+        },
+        REFRESH_INTERVAL
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadGamesPage();
+
+        startAutoRefresh();
+
+    }
+);
