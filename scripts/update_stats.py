@@ -1,7 +1,6 @@
 import csv
 import io
 import json
-import re
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -11,23 +10,32 @@ from datetime import datetime, timezone
 # CONFIG
 # =========================================================
 
-TEAM_ID = 143
 TEAM_ABBR = "PHI"
 SEASON = datetime.now(timezone.utc).year
 
 PLAYERS_FILE = "players.json"
 OUTPUT_FILE = "player_stats.json"
 
-USER_AGENT = "Phillies-Daily/1.0"
+SAVANT_BASE = (
+    "https://baseballsavant.mlb.com/"
+    "leaderboard/custom.csv"
+)
 
-SAVANT_URL = "https://baseballsavant.mlb.com/leaderboard/custom.csv"
+USER_AGENT = (
+    "Mozilla/5.0 "
+    "(Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 "
+    "(KHTML, like Gecko) "
+    "Chrome/120.0 Safari/537.36"
+)
 
 
 # =========================================================
 # HTTP
 # =========================================================
 
-def get_text(url):
+def download_csv(url):
+
     request = urllib.request.Request(
         url,
         headers={
@@ -38,13 +46,15 @@ def get_text(url):
 
     with urllib.request.urlopen(
         request,
-        timeout=60,
+        timeout=90,
     ) as response:
 
-        return response.read().decode(
-            "utf-8-sig",
-            errors="replace",
-        )
+        raw = response.read()
+
+    return raw.decode(
+        "utf-8-sig",
+        errors="replace",
+    )
 
 
 # =========================================================
@@ -52,11 +62,13 @@ def get_text(url):
 # =========================================================
 
 def load_json(path):
+
     with open(
         path,
         "r",
         encoding="utf-8",
     ) as file:
+
         return json.load(file)
 
 
@@ -64,34 +76,40 @@ def load_json(path):
 # NUMBER
 # =========================================================
 
-def clean_number(value):
+def number(value):
 
     if value is None:
         return None
 
     value = str(value).strip()
 
-    if value in {
+    if value in (
         "",
         "-",
         "—",
         "N/A",
+        "NA",
         "null",
-        "None",
-    }:
+    ):
         return None
 
-    value = value.replace("%", "")
+    value = value.replace(
+        "%",
+        "",
+    )
 
     try:
-        number = float(value)
 
-        if number.is_integer():
-            return int(number)
+        result = float(value)
 
-        return number
+        if result.is_integer():
 
-    except Exception:
+            return int(result)
+
+        return result
+
+    except ValueError:
+
         return value
 
 
@@ -99,15 +117,15 @@ def clean_number(value):
 # FIELD
 # =========================================================
 
-def first_value(row, *names):
+def field(row, *names):
 
-    normalized = {}
+    normalized = {
+        str(key).strip().lower():
+        value
 
-    for key, value in row.items():
-
-        normalized[
-            str(key).strip().lower()
-        ] = value
+        for key, value
+        in row.items()
+    }
 
     for name in names:
 
@@ -119,50 +137,94 @@ def first_value(row, *names):
             None,
             "",
         ):
+
             return value
 
     return None
 
 
 # =========================================================
-# SAVANT CSV
+# SAVANT URL
 # =========================================================
 
-def fetch_savant(
+def make_url(
     player_type,
     selections,
 ):
 
     params = {
-        "year": SEASON,
-        "type": player_type,
-        "filter": f"team={TEAM_ABBR}",
-        "min": "q",
-        "selections": ",".join(selections),
-        "chart": "false",
-        "x": "pa",
-        "y": "pa",
-        "r": "no",
-        "chartType": "beeswarm",
-        "sort": "pa",
-        "sortDir": "desc",
+
+        "year":
+            str(SEASON),
+
+        "type":
+            player_type,
+
+        "filter":
+            f"team={TEAM_ABBR}",
+
+        "min":
+            "q",
+
+        "selections":
+            ",".join(selections),
+
+        "chart":
+            "false",
+
+        "x":
+            "pa",
+
+        "y":
+            "pa",
+
+        "r":
+            "no",
+
+        "chartType":
+            "beeswarm",
+
+        "sort":
+            "pa",
+
+        "sortDir":
+            "desc",
     }
 
-    url = (
-        SAVANT_URL
+    return (
+        SAVANT_BASE
         + "?"
         + urllib.parse.urlencode(
             params
         )
     )
 
+
+# =========================================================
+# DOWNLOAD SAVANT
+# =========================================================
+
+def fetch(
+    player_type,
+    selections,
+):
+
+    url = make_url(
+        player_type,
+        selections,
+    )
+
     print()
     print(
-        f"Downloading Savant {player_type} data..."
+        "Downloading:",
+        player_type,
     )
+
     print(url)
 
-    text = get_text(url)
+    text = download_csv(
+        url
+    )
 
     reader = csv.DictReader(
         io.StringIO(text)
@@ -171,7 +233,8 @@ def fetch_savant(
     rows = list(reader)
 
     print(
-        f"Savant returned {len(rows)} rows."
+        "Rows:",
+        len(rows),
     )
 
     return rows
@@ -181,778 +244,412 @@ def fetch_savant(
 # PLAYER ID
 # =========================================================
 
-def get_player_id(row):
+def player_id(row):
 
-    value = first_value(
+    value = field(
         row,
         "player_id",
         "playerid",
-        "mlb_id",
-        "id",
     )
 
     if value is None:
         return None
 
     try:
+
         return int(
             float(value)
         )
 
-    except Exception:
+    except ValueError:
+
         return None
 
 
 # =========================================================
-# PLAYER NAME
+# BATTER
 # =========================================================
 
-def get_player_name(row):
+def parse_batter(row):
 
-    return first_value(
-        row,
-        "last_name, first_name",
-        "player_name",
-        "name",
-        "player",
-    )
+    pid = player_id(row)
 
-
-# =========================================================
-# NORMALIZE SAVANT ROW
-# =========================================================
-
-def normalize_row(
-    row,
-    player_type,
-):
-
-    player_id = get_player_id(
-        row
-    )
-
-    if not player_id:
+    if pid is None:
         return None
 
-    name = get_player_name(
-        row
-    )
+    stats = {
 
-    if player_type == "batter":
+        # BASIC
 
-        stats = {
+        "G":
+            number(field(row, "g")),
 
-            "PA":
-                clean_number(
-                    first_value(
-                        row,
-                        "pa",
-                    )
-                ),
+        "AB":
+            number(field(row, "ab")),
 
-            "AB":
-                clean_number(
-                    first_value(
-                        row,
-                        "ab",
-                    )
-                ),
+        "PA":
+            number(field(row, "pa")),
 
-            "H":
-                clean_number(
-                    first_value(
-                        row,
-                        "h",
-                    )
-                ),
+        "H":
+            number(field(row, "h")),
 
-            "HR":
-                clean_number(
-                    first_value(
-                        row,
-                        "home_run",
-                        "hr",
-                    )
-                ),
+        "1B":
+            number(field(row, "1b")),
 
-            "RBI":
-                clean_number(
-                    first_value(
-                        row,
-                        "rbi",
-                    )
-                ),
+        "2B":
+            number(field(row, "2b")),
 
-            "BB":
-                clean_number(
-                    first_value(
-                        row,
-                        "bb",
-                    )
-                ),
+        "3B":
+            number(field(row, "3b")),
 
-            "SO":
-                clean_number(
-                    first_value(
-                        row,
-                        "k",
-                        "so",
-                    )
-                ),
+        "HR":
+            number(field(row, "hr")),
 
-            "SB":
-                clean_number(
-                    first_value(
-                        row,
-                        "sb",
-                    )
-                ),
+        "RBI":
+            number(field(row, "rbi")),
 
-            "AVG":
-                clean_number(
-                    first_value(
-                        row,
-                        "ba",
-                        "avg",
-                    )
-                ),
+        "R":
+            number(field(row, "r")),
 
-            "OBP":
-                clean_number(
-                    first_value(
-                        row,
-                        "obp",
-                    )
-                ),
+        "BB":
+            number(field(row, "bb")),
 
-            "SLG":
-                clean_number(
-                    first_value(
-                        row,
-                        "slg",
-                    )
-                ),
+        "SO":
+            number(field(row, "so")),
 
-            "OPS":
-                clean_number(
-                    first_value(
-                        row,
-                        "ops",
-                    )
-                ),
+        "HBP":
+            number(field(row, "hbp")),
 
-            "wOBA":
-                clean_number(
-                    first_value(
-                        row,
-                        "woba",
-                    )
-                ),
+        "SB":
+            number(field(row, "sb")),
 
-            "xBA":
-                clean_number(
-                    first_value(
-                        row,
-                        "xba",
-                    )
-                ),
+        "CS":
+            number(field(row, "cs")),
 
-            "xSLG":
-                clean_number(
-                    first_value(
-                        row,
-                        "xslg",
-                    )
-                ),
+        "AVG":
+            number(field(row, "avg")),
 
-            "xwOBA":
-                clean_number(
-                    first_value(
-                        row,
-                        "xwoba",
-                    )
-                ),
+        "OBP":
+            number(field(row, "obp")),
 
-            "EV":
-                clean_number(
-                    first_value(
-                        row,
-                        "exit_velocity_avg",
-                        "launch_speed",
-                        "ev",
-                    )
-                ),
+        "SLG":
+            number(field(row, "slg")),
 
-            "Barrel%":
-                clean_number(
-                    first_value(
-                        row,
-                        "barrel_batted_rate",
-                        "barrel_percent",
-                        "brl_percent",
-                    )
-                ),
+        "OPS":
+            number(field(row, "ops")),
 
-            "HardHit%":
-                clean_number(
-                    first_value(
-                        row,
-                        "hard_hit_percent",
-                    )
-                ),
+        "ISO":
+            number(field(row, "iso")),
 
-            "K%":
-                clean_number(
-                    first_value(
-                        row,
-                        "k_percent",
-                    )
-                ),
+        "BABIP":
+            number(field(row, "babip")),
 
-            "BB%":
-                clean_number(
-                    first_value(
-                        row,
-                        "bb_percent",
-                    )
-                ),
+        # SAVANT / STATCAST
 
-            "Whiff%":
-                clean_number(
-                    first_value(
-                        row,
-                        "whiff_percent",
-                    )
-                ),
+        "xBA":
+            number(field(row, "xba")),
 
-            "Chase%":
-                clean_number(
-                    first_value(
-                        row,
-                        "chase_percent",
-                    )
-                ),
+        "xSLG":
+            number(field(row, "xslg")),
 
-            "Sprint Speed":
-                clean_number(
-                    first_value(
-                        row,
-                        "sprint_speed",
-                    )
-                ),
+        "xwOBA":
+            number(field(row, "xwoba")),
 
-            "OAA":
-                clean_number(
-                    first_value(
-                        row,
-                        "oaa",
-                    )
-                ),
-        }
+        "xOBP":
+            number(field(row, "xobp")),
 
-    else:
+        "xISO":
+            number(field(row, "xiso")),
 
-        stats = {
+        "wOBA":
+            number(field(row, "woba")),
 
-            "IP":
-                clean_number(
-                    first_value(
-                        row,
-                        "ip",
-                    )
-                ),
+        "wOBAcon":
+            number(field(row, "wobacon")),
 
-            "ERA":
-                clean_number(
-                    first_value(
-                        row,
-                        "era",
-                    )
-                ),
+        "xwOBAcon":
+            number(field(row, "xwobacon")),
 
-            "WHIP":
-                clean_number(
-                    first_value(
-                        row,
-                        "whip",
-                    )
-                ),
+        "EV":
+            number(
+                field(
+                    row,
+                    "exit_velocity_avg",
+                )
+            ),
 
-            "W":
-                clean_number(
-                    first_value(
-                        row,
-                        "w",
-                    )
-                ),
+        "Launch Angle":
+            number(
+                field(
+                    row,
+                    "launch_angle_avg",
+                )
+            ),
 
-            "L":
-                clean_number(
-                    first_value(
-                        row,
-                        "l",
-                    )
-                ),
+        "Barrel%":
+            number(
+                field(
+                    row,
+                    "barrel_batted_rate",
+                )
+            ),
 
-            "SV":
-                clean_number(
-                    first_value(
-                        row,
-                        "sv",
-                        "saves",
-                    )
-                ),
+        "Hard-Hit%":
+            number(
+                field(
+                    row,
+                    "hard_hit_percent",
+                )
+            ),
 
-            "SO":
-                clean_number(
-                    first_value(
-                        row,
-                        "so",
-                        "k",
-                    )
-                ),
+        "K%":
+            number(
+                field(
+                    row,
+                    "k_percent",
+                )
+            ),
 
-            "BB":
-                clean_number(
-                    first_value(
-                        row,
-                        "bb",
-                    )
-                ),
+        "BB%":
+            number(
+                field(
+                    row,
+                    "bb_percent",
+                )
+            ),
 
-            "HR":
-                clean_number(
-                    first_value(
-                        row,
-                        "hr",
-                    )
-                ),
+        "Whiff%":
+            number(
+                field(
+                    row,
+                    "whiff_percent",
+                )
+            ),
 
-            "K%":
-                clean_number(
-                    first_value(
-                        row,
-                        "k_percent",
-                    )
-                ),
+        "Chase%":
+            number(
+                field(
+                    row,
+                    "chase_percent",
+                )
+            ),
 
-            "BB%":
-                clean_number(
-                    first_value(
-                        row,
-                        "bb_percent",
-                    )
-                ),
+        "Sprint Speed":
+            number(
+                field(
+                    row,
+                    "sprint_speed",
+                )
+            ),
 
-            "K-BB%":
-                clean_number(
-                    first_value(
-                        row,
-                        "k_minus_bb_percent",
-                        "k_bb_percent",
-                    )
-                ),
-
-            "xERA":
-                clean_number(
-                    first_value(
-                        row,
-                        "xera",
-                    )
-                ),
-
-            "xBA":
-                clean_number(
-                    first_value(
-                        row,
-                        "xba",
-                    )
-                ),
-
-            "xSLG":
-                clean_number(
-                    first_value(
-                        row,
-                        "xslg",
-                    )
-                ),
-
-            "xwOBA":
-                clean_number(
-                    first_value(
-                        row,
-                        "xwoba",
-                    )
-                ),
-
-            "EV":
-                clean_number(
-                    first_value(
-                        row,
-                        "exit_velocity_avg",
-                        "ev",
-                    )
-                ),
-
-            "HardHit%":
-                clean_number(
-                    first_value(
-                        row,
-                        "hard_hit_percent",
-                    )
-                ),
-
-            "Barrel%":
-                clean_number(
-                    first_value(
-                        row,
-                        "barrel_batted_rate",
-                        "barrel_percent",
-                    )
-                ),
-
-            "Whiff%":
-                clean_number(
-                    first_value(
-                        row,
-                        "whiff_percent",
-                    )
-                ),
-
-            "CSW%":
-                clean_number(
-                    first_value(
-                        row,
-                        "csw_percent",
-                    )
-                ),
-        }
+        "OAA":
+            number(
+                field(
+                    row,
+                    "oaa",
+                )
+            ),
+    }
 
     return {
-        "playerId":
-            player_id,
-
-        "name":
-            name,
-
-        "type":
-            player_type,
-
-        "season":
-            SEASON,
-
-        "stats":
-            stats,
+        "playerId": pid,
+        "type": "batter",
+        "stats": stats,
     }
 
 
 # =========================================================
-# BUILD
+# PITCHER
 # =========================================================
 
-def build_stats():
+def parse_pitcher(row):
 
-    players_data = load_json(
-        PLAYERS_FILE
-    )
+    pid = player_id(row)
 
-    players = players_data.get(
-        "players",
-        [],
-    )
+    if pid is None:
+        return None
 
-    roster_ids = {
-        int(player["id"])
-        for player in players
-        if player.get("id")
+    stats = {
+
+        # BASIC
+
+        "G":
+            number(field(row, "g")),
+
+        "GS":
+            number(field(row, "gs")),
+
+        "IP":
+            number(field(row, "ip")),
+
+        "W":
+            number(field(row, "w")),
+
+        "L":
+            number(field(row, "l")),
+
+        "SV":
+            number(field(row, "sv")),
+
+        "H":
+            number(field(row, "h")),
+
+        "ER":
+            number(field(row, "er")),
+
+        "HR":
+            number(field(row, "hr")),
+
+        "BB":
+            number(field(row, "bb")),
+
+        "SO":
+            number(field(row, "so")),
+
+        "ERA":
+            number(field(row, "era")),
+
+        "WHIP":
+            number(field(row, "whip")),
+
+        "K%":
+            number(
+                field(
+                    row,
+                    "k_percent",
+                )
+            ),
+
+        "BB%":
+            number(
+                field(
+                    row,
+                    "bb_percent",
+                )
+            ),
+
+        # SAVANT / STATCAST
+
+        "xERA":
+            number(
+                field(
+                    row,
+                    "xera",
+                )
+            ),
+
+        "xBA":
+            number(
+                field(
+                    row,
+                    "xba",
+                )
+            ),
+
+        "xSLG":
+            number(
+                field(
+                    row,
+                    "xslg",
+                )
+            ),
+
+        "xwOBA":
+            number(
+                field(
+                    row,
+                    "xwoba",
+                )
+            ),
+
+        "xOBP":
+            number(
+                field(
+                    row,
+                    "xobp",
+                )
+            ),
+
+        "EV":
+            number(
+                field(
+                    row,
+                    "exit_velocity_avg",
+                )
+            ),
+
+        "Launch Angle":
+            number(
+                field(
+                    row,
+                    "launch_angle_avg",
+                )
+            ),
+
+        "Barrel%":
+            number(
+                field(
+                    row,
+                    "barrel_batted_rate",
+                )
+            ),
+
+        "Hard-Hit%":
+            number(
+                field(
+                    row,
+                    "hard_hit_percent",
+                )
+            ),
+
+        "Whiff%":
+            number(
+                field(
+                    row,
+                    "whiff_percent",
+                )
+            ),
+
+        "CSW%":
+            number(
+                field(
+                    row,
+                    "csw_percent",
+                )
+            ),
+
+        "Spin Rate":
+            number(
+                field(
+                    row,
+                    "avg_spin_rate",
+                    "spin_rate",
+                )
+            ),
+
+        "Velocity":
+            number(
+                field(
+                    row,
+                    "velocity",
+                    "release_speed",
+                )
+            ),
+
+        "Extension":
+            number(
+                field(
+                    row,
+                    "release_extension",
+                )
+            ),
     }
-
-    print(
-        f"Roster contains {len(roster_ids)} players."
-    )
-
-    batter_selections = [
-        "pa",
-        "ab",
-        "h",
-        "home_run",
-        "rbi",
-        "bb",
-        "k",
-        "sb",
-        "ba",
-        "obp",
-        "slg",
-        "ops",
-        "woba",
-        "xba",
-        "xslg",
-        "xwoba",
-        "exit_velocity_avg",
-        "barrel_batted_rate",
-        "hard_hit_percent",
-        "k_percent",
-        "bb_percent",
-        "whiff_percent",
-        "chase_percent",
-        "sprint_speed",
-        "oaa",
-    ]
-
-    pitcher_selections = [
-        "ip",
-        "era",
-        "whip",
-        "w",
-        "l",
-        "sv",
-        "so",
-        "bb",
-        "hr",
-        "k_percent",
-        "bb_percent",
-        "k_minus_bb_percent",
-        "xera",
-        "xba",
-        "xslg",
-        "xwoba",
-        "exit_velocity_avg",
-        "hard_hit_percent",
-        "barrel_batted_rate",
-        "whiff_percent",
-        "csw_percent",
-    ]
-
-    all_stats = {}
-
-    # -----------------------------------------------------
-    # BATTERS
-    # -----------------------------------------------------
-
-    try:
-
-        batter_rows = fetch_savant(
-            "batter",
-            batter_selections,
-        )
-
-        for row in batter_rows:
-
-            player = normalize_row(
-                row,
-                "batter",
-            )
-
-            if not player:
-                continue
-
-            if (
-                player["playerId"]
-                not in roster_ids
-            ):
-                continue
-
-            all_stats[
-                player["playerId"]
-            ] = player
-
-    except Exception as error:
-
-        print(
-            "Batter download failed:",
-            error,
-        )
-
-    # -----------------------------------------------------
-    # PITCHERS
-    # -----------------------------------------------------
-
-    try:
-
-        pitcher_rows = fetch_savant(
-            "pitcher",
-            pitcher_selections,
-        )
-
-        for row in pitcher_rows:
-
-            player = normalize_row(
-                row,
-                "pitcher",
-            )
-
-            if not player:
-                continue
-
-            if (
-                player["playerId"]
-                not in roster_ids
-            ):
-                continue
-
-            all_stats[
-                player["playerId"]
-            ] = player
-
-    except Exception as error:
-
-        print(
-            "Pitcher download failed:",
-            error,
-        )
-
-    # -----------------------------------------------------
-    # ENSURE ALL ROSTER PLAYERS EXIST
-    # -----------------------------------------------------
-
-    for roster_player in players:
-
-        try:
-
-            player_id = int(
-                roster_player["id"]
-            )
-
-        except Exception:
-            continue
-
-        if player_id not in all_stats:
-
-            all_stats[player_id] = {
-
-                "playerId":
-                    player_id,
-
-                "name":
-                    roster_player.get(
-                        "name",
-                        "",
-                    ),
-
-                "type":
-                    (
-                        "pitcher"
-                        if roster_player.get(
-                            "group"
-                        ) == "Pitcher"
-                        else "batter"
-                    ),
-
-                "season":
-                    SEASON,
-
-                "stats":
-                    {},
-            }
-
-    # -----------------------------------------------------
-    # SORT
-    # -----------------------------------------------------
-
-    result_players = []
-
-    for player in players:
-
-        try:
-
-            player_id = int(
-                player["id"]
-            )
-
-        except Exception:
-            continue
-
-        stats = all_stats.get(
-            player_id
-        )
-
-        if not stats:
-            continue
-
-        # Preserve roster identity.
-        stats["name"] = player.get(
-            "name",
-            stats.get("name", ""),
-        )
-
-        stats["number"] = player.get(
-            "number",
-            "",
-        )
-
-        stats["group"] = player.get(
-            "group",
-            "",
-        )
-
-        stats["position"] = player.get(
-            "position",
-            "",
-        )
-
-        result_players.append(
-            stats
-        )
-
-    # -----------------------------------------------------
-    # OUTPUT
-    # -----------------------------------------------------
 
     return {
-        "updatedAt":
-            datetime.now(
-                timezone.utc
-            ).isoformat(),
-
-        "source":
-            "Baseball Savant",
-
-        "season":
-            SEASON,
-
-        "team": {
-            "id":
-                TEAM_ID,
-
-            "name":
-                "Philadelphia Phillies",
-
-            "abbreviation":
-                TEAM_ABBR,
-        },
-
-        "players":
-            result_players,
+        "playerId": pid,
+        "type": "pitcher",
+        "stats": stats,
     }
-
-
-# =========================================================
-# SAVE
-# =========================================================
-
-def save_result(data):
-
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8",
-    ) as file:
-
-        json.dump(
-            data,
-            file,
-            ensure_ascii=False,
-            indent=2,
-        )
-
-    print()
-    print(
-        f"Saved {len(data['players'])} player records."
-    )
-
-    print(
-        f"Output: {OUTPUT_FILE}"
-    )
 
 
 # =========================================================
@@ -974,26 +671,329 @@ def main():
     )
 
     print(
-        f"Season: {SEASON}"
+        "Season:",
+        SEASON,
     )
 
-    data = build_stats()
+    roster_data = load_json(
+        PLAYERS_FILE
+    )
 
-    if not data.get("players"):
+    players = roster_data.get(
+        "players",
+        []
+    )
 
-        raise RuntimeError(
-            "No player statistics were generated."
+    roster = {}
+
+    for player in players:
+
+        try:
+
+            pid = int(
+                player["id"]
+            )
+
+        except (
+            KeyError,
+            TypeError,
+            ValueError,
+        ):
+
+            continue
+
+        roster[pid] = player
+
+    print(
+        "Roster players:",
+        len(roster),
+    )
+
+    # =====================================================
+    # BATTER
+    # =====================================================
+
+    batter_selections = [
+
+        "g",
+        "ab",
+        "pa",
+        "h",
+        "1b",
+        "2b",
+        "3b",
+        "hr",
+        "rbi",
+        "r",
+        "bb",
+        "so",
+        "hbp",
+        "sb",
+        "cs",
+
+        "avg",
+        "obp",
+        "slg",
+        "ops",
+        "iso",
+        "babip",
+
+        "xba",
+        "xslg",
+        "xwoba",
+        "xobp",
+        "xiso",
+
+        "woba",
+        "wobacon",
+        "xwobacon",
+
+        "exit_velocity_avg",
+        "launch_angle_avg",
+        "barrel_batted_rate",
+        "hard_hit_percent",
+
+        "k_percent",
+        "bb_percent",
+        "whiff_percent",
+        "chase_percent",
+
+        "sprint_speed",
+        "oaa",
+    ]
+
+    # =====================================================
+    # PITCHER
+    # =====================================================
+
+    pitcher_selections = [
+
+        "g",
+        "gs",
+        "ip",
+        "w",
+        "l",
+        "sv",
+        "h",
+        "er",
+        "hr",
+        "bb",
+        "so",
+
+        "era",
+        "whip",
+
+        "k_percent",
+        "bb_percent",
+
+        "xera",
+        "xba",
+        "xslg",
+        "xwoba",
+        "xobp",
+
+        "exit_velocity_avg",
+        "launch_angle_avg",
+        "barrel_batted_rate",
+        "hard_hit_percent",
+
+        "whiff_percent",
+        "csw_percent",
+
+        "avg_spin_rate",
+        "velocity",
+        "release_speed",
+        "release_extension",
+    ]
+
+    records = {}
+
+    # =====================================================
+    # FETCH BATTERS
+    # =====================================================
+
+    try:
+
+        rows = fetch(
+            "batter",
+            batter_selections,
         )
 
-    save_result(
-        data
-    )
+        for row in rows:
+
+            parsed = parse_batter(
+                row
+            )
+
+            if parsed is None:
+                continue
+
+            pid = parsed[
+                "playerId"
+            ]
+
+            if pid in roster:
+
+                records[pid] = parsed
+
+    except Exception as error:
+
+        print(
+            "BATTER ERROR:",
+            repr(error),
+        )
+
+    # =====================================================
+    # FETCH PITCHERS
+    # =====================================================
+
+    try:
+
+        rows = fetch(
+            "pitcher",
+            pitcher_selections,
+        )
+
+        for row in rows:
+
+            parsed = parse_pitcher(
+                row
+            )
+
+            if parsed is None:
+                continue
+
+            pid = parsed[
+                "playerId"
+            ]
+
+            if pid in roster:
+
+                records[pid] = parsed
+
+    except Exception as error:
+
+        print(
+            "PITCHER ERROR:",
+            repr(error),
+        )
+
+    # =====================================================
+    # KEEP EVERY ROSTER PLAYER
+    # =====================================================
+
+    output_players = []
+
+    for pid, player in roster.items():
+
+        record = records.get(
+            pid
+        )
+
+        if record is None:
+
+            record = {
+
+                "playerId":
+                    pid,
+
+                "type":
+                    (
+                        "pitcher"
+                        if player.get(
+                            "group"
+                        ) == "Pitcher"
+                        else "batter"
+                    ),
+
+                "stats": {},
+            }
+
+        record["name"] = player.get(
+            "name",
+            "",
+        )
+
+        record["number"] = player.get(
+            "number",
+            "",
+        )
+
+        record["position"] = player.get(
+            "position",
+            "",
+        )
+
+        record["group"] = player.get(
+            "group",
+            "",
+        )
+
+        output_players.append(
+            record
+        )
+
+    # =====================================================
+    # OUTPUT
+    # =====================================================
+
+    output = {
+
+        "updatedAt":
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
+
+        "source":
+            "Baseball Savant",
+
+        "season":
+            SEASON,
+
+        "team":
+            "PHI",
+
+        "players":
+            output_players,
+    }
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8",
+    ) as file:
+
+        json.dump(
+            output,
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
 
     print()
     print(
-        "Savant stats update completed successfully."
+        "=========================================="
+    )
+
+    print(
+        "SUCCESS"
+    )
+
+    print(
+        "Players written:",
+        len(output_players),
+    )
+
+    print(
+        "Output:",
+        OUTPUT_FILE,
+    )
+
+    print(
+        "=========================================="
     )
 
 
 if __name__ == "__main__":
+
     main()
