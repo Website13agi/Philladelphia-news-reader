@@ -1,8 +1,6 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,23 +10,21 @@
 
 /* =========================================================
    PHILLIES DAILY
-   UI V6
+   UI V5
 ========================================================= */
 
 :root {
-
     --red: #e31837;
     --red-dark: #c8102e;
-    --red-soft: #fff1f3;
+    --red-soft: #fff0f2;
 
     --navy: #002d62;
-    --navy-dark: #001f46;
+    --navy-dark: #001b3d;
     --navy-deep: #00152f;
     --navy-soft: #edf3f9;
 
     --white: #ffffff;
-
-    --black: #11151b;
+    --black: #10151d;
 
     --gray-900: #252b34;
     --gray-700: #4c5663;
@@ -39,15 +35,15 @@
     --gray-200: #e4e8ed;
     --gray-100: #f2f4f7;
 
-    --background: #f5f6f8;
+    --background: #f4f6f9;
 
-    --radius: 16px;
+    --radius: 15px;
 
     --shadow:
-        0 5px 22px rgba(0,29,62,.065);
+        0 4px 18px rgba(0, 29, 62, 0.065);
 
     --shadow-hover:
-        0 14px 35px rgba(0,29,62,.13);
+        0 12px 32px rgba(0, 29, 62, 0.12);
 }
 
 
@@ -64,14 +60,9 @@ html {
 }
 
 body {
-
     margin: 0;
-
-    background:
-        var(--background);
-
-    color:
-        var(--black);
+    background: var(--background);
+    color: var(--black);
 
     font-family:
         Inter,
@@ -83,11 +74,9 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing:
-        antialiased;
+    -webkit-font-smoothing: antialiased;
 
-    padding-bottom:
-        30px;
+    padding-bottom: 30px;
 }
 
 button,
@@ -100,8 +89,8 @@ button {
 }
 
 a {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
 }
 
 
@@ -110,46 +99,37 @@ a {
 ========================================================= */
 
 .topbar {
-
-    height: 82px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1000;
+    height: 76px;
 
     background:
         linear-gradient(
-            105deg,
-            #ffffff 0%,
-            #ffffff 72%,
-            #fff7f8 100%
+            100deg,
+            var(--navy-deep) 0%,
+            var(--navy) 65%,
+            #003875 100%
         );
 
-    border-bottom:
-        4px solid var(--red);
+    border-bottom: 4px solid var(--red);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
     box-shadow:
-        0 5px 24px rgba(0,29,62,.10);
+        0 5px 22px
+        rgba(0, 24, 54, 0.19);
 }
 
-
 .topbar-inner {
-
     max-width: 1280px;
-
     height: 100%;
 
     margin: 0 auto;
-
     padding: 0 28px;
 
     display: flex;
-
     align-items: center;
-
-    gap: 35px;
+    gap: 34px;
 }
 
 
@@ -158,22 +138,15 @@ a {
 ========================================================= */
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
-    gap: 13px;
-
+    gap: 12px;
     min-width: max-content;
 }
 
-
 .brand-logo {
-
-    width: 54px;
-
-    height: 54px;
+    width: 48px;
+    height: 48px;
 
     border-radius: 50%;
 
@@ -181,109 +154,60 @@ a {
 
     border:
         2px solid
-        var(--red);
+        rgba(255,255,255,0.9);
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
 
     box-shadow:
-        0 5px 14px rgba(227,24,55,.16);
-
-    position: relative;
+        0 4px 12px
+        rgba(0,0,0,0.2);
 }
 
-
 .brand-logo img {
-
-    width: 91%;
-
-    height: 91%;
-
+    width: 88%;
+    height: 88%;
     object-fit: contain;
 }
 
-
 .logo-fallback {
+    color: var(--red);
 
-    color:
-        var(--red);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:
-        38px;
-
-    font-weight:
-        900;
-
-    font-style:
-        italic;
-
-    transform:
-        skewX(-8deg);
+    font-family: Georgia, serif;
+    font-size: 27px;
+    font-weight: 900;
+    font-style: italic;
 }
 
-
 .brand-copy {
-
     display: flex;
-
     flex-direction: column;
-
     line-height: 1;
 }
 
-
 .brand-name {
+    color: white;
 
-    color:
-        var(--red);
+    font-size: 20px;
+    font-weight: 900;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:
-        24px;
-
-    font-weight:
-        900;
-
-    font-style:
-        italic;
-
-    letter-spacing:
-        -1px;
+    letter-spacing: -0.7px;
 }
 
-
 .brand-label {
-
     margin-top: 6px;
 
     color:
-        var(--navy);
+        rgba(255,255,255,0.58);
 
-    font-size:
-        8px;
+    font-size: 8px;
+    font-weight: 850;
 
-    font-weight:
-        900;
-
-    letter-spacing:
-        2px;
-
-    text-transform:
-        uppercase;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
 }
 
 
@@ -292,55 +216,42 @@ a {
 ========================================================= */
 
 .desktop-nav {
-
     height: 100%;
 
     display: flex;
-
     align-items: center;
 
-    gap: 2px;
+    gap: 3px;
 }
 
-
 .nav-item {
-
     height: 100%;
 
     padding: 0 15px;
 
     border: none;
-
     background: transparent;
 
     color:
-        var(--gray-500);
+        rgba(255,255,255,0.58);
 
-    font-size:
-        12px;
-
-    font-weight:
-        850;
+    font-size: 13px;
+    font-weight: 800;
 
     cursor: pointer;
 
     position: relative;
 
-    transition:
-        color .2s ease;
+    transition: color .2s ease;
 }
 
-
 .nav-item::after {
-
     content: "";
 
     position: absolute;
 
-    left: 13px;
-
-    right: 13px;
-
+    left: 14px;
+    right: 14px;
     bottom: -4px;
 
     height: 4px;
@@ -348,78 +259,59 @@ a {
     border-radius:
         999px 999px 0 0;
 
-    background:
-        var(--red);
+    background: var(--red);
 
-    transform:
-        scaleX(0);
+    transform: scaleX(0);
 
     transition:
         transform .2s ease;
 }
 
-
 .nav-item:hover,
 .nav-item.active {
-
-    color:
-        var(--red);
+    color: white;
 }
-
 
 .nav-item.active::after {
-
-    transform:
-        scaleX(1);
+    transform: scaleX(1);
 }
-
 
 .header-spacer {
     flex: 1;
 }
 
-
 .header-icon {
-
-    width: 41px;
-
-    height: 41px;
+    width: 39px;
+    height: 39px;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        rgba(255,255,255,0.22);
 
     border-radius: 50%;
 
     background:
-        white;
+        rgba(255,255,255,0.06);
 
-    color:
-        var(--navy);
+    color: white;
 
     cursor: pointer;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    font-size: 16px;
+    font-size: 15px;
 
     transition: .2s ease;
 }
 
-
 .header-icon:hover {
+    background:
+        rgba(255,255,255,0.14);
 
     border-color:
-        var(--red);
-
-    color:
-        var(--red);
-
-    transform:
-        rotate(12deg);
+        rgba(255,255,255,0.4);
 }
 
 
@@ -428,7 +320,6 @@ a {
 ========================================================= */
 
 .page {
-
     max-width: 1280px;
 
     margin: 0 auto;
@@ -443,104 +334,81 @@ a {
 ========================================================= */
 
 .page-header {
-
     display: flex;
 
     justify-content: space-between;
-
     align-items: flex-end;
 
     margin-bottom: 25px;
 }
 
-
 .page-kicker {
-
     display: flex;
 
     align-items: center;
-
     gap: 9px;
 
     margin-bottom: 9px;
 
-    color:
-        var(--red);
+    color: var(--red);
 
-    font-size:
-        10px;
+    font-size: 10px;
+    font-weight: 900;
 
-    font-weight:
-        900;
-
-    letter-spacing:
-        1.7px;
-
-    text-transform:
-        uppercase;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
 }
 
-
 .kicker-line {
-
     width: 28px;
-
     height: 4px;
 
     border-radius: 999px;
 
-    background:
-        var(--red);
+    background: var(--red);
 }
-
 
 .page-title {
-
     margin: 0;
 
-    color:
-        var(--navy-dark);
+    color: var(--navy-dark);
 
-    font-size:
-        38px;
+    font-size: 38px;
+    line-height: 1;
 
-    line-height:
-        1;
+    letter-spacing: -1.8px;
 
-    letter-spacing:
-        -1.8px;
-
-    font-weight:
-        900;
+    font-weight: 900;
 }
-
 
 .page-description {
+    margin: 10px 0 0;
 
-    margin:
-        10px 0 0;
+    color: var(--gray-600);
 
-    color:
-        var(--gray-600);
+    font-size: 13px;
+}
 
-    font-size:
-        13px;
+.today-label {
+    color: var(--gray-500);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
 }
 
 
-.today-label {
+/* =========================================================
+   VIEW SYSTEM
+========================================================= */
 
-    color:
-        var(--gray-500);
+.page-view {
+    display: none;
+}
 
-    font-size:
-        11px;
-
-    font-weight:
-        750;
-
-    white-space:
-        nowrap;
+.page-view.active {
+    display: block;
 }
 
 
@@ -549,15 +417,15 @@ a {
 ========================================================= */
 
 .filter-panel {
-
-    background:
-        white;
+    background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
     border-top:
-        4px solid var(--red);
+        4px solid
+        var(--navy);
 
     border-radius:
         var(--radius);
@@ -568,81 +436,53 @@ a {
     padding:
         18px 20px 20px;
 
-    margin-bottom:
-        22px;
+    margin-bottom: 22px;
 }
-
 
 .filter-title {
-
     display: flex;
-
     align-items: center;
-
     gap: 8px;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
-    font-size:
-        10px;
+    font-size: 10px;
+    font-weight: 900;
 
-    font-weight:
-        900;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
 
-    letter-spacing:
-        1.3px;
-
-    text-transform:
-        uppercase;
-
-    margin-bottom:
-        16px;
+    margin-bottom: 16px;
 }
 
-
 .filter-title::before {
-
     content: "";
 
     width: 5px;
-
     height: 16px;
 
     border-radius: 999px;
 
-    background:
-        var(--red);
+    background: var(--red);
 }
 
-
 .filter-row {
-
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(3, 1fr);
 
     gap: 12px;
 }
 
-
-.filter-field {
-    min-width: 0;
-}
-
-
 .filter-label {
-
     display: block;
 
     margin-bottom: 7px;
 
-    color:
-        var(--gray-600);
+    color: var(--gray-600);
 
     font-size: 9px;
-
     font-weight: 850;
 
     letter-spacing: .7px;
@@ -650,90 +490,67 @@ a {
     text-transform: uppercase;
 }
 
-
 .select-wrap {
     position: relative;
 }
 
-
 .select-wrap::after {
-
     content: "⌄";
 
     position: absolute;
 
     right: 14px;
-
     top: 50%;
 
     transform:
         translateY(-55%);
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 17px;
-
     font-weight: 900;
 
     pointer-events: none;
 }
 
-
 .filter-select {
-
     width: 100%;
-
     height: 44px;
 
     appearance: none;
-
     -webkit-appearance: none;
 
-    background:
-        var(--gray-100);
+    background: var(--gray-100);
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
     padding:
         0 40px 0 13px;
 
-    color:
-        var(--navy-dark);
+    color: var(--navy-dark);
 
-    font-size:
-        12px;
-
-    font-weight:
-        800;
+    font-size: 12px;
+    font-weight: 800;
 
     cursor: pointer;
-
     outline: none;
 
     transition: .2s ease;
 }
 
-
 .filter-select:hover {
-
     background: white;
-
-    border-color:
-        var(--gray-300);
+    border-color: var(--gray-300);
 }
 
-
 .filter-select:focus {
-
     background: white;
 
-    border-color:
-        var(--red);
+    border-color: var(--red);
 
     box-shadow:
         0 0 0 3px
@@ -742,15 +559,14 @@ a {
 
 
 /* =========================================================
-   CONTENT
+   NEWS CONTENT
 ========================================================= */
 
 .content-grid {
-
     display: grid;
 
     grid-template-columns:
-        minmax(0,1fr)
+        minmax(0, 1fr)
         292px;
 
     gap: 22px;
@@ -758,83 +574,50 @@ a {
     align-items: start;
 }
 
-
-/* =========================================================
-   NEWS HEADER
-========================================================= */
-
 .news-section-header {
-
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     margin:
         0 2px 11px;
 }
 
-
 .news-section-title {
-
     display: flex;
 
     align-items: center;
-
     gap: 8px;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
-    font-size:
-        12px;
+    font-size: 12px;
+    font-weight: 900;
 
-    font-weight:
-        900;
-
-    letter-spacing:
-        .7px;
-
-    text-transform:
-        uppercase;
+    letter-spacing: .7px;
+    text-transform: uppercase;
 }
 
-
 .news-section-title::before {
-
     content: "";
 
     width: 5px;
-
     height: 17px;
 
     border-radius: 999px;
 
-    background:
-        var(--red);
+    background: var(--red);
 }
-
 
 .article-count {
+    color: var(--gray-500);
 
-    color:
-        var(--gray-500);
-
-    font-size:
-        11px;
-
-    font-weight:
-        700;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-
-/* =========================================================
-   NEWS LIST
-========================================================= */
-
 .news-list {
-
     display: flex;
 
     flex-direction: column;
@@ -848,16 +631,15 @@ a {
 ========================================================= */
 
 .article-card {
-
     position: relative;
 
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius:
-        var(--radius);
+    border-radius: var(--radius);
 
     padding:
         19px 59px 17px 21px;
@@ -876,31 +658,47 @@ a {
 }
 
 
-.article-card::before {
+/*
+    未読 = Phillies Red
+*/
 
+.article-card::before {
     content: "";
 
     position: absolute;
 
     left: 0;
-
     top: 0;
-
     bottom: 0;
 
     width: 5px;
 
-    background:
-        var(--red);
+    background: var(--red);
 
-    opacity: 0;
+    opacity: 1;
 
     transition: opacity .18s ease;
 }
 
 
-.article-card:hover {
+/*
+    既読 = グレー
+*/
 
+.article-card.read {
+    background: #fafbfc;
+}
+
+.article-card.read::before {
+    background: var(--gray-300);
+}
+
+
+/*
+    hover
+*/
+
+.article-card:hover {
     transform:
         translateY(-2px);
 
@@ -911,83 +709,62 @@ a {
         #ccd3dc;
 }
 
-
-.article-card:hover::before {
-    opacity: 1;
+.article-card.read:hover::before {
+    background: var(--gray-400);
 }
 
 
-.article-card.read {
-    background: #fafbfc;
-}
-
-
-.article-card.read::before {
-    background: var(--gray-300);
-}
-
+/* =========================================================
+   ARTICLE TOP
+========================================================= */
 
 .article-top {
-
     display: flex;
 
     align-items: center;
-
     gap: 7px;
 
     margin-bottom: 9px;
 }
 
-
 .source {
-
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 10px;
-
     font-weight: 900;
 
     letter-spacing: .5px;
-
     text-transform: uppercase;
 }
 
-
 .source-dot {
-
     width: 3px;
-
     height: 3px;
 
     border-radius: 50%;
 
-    background:
-        var(--gray-400);
+    background: var(--gray-400);
 }
 
-
 .article-type {
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 10px;
-
     font-weight: 650;
 }
 
 
-.favorite-button {
+/* =========================================================
+   FAVORITE
+========================================================= */
 
+.favorite-button {
     position: absolute;
 
     top: 15px;
-
     right: 14px;
 
     width: 38px;
-
     height: 38px;
 
     border: none;
@@ -996,15 +773,12 @@ a {
 
     background: transparent;
 
-    color:
-        var(--gray-400);
+    color: var(--gray-400);
 
     cursor: pointer;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 22px;
@@ -1012,34 +786,29 @@ a {
     transition: .18s ease;
 }
 
-
 .favorite-button:hover {
+    background: var(--red-soft);
 
-    background:
-        var(--red-soft);
+    color: var(--red);
 
-    color:
-        var(--red);
-
-    transform:
-        scale(1.07);
+    transform: scale(1.07);
 }
-
 
 .favorite-button.favorite {
     color: var(--red);
 }
 
 
-.article-title {
+/* =========================================================
+   ARTICLE TEXT
+========================================================= */
 
+.article-title {
     margin: 0;
 
-    color:
-        var(--black);
+    color: var(--black);
 
     font-size: 18px;
-
     line-height: 1.4;
 
     letter-spacing: -.35px;
@@ -1047,28 +816,21 @@ a {
     font-weight: 820;
 }
 
-
 .article-card.read .article-title {
     color: var(--gray-700);
 }
 
-
 .article-japanese {
-
     margin:
         7px 0 15px;
 
-    color:
-        var(--gray-600);
+    color: var(--gray-600);
 
     font-size: 12px;
-
     line-height: 1.55;
 }
 
-
 .article-bottom {
-
     display: flex;
 
     align-items: center;
@@ -1076,52 +838,37 @@ a {
     gap: 8px;
 }
 
-
 .article-date {
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 10px;
-
     font-weight: 650;
 }
-
 
 .meta-separator {
     color: var(--gray-300);
 }
 
-
 .status {
-
     display: inline-flex;
 
     align-items: center;
-
     gap: 5px;
 
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 10px;
-
     font-weight: 750;
 }
 
-
 .status-indicator {
-
     width: 6px;
-
     height: 6px;
 
     border-radius: 50%;
 
-    background:
-        var(--red);
+    background: var(--red);
 }
-
 
 .article-card.read .status-indicator {
     background: var(--gray-300);
@@ -1133,10 +880,9 @@ a {
 ========================================================= */
 
 .sidebar {
-
     position: sticky;
 
-    top: 100px;
+    top: 96px;
 
     display: flex;
 
@@ -1145,46 +891,35 @@ a {
     gap: 12px;
 }
 
-
 .side-card {
-
-    background:
-        white;
+    background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius:
-        var(--radius);
+    border-radius: var(--radius);
 
     padding: 18px;
 
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 }
 
-
 .side-heading {
-
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     margin-bottom: 15px;
 }
 
-
 .side-title {
-
     margin: 0;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 12px;
-
     font-weight: 900;
 
     letter-spacing: .7px;
@@ -1192,79 +927,63 @@ a {
     text-transform: uppercase;
 }
 
-
 .side-title-mark {
-
     width: 27px;
-
     height: 4px;
 
     border-radius: 999px;
 
-    background:
-        var(--red);
+    background: var(--red);
 }
 
 
 /* =========================================================
-   STATS
+   FEED STATS
 ========================================================= */
 
 .stat-grid {
-
     display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
     gap: 6px;
 }
 
-
 .stat {
-
-    background:
-        var(--navy-soft);
+    background: var(--navy-soft);
 
     border-radius: 9px;
 
-    padding: 11px 4px;
+    padding:
+        11px 4px;
 
     text-align: center;
 }
 
-
 .stat-number {
-
     display: block;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 18px;
-
     font-weight: 900;
 
     line-height: 1;
 }
 
-
 .stat-number.red {
     color: var(--red);
 }
 
-
 .stat-label {
-
     display: block;
 
     margin-top: 6px;
 
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 8px;
-
     font-weight: 800;
 
     letter-spacing: .5px;
@@ -1274,88 +993,61 @@ a {
 
 
 /* =========================================================
-   GAMES PAGE
+   GAMES VIEW
 ========================================================= */
 
-.game-page {
-
-    display: none;
+.games-header {
+    margin-bottom: 22px;
 }
 
+.games-kicker {
+    display: flex;
 
-.game-page.active {
-    display: block;
-}
+    align-items: center;
+    gap: 9px;
 
+    margin-bottom: 9px;
 
-.game-hero {
+    color: var(--red);
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--red) 0%,
-            var(--red-dark) 58%,
-            #a80d28 100%
-        );
-
-    color: white;
-
-    border-radius:
-        var(--radius);
-
-    padding: 25px;
-
-    box-shadow:
-        0 10px 30px rgba(227,24,55,.18);
-
-    margin-bottom: 18px;
-}
-
-
-.game-hero-label {
-
-    font-size: 9px;
-
+    font-size: 10px;
     font-weight: 900;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
 
     text-transform: uppercase;
-
-    opacity: .72;
 }
 
+.games-kicker::before {
+    content: "";
 
-.game-hero-title {
+    width: 28px;
+    height: 4px;
 
-    margin:
-        7px 0 0;
+    border-radius: 999px;
 
-    font-size: 27px;
+    background: var(--red);
+}
+
+.games-title {
+    margin: 0;
+
+    color: var(--navy-dark);
+
+    font-size: 38px;
+    line-height: 1;
+
+    letter-spacing: -1.8px;
 
     font-weight: 900;
 }
 
+.games-description {
+    margin: 10px 0 0;
 
-.game-hero-sub {
+    color: var(--gray-600);
 
-    margin-top: 5px;
-
-    font-size: 11px;
-
-    opacity: .78;
-}
-
-
-.game-layout {
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0,1fr)
-        390px;
-
-    gap: 18px;
+    font-size: 13px;
 }
 
 
@@ -1363,120 +1055,58 @@ a {
    NEXT GAME
 ========================================================= */
 
-.next-game {
+.next-game-card {
+    position: relative;
 
     background:
-        var(--navy-deep);
+        linear-gradient(
+            135deg,
+            var(--navy-dark),
+            var(--navy)
+        );
 
     color: white;
 
-    border-radius:
-        var(--radius);
+    border-radius: var(--radius);
 
-    padding: 22px;
-
-    box-shadow:
-        var(--shadow);
+    padding: 24px;
 
     margin-bottom: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 28px
+        rgba(0,45,98,.18);
 }
 
+.next-game-card::after {
+    content: "⚾";
+
+    position: absolute;
+
+    right: 24px;
+    bottom: -13px;
+
+    font-size: 92px;
+
+    opacity: .07;
+}
 
 .next-game-label {
-
     color:
         rgba(255,255,255,.55);
 
     font-size: 9px;
+    font-weight: 900;
 
-    font-weight: 850;
-
-    letter-spacing: 1.2px;
+    letter-spacing: 1.4px;
 
     text-transform: uppercase;
 }
 
-
-.next-game-matchup {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        auto
-        1fr;
-
-    align-items: center;
-
-    gap: 14px;
-
-    margin-top: 18px;
-}
-
-
-.team {
-
-    text-align: center;
-}
-
-
-.team-name {
-
-    font-size: 18px;
-
-    font-weight: 900;
-}
-
-
-.team-abbr {
-
-    margin-top: 4px;
-
-    color:
-        rgba(255,255,255,.55);
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-}
-
-
-.vs {
-
-    width: 38px;
-
-    height: 38px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,255,255,.10);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 10px;
-
-    font-weight: 900;
-}
-
-
-.next-game-time {
-
-    margin-top: 17px;
-
-    padding-top: 14px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.10);
-
-    text-align: center;
+.next-game-date {
+    margin-top: 5px;
 
     color:
         rgba(255,255,255,.72);
@@ -1484,161 +1114,230 @@ a {
     font-size: 11px;
 }
 
-
-/* =========================================================
-   RECENT RESULTS
-========================================================= */
-
-.panel {
-
-    background: white;
-
-    border:
-        1px solid var(--gray-200);
-
-    border-radius:
-        var(--radius);
-
-    padding: 19px;
-
-    box-shadow:
-        var(--shadow);
-}
-
-
-.panel-heading {
+.matchup {
+    margin-top: 18px;
 
     display: flex;
-
-    justify-content: space-between;
 
     align-items: center;
 
-    margin-bottom: 14px;
+    justify-content: space-between;
+
+    max-width: 650px;
 }
 
+.team-block {
+    display: flex;
 
-.panel-title {
+    align-items: center;
 
-    margin: 0;
-
-    color:
-        var(--navy);
-
-    font-size: 12px;
-
-    font-weight: 900;
-
-    letter-spacing: .7px;
-
-    text-transform: uppercase;
+    gap: 13px;
 }
 
+.team-logo-placeholder {
+    width: 54px;
+    height: 54px;
 
-.panel-mark {
+    border-radius: 50%;
 
-    width: 25px;
-
-    height: 4px;
-
-    background:
-        var(--red);
-
-    border-radius: 999px;
-}
-
-
-.result-list {
+    background: white;
 
     display: flex;
 
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--red);
+
+    font-family: Georgia, serif;
+
+    font-size: 27px;
+    font-weight: 900;
+
+    font-style: italic;
+}
+
+.team-logo-placeholder.opponent {
+    color: var(--navy);
+
+    background:
+        rgba(255,255,255,.92);
+}
+
+.team-name {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.team-sub {
+    margin-top: 3px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 10px;
+}
+
+.vs {
+    color:
+        rgba(255,255,255,.35);
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.game-meta {
+    margin-top: 20px;
+
+    display: flex;
+
+    gap: 16px;
+
+    color:
+        rgba(255,255,255,.68);
+
+    font-size: 11px;
 }
 
 
-.result {
+/* =========================================================
+   GAME GRID
+========================================================= */
 
+.games-grid {
     display: grid;
 
     grid-template-columns:
-        58px
-        1fr
+        minmax(0, 1.15fr)
+        minmax(0, .85fr);
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   RECENT GAMES
+========================================================= */
+
+.game-list-card,
+.standings-card-large {
+    background: white;
+
+    border:
+        1px solid
+        var(--gray-200);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+}
+
+.game-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.result-row {
+    display: grid;
+
+    grid-template-columns:
+        72px
+        minmax(0,1fr)
         auto;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 12px;
 
-    padding: 12px 0;
+    padding:
+        12px 10px;
 
-    border-bottom:
-        1px solid var(--gray-100);
+    border-radius: 10px;
+
+    background: var(--gray-100);
 }
-
-
-.result:last-child {
-    border-bottom: none;
-}
-
 
 .result-date {
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 9px;
-
     font-weight: 750;
 }
 
-
 .result-opponent {
+    color: var(--navy);
 
-    color:
-        var(--gray-700);
-
-    font-size: 11px;
-
-    font-weight: 800;
+    font-size: 12px;
+    font-weight: 850;
 }
 
-
 .result-score {
+    display: flex;
 
-    font-size: 15px;
+    align-items: center;
 
+    gap: 7px;
+
+    font-size: 13px;
     font-weight: 900;
 }
 
-
-.result.win .result-score {
-    color: #18864b;
+.result-win {
+    color: #16803a;
 }
 
-
-.result.loss .result-score {
+.result-loss {
     color: var(--red);
+}
+
+.result-mark {
+    width: 23px;
+    height: 23px;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.result-mark.win {
+    background: #16803a;
+}
+
+.result-mark.loss {
+    background: var(--red);
 }
 
 
 /* =========================================================
-   STANDINGS
+   STANDINGS LARGE
 ========================================================= */
 
-.standings-table {
-
+.standings-table-large {
     width: 100%;
 
     border-collapse: collapse;
 }
 
+.standings-table-large th {
+    padding:
+        7px 5px;
 
-.standings-table th {
-
-    padding: 8px 5px;
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 8px;
 
@@ -1651,22 +1350,25 @@ a {
     text-transform: uppercase;
 
     border-bottom:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 }
 
-
-.standings-table th:first-child,
-.standings-table th:nth-child(2) {
+.standings-table-large th:first-child,
+.standings-table-large td:first-child {
     text-align: left;
 }
 
+.standings-table-large th:nth-child(2),
+.standings-table-large td:nth-child(2) {
+    text-align: left;
+}
 
-.standings-table td {
+.standings-table-large td {
+    padding:
+        11px 5px;
 
-    padding: 10px 5px;
-
-    color:
-        var(--gray-700);
+    color: var(--gray-700);
 
     font-size: 10px;
 
@@ -1675,138 +1377,92 @@ a {
     text-align: center;
 
     border-bottom:
-        1px solid var(--gray-100);
+        1px solid
+        var(--gray-100);
 }
 
-
-.standings-table td:first-child {
-
-    color:
-        var(--gray-500);
-
-    text-align: left;
-}
-
-
-.standings-table td:nth-child(2) {
-
-    color:
-        var(--navy);
-
-    font-weight: 850;
-
-    text-align: left;
-}
-
-
-.standings-table tr.phillies {
-
-    background:
-        var(--red-soft);
-}
-
-
-.standings-table tr.phillies td {
-
-    color:
-        var(--navy);
+.standings-table-large td:nth-child(2) {
+    color: var(--navy);
 
     font-weight: 850;
 }
 
+.standings-table-large tr.phillies {
+    background: var(--red-soft);
+}
 
-.standings-table tr.phillies td:first-child {
+.standings-table-large tr.phillies td {
+    color: var(--navy);
+
+    font-weight: 850;
+}
+
+.standings-table-large tr.phillies td:first-child {
     color: var(--red);
 }
 
-
-.standings-table tr:last-child td {
+.standings-table-large tr:last-child td {
     border-bottom: none;
 }
 
 
 /* =========================================================
-   OTHER PAGES
+   PLACEHOLDER
 ========================================================= */
 
-.placeholder-page {
-
-    display: none;
-
+.placeholder-card {
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius:
-        var(--radius);
+    border-radius: var(--radius);
 
-    padding: 55px 25px;
+    padding: 70px 25px;
 
     text-align: center;
 
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 }
-
-
-.placeholder-page.active {
-    display: block;
-}
-
 
 .placeholder-icon {
+    width: 58px;
+    height: 58px;
 
-    width: 60px;
-
-    height: 60px;
-
-    margin: 0 auto 15px;
+    margin:
+        0 auto 15px;
 
     border-radius: 50%;
 
-    background:
-        var(--red-soft);
+    background: var(--red-soft);
 
-    color:
-        var(--red);
+    color: var(--red);
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-size: 25px;
 }
 
-
 .placeholder-title {
-
     margin: 0;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 18px;
 
     font-weight: 900;
 }
 
+.placeholder-description {
+    margin: 8px 0 0;
 
-.placeholder-text {
-
-    margin:
-        8px auto 0;
-
-    max-width: 480px;
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 11px;
-
-    line-height: 1.6;
 }
 
 
@@ -1815,25 +1471,21 @@ a {
 ========================================================= */
 
 .empty {
-
     background: white;
 
     border:
-        1px solid var(--gray-200);
+        1px solid
+        var(--gray-200);
 
-    border-radius:
-        var(--radius);
+    border-radius: var(--radius);
 
     padding: 65px 20px;
 
     text-align: center;
 }
 
-
 .empty-icon {
-
     width: 50px;
-
     height: 50px;
 
     margin:
@@ -1841,42 +1493,32 @@ a {
 
     border-radius: 50%;
 
-    background:
-        var(--red-soft);
+    background: var(--red-soft);
 
-    color:
-        var(--red);
+    color: var(--red);
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-size: 22px;
 }
 
-
 .empty-title {
-
     margin: 0;
 
-    color:
-        var(--navy);
+    color: var(--navy);
 
     font-size: 15px;
 
     font-weight: 850;
 }
 
-
 .empty-description {
+    margin: 7px 0 0;
 
-    margin:
-        7px 0 0;
-
-    color:
-        var(--gray-500);
+    color: var(--gray-500);
 
     font-size: 11px;
 }
@@ -1887,7 +1529,6 @@ a {
 ========================================================= */
 
 .mobile-nav {
-
     display: none;
 }
 
@@ -1896,7 +1537,7 @@ a {
    TABLET
 ========================================================= */
 
-@media (max-width:1050px) {
+@media (max-width: 1050px) {
 
     .topbar-inner {
         gap: 20px;
@@ -1907,8 +1548,8 @@ a {
     }
 
     .nav-item::after {
-        left: 8px;
-        right: 8px;
+        left: 9px;
+        right: 9px;
     }
 
     .content-grid {
@@ -1917,11 +1558,9 @@ a {
             255px;
     }
 
-    .game-layout {
-        grid-template-columns:
-            1fr;
+    .games-grid {
+        grid-template-columns: 1fr;
     }
-
 }
 
 
@@ -1929,10 +1568,9 @@ a {
    MOBILE
 ========================================================= */
 
-@media (max-width:850px) {
+@media (max-width: 850px) {
 
     body {
-
         padding-bottom:
             calc(
                 74px +
@@ -1940,101 +1578,94 @@ a {
             );
     }
 
-
     .topbar {
-
-        height: 67px;
+        height: 64px;
 
         border-bottom-width: 3px;
     }
 
-
     .topbar-inner {
-
         padding: 0 14px;
-
         gap: 0;
     }
 
-
     .brand {
-        gap: 9px;
+        gap: 10px;
     }
-
 
     .brand-logo {
-
-        width: 42px;
-
-        height: 42px;
+        width: 40px;
+        height: 40px;
     }
-
 
     .brand-name {
-        font-size: 19px;
+        font-size: 18px;
     }
-
 
     .brand-label {
-        font-size: 6.5px;
+        font-size: 7px;
+        letter-spacing: 1.4px;
     }
-
 
     .desktop-nav {
         display: none;
     }
 
-
     .header-icon {
-
         width: 36px;
-
         height: 36px;
 
         margin-left: auto;
     }
 
-
     .page {
-
         padding:
             25px 13px 35px;
     }
 
-
     .page-header {
+        align-items: flex-start;
 
-        align-items:
-            flex-start;
-
-        margin-bottom:
-            19px;
+        margin-bottom: 19px;
     }
 
+    .page-kicker {
+        font-size: 9px;
+
+        letter-spacing: 1.3px;
+
+        margin-bottom: 8px;
+    }
+
+    .kicker-line {
+        width: 22px;
+        height: 3px;
+    }
 
     .page-title {
-
         font-size: 30px;
+
+        letter-spacing: -1.4px;
     }
 
-
     .page-description {
+        max-width: 280px;
 
-        max-width: 290px;
+        margin-top: 8px;
 
         font-size: 11px;
 
         line-height: 1.5;
     }
 
-
     .today-label {
         display: none;
     }
 
 
-    .filter-panel {
+    /* FILTER */
 
+    .filter-panel {
         padding: 16px;
 
         border-top-width: 3px;
@@ -2042,124 +1673,212 @@ a {
         margin-bottom: 20px;
     }
 
+    .filter-title {
+        margin-bottom: 13px;
+    }
 
     .filter-row {
-
         grid-template-columns: 1fr;
-
         gap: 11px;
     }
 
+    .filter-label {
+        margin-bottom: 6px;
+        font-size: 8px;
+    }
 
     .filter-select {
-
         height: 46px;
 
         border-radius: 11px;
+
+        font-size: 12px;
     }
 
+
+    /* NEWS */
 
     .content-grid {
         display: block;
     }
 
-
     .sidebar {
         display: none;
     }
 
+    .news-section-header {
+        margin-bottom: 9px;
+    }
+
+    .news-section-title {
+        font-size: 11px;
+    }
+
+    .article-count {
+        font-size: 10px;
+    }
+
+    .news-list {
+        gap: 8px;
+    }
 
     .article-card {
-
         border-radius: 13px;
 
         padding:
             16px 52px 15px 17px;
     }
 
+    .article-card::before {
+        width: 4px;
+    }
+
+    .article-top {
+        margin-bottom: 8px;
+    }
+
+    .source,
+    .article-type {
+        font-size: 9px;
+    }
 
     .article-title {
-
         font-size: 15px;
 
         line-height: 1.48;
-    }
 
+        letter-spacing: -.2px;
+    }
 
     .article-japanese {
+        margin:
+            6px 0 12px;
 
         font-size: 10.5px;
+
+        line-height: 1.55;
     }
 
+    .article-date,
+    .status {
+        font-size: 9px;
+    }
 
     .favorite-button {
-
         width: 42px;
-
         height: 42px;
 
         top: 12px;
-
         right: 9px;
+
+        font-size: 22px;
     }
 
 
-    /* GAME */
+    /* GAMES */
 
-    .game-hero {
-
-        padding: 20px;
-
-        border-radius: 14px;
+    .games-header {
+        margin-bottom: 18px;
     }
 
-
-    .game-hero-title {
-        font-size: 23px;
+    .games-kicker {
+        font-size: 9px;
     }
 
+    .games-title {
+        font-size: 30px;
 
-    .game-layout {
-        display: block;
+        letter-spacing: -1.4px;
     }
 
+    .games-description {
+        font-size: 11px;
 
-    .next-game {
+        line-height: 1.5;
+    }
+
+    .next-game-card {
         padding: 19px;
 
-        border-radius: 14px;
+        margin-bottom: 14px;
     }
 
-
-    .panel {
-        padding: 16px;
-
-        border-radius: 14px;
-
-        margin-bottom: 12px;
+    .next-game-date {
+        font-size: 10px;
     }
 
-
-    .next-game-matchup {
-        gap: 8px;
+    .matchup {
+        margin-top: 15px;
     }
 
+    .team-block {
+        gap: 9px;
+    }
+
+    .team-logo-placeholder {
+        width: 43px;
+        height: 43px;
+
+        font-size: 22px;
+    }
 
     .team-name {
-        font-size: 15px;
+        font-size: 16px;
+    }
+
+    .team-sub {
+        font-size: 8px;
+    }
+
+    .vs {
+        font-size: 10px;
+    }
+
+    .game-meta {
+        margin-top: 15px;
+
+        gap: 10px;
+
+        font-size: 9px;
+    }
+
+    .game-list-card,
+    .standings-card-large {
+        padding: 16px;
+    }
+
+    .result-row {
+        grid-template-columns:
+            58px
+            minmax(0,1fr)
+            auto;
+
+        gap: 8px;
+
+        padding:
+            10px 7px;
+    }
+
+    .result-date {
+        font-size: 8px;
+    }
+
+    .result-opponent {
+        font-size: 10px;
+    }
+
+    .result-score {
+        font-size: 11px;
     }
 
 
     /* MOBILE NAV */
 
     .mobile-nav {
-
         position: fixed;
 
         left: 0;
-
         right: 0;
-
         bottom: 0;
 
         height: 74px;
@@ -2171,7 +1890,8 @@ a {
             rgba(255,255,255,.97);
 
         border-top:
-            1px solid var(--gray-200);
+            1px solid
+            var(--gray-200);
 
         box-shadow:
             0 -5px 22px
@@ -2181,16 +1901,11 @@ a {
 
         z-index: 2000;
 
-        backdrop-filter:
-            blur(14px);
-
-        -webkit-backdrop-filter:
-            blur(14px);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
     }
 
-
     .mobile-nav-item {
-
         flex: 1;
 
         height: 100%;
@@ -2199,8 +1914,7 @@ a {
 
         background: transparent;
 
-        color:
-            var(--gray-500);
+        color: var(--gray-500);
 
         display: flex;
 
@@ -2221,9 +1935,7 @@ a {
         position: relative;
     }
 
-
     .mobile-nav-item::before {
-
         content: "";
 
         position: absolute;
@@ -2231,7 +1943,6 @@ a {
         top: 0;
 
         left: 25%;
-
         right: 25%;
 
         height: 3px;
@@ -2239,44 +1950,32 @@ a {
         border-radius:
             0 0 999px 999px;
 
-        background:
-            var(--red);
+        background: var(--red);
 
-        transform:
-            scaleX(0);
+        transform: scaleX(0);
 
         transition:
             transform .2s ease;
     }
 
-
     .mobile-nav-item.active {
-
-        color:
-            var(--navy);
+        color: var(--navy);
     }
-
 
     .mobile-nav-item.active::before {
-
-        transform:
-            scaleX(1);
+        transform: scaleX(1);
     }
 
-
     .mobile-nav-icon {
-
         height: 25px;
 
         display: flex;
 
         align-items: center;
-
         justify-content: center;
 
         font-size: 18px;
     }
-
 }
 
 
@@ -2284,35 +1983,65 @@ a {
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width:420px) {
+@media (max-width: 420px) {
 
     .page {
-
         padding-left: 10px;
-
         padding-right: 10px;
     }
 
-
-    .page-title {
+    .page-title,
+    .games-title {
         font-size: 28px;
     }
 
+    .filter-panel {
+        padding: 14px;
+    }
 
     .article-card {
         padding:
             15px 49px 14px 15px;
     }
 
-
     .article-title {
         font-size: 14px;
     }
 
+    .article-japanese {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   FAVORITE ANIMATION
+========================================================= */
+
+@keyframes favoritePop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.favorite-pop {
+    animation:
+        favoritePop
+        .25s
+        ease;
 }
 
 </style>
-
 </head>
 
 
@@ -2330,7 +2059,7 @@ a {
         <a
             href="#"
             class="brand"
-            onclick="showPage('news'); return false;"
+            onclick="showView('news'); return false;"
         >
 
             <div class="brand-logo">
@@ -2353,7 +2082,6 @@ a {
 
             </div>
 
-
             <div class="brand-copy">
 
                 <div class="brand-name">
@@ -2374,7 +2102,7 @@ a {
             <button
                 class="nav-item active"
                 data-page="news"
-                onclick="showPage('news')"
+                onclick="showView('news')"
             >
                 News
             </button>
@@ -2382,7 +2110,7 @@ a {
             <button
                 class="nav-item"
                 data-page="games"
-                onclick="showPage('games')"
+                onclick="showView('games')"
             >
                 Games
             </button>
@@ -2390,7 +2118,7 @@ a {
             <button
                 class="nav-item"
                 data-page="players"
-                onclick="showPage('players')"
+                onclick="showView('players')"
             >
                 Players
             </button>
@@ -2398,7 +2126,7 @@ a {
             <button
                 class="nav-item"
                 data-page="more"
-                onclick="showPage('more')"
+                onclick="showView('more')"
             >
                 More
             </button>
@@ -2411,10 +2139,10 @@ a {
 
         <button
             class="header-icon"
-            title="Settings"
-            onclick="showPage('more')"
+            title="More"
+            onclick="showView('more')"
         >
-            ⚙
+            ⋯
         </button>
 
     </div>
@@ -2430,12 +2158,12 @@ a {
 
 
 <!-- =========================================================
-     NEWS PAGE
+     NEWS VIEW
 ========================================================= -->
 
-<div
-    id="news-page"
-    class="page-view"
+<section
+    id="news-view"
+    class="page-view active"
 >
 
 
@@ -2461,7 +2189,6 @@ a {
 
         </div>
 
-
         <div class="today-label">
             AUG 10, 2026
         </div>
@@ -2476,7 +2203,6 @@ a {
         <div class="filter-title">
             Filter Articles
         </div>
-
 
         <div class="filter-row">
 
@@ -2602,8 +2328,9 @@ a {
     </section>
 
 
-    <div class="content-grid">
+    <!-- NEWS CONTENT -->
 
+    <div class="content-grid">
 
         <section>
 
@@ -2622,7 +2349,6 @@ a {
 
             </div>
 
-
             <div
                 id="news-list"
                 class="news-list"
@@ -2631,8 +2357,9 @@ a {
         </section>
 
 
-        <aside class="sidebar">
+        <!-- SIDEBAR -->
 
+        <aside class="sidebar">
 
             <section class="side-card">
 
@@ -2645,7 +2372,6 @@ a {
                     <span class="side-title-mark"></span>
 
                 </div>
-
 
                 <div class="stat-grid">
 
@@ -2664,7 +2390,6 @@ a {
 
                     </div>
 
-
                     <div class="stat">
 
                         <span
@@ -2679,7 +2404,6 @@ a {
                         </span>
 
                     </div>
-
 
                     <div class="stat">
 
@@ -2700,124 +2424,71 @@ a {
 
             </section>
 
-
-            <section class="side-card">
-
-                <div class="side-heading">
-
-                    <h2 class="side-title">
-                        Next Game
-                    </h2>
-
-                    <span class="side-title-mark"></span>
-
-                </div>
-
-                <div
-                    style="
-                    color:var(--navy);
-                    font-size:20px;
-                    font-weight:900;
-                    "
-                >
-                    Phillies
-                </div>
-
-                <div
-                    style="
-                    margin-top:5px;
-                    color:var(--gray-500);
-                    font-size:10px;
-                    "
-                >
-                    See full game information in Games
-                </div>
-
-            </section>
-
         </aside>
 
     </div>
 
-</div>
+</section>
 
 
 <!-- =========================================================
-     GAMES PAGE
+     GAMES VIEW
 ========================================================= -->
 
-<div
-    id="games-page"
-    class="game-page"
+<section
+    id="games-view"
+    class="page-view"
 >
 
 
-    <section class="page-header">
+    <div class="games-header">
 
-        <div>
-
-            <div class="page-kicker">
-
-                <span class="kicker-line"></span>
-
-                Philadelphia Phillies
-
-            </div>
-
-            <h1 class="page-title">
-                Games
-            </h1>
-
-            <p class="page-description">
-                Schedule, recent results and NL East standings.
-            </p>
-
+        <div class="games-kicker">
+            Philadelphia Phillies
         </div>
 
+        <h1 class="games-title">
+            Phillies Games
+        </h1>
 
-        <div class="today-label">
-            AUG 10, 2026
-        </div>
+        <p class="games-description">
+            Schedule, recent results and NL East standings.
+        </p>
 
-    </section>
-
-
-    <section class="game-hero">
-
-        <div class="game-hero-label">
-            Phillies Baseball
-        </div>
-
-        <div class="game-hero-title">
-            Game Center
-        </div>
-
-        <div class="game-hero-sub">
-            Upcoming game, recent results and division standings.
-        </div>
-
-    </section>
+    </div>
 
 
     <!-- NEXT GAME -->
 
-    <section class="next-game">
+    <section class="next-game-card">
 
         <div class="next-game-label">
             Next Game
         </div>
 
+        <div class="next-game-date">
+            Upcoming Game
+        </div>
 
-        <div class="next-game-matchup">
 
-            <div class="team">
+        <div class="matchup">
 
-                <div class="team-name">
-                    Phillies
+            <div class="team-block">
+
+                <div class="team-logo-placeholder">
+                    P
                 </div>
 
-                <div class="team-abbr">
-                    PHI
+                <div>
+
+                    <div class="team-name">
+                        Phillies
+                    </div>
+
+                    <div class="team-sub">
+                        Philadelphia
+                    </div>
+
                 </div>
 
             </div>
@@ -2828,14 +2499,22 @@ a {
             </div>
 
 
-            <div class="team">
+            <div class="team-block">
 
-                <div class="team-name">
-                    Opponent
+                <div class="team-logo-placeholder opponent">
+                    ?
                 </div>
 
-                <div class="team-abbr">
-                    TBD
+                <div>
+
+                    <div class="team-name">
+                        TBD
+                    </div>
+
+                    <div class="team-sub">
+                        Opponent
+                    </div>
+
                 </div>
 
             </div>
@@ -2843,114 +2522,145 @@ a {
         </div>
 
 
-        <div class="next-game-time">
-            Game information will appear here
+        <div class="game-meta">
+
+            <span>
+                Game information will appear here
+            </span>
+
         </div>
 
     </section>
 
 
-    <div class="game-layout">
+    <!-- GAMES GRID -->
+
+    <div class="games-grid">
 
 
         <!-- RECENT RESULTS -->
 
-        <section class="panel">
+        <section class="game-list-card">
 
-            <div class="panel-heading">
+            <div class="side-heading">
 
-                <h2 class="panel-title">
+                <h2 class="side-title">
                     Recent Results
                 </h2>
 
-                <span class="panel-mark"></span>
+                <span class="side-title-mark"></span>
 
             </div>
 
 
-            <div class="result-list">
+            <div class="game-list">
 
 
-                <div class="result win">
+                <div class="result-row">
 
                     <div class="result-date">
                         AUG 9
                     </div>
 
                     <div class="result-opponent">
-                        vs Opponent
+                        Phillies vs TBD
                     </div>
 
-                    <div class="result-score">
-                        W
+                    <div class="result-score result-win">
+
+                        <span class="result-mark win">
+                            W
+                        </span>
+
+                        —
                     </div>
 
                 </div>
 
 
-                <div class="result loss">
+                <div class="result-row">
 
                     <div class="result-date">
                         AUG 8
                     </div>
 
                     <div class="result-opponent">
-                        vs Opponent
+                        Phillies vs TBD
                     </div>
 
-                    <div class="result-score">
-                        L
+                    <div class="result-score result-loss">
+
+                        <span class="result-mark loss">
+                            L
+                        </span>
+
+                        —
                     </div>
 
                 </div>
 
 
-                <div class="result win">
+                <div class="result-row">
 
                     <div class="result-date">
                         AUG 7
                     </div>
 
                     <div class="result-opponent">
-                        @ Opponent
+                        Phillies vs TBD
                     </div>
 
-                    <div class="result-score">
-                        W
+                    <div class="result-score result-win">
+
+                        <span class="result-mark win">
+                            W
+                        </span>
+
+                        —
                     </div>
 
                 </div>
 
 
-                <div class="result win">
+                <div class="result-row">
 
                     <div class="result-date">
                         AUG 6
                     </div>
 
                     <div class="result-opponent">
-                        @ Opponent
+                        Phillies vs TBD
                     </div>
 
-                    <div class="result-score">
-                        W
+                    <div class="result-score result-win">
+
+                        <span class="result-mark win">
+                            W
+                        </span>
+
+                        —
                     </div>
 
                 </div>
 
 
-                <div class="result loss">
+                <div class="result-row">
 
                     <div class="result-date">
                         AUG 5
                     </div>
 
                     <div class="result-opponent">
-                        @ Opponent
+                        Phillies vs TBD
                     </div>
 
-                    <div class="result-score">
-                        L
+                    <div class="result-score result-loss">
+
+                        <span class="result-mark loss">
+                            L
+                        </span>
+
+                        —
                     </div>
 
                 </div>
@@ -2962,20 +2672,20 @@ a {
 
         <!-- STANDINGS -->
 
-        <section class="panel">
+        <section class="standings-card-large">
 
-            <div class="panel-heading">
+            <div class="side-heading">
 
-                <h2 class="panel-title">
-                    NL East Standings
+                <h2 class="side-title">
+                    NL East
                 </h2>
 
-                <span class="panel-mark"></span>
+                <span class="side-title-mark"></span>
 
             </div>
 
 
-            <table class="standings-table">
+            <table class="standings-table-large">
 
                 <thead>
 
@@ -3028,7 +2738,6 @@ a {
 
                     </tr>
 
-
                     <tr>
 
                         <td>2</td>
@@ -3044,7 +2753,6 @@ a {
                         <td>6.0</td>
 
                     </tr>
-
 
                     <tr>
 
@@ -3062,7 +2770,6 @@ a {
 
                     </tr>
 
-
                     <tr>
 
                         <td>4</td>
@@ -3078,7 +2785,6 @@ a {
                         <td>16.0</td>
 
                     </tr>
-
 
                     <tr>
 
@@ -3104,72 +2810,97 @@ a {
 
     </div>
 
-</div>
+</section>
 
 
 <!-- =========================================================
-     PLAYERS PAGE
+     PLAYERS VIEW
 ========================================================= -->
 
-<div
-    id="players-page"
-    class="placeholder-page"
+<section
+    id="players-view"
+    class="page-view"
 >
 
-    <div class="placeholder-icon">
-        👤
+    <div class="games-header">
+
+        <div class="games-kicker">
+            Philadelphia Phillies
+        </div>
+
+        <h1 class="games-title">
+            Players
+        </h1>
+
+        <p class="games-description">
+            Player information will be added later.
+        </p>
+
     </div>
 
-    <h2 class="placeholder-title">
-        Players
-    </h2>
 
-    <p class="placeholder-text">
-        Player pages and individual player information will be added here.
-    </p>
+    <div class="placeholder-card">
 
-</div>
+        <div class="placeholder-icon">
+            👤
+        </div>
+
+        <h2 class="placeholder-title">
+            Players
+        </h2>
+
+        <p class="placeholder-description">
+            This section is reserved for future player information.
+        </p>
+
+    </div>
+
+</section>
 
 
 <!-- =========================================================
-     MORE PAGE
+     MORE VIEW
 ========================================================= -->
 
-<div
-    id="more-page"
-    class="placeholder-page"
+<section
+    id="more-view"
+    class="page-view"
 >
 
-    <div class="placeholder-icon">
-        ☰
+    <div class="games-header">
+
+        <div class="games-kicker">
+            Philadelphia Phillies
+        </div>
+
+        <h1 class="games-title">
+            More
+        </h1>
+
+        <p class="games-description">
+            More features will be added here later.
+        </p>
+
     </div>
 
-    <h2 class="placeholder-title">
-        More
-    </h2>
 
-    <p class="placeholder-text">
-        Saved articles, settings and additional Phillies tools will be available here.
-    </p>
+    <div class="placeholder-card">
 
-    <button
-        onclick="setFavoriteFilter('favorite')"
-        style="
-        margin-top:20px;
-        border:none;
-        border-radius:10px;
-        padding:11px 18px;
-        background:var(--red);
-        color:white;
-        font-size:11px;
-        font-weight:850;
-        cursor:pointer;
-        "
-    >
-        ★ Saved Articles
-    </button>
+        <div class="placeholder-icon">
+            ⋯
+        </div>
 
-</div>
+        <h2 class="placeholder-title">
+            More
+        </h2>
+
+        <p class="placeholder-description">
+            This section is intentionally left open for future features.
+        </p>
+
+    </div>
+
+</section>
 
 
 </main>
@@ -3185,7 +2916,7 @@ a {
     <button
         class="mobile-nav-item active"
         data-mobile="news"
-        onclick="showPage('news')"
+        onclick="showView('news')"
     >
 
         <span class="mobile-nav-icon">
@@ -3202,7 +2933,7 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="games"
-        onclick="showPage('games')"
+        onclick="showView('games')"
     >
 
         <span class="mobile-nav-icon">
@@ -3219,7 +2950,7 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="players"
-        onclick="showPage('players')"
+        onclick="showView('players')"
     >
 
         <span class="mobile-nav-icon">
@@ -3236,11 +2967,11 @@ a {
     <button
         class="mobile-nav-item"
         data-mobile="more"
-        onclick="showPage('more')"
+        onclick="showView('more')"
     >
 
         <span class="mobile-nav-icon">
-            ☰
+            ⋯
         </span>
 
         <span>
@@ -3250,6 +2981,7 @@ a {
     </button>
 
 </nav>
+
 
 
 <script>
@@ -3313,6 +3045,28 @@ const articles = [
         url: "https://www.fangraphs.com/teams/phillies",
         read: true,
         favorite: false
+    },
+
+    {
+        id: "demo-006",
+        title: "Five things to watch as the Phillies head into the next series",
+        japanese: "次のシリーズに向けて注目したいフィリーズの5つのポイント",
+        source: "CBS Sports",
+        date: "2026-08-09T13:20:00",
+        url: "https://www.cbssports.com/mlb/teams/PHI/philadelphia-phillies/",
+        read: false,
+        favorite: false
+    },
+
+    {
+        id: "demo-007",
+        title: "Phillies' defense remains a key part of their success",
+        japanese: "フィリーズの守備がチームの成功を支える重要な要素に",
+        source: "ESPN",
+        date: "2026-08-08T22:00:00",
+        url: "https://www.espn.com/mlb/team/_/name/phi/philadelphia-phillies",
+        read: true,
+        favorite: true
     }
 
 ];
@@ -3323,87 +3077,8 @@ const articles = [
 ========================================================= */
 
 let currentPeriod = "all";
-
 let currentStatus = "all";
-
 let currentFavorite = "all";
-
-
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
-
-function showPage(page) {
-
-    const pages = [
-        "news",
-        "games",
-        "players",
-        "more"
-    ];
-
-
-    pages.forEach(name => {
-
-        const element =
-            document.getElementById(
-                `${name}-page`
-            );
-
-        if (!element) {
-            return;
-        }
-
-
-        if (name === "games") {
-
-            element.classList.toggle(
-                "active",
-                page === name
-            );
-
-        } else {
-
-            element.classList.toggle(
-                "active",
-                page === name
-            );
-
-        }
-
-    });
-
-
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(item => {
-
-            item.classList.toggle(
-                "active",
-                item.dataset.page === page
-            );
-
-        });
-
-
-    document
-        .querySelectorAll(".mobile-nav-item")
-        .forEach(item => {
-
-            item.classList.toggle(
-                "active",
-                item.dataset.mobile === page
-            );
-
-        });
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
 
 
 /* =========================================================
@@ -3435,7 +3110,6 @@ function loadSavedState() {
             return;
         }
 
-
         if (
             typeof saved[article.id].read
             !== "undefined"
@@ -3445,7 +3119,6 @@ function loadSavedState() {
                 saved[article.id].read;
 
         }
-
 
         if (
             typeof saved[article.id].favorite
@@ -3549,11 +3222,13 @@ function renderArticles() {
 
     let filtered =
         [...articles].sort(
-            (a,b) =>
+            (a, b) =>
                 new Date(b.date) -
                 new Date(a.date)
         );
 
+
+    /* TIME RANGE */
 
     if (currentPeriod !== "all") {
 
@@ -3580,6 +3255,8 @@ function renderArticles() {
     }
 
 
+    /* STATUS */
+
     if (currentStatus === "unread") {
 
         filtered =
@@ -3602,9 +3279,9 @@ function renderArticles() {
     }
 
 
-    if (
-        currentFavorite === "favorite"
-    ) {
+    /* FAVORITES */
+
+    if (currentFavorite === "favorite") {
 
         filtered =
             filtered.filter(
@@ -3869,6 +3546,11 @@ function setPeriod(period) {
     currentPeriod =
         period;
 
+    document.getElementById(
+        "period-select"
+    ).value =
+        period;
+
     renderArticles();
 
 }
@@ -3879,7 +3561,10 @@ function setStatusFilter(status) {
     currentStatus =
         status;
 
-    showPage("news");
+    document.getElementById(
+        "status-select"
+    ).value =
+        status;
 
     renderArticles();
 
@@ -3891,13 +3576,10 @@ function setFavoriteFilter(value) {
     currentFavorite =
         value;
 
-
-    if (value === "favorite") {
-
-        showPage("news");
-
-    }
-
+    document.getElementById(
+        "favorite-select"
+    ).value =
+        value;
 
     renderArticles();
 
@@ -3949,6 +3631,81 @@ function updateCounts() {
 
 
 /* =========================================================
+   PAGE SWITCHING
+========================================================= */
+
+function showView(view) {
+
+    const views = [
+        "news",
+        "games",
+        "players",
+        "more"
+    ];
+
+
+    views.forEach(name => {
+
+        const element =
+            document.getElementById(
+                `${name}-view`
+            );
+
+
+        if (!element) {
+            return;
+        }
+
+
+        element.classList.toggle(
+            "active",
+            name === view
+        );
+
+    });
+
+
+    /* DESKTOP NAV */
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(item => {
+
+            item.classList.toggle(
+                "active",
+                item.dataset.page === view
+            );
+
+        });
+
+
+    /* MOBILE NAV */
+
+    document
+        .querySelectorAll(
+            ".mobile-nav-item"
+        )
+        .forEach(item => {
+
+            item.classList.toggle(
+                "active",
+                item.dataset.mobile === view
+            );
+
+        });
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
    INITIALIZE
 ========================================================= */
 
@@ -3956,10 +3713,9 @@ loadSavedState();
 
 renderArticles();
 
-showPage("news");
+showView("news");
 
 </script>
 
 </body>
 </html>
-```
