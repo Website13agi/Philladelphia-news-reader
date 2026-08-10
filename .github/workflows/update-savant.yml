@@ -1,106 +1,404 @@
 name: Update Phillies Savant Stats
 
 on:
-  workflow_dispatch:
-
   schedule:
+    # 6時間ごとに更新
     - cron: "15 */6 * * *"
 
+  # GitHub上から手動実行
+  workflow_dispatch:
+
+  # Savant updaterを変更したときにも実行
   push:
     paths:
       - "scripts/update_savant.py"
       - ".github/workflows/update-savant.yml"
+      - "players.json"
 
 permissions:
   contents: write
 
 jobs:
   update-savant:
-    name: Update Baseball Savant
+
     runs-on: ubuntu-latest
 
     steps:
+
+      # =====================================================
+      # CHECKOUT
+      # =====================================================
+
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+
+      # =====================================================
+      # PYTHON
+      # =====================================================
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Verify files
+
+      # =====================================================
+      # CHECK REQUIRED FILES
+      # =====================================================
+
+      - name: Check required files
         run: |
+
           echo "Checking required files..."
 
           if [ ! -f "players.json" ]; then
-            echo "ERROR: players.json not found."
+            echo "ERROR: players.json was not found."
             exit 1
           fi
 
           if [ ! -f "scripts/update_savant.py" ]; then
-            echo "ERROR: scripts/update_savant.py not found."
+            echo "ERROR: scripts/update_savant.py was not found."
             exit 1
           fi
 
           echo "players.json: OK"
-          echo "update_savant.py: OK"
+          echo "scripts/update_savant.py: OK"
 
-      - name: Run Savant updater
+
+      # =====================================================
+      # RUN SAVANT UPDATER
+      # =====================================================
+
+      - name: Update Baseball Savant statistics
         run: |
+
+          echo "=========================================="
+          echo "Running Baseball Savant updater"
+          echo "=========================================="
+
           python scripts/update_savant.py
 
-      - name: Verify savant.json
+
+      # =====================================================
+      # CHECK OUTPUT
+      # =====================================================
+
+      - name: Check savant.json
         run: |
+
+          echo "Checking savant.json..."
+
           if [ ! -f "savant.json" ]; then
             echo "ERROR: savant.json was not created."
             exit 1
           fi
 
+          echo "savant.json found."
+
+
+      # =====================================================
+      # VALIDATE JSON
+      # =====================================================
+
+      - name: Validate savant.json
+        run: |
+
           python - <<'PY'
+
           import json
+          import sys
 
-          with open("savant.json", "r", encoding="utf-8") as f:
-              data = json.load(f)
+          FILE = "savant.json"
 
-          if data.get("source") != "Baseball Savant":
-              raise SystemExit(
-                  "ERROR: savant.json source is not Baseball Savant."
+          print("Loading:", FILE)
+
+          try:
+
+              with open(
+                  FILE,
+                  "r",
+                  encoding="utf-8"
+              ) as f:
+
+                  data = json.load(f)
+
+          except Exception as error:
+
+              print(
+                  "ERROR: savant.json is not valid JSON."
               )
 
-          if "batters" not in data:
-              raise SystemExit(
-                  "ERROR: batters is missing."
+              print(error)
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Root object
+          # -------------------------------------------------
+
+          if not isinstance(data, dict):
+
+              print(
+                  "ERROR: savant.json root must be an object."
               )
 
-          if "pitchers" not in data:
-              raise SystemExit(
-                  "ERROR: pitchers is missing."
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Required fields
+          # -------------------------------------------------
+
+          required_fields = [
+              "team",
+              "teamAbbreviation",
+              "season",
+              "source",
+              "updatedAt",
+              "batters",
+              "pitchers",
+          ]
+
+
+          for field in required_fields:
+
+              if field not in data:
+
+                  print(
+                      f"ERROR: missing field: {field}"
+                  )
+
+                  sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Source
+          # -------------------------------------------------
+
+          if data["source"] != "Baseball Savant":
+
+              print(
+                  "ERROR: source is not Baseball Savant."
               )
 
-          print("================================")
+              print(
+                  "Actual:",
+                  data["source"]
+              )
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Team
+          # -------------------------------------------------
+
+          if data["teamAbbreviation"] != "PHI":
+
+              print(
+                  "ERROR: teamAbbreviation is not PHI."
+              )
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Batters
+          # -------------------------------------------------
+
+          if not isinstance(
+              data["batters"],
+              list
+          ):
+
+              print(
+                  "ERROR: batters must be a list."
+              )
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Pitchers
+          # -------------------------------------------------
+
+          if not isinstance(
+              data["pitchers"],
+              list
+          ):
+
+              print(
+                  "ERROR: pitchers must be a list."
+              )
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # At least one player
+          # -------------------------------------------------
+
+          total_players = (
+              len(data["batters"])
+              + len(data["pitchers"])
+          )
+
+
+          if total_players == 0:
+
+              print(
+                  "ERROR: savant.json contains no players."
+              )
+
+              sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Player validation
+          # -------------------------------------------------
+
+          for player in (
+              data["batters"]
+              + data["pitchers"]
+          ):
+
+              if not isinstance(
+                  player,
+                  dict
+              ):
+
+                  print(
+                      "ERROR: invalid player object."
+                  )
+
+                  sys.exit(1)
+
+
+              if "player_id" not in player:
+
+                  print(
+                      "ERROR: player_id missing."
+                  )
+
+                  sys.exit(1)
+
+
+              if "stats" not in player:
+
+                  print(
+                      "ERROR: stats missing."
+                  )
+
+                  sys.exit(1)
+
+
+              if not isinstance(
+                  player["stats"],
+                  dict
+              ):
+
+                  print(
+                      "ERROR: stats must be an object."
+                  )
+
+                  sys.exit(1)
+
+
+          # -------------------------------------------------
+          # Success
+          # -------------------------------------------------
+
+          print("")
+          print("==========================================")
           print("SAVANT JSON VALID")
-          print("================================")
-          print("Season:", data.get("season"))
-          print("Batters:", len(data["batters"]))
-          print("Pitchers:", len(data["pitchers"]))
-          print("Updated:", data.get("updatedAt"))
-          print("================================")
+          print("==========================================")
+
+          print(
+              "Team:",
+              data["team"]
+          )
+
+          print(
+              "Season:",
+              data["season"]
+          )
+
+          print(
+              "Source:",
+              data["source"]
+          )
+
+          print(
+              "Batters:",
+              len(data["batters"])
+          )
+
+          print(
+              "Pitchers:",
+              len(data["pitchers"])
+          )
+
+          print(
+              "Total:",
+              total_players
+          )
+
+          print(
+              "Updated:",
+              data["updatedAt"]
+          )
+
+          print("==========================================")
+
           PY
 
-      - name: Stage savant.json
-        run: |
-          git add savant.json
 
-      - name: Commit if changed
+      # =====================================================
+      # SHOW GIT STATUS
+      # =====================================================
+
+      - name: Check changes
+        id: changes
         run: |
-          if git diff --cached --quiet; then
+
+          git status --short
+
+          if git diff --quiet -- savant.json; then
+
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+
             echo "No changes to savant.json."
-            exit 0
+
+          else
+
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+
+            echo "savant.json has changed."
+
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git commit -m "Update Phillies Baseball Savant statistics"
+      # =====================================================
+      # COMMIT
+      # =====================================================
+
+      - name: Commit statistics update
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+
+          git config user.name \
+            "github-actions[bot]"
+
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add savant.json
+
+          git commit \
+            -m "Update Phillies Baseball Savant statistics"
 
           git push
