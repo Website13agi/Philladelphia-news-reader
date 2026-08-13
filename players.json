@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T19:58:34.843795+00:00",
+  "updatedAt": "2026-08-13T22:24:11.770737+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -657,6 +657,27 @@
       "mlbUrl": "https://www.mlb.com/player/687282"
     },
     {
+      "id": 670224,
+      "name": "Kameron Misner",
+      "firstName": "Kameron",
+      "lastName": "Misner",
+      "number": "18",
+      "position": "Outfielder",
+      "positionCode": "Outfielder",
+      "group": "Outfielder",
+      "bats": "L",
+      "throws": "L",
+      "bt": "L/L",
+      "active": true,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "A",
+      "statusDescription": "Active",
+      "mlbUrl": "https://www.mlb.com/player/670224"
+    },
+    {
       "id": 679032,
       "name": "Johan Rojas",
       "firstName": "Johan",
@@ -781,27 +802,6 @@
       "status": "D60",
       "statusDescription": "Injured 60-Day",
       "mlbUrl": "https://www.mlb.com/player/666969"
-    },
-    {
-      "id": 670224,
-      "name": "Kameron Misner",
-      "firstName": "Kameron",
-      "lastName": "Misner",
-      "number": "",
-      "position": "Outfielder",
-      "positionCode": "Outfielder",
-      "group": "Outfielder",
-      "bats": "L",
-      "throws": "L",
-      "bt": "L/L",
-      "active": false,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
-      "mlbUrl": "https://www.mlb.com/player/670224"
     },
     {
       "id": 687515,
