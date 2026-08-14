@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14T20:18:01.857842+00:00",
+  "updatedAt": "2026-08-14T21:53:35.776322+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -668,13 +668,13 @@
       "bats": "L",
       "throws": "L",
       "bt": "L/L",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "RM",
+      "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/670224"
     },
     {
