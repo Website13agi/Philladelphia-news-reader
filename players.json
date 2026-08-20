@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T16:04:24.601894+00:00",
+  "updatedAt": "2026-08-20T18:00:27.813374+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -447,6 +447,27 @@
       "mlbUrl": "https://www.mlb.com/player/641482"
     },
     {
+      "id": 694851,
+      "name": "Andrew Hoffmann",
+      "firstName": "Andrew",
+      "lastName": "Hoffmann",
+      "number": "",
+      "position": "Pitcher",
+      "positionCode": "P",
+      "group": "Pitcher",
+      "bats": "R",
+      "throws": "R",
+      "bt": "R/R",
+      "active": false,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "RM",
+      "statusDescription": "Reassigned to Minors",
+      "mlbUrl": "https://www.mlb.com/player/694851"
+    },
+    {
       "id": 680880,
       "name": "Grant Holman",
       "firstName": "Grant",
@@ -712,11 +733,11 @@
       "bt": "R/R",
       "active": false,
       "is40Man": true,
-      "isIL": false,
+      "isIL": true,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "D60",
+      "statusDescription": "Injured 60-Day",
       "mlbUrl": "https://www.mlb.com/player/694025"
     },
     {
