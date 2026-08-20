@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T23:50:11.699378+00:00",
+  "updatedAt": "2026-08-20T03:13:02.024680+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -193,27 +193,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/621237"
-    },
-    {
-      "id": 662144,
-      "name": "Brian Keller",
-      "firstName": "Brian",
-      "lastName": "Keller",
-      "number": "48",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": false,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
-      "mlbUrl": "https://www.mlb.com/player/662144"
     },
     {
       "id": 689147,
@@ -445,6 +424,27 @@
       "status": "RM",
       "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/691330"
+    },
+    {
+      "id": 641482,
+      "name": "Nestor Cortes",
+      "firstName": "Nestor",
+      "lastName": "Cortes",
+      "number": "",
+      "position": "Pitcher",
+      "positionCode": "P",
+      "group": "Pitcher",
+      "bats": "R",
+      "throws": "L",
+      "bt": "R/L",
+      "active": false,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "RM",
+      "statusDescription": "Reassigned to Minors",
+      "mlbUrl": "https://www.mlb.com/player/641482"
     },
     {
       "id": 680880,
