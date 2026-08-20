@@ -6,7 +6,7 @@
   "gameType": "R",
   "source": "MLB Official Stats API",
   "sourceUrl": "https://statsapi.mlb.com/",
-  "updatedAt": "2026-08-20T14:20:39.888247+00:00",
+  "updatedAt": "2026-08-20T19:50:13.106115+00:00",
   "batters": [
     {
       "player_id": 666969,
@@ -703,6 +703,32 @@
     {
       "player_id": 686934,
       "player_name": "Alex McFarlane",
+      "stats": {
+        "g": 0,
+        "gs": 0,
+        "ip": "0.0",
+        "bf": 0,
+        "w": 0,
+        "l": 0,
+        "sv": 0,
+        "h": 0,
+        "er": 0,
+        "hr": 0,
+        "bb": 0,
+        "so": 0,
+        "era": null,
+        "whip": null,
+        "h9": null,
+        "hr9": null,
+        "bb9": null,
+        "k9": null,
+        "kbb": null,
+        "baa": null
+      }
+    },
+    {
+      "player_id": 694851,
+      "player_name": "Andrew Hoffmann",
       "stats": {
         "g": 0,
         "gs": 0,
