@@ -6,7 +6,7 @@
   "gameType": "R",
   "source": "MLB Official Stats API",
   "sourceUrl": "https://statsapi.mlb.com/",
-  "updatedAt": "2026-08-25T14:30:42.698037+00:00",
+  "updatedAt": "2026-08-25T19:49:09.743926+00:00",
   "batters": [
     {
       "player_id": 666969,
@@ -945,19 +945,19 @@
         "w": 11,
         "l": 5,
         "sv": 0,
-        "h": 133,
-        "er": 58,
+        "h": 132,
+        "er": 56,
         "hr": 14,
         "bb": 47,
         "so": 194,
-        "era": 3.35,
+        "era": 3.23,
         "whip": 1.15,
-        "h9": 7.67,
+        "h9": 7.62,
         "hr9": 0.81,
         "bb9": 2.71,
         "k9": 11.19,
         "kbb": 4.13,
-        "baa": 0.229
+        "baa": 0.227
       }
     },
     {
