@@ -6,7 +6,7 @@
   "gameType": "R",
   "source": "MLB Official Stats API",
   "sourceUrl": "https://statsapi.mlb.com/",
-  "updatedAt": "2026-09-01T18:30:49.319402+00:00",
+  "updatedAt": "2026-09-02T00:35:17.906552+00:00",
   "batters": [
     {
       "player_id": 666969,
