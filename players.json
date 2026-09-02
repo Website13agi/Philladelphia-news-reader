@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T23:09:01.819466+00:00",
+  "updatedAt": "2026-09-02T00:17:25.912626+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -214,6 +214,27 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/689147"
+    },
+    {
+      "id": 680880,
+      "name": "Grant Holman",
+      "firstName": "Grant",
+      "lastName": "Holman",
+      "number": "51",
+      "position": "Pitcher",
+      "positionCode": "P",
+      "group": "Pitcher",
+      "bats": "R",
+      "throws": "R",
+      "bt": "R/R",
+      "active": true,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "A",
+      "statusDescription": "Active",
+      "mlbUrl": "https://www.mlb.com/player/680880"
     },
     {
       "id": 680742,
@@ -466,27 +487,6 @@
       "status": "RM",
       "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/694851"
-    },
-    {
-      "id": 680880,
-      "name": "Grant Holman",
-      "firstName": "Grant",
-      "lastName": "Holman",
-      "number": "",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/680880"
     },
     {
       "id": 592663,
