@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13T14:05:22.838088+00:00",
+  "updatedAt": "2026-09-13T17:55:38.292100+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -227,13 +227,13 @@
       "bats": "R",
       "throws": "R",
       "bt": "R/R",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "RM",
+      "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/680880"
     },
     {
@@ -332,13 +332,13 @@
       "bats": "R",
       "throws": "L",
       "bt": "R/L",
-      "active": false,
+      "active": true,
       "is40Man": true,
-      "isIL": true,
+      "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "D60",
-      "statusDescription": "Injured 60-Day",
+      "status": "A",
+      "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/621383"
     },
     {
@@ -571,27 +571,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/607208"
-    },
-    {
-      "id": 686551,
-      "name": "Christian Cairo",
-      "firstName": "Christian",
-      "lastName": "Cairo",
-      "number": "",
-      "position": "Shortstop",
-      "positionCode": "SS",
-      "group": "Infielder",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": false,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
-      "mlbUrl": "https://www.mlb.com/player/686551"
     },
     {
       "id": 702222,
