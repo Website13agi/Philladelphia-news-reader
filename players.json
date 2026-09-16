@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T04:38:21.906429+00:00",
+  "updatedAt": "2026-09-16T09:42:04.243661+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -892,7 +892,7 @@
       "name": "Kyle Schwarber",
       "firstName": "Kyle",
       "lastName": "Schwarber",
-      "number": "21",
+      "number": "12",
       "position": "Designated Hitter",
       "positionCode": "DH",
       "group": "Unknown",
