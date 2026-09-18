@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T17:31:16.669508+00:00",
+  "updatedAt": "2026-09-18T20:29:38.440955+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -17,13 +17,13 @@
       "bats": "L",
       "throws": "L",
       "bt": "L/L",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "RM",
+      "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/679775"
     },
     {
@@ -405,6 +405,27 @@
       "mlbUrl": "https://www.mlb.com/player/650911"
     },
     {
+      "id": 664353,
+      "name": "José Urquidy",
+      "firstName": "José",
+      "lastName": "Urquidy",
+      "number": "70",
+      "position": "Pitcher",
+      "positionCode": "P",
+      "group": "Pitcher",
+      "bats": "R",
+      "throws": "R",
+      "bt": "R/R",
+      "active": true,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "A",
+      "statusDescription": "Active",
+      "mlbUrl": "https://www.mlb.com/player/664353"
+    },
+    {
       "id": 686934,
       "name": "Alex McFarlane",
       "firstName": "Alexander",
@@ -487,27 +508,6 @@
       "status": "RM",
       "statusDescription": "Reassigned to Minors",
       "mlbUrl": "https://www.mlb.com/player/694851"
-    },
-    {
-      "id": 664353,
-      "name": "José Urquidy",
-      "firstName": "José",
-      "lastName": "Urquidy",
-      "number": "",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": false,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "NYR",
-      "statusDescription": "Not Yet Reported",
-      "mlbUrl": "https://www.mlb.com/player/664353"
     },
     {
       "id": 592663,
