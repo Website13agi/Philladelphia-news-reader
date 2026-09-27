@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T12:48:31.676145+00:00",
+  "updatedAt": "2026-09-27T17:32:44.973349+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -143,13 +143,13 @@
       "bats": "L",
       "throws": "L",
       "bt": "L/L",
-      "active": false,
+      "active": true,
       "is40Man": true,
-      "isIL": true,
+      "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "D15",
-      "statusDescription": "Injured 15-Day",
+      "status": "A",
+      "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/666200"
     },
     {
@@ -403,27 +403,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/650911"
-    },
-    {
-      "id": 664353,
-      "name": "José Urquidy",
-      "firstName": "José",
-      "lastName": "Urquidy",
-      "number": "70",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/664353"
     },
     {
       "id": 686934,
