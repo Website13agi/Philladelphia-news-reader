@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T11:09:26.806177+00:00",
+  "updatedAt": "2026-09-29T17:45:06.952504+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -80,13 +80,13 @@
       "bats": "L",
       "throws": "L",
       "bt": "L/L",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/548384"
     },
     {
@@ -232,8 +232,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/680880"
     },
     {
@@ -316,8 +316,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/660604"
     },
     {
@@ -374,13 +374,13 @@
       "bats": "R",
       "throws": "R",
       "bt": "R/R",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/676661"
     },
     {
@@ -442,8 +442,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/691330"
     },
     {
@@ -463,8 +463,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/641482"
     },
     {
@@ -484,8 +484,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/694851"
     },
     {
@@ -594,27 +594,6 @@
       "mlbUrl": "https://www.mlb.com/player/702222"
     },
     {
-      "id": 805249,
-      "name": "Otto Kemp",
-      "firstName": "Otto",
-      "lastName": "Kemp",
-      "number": "4",
-      "position": "Outfielder",
-      "positionCode": "Outfielder",
-      "group": "Outfielder",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": false,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
-      "mlbUrl": "https://www.mlb.com/player/805249"
-    },
-    {
       "id": 669016,
       "name": "Brandon Marsh",
       "firstName": "Brandon",
@@ -652,8 +631,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/687282"
     },
     {
@@ -673,8 +652,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/670224"
     },
     {
@@ -718,6 +697,27 @@
       "status": "D60",
       "statusDescription": "Injured 60-Day",
       "mlbUrl": "https://www.mlb.com/player/694025"
+    },
+    {
+      "id": 805249,
+      "name": "Otto Kemp",
+      "firstName": "Otto",
+      "lastName": "Kemp",
+      "number": "31",
+      "position": "Outfielder",
+      "positionCode": "Outfielder",
+      "group": "Outfielder",
+      "bats": "R",
+      "throws": "R",
+      "bt": "R/R",
+      "active": true,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "A",
+      "statusDescription": "Active",
+      "mlbUrl": "https://www.mlb.com/player/805249"
     },
     {
       "id": 624641,
@@ -820,8 +820,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/687515"
     },
     {
@@ -857,13 +857,13 @@
       "bats": "L",
       "throws": "R",
       "bt": "L/R",
-      "active": true,
+      "active": false,
       "is40Man": true,
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/650333"
     },
     {
