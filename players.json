@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T19:00:22.997380+00:00",
+  "updatedAt": "2026-10-02T23:34:08.200491+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -22,8 +22,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/679775"
     },
     {
@@ -211,8 +211,8 @@
       "isIL": false,
       "ilStartDate": null,
       "ilDays": null,
-      "status": "RM",
-      "statusDescription": "Reassigned to Minors",
+      "status": "40M",
+      "statusDescription": "Forty Man",
       "mlbUrl": "https://www.mlb.com/player/689147"
     },
     {
