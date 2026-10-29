@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-29T16:38:54.182730+00:00",
+  "updatedAt": "2026-10-29T21:33:36.163519+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -67,27 +67,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/605400"
-    },
-    {
-      "id": 548384,
-      "name": "Brooks Raley",
-      "firstName": "Brooks",
-      "lastName": "Raley",
-      "number": "30",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "L",
-      "throws": "L",
-      "bt": "L/L",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/548384"
     },
     {
       "id": 641835,
@@ -172,27 +151,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/554430"
-    },
-    {
-      "id": 621237,
-      "name": "José Alvarado",
-      "firstName": "José",
-      "lastName": "Alvarado",
-      "number": "46",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "L",
-      "throws": "L",
-      "bt": "L/L",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/621237"
     },
     {
       "id": 689147,
@@ -447,27 +405,6 @@
       "mlbUrl": "https://www.mlb.com/player/691330"
     },
     {
-      "id": 641482,
-      "name": "Nestor Cortes",
-      "firstName": "Nestor",
-      "lastName": "Cortes",
-      "number": "",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "L",
-      "bt": "R/L",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/641482"
-    },
-    {
       "id": 694851,
       "name": "Andrew Hoffmann",
       "firstName": "Andrew",
@@ -720,27 +657,6 @@
       "mlbUrl": "https://www.mlb.com/player/805249"
     },
     {
-      "id": 624641,
-      "name": "Edmundo Sosa",
-      "firstName": "Edmundo",
-      "lastName": "Sosa",
-      "number": "33",
-      "position": "Outfielder",
-      "positionCode": "Outfielder",
-      "group": "Outfielder",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/624641"
-    },
-    {
       "id": 650559,
       "name": "Bryan De La Cruz",
       "firstName": "Bryan",
@@ -781,27 +697,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/656537"
-    },
-    {
-      "id": 666969,
-      "name": "Adolis García",
-      "firstName": "Jose",
-      "lastName": "García",
-      "number": "53",
-      "position": "Outfielder",
-      "positionCode": "Outfielder",
-      "group": "Outfielder",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": false,
-      "is40Man": true,
-      "isIL": true,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "D60",
-      "statusDescription": "Injured 60-Day",
-      "mlbUrl": "https://www.mlb.com/player/666969"
     },
     {
       "id": 687515,
@@ -846,27 +741,6 @@
       "mlbUrl": "https://www.mlb.com/player/547180"
     },
     {
-      "id": 650333,
-      "name": "Luis Arraez",
-      "firstName": "Luis",
-      "lastName": "Arraez",
-      "number": "4",
-      "position": "Second Base",
-      "positionCode": "2B",
-      "group": "Unknown",
-      "bats": "L",
-      "throws": "R",
-      "bt": "L/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/650333"
-    },
-    {
       "id": 681082,
       "name": "Bryson Stott",
       "firstName": "Bryson",
@@ -907,27 +781,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/656941"
-    },
-    {
-      "id": 664761,
-      "name": "Alec Bohm",
-      "firstName": "Alec",
-      "lastName": "Bohm",
-      "number": "28",
-      "position": "Third Base",
-      "positionCode": "3B",
-      "group": "Unknown",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/664761"
     }
   ]
 }
