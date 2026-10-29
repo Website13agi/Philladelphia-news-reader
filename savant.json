@@ -6,66 +6,8 @@
   "gameType": "R",
   "source": "MLB Official Stats API",
   "sourceUrl": "https://statsapi.mlb.com/",
-  "updatedAt": "2026-10-29T13:04:47.085706+00:00",
+  "updatedAt": "2026-10-29T22:46:33.444578+00:00",
   "batters": [
-    {
-      "player_id": 666969,
-      "player_name": "Adolis García",
-      "stats": {
-        "g": 0,
-        "ab": 0,
-        "pa": 0,
-        "h": 0,
-        "1b": 0,
-        "2b": 0,
-        "3b": 0,
-        "hr": 0,
-        "r": 0,
-        "rbi": 0,
-        "bb": 0,
-        "so": 0,
-        "sb": 0,
-        "cs": 0,
-        "avg": null,
-        "obp": null,
-        "slg": null,
-        "ops": null,
-        "tb": 0,
-        "ibb": 0,
-        "hbp": 0,
-        "sf": 0,
-        "sh": 0
-      }
-    },
-    {
-      "player_id": 664761,
-      "player_name": "Alec Bohm",
-      "stats": {
-        "g": 155,
-        "ab": 567,
-        "pa": 629,
-        "h": 141,
-        "1b": null,
-        "2b": 29,
-        "3b": 1,
-        "hr": 15,
-        "r": 58,
-        "rbi": 88,
-        "bb": 48,
-        "so": 88,
-        "sb": 2,
-        "cs": 0,
-        "avg": 0.249,
-        "obp": 0.315,
-        "slg": 0.383,
-        "ops": 0.698,
-        "tb": 217,
-        "ibb": 1,
-        "hbp": 9,
-        "sf": 5,
-        "sh": 0
-      }
-    },
     {
       "player_id": 669016,
       "player_name": "Brandon Marsh",
@@ -214,35 +156,6 @@
     {
       "player_id": 656537,
       "player_name": "Derek Hill",
-      "stats": {
-        "g": 0,
-        "ab": 0,
-        "pa": 0,
-        "h": 0,
-        "1b": 0,
-        "2b": 0,
-        "3b": 0,
-        "hr": 0,
-        "r": 0,
-        "rbi": 0,
-        "bb": 0,
-        "so": 0,
-        "sb": 0,
-        "cs": 0,
-        "avg": null,
-        "obp": null,
-        "slg": null,
-        "ops": null,
-        "tb": 0,
-        "ibb": 0,
-        "hbp": 0,
-        "sf": 0,
-        "sh": 0
-      }
-    },
-    {
-      "player_id": 624641,
-      "player_name": "Edmundo Sosa",
       "stats": {
         "g": 0,
         "ab": 0,
@@ -502,35 +415,6 @@
       }
     },
     {
-      "player_id": 650333,
-      "player_name": "Luis Arraez",
-      "stats": {
-        "g": 0,
-        "ab": 0,
-        "pa": 0,
-        "h": 0,
-        "1b": 0,
-        "2b": 0,
-        "3b": 0,
-        "hr": 0,
-        "r": 0,
-        "rbi": 0,
-        "bb": 0,
-        "so": 0,
-        "sb": 0,
-        "cs": 0,
-        "avg": null,
-        "obp": null,
-        "slg": null,
-        "ops": null,
-        "tb": 0,
-        "ibb": 0,
-        "hbp": 0,
-        "sf": 0,
-        "sh": 0
-      }
-    },
-    {
       "player_id": 805249,
       "player_name": "Otto Kemp",
       "stats": {
@@ -776,32 +660,6 @@
       }
     },
     {
-      "player_id": 548384,
-      "player_name": "Brooks Raley",
-      "stats": {
-        "g": 0,
-        "gs": 0,
-        "ip": "0.0",
-        "bf": 0,
-        "w": 0,
-        "l": 0,
-        "sv": 0,
-        "h": 0,
-        "er": 0,
-        "hr": 0,
-        "bb": 0,
-        "so": 0,
-        "era": null,
-        "whip": null,
-        "h9": null,
-        "hr9": null,
-        "bb9": null,
-        "k9": null,
-        "kbb": null,
-        "baa": null
-      }
-    },
-    {
       "player_id": 668873,
       "player_name": "Caleb Kilian",
       "stats": {
@@ -984,32 +842,6 @@
       }
     },
     {
-      "player_id": 621237,
-      "player_name": "José Alvarado",
-      "stats": {
-        "g": 0,
-        "gs": 0,
-        "ip": "0.0",
-        "bf": 0,
-        "w": 0,
-        "l": 0,
-        "sv": 0,
-        "h": 0,
-        "er": 0,
-        "hr": 0,
-        "bb": 0,
-        "so": 0,
-        "era": null,
-        "whip": null,
-        "h9": null,
-        "hr9": null,
-        "bb9": null,
-        "k9": null,
-        "kbb": null,
-        "baa": null
-      }
-    },
-    {
       "player_id": 679775,
       "player_name": "Kyle Backhus",
       "stats": {
@@ -1064,32 +896,6 @@
     {
       "player_id": 691330,
       "player_name": "Moisés Chace",
-      "stats": {
-        "g": 0,
-        "gs": 0,
-        "ip": "0.0",
-        "bf": 0,
-        "w": 0,
-        "l": 0,
-        "sv": 0,
-        "h": 0,
-        "er": 0,
-        "hr": 0,
-        "bb": 0,
-        "so": 0,
-        "era": null,
-        "whip": null,
-        "h9": null,
-        "hr9": null,
-        "bb9": null,
-        "k9": null,
-        "kbb": null,
-        "baa": null
-      }
-    },
-    {
-      "player_id": 641482,
-      "player_name": "Nestor Cortes",
       "stats": {
         "g": 0,
         "gs": 0,
