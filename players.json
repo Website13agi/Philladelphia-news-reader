@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T16:42:59.170949+00:00",
+  "updatedAt": "2026-11-17T23:45:14.055803+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -487,6 +487,27 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/607208"
+    },
+    {
+      "id": 804858,
+      "name": "Bryan Rincon",
+      "firstName": "Bryan",
+      "lastName": "Rincon",
+      "number": "",
+      "position": "Shortstop",
+      "positionCode": "SS",
+      "group": "Infielder",
+      "bats": "S",
+      "throws": "R",
+      "bt": "S/R",
+      "active": true,
+      "is40Man": true,
+      "isIL": false,
+      "ilStartDate": null,
+      "ilDays": null,
+      "status": "A",
+      "statusDescription": "Active",
+      "mlbUrl": "https://www.mlb.com/player/804858"
     },
     {
       "id": 702222,
