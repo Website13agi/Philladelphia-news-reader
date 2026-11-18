@@ -6,7 +6,7 @@
   "gameType": "R",
   "source": "MLB Official Stats API",
   "sourceUrl": "https://statsapi.mlb.com/",
-  "updatedAt": "2026-11-17T20:57:08.295696+00:00",
+  "updatedAt": "2026-11-18T07:31:05.903455+00:00",
   "batters": [
     {
       "player_id": 669016,
@@ -69,6 +69,35 @@
     {
       "player_id": 650559,
       "player_name": "Bryan De La Cruz",
+      "stats": {
+        "g": 0,
+        "ab": 0,
+        "pa": 0,
+        "h": 0,
+        "1b": 0,
+        "2b": 0,
+        "3b": 0,
+        "hr": 0,
+        "r": 0,
+        "rbi": 0,
+        "bb": 0,
+        "so": 0,
+        "sb": 0,
+        "cs": 0,
+        "avg": null,
+        "obp": null,
+        "slg": null,
+        "ops": null,
+        "tb": 0,
+        "ibb": 0,
+        "hbp": 0,
+        "sf": 0,
+        "sh": 0
+      }
+    },
+    {
+      "player_id": 804858,
+      "player_name": "Bryan Rincon",
       "stats": {
         "g": 0,
         "ab": 0,
