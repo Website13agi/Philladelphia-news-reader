@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T22:30:00.412988+00:00",
+  "updatedAt": "2026-11-21T03:47:01.872889+00:00",
   "team": {
     "id": 143,
     "name": "Philadelphia Phillies"
@@ -384,31 +384,10 @@
       "mlbUrl": "https://www.mlb.com/player/686934"
     },
     {
-      "id": 691330,
-      "name": "Moisés Chace",
-      "firstName": "Moises",
-      "lastName": "Chace",
-      "number": "75",
-      "position": "Pitcher",
-      "positionCode": "P",
-      "group": "Pitcher",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/691330"
-    },
-    {
-      "id": 694851,
-      "name": "Andrew Hoffmann",
-      "firstName": "Andrew",
-      "lastName": "Hoffmann",
+      "id": 673929,
+      "name": "Jordan Leasure",
+      "firstName": "Jordan",
+      "lastName": "Leasure",
       "number": "",
       "position": "Pitcher",
       "positionCode": "P",
@@ -423,7 +402,7 @@
       "ilDays": null,
       "status": "A",
       "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/694851"
+      "mlbUrl": "https://www.mlb.com/player/673929"
     },
     {
       "id": 592663,
@@ -657,27 +636,6 @@
       "mlbUrl": "https://www.mlb.com/player/805249"
     },
     {
-      "id": 650559,
-      "name": "Bryan De La Cruz",
-      "firstName": "Bryan",
-      "lastName": "De La Cruz",
-      "number": "41",
-      "position": "Outfielder",
-      "positionCode": "Outfielder",
-      "group": "Outfielder",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/650559"
-    },
-    {
       "id": 656537,
       "name": "Derek Hill",
       "firstName": "Derek",
@@ -781,27 +739,6 @@
       "status": "A",
       "statusDescription": "Active",
       "mlbUrl": "https://www.mlb.com/player/656941"
-    },
-    {
-      "id": 695391,
-      "name": "Brett Harris",
-      "firstName": "Brett",
-      "lastName": "Harris",
-      "number": "",
-      "position": "Third Base",
-      "positionCode": "3B",
-      "group": "Unknown",
-      "bats": "R",
-      "throws": "R",
-      "bt": "R/R",
-      "active": true,
-      "is40Man": true,
-      "isIL": false,
-      "ilStartDate": null,
-      "ilDays": null,
-      "status": "A",
-      "statusDescription": "Active",
-      "mlbUrl": "https://www.mlb.com/player/695391"
     },
     {
       "id": 694376,
